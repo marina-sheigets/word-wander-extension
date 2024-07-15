@@ -1,0 +1,33 @@
+{
+    "manifest_version": 3,
+    "name": "WordWander",
+    "version": "0.0.1",
+    "description": "Translate the words easily",
+    "icons": {
+        "16": "assets/logo.png",
+        "48": "assets/logo.png",
+        "128": "assets/logo.png"
+    },
+    "action": {
+        "default_icon": "assets/logo.png",
+        "default_title": "WordWander"
+    },
+    "host_permissions": [
+        "http://*/*",
+        "https://*/*",
+        "*://*/*",
+        "<all_urls>"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "loader.js"
+            ],
+            "run_at": "document_start",
+            "all_frames": true
+        }
+    ]
+}

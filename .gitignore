@@ -1,0 +1,9 @@
+node_modules/
+coverage/
+.idea
+.vs/
+.vscode/
+.tscache/
+dist/
+*.map
+package-lock.json
