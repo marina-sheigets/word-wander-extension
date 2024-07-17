@@ -1,6 +1,5 @@
 new class {
     constructor(){
-        debugger;
         const target = document.querySelector('HTML');
         const observerSettings = {
             subtree: true,
@@ -9,16 +8,14 @@ new class {
 
         const callback = (mutationList, observer) => {
             if (document.body && window === top) {
-               
-                        this.#loadScript("top.js");
-                    
+                
+                        this.#loadScript("top.js");           
+                        observer.disconnect();
             } 
-                observer.disconnect();
         }
 
         const observer = new MutationObserver(callback);
         observer.observe(target, observerSettings);
-
     }
 
     #loadScript(path) {

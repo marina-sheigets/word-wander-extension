@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 
 let environments = {
@@ -41,6 +42,38 @@ module.exports = commandArgs => {
                     use: 'ts-loader',
                     exclude: /node_modules/,
                 },
+                {
+                    test: /\.css$/i,
+                    use: [
+                        {
+                            loader: MiniCssExtractPlugin.loader,
+                            options: {
+                                // esModule: true,
+                                // modules: {
+                                //     namedExport: true,
+                                // },
+                            },
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                esModule: true,
+                                modules: { 
+                                    namedExport: true,
+                                    localIdentName: '[local]__[name]__word-wander',
+                                },
+                            },
+                        },
+                    ],
+                },
+                {
+                    test: /\.(png|jpe?g|gif)$/i,
+                    use: [
+                      {
+                        loader: 'file-loader',
+                      },
+                    ],
+                },
             ]
         },
         plugins: [
@@ -60,7 +93,8 @@ module.exports = commandArgs => {
                     }
                
                 ]
-            })
+            }),
+            new MiniCssExtractPlugin()
         ],
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.json'],
