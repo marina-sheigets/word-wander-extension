@@ -1,19 +1,17 @@
 import { singleton } from "tsyringe";
-import { BaseComponent } from "../../base-component/base-component";
 import { ToolbarLogoComponent } from "../../toolbar-elements/toolbar-logo/toolbar-logo.component";
 import * as styles from './minimized-toolbar.component.css';
 import { LocalStorageService } from "../../../services/localStorage/localStorage.service";
-import { STORAGE_KEYS } from "../../../constants/localStorage-keys";
+import { Toolbar } from "../toolbar.component";
 @singleton()
-export class MinimizedToolbarComponent extends BaseComponent {
-    protected readonly initialTopPosition = '50px';
-    protected readonly initialLeftPosition = '50px';
+export class MinimizedToolbarComponent extends Toolbar {
 
     constructor(
         private logoComponent: ToolbarLogoComponent,
-        private localStorage: LocalStorageService
+        protected localStorage: LocalStorageService
     ) {
-        super();
+        super(localStorage);
+
         this.applyRootStyle(styles);
         this.addClassNamesToComponents(styles);
         this.setPositionOnScreen();
@@ -23,9 +21,4 @@ export class MinimizedToolbarComponent extends BaseComponent {
         );
     }
 
-
-    protected setPositionOnScreen() {
-        this.rootElement.style.top = this.localStorage.get(STORAGE_KEYS.PositionTop) || this.initialTopPosition;
-        this.rootElement.style.left = this.localStorage.get(STORAGE_KEYS.PositionLeft) || this.initialLeftPosition;
-    }
 }
