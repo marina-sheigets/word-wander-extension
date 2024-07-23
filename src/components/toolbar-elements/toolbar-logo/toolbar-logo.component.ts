@@ -21,7 +21,7 @@ export class ToolbarLogoComponent extends BaseComponent {
 
     private addLogoImage() {
         this.logo.src = logoImg;
-        this.logo.width = 30;
-        this.logo.height = 30;
+        this.logo.width = 50;
+        this.logo.height = 50;
     }
 }
