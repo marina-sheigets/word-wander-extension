@@ -1,0 +1,9 @@
+.rootElement{
+    width: 30px;
+  text-align: end;
+}
+
+.rootElement span {
+    font-size: 18px;
+    cursor: pointer;
+}

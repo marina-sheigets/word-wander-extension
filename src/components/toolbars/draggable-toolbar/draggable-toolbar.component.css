@@ -1,6 +1,5 @@
 .rootElement {
     position: fixed;
-    width: 340px;
     height: 50px;
     display: flex;
     background: #292A2E;

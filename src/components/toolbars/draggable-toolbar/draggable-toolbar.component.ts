@@ -7,6 +7,7 @@ import { SearchComponent } from "../../toolbar-elements/search/search.component"
 import { HistoryComponent } from "../../toolbar-elements/history/history.component";
 import { PlayerComponent } from "../../toolbar-elements/player/player.component";
 import { SettingsComponent } from "../../toolbar-elements/settings/settings.component";
+import { MinimizeButtonComponent } from "../../toolbar-elements/minimize-button/minimize-button.component";
 
 @singleton()
 export class DraggableToolbarComponent extends Toolbar {
@@ -17,6 +18,7 @@ export class DraggableToolbarComponent extends Toolbar {
         protected history: HistoryComponent,
         private player: PlayerComponent,
         private settings: SettingsComponent,
+        private minimize: MinimizeButtonComponent,
         protected localStorage: LocalStorageService
     ) {
         super(localStorage);
@@ -31,7 +33,8 @@ export class DraggableToolbarComponent extends Toolbar {
             this.search.rootElement,
             this.history.rootElement,
             this.player.rootElement,
-            this.settings.rootElement
+            this.settings.rootElement,
+            this.minimize.rootElement
         );
     }
 }
