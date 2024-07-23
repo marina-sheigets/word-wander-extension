@@ -3,7 +3,7 @@ import { Toolbar } from "../toolbar.component";
 import { LocalStorageService } from "../../../services/localStorage/localStorage.service";
 import * as styles from './draggable-toolbar.component.css';
 import { ToolbarLogoComponent } from "../../toolbar-elements/toolbar-logo/toolbar-logo.component";
-import { SearchComponent } from "../../toolbar-elements/toolbar-logo/search/search.component";
+import { SearchComponent } from "../../toolbar-elements/search/search.component";
 
 @singleton()
 export class DraggableToolbarComponent extends Toolbar {
@@ -16,7 +16,6 @@ export class DraggableToolbarComponent extends Toolbar {
         super(localStorage);
 
         this.applyRootStyle(styles);
-        this.addClassNamesToComponents(styles);
         this.setPositionOnScreen();
 
         this.logoComponent.rootElement.classList.add(styles.logo);

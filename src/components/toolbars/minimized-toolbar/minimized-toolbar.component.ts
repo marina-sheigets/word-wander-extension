@@ -13,7 +13,6 @@ export class MinimizedToolbarComponent extends Toolbar {
         super(localStorage);
 
         this.applyRootStyle(styles);
-        this.addClassNamesToComponents(styles);
         this.setPositionOnScreen();
 
         this.rootElement.append(

@@ -13,6 +13,7 @@ export abstract class BaseComponent {
     };
 
     protected applyRootStyle(styles: { [id: string]: string }) {
+        this.addClassNamesToComponents(styles);
         if (styles.hasOwnProperty('rootClassName')) {
             this.rootElement.classList.add(styles.rootClassName);
         }

@@ -12,7 +12,6 @@ export class ToolbarLogoComponent extends BaseComponent {
         super();
 
         this.applyRootStyle(styles);
-        this.addClassNamesToComponents(styles);
 
         this.addLogoImage();
 

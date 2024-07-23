@@ -19,11 +19,14 @@ class Entry {
         shadow.append(
             draggableToolbar.rootElement,
             //minimizedToolbar.rootElement,
+            addMaterialIcons(),
             getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`),
-            addMaterialIcons()
         );
 
-        document.body.append(shadowWrapper);
+        document.body.append(
+            addMaterialIcons(),
+            shadowWrapper
+        );
 
     }
 }
