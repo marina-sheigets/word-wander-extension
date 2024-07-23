@@ -15,3 +15,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.iconWrapper span {
+    color: #9EA5AE;
+}
+
+.active span{
+    color: #00CE8F;
+}

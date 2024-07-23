@@ -26,4 +26,12 @@ export class ToolbarButtonComponent extends BaseComponent {
         this.iconWrapper.classList.add(styles.iconWrapper);
         this.iconWrapper.append(this.iconService.init(name));
     }
+
+    public setActive() {
+        this.iconWrapper.classList.add(styles.active);
+    }
+
+    public unsetActive() {
+        this.iconWrapper.classList.remove(styles.active);
+    }
 }

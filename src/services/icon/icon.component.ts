@@ -5,11 +5,10 @@ import { singleton } from "tsyringe";
 export class IconService {
     constructor() { }
 
-    init(iconName: string, color = 'white') {
+    init(iconName: string) {
         const icon = document.createElement('span');
         icon.classList.add('material-symbols-outlined');
         icon.textContent = iconName;
-        icon.style.color = color;
         return icon
     }
 

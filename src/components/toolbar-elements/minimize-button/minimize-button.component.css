@@ -1,9 +1,11 @@
 .rootElement{
     width: 30px;
-  text-align: end;
+    padding: 2px 2px 0 0;
+    text-align: end;
 }
 
 .rootElement span {
     font-size: 18px;
     cursor: pointer;
+    color: #9EA5AE;
 }
