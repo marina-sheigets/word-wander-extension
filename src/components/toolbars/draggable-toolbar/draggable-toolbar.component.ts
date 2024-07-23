@@ -4,12 +4,14 @@ import { LocalStorageService } from "../../../services/localStorage/localStorage
 import * as styles from './draggable-toolbar.component.css';
 import { ToolbarLogoComponent } from "../../toolbar-elements/toolbar-logo/toolbar-logo.component";
 import { SearchComponent } from "../../toolbar-elements/search/search.component";
+import { HistoryComponent } from "../../toolbar-elements/history/history.component";
 
 @singleton()
 export class DraggableToolbarComponent extends Toolbar {
 
     constructor(
         protected search: SearchComponent,
+        protected history: HistoryComponent,
         private logoComponent: ToolbarLogoComponent,
         protected localStorage: LocalStorageService
     ) {
@@ -22,7 +24,8 @@ export class DraggableToolbarComponent extends Toolbar {
 
         this.rootElement.append(
             this.logoComponent.rootElement,
-            this.search.rootElement
+            this.search.rootElement,
+            this.history.rootElement
         );
     }
 }
