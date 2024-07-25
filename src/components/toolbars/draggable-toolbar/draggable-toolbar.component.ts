@@ -8,10 +8,11 @@ import { HistoryComponent } from "../../toolbar-elements/history/history.compone
 import { PlayerComponent } from "../../toolbar-elements/player/player.component";
 import { SettingsComponent } from "../../toolbar-elements/settings/settings.component";
 import { MinimizeButtonComponent } from "../../toolbar-elements/minimize-button/minimize-button.component";
-import { dragElement } from "../../../utils/dragElement";
+import { TOOLBAR_MODE, ToolbarService } from "../../../services/toolbar/toolbar.service";
 
 @singleton()
 export class DraggableToolbarComponent extends Toolbar {
+    mode = TOOLBAR_MODE.DRAGGABLE;
 
     constructor(
         private logoComponent: ToolbarLogoComponent,
@@ -20,12 +21,12 @@ export class DraggableToolbarComponent extends Toolbar {
         private player: PlayerComponent,
         private settings: SettingsComponent,
         private minimize: MinimizeButtonComponent,
-        protected localStorage: LocalStorageService
+        protected localStorage: LocalStorageService,
+        protected toolbarService: ToolbarService
     ) {
-        super(localStorage);
+        super(localStorage, toolbarService);
 
         this.applyRootStyle(styles);
-        this.setPositionOnScreen();
 
         this.logoComponent.rootElement.classList.add(styles.logo);
 
@@ -37,24 +38,6 @@ export class DraggableToolbarComponent extends Toolbar {
             this.settings.rootElement,
             this.minimize.rootElement
         );
-
-        //this.rootElement.addEventListener('mousedown', this.onMouseDown.bind(this))
     }
 
-    async onMouseDown(e: MouseEvent) {
-        // const target: any = e.target;
-
-        // if (target && target.closest(".rootClassName__toolbar-button__word-wander")) {
-        //     return;
-        // }
-        e.preventDefault();
-
-        this.rootElement.classList.add(styles.draggable);
-
-        await dragElement(e, this.rootElement);
-
-        this.rootElement.classList.remove(styles.draggable);
-
-        this.setPositionOnScreen(this.rootElement.style.top, this.rootElement.style.left);
-    }
 }

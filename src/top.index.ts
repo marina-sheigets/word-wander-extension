@@ -18,7 +18,7 @@ class Entry {
         element.classList.add("wordWander")
         shadow.append(
             draggableToolbar.rootElement,
-            //minimizedToolbar.rootElement,
+            minimizedToolbar.rootElement,
             addMaterialIcons(),
             getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`),
         );

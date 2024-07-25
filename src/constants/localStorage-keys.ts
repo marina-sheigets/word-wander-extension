@@ -1,4 +1,5 @@
 export enum STORAGE_KEYS {
     PositionTop = "PositionTop",
-    PositionLeft = "PositionLeft"
+    PositionLeft = "PositionLeft",
+    Mode = "Mode"
 }
