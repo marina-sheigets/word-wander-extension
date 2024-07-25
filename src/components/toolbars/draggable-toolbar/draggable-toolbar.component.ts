@@ -8,6 +8,7 @@ import { HistoryComponent } from "../../toolbar-elements/history/history.compone
 import { PlayerComponent } from "../../toolbar-elements/player/player.component";
 import { SettingsComponent } from "../../toolbar-elements/settings/settings.component";
 import { MinimizeButtonComponent } from "../../toolbar-elements/minimize-button/minimize-button.component";
+import { dragElement } from "../../../utils/dragElement";
 
 @singleton()
 export class DraggableToolbarComponent extends Toolbar {
@@ -36,5 +37,19 @@ export class DraggableToolbarComponent extends Toolbar {
             this.settings.rootElement,
             this.minimize.rootElement
         );
+
+        this.rootElement.addEventListener('mousedown', this.onMouseDown.bind(this))
+    }
+
+    async onMouseDown(e: MouseEvent) {
+        e.preventDefault();
+
+        this.rootElement.classList.add(styles.draggable);
+
+        await dragElement(e, this.rootElement);
+
+        this.rootElement.classList.remove(styles.draggable);
+
+        this.setPositionOnScreen(this.rootElement.style.top, this.rootElement.style.left);
     }
 }

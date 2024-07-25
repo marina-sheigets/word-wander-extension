@@ -16,3 +16,7 @@
     align-items: center;
     background: white;
 }
+
+.draggable * {
+    cursor: grabbing;
+}
