@@ -9,6 +9,9 @@ export class MenuComponent extends BaseComponent {
 
         this.applyRootStyle(styles);
 
+        this.hide = this.hide.bind(this);
+        this.open = this.open.bind(this);
+
         this.hide();
     }
 

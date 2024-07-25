@@ -21,5 +21,17 @@ export class SearchComponent extends BaseComponent {
             button.rootElement,
             menu.rootElement
         );
+
+        this.button.onPress.subscribe(this.toggleMenu.bind(this))
     }
+
+
+    toggleMenu(isActive: boolean) {
+        if (isActive) {
+            this.menu.open();
+        } else {
+            this.menu.hide()
+        }
+    }
+
 }
