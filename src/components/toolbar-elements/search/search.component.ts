@@ -2,12 +2,14 @@ import { singleton } from "tsyringe";
 import { BaseComponent } from "../../base-component/base-component";
 import { ToolbarButtonComponent } from "../../toolbar-button/toolbar-button.component";
 import * as styles from './search.component.css'
+import { SearchMenuComponent } from "./search-menu/search-menu.component";
 
 @singleton()
 export class SearchComponent extends BaseComponent {
 
     constructor(
-        protected button: ToolbarButtonComponent
+        protected button: ToolbarButtonComponent,
+        protected menu: SearchMenuComponent
     ) {
         super();
 
@@ -16,7 +18,8 @@ export class SearchComponent extends BaseComponent {
         this.button.addIcon('search');
 
         this.rootElement.append(
-            button.rootElement
+            button.rootElement,
+            menu.rootElement
         );
     }
 }

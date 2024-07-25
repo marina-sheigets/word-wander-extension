@@ -1,0 +1,11 @@
+.rootClassName {
+    position: absolute;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #292A2E;
+}
+
+.hidden {
+    display: none;
+}

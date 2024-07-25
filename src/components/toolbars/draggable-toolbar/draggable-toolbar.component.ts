@@ -38,10 +38,15 @@ export class DraggableToolbarComponent extends Toolbar {
             this.minimize.rootElement
         );
 
-        this.rootElement.addEventListener('mousedown', this.onMouseDown.bind(this))
+        //this.rootElement.addEventListener('mousedown', this.onMouseDown.bind(this))
     }
 
     async onMouseDown(e: MouseEvent) {
+        // const target: any = e.target;
+
+        // if (target && target.closest(".rootClassName__toolbar-button__word-wander")) {
+        //     return;
+        // }
         e.preventDefault();
 
         this.rootElement.classList.add(styles.draggable);

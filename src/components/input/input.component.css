@@ -1,0 +1,9 @@
+.rootClassName input{
+    height: -webkit-fill-available;
+    border-radius: 5px;
+    padding-left: 8px;
+
+}
+.rootClassName input::placeholder {
+    color: #9EA5AE;
+}
