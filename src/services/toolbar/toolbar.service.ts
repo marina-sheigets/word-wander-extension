@@ -16,8 +16,7 @@ export class ToolbarService {
     constructor(
         private localStorage: LocalStorageService
     ) {
-        debugger;
-        this.onModeChange.inform(this.mode);
+        this.mode = this.localStorage.get(STORAGE_KEYS.Mode) as TOOLBAR_MODE || this.defaultMode;
     }
 
     setToolbarMode(mode?: TOOLBAR_MODE) {
@@ -26,5 +25,9 @@ export class ToolbarService {
         this.mode = selectedMode;
         this.localStorage.set(STORAGE_KEYS.Mode, this.mode);
         this.onModeChange.inform(this.mode);
+    }
+
+    getMode() {
+        return this.mode;
     }
 }

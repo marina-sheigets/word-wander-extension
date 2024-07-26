@@ -22,6 +22,8 @@ export class MinimizedToolbarComponent extends Toolbar {
         this.rootElement.append(
             this.logoComponent.rootElement
         );
+
+        this.initializeToolbar();
     }
 
     setDraggable() {

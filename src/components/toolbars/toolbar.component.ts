@@ -18,11 +18,16 @@ export abstract class Toolbar extends BaseComponent {
         this.applyRootStyle(styles);
         this.setPositionOnScreen();
 
-        this.toolbarService.onModeChange.subscribe(this.toggleDisplayToolbar.bind(this));
-
         this.rootElement.addEventListener('mousedown', this.onMouseDown.bind(this))
 
+        this.toolbarService.onModeChange.subscribe(this.toggleDisplayToolbar.bind(this));
+
     }
+
+    protected initializeToolbar() {
+        this.toggleDisplayToolbar(this.toolbarService.getMode());
+    }
+
     protected setPositionOnScreen(top?: string, left?: string) {
         if (top && left) {
             this.localStorage.set(STORAGE_KEYS.PositionTop, top);
@@ -36,7 +41,8 @@ export abstract class Toolbar extends BaseComponent {
         }
     }
 
-    toggleDisplayToolbar(currentMode: TOOLBAR_MODE) {
+    protected toggleDisplayToolbar(currentMode: TOOLBAR_MODE) {
+        debugger;
         if (currentMode !== this.mode) {
             this.hide();
         } else {

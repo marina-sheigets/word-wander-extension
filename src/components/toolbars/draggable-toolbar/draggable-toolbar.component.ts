@@ -38,6 +38,8 @@ export class DraggableToolbarComponent extends Toolbar {
             this.settings.rootElement,
             this.minimize.rootElement
         );
+
+        this.initializeToolbar();
     }
 
 }
