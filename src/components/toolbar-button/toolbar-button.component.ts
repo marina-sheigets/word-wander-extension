@@ -28,7 +28,6 @@ export class ToolbarButtonComponent extends BaseComponent {
         this.isActive = !this.isActive;
         this.onPress.inform(this.isActive);
 
-        debugger;
         if (this.isActive) {
             this.setActive();
         } else {

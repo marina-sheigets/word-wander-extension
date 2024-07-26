@@ -1,11 +1,35 @@
 .rootClassName {
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: unset;
     display: flex;
     flex-direction: column;
-    align-items:center;   
+    align-items:center; 
 }
 
 .searchContainer {
     display: flex;
     gap:5px;
     border-radius: 8px;
+}
+
+.emptyContainer {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    background-color: inherit;
+    color: #9EA5AE;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.content{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items:center; 
+    justify-content: center;
+    height: 100%;
 }

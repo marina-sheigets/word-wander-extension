@@ -42,7 +42,6 @@ export abstract class Toolbar extends BaseComponent {
     }
 
     protected toggleDisplayToolbar(currentMode: TOOLBAR_MODE) {
-        debugger;
         if (currentMode !== this.mode) {
             this.hide();
         } else {

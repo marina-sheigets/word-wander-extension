@@ -1,0 +1,14 @@
+.rootClassName {
+    color:#9EA5AE;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+.hidden {
+    display: none !important;
+}
+
+.rootClassName > div:first-child {
+    color: #00CE8F;
+}

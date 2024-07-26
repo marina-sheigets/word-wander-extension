@@ -16,14 +16,15 @@ export class InputComponent extends BaseComponent {
 
         this.applyRootStyle(styles);
 
-        this.input.addEventListener('input', this.onInputChange.bind(this));
+        this.input.addEventListener('keydown', this.onInputChange.bind(this));
 
         this.rootElement.append(
             this.input,
         );
     }
 
-    private onInputChange(e: Event) {
+    private onInputChange(e: KeyboardEvent) {
+        if (e.key !== 'Enter') return;
         e.preventDefault();
         e.stopPropagation();
 
@@ -33,5 +34,17 @@ export class InputComponent extends BaseComponent {
     setInputSettings(type: string, placeholder: string) {
         this.input.type = type;
         this.input.placeholder = placeholder;
+    }
+
+    setDisabled() {
+        this.input.disabled = true;
+    }
+
+    setEnabled() {
+        this.input.disabled = false;
+    }
+
+    clear() {
+        this.input.value = "";
     }
 }

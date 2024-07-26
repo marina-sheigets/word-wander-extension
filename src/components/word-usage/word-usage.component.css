@@ -1,0 +1,13 @@
+.rootClassName {
+    color: #FFFFFF;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.examples {
+    padding-inline-start: 15px;
+    list-style-type: disc;
+    font-size: 12px;
+}
