@@ -1,17 +1,20 @@
-export function dragElement(e: MouseEvent, element: HTMLElement) {
+export function dragElement(element: HTMLElement, e: MouseEvent, savePosition: boolean = true): Promise<boolean> {
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
 
-        let draggableElementRect = element.getBoundingClientRect()
+        e.preventDefault();
+
+        let draggableElementRect = element.getBoundingClientRect();
+
         let shiftX = e.pageX - draggableElementRect.left;
         let shiftY = e.pageY - draggableElementRect.top;
+        let isMoved = false;
 
-        element.style.position = "absolute";
+        let onMouseMove = (event: MouseEvent) => {
+            if (savePosition) {
+                isMoved = true;
+            }
 
-        element.addEventListener('mousemove', onMouseMove);
-        element.addEventListener('mouseup', onMouseUp);
-
-        function onMouseMove(event: MouseEvent) {
             event.preventDefault();
             event.stopImmediatePropagation();
 
@@ -20,18 +23,19 @@ export function dragElement(e: MouseEvent, element: HTMLElement) {
             let top = event.pageY - shiftY;
             let left = event.pageX - shiftX;
 
+            /*if intersect top window*/
             if (top < 0) {
                 top = 0;
             }
-
+            /*if intersect bottom window*/
             if ((top + draggableElementRect.height) > document.documentElement.clientHeight) {
                 top = document.documentElement.clientHeight - draggableElementRect.height;
             }
-
+            /*if intersect left window*/
             if (left < 0) {
                 left = 0;
             }
-
+            /*if intersect right window*/
             if ((left + draggableElementRect.width) > document.documentElement.clientWidth + 0.1) {
                 left = document.documentElement.clientWidth - draggableElementRect.width;
             }
@@ -42,17 +46,18 @@ export function dragElement(e: MouseEvent, element: HTMLElement) {
 
 
         function onMouseUp(event: Event) {
-            element.removeEventListener('mousemove', onMouseMove);
-            element.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener("mousemove", onMouseMove, true);
+            document.removeEventListener("mouseup", onMouseUp, true);
 
-            event.preventDefault();
-            event.stopPropagation();
+            if (isMoved) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            }
 
-            element.style.position = "fixed";
+            resolve(isMoved);
+        };
 
-
-            resolve(element);
-
-        }
+        document.addEventListener("mousemove", onMouseMove, true);
+        document.addEventListener("mouseup", onMouseUp, true);
     })
 }

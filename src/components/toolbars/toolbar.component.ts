@@ -55,11 +55,10 @@ export abstract class Toolbar extends BaseComponent {
         // if (target && target.closest(".rootClassName__toolbar-button__word-wander")) {
         //     return;
         // }
-        e.preventDefault();
 
         this.rootElement.classList.add(styles.draggable);
 
-        await dragElement(e, this.rootElement);
+        await dragElement(this.rootElement, e);
 
         this.rootElement.classList.remove(styles.draggable);
 
