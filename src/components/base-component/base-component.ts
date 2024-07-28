@@ -3,9 +3,11 @@
 export abstract class BaseComponent {
     public rootElement: HTMLElement;
 
-    constructor() {
+    constructor(styles?: { [key: string]: string }) {
         this.rootElement = this.createRoot();
-
+        if (styles) {
+            this.applyRootStyle(styles);
+        }
     }
 
     protected createRoot(): HTMLElement {

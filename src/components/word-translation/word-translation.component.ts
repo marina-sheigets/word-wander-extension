@@ -17,9 +17,7 @@ export class WordTranslationComponent extends BaseComponent {
     constructor(
         private iconService: IconService
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.wordFlag.src = englishFlag;
         this.wordFlag.width = 35;

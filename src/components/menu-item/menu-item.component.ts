@@ -8,14 +8,12 @@ export class MenuItemComponent extends BaseComponent {
     onItemPress = new Informer<void>();
 
     constructor() {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
     }
 
     addItem(title: string, icon: HTMLElement) {
-        this.rootElement.addEventListener('mouseup', () => this.onItemPress.inform())
+        this.rootElement.addEventListener('mouseup', () => this.onItemPress.inform)
 
         this.rootElement.append(
             icon,

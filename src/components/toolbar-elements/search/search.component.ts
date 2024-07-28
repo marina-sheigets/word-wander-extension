@@ -11,9 +11,7 @@ export class SearchComponent extends BaseComponent {
         protected button: ToolbarButtonComponent,
         protected menu: SearchMenuComponent
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.button.addIcon('search');
 

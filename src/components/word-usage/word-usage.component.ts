@@ -8,9 +8,7 @@ export class WordUsageComponent extends BaseComponent {
     examplesList = document.createElement('ul');
 
     constructor() {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.header.textContent = 'Usage';
         this.examplesList.classList.add(styles.examples);

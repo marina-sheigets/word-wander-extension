@@ -5,9 +5,7 @@ import * as styles from './menu.component.css';
 @injectable()
 export class MenuComponent extends BaseComponent {
     constructor() {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.hide = this.hide.bind(this);
         this.open = this.open.bind(this);

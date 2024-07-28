@@ -11,9 +11,7 @@ export class HistoryComponent extends BaseComponent {
         protected button: ToolbarButtonComponent,
         protected menu: HistoryMenuComponent
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.button.addIcon('history');
 

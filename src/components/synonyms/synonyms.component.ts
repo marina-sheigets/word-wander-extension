@@ -7,9 +7,7 @@ export class SynonymsComponent extends BaseComponent {
     synonymsList = document.createElement('ul');
 
     constructor() {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.header.textContent = 'Synonyms';
         this.synonymsList.classList.add(styles.examples);

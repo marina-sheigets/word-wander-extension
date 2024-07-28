@@ -12,9 +12,7 @@ export class InputComponent extends BaseComponent {
     constructor(
         protected iconService: IconService
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.input.addEventListener('keydown', this.onInputChange.bind(this));
 

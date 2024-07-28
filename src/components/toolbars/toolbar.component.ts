@@ -13,9 +13,7 @@ export abstract class Toolbar extends BaseComponent {
         protected localStorage: LocalStorageService,
         protected toolbarService: ToolbarService,
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
         this.setPositionOnScreen();
 
         this.rootElement.addEventListener('mousedown', this.onMouseDown.bind(this))

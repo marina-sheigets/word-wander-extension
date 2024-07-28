@@ -6,8 +6,7 @@ export class LoaderComponent extends BaseComponent {
     loader = document.createElement('div');
 
     constructor() {
-        super();
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.loader.classList.add(styles.loader);
         this.rootElement.append(

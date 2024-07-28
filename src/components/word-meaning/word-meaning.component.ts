@@ -8,9 +8,7 @@ export class WordMeaningComponent extends BaseComponent {
     meaningParagraph = document.createElement('p');
 
     constructor() {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.header.textContent = 'Meaning';
 

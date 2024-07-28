@@ -9,9 +9,7 @@ export class PlayerComponent extends BaseComponent {
     constructor(
         protected button: ToolbarButtonComponent
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.button.addIcon('play_circle');
 

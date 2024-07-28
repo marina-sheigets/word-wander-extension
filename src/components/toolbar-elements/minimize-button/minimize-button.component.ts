@@ -11,9 +11,7 @@ export class MinimizeButtonComponent extends BaseComponent {
         private iconService: IconService,
         private toolbarService: ToolbarService
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.rootElement.append(
             this.iconService.init("close_fullscreen")

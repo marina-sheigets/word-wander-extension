@@ -11,9 +11,7 @@ export class SettingsComponent extends BaseComponent {
         protected button: ToolbarButtonComponent,
         protected menu: SettingsMenuComponent
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.button.addIcon('settings');
 

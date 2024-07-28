@@ -12,9 +12,7 @@ export class ButtonComponent extends BaseComponent {
     constructor(
         protected iconService: IconService
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.button.addEventListener('mousedown', () => this.onClick.inform());
 

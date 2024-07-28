@@ -9,9 +9,7 @@ export class ToolbarLogoComponent extends BaseComponent {
     logo = document.createElement('img');
 
     constructor() {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.addLogoImage();
 

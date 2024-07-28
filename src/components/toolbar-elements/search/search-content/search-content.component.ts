@@ -23,9 +23,7 @@ export class SearchContentComponent extends BaseComponent {
         protected wordUsageComponent: WordUsageComponent,
         protected synonymsComponent: SynonymsComponent
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.rootElement.append(
             this.wordTranslationComponent.rootElement,

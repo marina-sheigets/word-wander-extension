@@ -13,9 +13,7 @@ export class ToolbarButtonComponent extends BaseComponent {
     constructor(
         protected iconService: IconService
     ) {
-        super();
-
-        this.applyRootStyle(styles);
+        super(styles);
 
         this.rootElement.addEventListener('mousedown', this.onToolbarButtonPress.bind(this))
         this.rootElement.append(
