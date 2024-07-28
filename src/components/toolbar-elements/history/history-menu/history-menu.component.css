@@ -1,0 +1,20 @@
+.rootClassName {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 20px;
+}
+
+.emptyResultContainer {
+    color: #9EA5AE;
+}
+
+.historyContainer {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none !important;
+}

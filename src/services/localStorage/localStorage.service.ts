@@ -11,4 +11,8 @@ export class LocalStorageService {
     public set(field: string, value: string) {
         localStorage.setItem(this.key + field, value);
     }
+
+    public delete(field: string) {
+        localStorage.removeItem(this.key + field);
+    }
 }
