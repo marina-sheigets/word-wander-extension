@@ -26,6 +26,8 @@ export class SettingsMenuComponent extends MenuComponent {
             this.supportItem.rootElement,
             this.downloadManualItem.rootElement
         );
+
+        this.rootElement.addEventListener('mouseup', this.hide)
     }
 
     private addOpenSettingsItem() {
