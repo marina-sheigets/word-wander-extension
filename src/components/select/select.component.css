@@ -1,0 +1,12 @@
+.rootClassName select {
+    border: none;
+    min-width: 150px;
+    height:22px;
+    border-radius: 5px;
+}
+
+.label{
+    font-size: 12px;
+    font-weight: 200;
+    color: #9EA5AE;
+}
