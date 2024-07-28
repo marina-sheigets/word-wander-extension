@@ -1,0 +1,16 @@
+.rootClassName {
+    display: flex;
+    flex-direction: column;
+    gap:16px;
+}
+
+.rootClassName h2 {
+    color: white;
+    margin: 0;
+}
+
+.controlsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
