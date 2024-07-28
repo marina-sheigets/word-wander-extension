@@ -5,6 +5,7 @@ import { MinimizedToolbarComponent } from './components/toolbars/minimized-toolb
 import { getCssLink } from './utils/getCssLink';
 import { DraggableToolbarComponent } from './components/toolbars/draggable-toolbar/draggable-toolbar.component';
 import { addMaterialIcons } from './utils/getMaterialIcons';
+import { SettingsPopupComponent } from './components/popups/settings-popup/settings-popup.component';
 
 
 @singleton()
@@ -12,6 +13,7 @@ class Entry {
     constructor(
         protected draggableToolbar: DraggableToolbarComponent,
         protected minimizedToolbar: MinimizedToolbarComponent,
+        protected settingsPopupComponent: SettingsPopupComponent,
         @inject("Shadow") shadow: ShadowRoot,
     ) {
         const element = document.createElement('div');
@@ -19,6 +21,7 @@ class Entry {
         shadow.append(
             draggableToolbar.rootElement,
             minimizedToolbar.rootElement,
+            settingsPopupComponent.rootElement,
             addMaterialIcons(),
             getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`),
         );

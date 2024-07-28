@@ -1,0 +1,53 @@
+.rootClassName {
+    z-index: 2147483648;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.rootClassName hr {
+    width: 100%;
+    border: 1px solid #9EA5AE;
+}
+
+.backdrop{
+    width:100%;
+    height:100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper {
+    border-radius: 10px;
+    padding: 20px;
+    width: 500px;
+    background-color: #3F4246;
+    display: flex;
+    flex-direction: column;
+}
+
+.headerWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.title {
+    color: white;
+    margin: 0;
+}
+
+
+.closeButton {
+    color: white;
+    cursor: pointer;
+}
+.hidden {
+    display: none !important;
+}
