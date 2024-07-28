@@ -24,14 +24,6 @@ export class HistoryComponent extends BaseComponent {
             menu.rootElement
         );
 
-        this.button.onPress.subscribe(this.toggleMenu.bind(this));
-    }
-
-    toggleMenu(isActive: boolean) {
-        if (isActive) {
-            this.menu.open();
-        } else {
-            this.menu.hide()
-        }
+        this.button.onPress.subscribe(this.menu.toggleMenu.bind(this.menu));
     }
 }

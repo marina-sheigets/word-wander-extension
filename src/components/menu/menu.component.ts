@@ -23,4 +23,12 @@ export class MenuComponent extends BaseComponent {
     open() {
         this.rootElement.classList.remove(styles.hidden);
     }
+
+    toggleMenu(isActive: boolean) {
+        if (isActive) {
+            this.open();
+        } else {
+            this.hide()
+        }
+    }
 }

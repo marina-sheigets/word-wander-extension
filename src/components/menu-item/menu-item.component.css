@@ -1,0 +1,7 @@
+.rootClassName {
+    display: flex;
+    gap: 10px;
+    color: #9EA5AE;
+    align-items: center;
+    cursor: pointer;
+}
