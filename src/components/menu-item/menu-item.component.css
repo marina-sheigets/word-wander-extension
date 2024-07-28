@@ -4,4 +4,19 @@
     color: #9EA5AE;
     align-items: center;
     cursor: pointer;
+    padding: 4px 10px;
 }
+
+.rootClassName:hover{
+    background-color: #050505;
+}
+
+.rootClassName:hover:first-child{
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+
+.rootClassName:hover:last-child{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+ }
