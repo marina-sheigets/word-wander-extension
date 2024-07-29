@@ -3,6 +3,8 @@ import { MenuComponent } from "../../../menu/menu.component";
 import * as styles from './settings-menu.component.css';
 import { MenuItemComponent } from "../../../menu-item/menu-item.component";
 import { IconService } from "../../../../services/icon/icon.component";
+import { MessengerService } from "../../../../services/messenger/messenger.service";
+import { Messages } from "../../../../constants/messages";
 
 
 @singleton()
@@ -11,7 +13,8 @@ export class SettingsMenuComponent extends MenuComponent {
         private openSettingsItem: MenuItemComponent,
         private supportItem: MenuItemComponent,
         private downloadManualItem: MenuItemComponent,
-        private iconService: IconService
+        private iconService: IconService,
+        protected messenger: MessengerService
     ) {
         super();
 
@@ -35,7 +38,7 @@ export class SettingsMenuComponent extends MenuComponent {
         this.openSettingsItem.addItem('Open settings', openSettingsIcon);
 
         this.openSettingsItem.onItemPress.subscribe(() => {
-            console.log("openSettingsItem");
+            this.messenger.send(Messages.OpenSettings);
         });
     }
 

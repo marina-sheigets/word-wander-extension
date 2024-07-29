@@ -5,6 +5,7 @@
     align-items: center;
     cursor: pointer;
     padding: 4px 10px;
+    font-size: 14px;
 }
 
 .rootClassName:hover{

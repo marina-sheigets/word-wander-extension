@@ -13,7 +13,7 @@ export class MenuItemComponent extends BaseComponent {
     }
 
     addItem(title: string, icon: HTMLElement) {
-        this.rootElement.addEventListener('mouseup', () => this.onItemPress.inform)
+        this.rootElement.addEventListener('mouseup', () => this.onItemPress.inform())
 
         this.rootElement.append(
             icon,
