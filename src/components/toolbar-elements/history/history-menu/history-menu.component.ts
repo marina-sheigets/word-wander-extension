@@ -6,6 +6,8 @@ import * as styles from './history-menu.component.css';
 import { IconService } from "../../../../services/icon/icon.component";
 import { WordTranslationComponent } from "../../../word-translation/word-translation.component";
 import { singleton } from "tsyringe";
+import { MessengerService } from "../../../../services/messenger/messenger.service";
+import { Messages } from "../../../../constants/messages";
 
 interface HistoryItem {
     translation: string,
@@ -21,6 +23,7 @@ export class HistoryMenuComponent extends MenuComponent {
         private clearHistoryButton: ButtonComponent,
         private localStorage: LocalStorageService,
         protected iconService: IconService,
+        protected messenger: MessengerService
     ) {
         super();
 
@@ -40,6 +43,8 @@ export class HistoryMenuComponent extends MenuComponent {
             this.emptyResultContainer,
             this.historyContainer
         )
+
+        this.messenger.subscribe(Messages.CloseAllMenus, this.hide.bind(this));
     }
 
     setContent() {

@@ -6,6 +6,8 @@ import { ButtonComponent } from "../../../button/button.component";
 import { SearchService } from "../../../../services/search/search.service";
 import { LoaderComponent } from "../../../loader/loader.component";
 import { SearchContentComponent } from "../search-content/search-content.component";
+import { MessengerService } from "../../../../services/messenger/messenger.service";
+import { Messages } from "../../../../constants/messages";
 
 @singleton()
 export class SearchMenuComponent extends MenuComponent {
@@ -18,7 +20,8 @@ export class SearchMenuComponent extends MenuComponent {
         private button: ButtonComponent,
         private searchService: SearchService,
         private loader: LoaderComponent,
-        private searchContent: SearchContentComponent
+        private searchContent: SearchContentComponent,
+        protected messenger: MessengerService
     ) {
         super();
 
@@ -53,6 +56,8 @@ export class SearchMenuComponent extends MenuComponent {
             this.searchContainer,
             this.content
         );
+
+        this.messenger.subscribe(Messages.CloseAllMenus, this.hide.bind(this));
     }
 
     private async onSearch(value: string) {

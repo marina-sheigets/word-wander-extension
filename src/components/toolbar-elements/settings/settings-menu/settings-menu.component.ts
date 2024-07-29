@@ -31,6 +31,8 @@ export class SettingsMenuComponent extends MenuComponent {
         );
 
         this.rootElement.addEventListener('mouseup', this.hide)
+
+        this.messenger.subscribe(Messages.CloseAllMenus, this.hide.bind(this));
     }
 
     private addOpenSettingsItem() {
