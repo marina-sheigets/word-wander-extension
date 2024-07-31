@@ -46,6 +46,6 @@ export class SettingsPopupComponent extends PopupComponent {
 
         this.hide();
 
-        this.messenger.subscribe(Messages.OpenSettings, this.show);
+        this.messenger.subscribe(Messages.OpenSettings, this.show.bind(this));
     }
 }
