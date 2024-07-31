@@ -14,7 +14,6 @@ export class SettingsPopupComponent extends PopupComponent {
     private titleHr = document.createElement('hr');
     private languagesHr = document.createElement('hr');
     private translationHr = document.createElement('hr');
-    private pronunciationHr = document.createElement('hr');
 
 
     constructor(
@@ -41,8 +40,6 @@ export class SettingsPopupComponent extends PopupComponent {
         this.setContent(this.translationHr);
 
         this.setContent(this.pronunciationComponent.rootElement);
-
-        this.setContent(this.pronunciationHr);
 
         this.hide();
 
