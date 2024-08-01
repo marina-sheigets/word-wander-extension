@@ -1,6 +1,7 @@
 import { injectable } from "tsyringe";
 import { BaseComponent } from "../base-component/base-component";
 import * as styles from './select.component.css';
+import { Informer } from "../../services/informer/informer.service";
 
 interface Option {
     value: string,
@@ -10,6 +11,7 @@ interface Option {
 export class SelectComponent extends BaseComponent {
     private selectInput = document.createElement('select');
     private label = document.createElement('label');
+    public onSelectChange = new Informer();
 
     constructor() {
         super(styles);
@@ -21,9 +23,7 @@ export class SelectComponent extends BaseComponent {
             this.selectInput
         );
 
-        this.selectInput.addEventListener('change', (e) => {
-            console.log(e)
-        })
+        this.selectInput.addEventListener('change', this.onChange.bind(this));
 
     }
 
@@ -39,5 +39,13 @@ export class SelectComponent extends BaseComponent {
 
             this.selectInput.append(option);
         });
+    }
+
+    setValue(value: string) {
+        this.selectInput.value = value;
+    }
+
+    onChange(e: Event) {
+        this.onSelectChange.inform((e.target as HTMLSelectElement).value);
     }
 }

@@ -3,6 +3,9 @@ import { IconService } from "../../../../services/icon/icon.component";
 import { BaseComponent } from "../../../base-component/base-component";
 import { SelectComponent } from "../../../select/select.component";
 import * as styles from './languages.component.css';
+import { SettingsService } from "../../../../services/settings/settings.service";
+import { SettingsNames } from "../../../../constants/settingsNames";
+import { Language } from "../../../../types/Language";
 
 @singleton()
 export class LanguagesComponent extends BaseComponent {
@@ -12,7 +15,8 @@ export class LanguagesComponent extends BaseComponent {
     constructor(
         private sourceLanguageSelect: SelectComponent,
         private targetLanguageSelect: SelectComponent,
-        private iconService: IconService
+        private iconService: IconService,
+        private settings: SettingsService
     ) {
         super(styles);
 
@@ -33,5 +37,29 @@ export class LanguagesComponent extends BaseComponent {
             this.title,
             this.selectionWrapper
         );
+
+        this.sourceLanguageSelect.setOptions(this.getLanguageOptions());
+        this.sourceLanguageSelect.setValue(this.settings.get(SettingsNames.SourceLanguage));
+
+        this.targetLanguageSelect.setOptions(this.getLanguageOptions());
+        this.targetLanguageSelect.setValue(this.settings.get(SettingsNames.TargetLanguage));
+
+        this.sourceLanguageSelect.onSelectChange.subscribe(this.onSourceLanguageChange.bind(this));
+        this.targetLanguageSelect.onSelectChange.subscribe(this.onTargetLanguageChange.bind(this));
+
     }
+
+    private onTargetLanguageChange(value: string) {
+        this.settings.set(SettingsNames.TargetLanguage, value);
+    }
+
+    private onSourceLanguageChange(value: string) {
+        this.settings.set(SettingsNames.SourceLanguage, value);
+    }
+
+    private getLanguageOptions(): Language[] {
+        return this.settings.get(SettingsNames.LanguagesList);
+    }
+
+
 }
