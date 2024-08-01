@@ -69,5 +69,6 @@ export abstract class Toolbar extends BaseComponent {
 
     show() {
         this.rootElement.classList.remove(styles.hidden);
+        this.setPositionOnScreen();
     }
 }
