@@ -33,13 +33,6 @@ export class ToolbarButtonComponent extends BaseComponent {
 
         this.isActive = !this.isActive;
         this.onPress.inform(this.isActive);
-
-        if (this.isActive) {
-            this.setActive();
-            this.toolbarButtonService.setActiveButton(this);
-        } else {
-            this.unsetActive();
-        }
     }
 
     public addTooltip(tooltip: string) {

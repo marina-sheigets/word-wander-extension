@@ -26,4 +26,8 @@ export class ToolbarButtonService {
             button.unsetActive();
         });
     }
+
+    public setInactiveButton(button: ToolbarButtonComponent) {
+        button.unsetActive();
+    }
 }

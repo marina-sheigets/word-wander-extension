@@ -10,20 +10,34 @@ import { NotFoundPopupComponent } from "../../popups/not-found/not-found.compone
 export class PlayerComponent extends BaseComponent {
 
     constructor(
-        protected button: ToolbarButtonComponent,
+        protected playButton: ToolbarButtonComponent,
+        protected pauseButton: ToolbarButtonComponent,
+        protected resumeButton: ToolbarButtonComponent,
         protected textToSpeechService: TextToSpeechService,
         protected textManager: TextManagerService,
         protected notFoundPopup: NotFoundPopupComponent
     ) {
         super(styles);
 
-        this.button.addIcon('play_circle');
+        this.playButton.addIcon('play_circle');
+        this.playButton.onPress.subscribe(this.playText.bind(this));
 
-        this.button.onPress.subscribe(this.playText.bind(this));
+        this.pauseButton.addIcon('pause_circle');
+        this.pauseButton.onPress.subscribe(this.pausePlay.bind(this));
+
+        this.resumeButton.addIcon('play_circle');
+        this.resumeButton.onPress.subscribe(this.resumePlay.bind(this));
+
+        this.pauseButton.rootElement.classList.add(styles.hidden);
+        this.resumeButton.rootElement.classList.add(styles.hidden);
 
         this.rootElement.append(
-            button.rootElement
+            this.playButton.rootElement,
+            this.pauseButton.rootElement,
+            this.resumeButton.rootElement
         );
+
+        this.textToSpeechService.onPlayerFinished.subscribe(this.finishSpeech.bind(this));
     }
 
     playText() {
@@ -34,6 +48,32 @@ export class PlayerComponent extends BaseComponent {
             return;
         }
 
+        this.pauseButton.rootElement.classList.remove(styles.hidden);
+        this.pauseButton.setActive();
+        this.playButton.rootElement.classList.add(styles.hidden);
+
         this.textToSpeechService.play(text);
+    }
+
+    pausePlay() {
+        this.playButton.rootElement.classList.add(styles.hidden);
+        this.resumeButton.rootElement.classList.remove(styles.hidden);
+        this.pauseButton.rootElement.classList.add(styles.hidden);
+        this.resumeButton.setActive();
+        this.textToSpeechService.pause();
+    }
+
+    resumePlay() {
+        this.resumeButton.rootElement.classList.add(styles.hidden);
+        this.pauseButton.rootElement.classList.remove(styles.hidden);
+        this.pauseButton.setActive();
+        this.textToSpeechService.resume();
+    }
+
+    finishSpeech() {
+        this.pauseButton.rootElement.classList.add(styles.hidden);
+        this.resumeButton.rootElement.classList.add(styles.hidden);
+        this.playButton.rootElement.classList.remove(styles.hidden);
+        this.playButton.unsetActive();
     }
 }

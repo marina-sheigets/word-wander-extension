@@ -1,1 +1,5 @@
 .rootElement{}
+
+.hidden {
+    display: none;
+}
