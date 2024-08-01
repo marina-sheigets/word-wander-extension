@@ -29,6 +29,7 @@
     background-color: #3F4246;
     display: flex;
     flex-direction: column;
+    color: white;
 }
 
 .headerWrapper {

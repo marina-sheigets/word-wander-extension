@@ -6,8 +6,7 @@ import { DEFAULT_SETTINGS } from "../../constants/defaultSettings";
 @singleton()
 export class SettingsService {
     callbacks: { [key: string]: Function[] } = {};
-
-    settings: { [key: string]: any } = {};
+    protected settings: { [key: string]: any } = {};
 
     constructor(
         protected localStorage: LocalStorageService
@@ -54,5 +53,9 @@ export class SettingsService {
         }
 
         this.localStorage.set(STORAGE_KEYS.Settings, JSON.stringify(this.settings));
+    }
+
+    getAllSettings() {
+        return this.settings;
     }
 }

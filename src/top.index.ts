@@ -6,6 +6,7 @@ import { getCssLink } from './utils/getCssLink';
 import { DraggableToolbarComponent } from './components/toolbars/draggable-toolbar/draggable-toolbar.component';
 import { addMaterialIcons } from './utils/getMaterialIcons';
 import { SettingsPopupComponent } from './components/popups/settings-popup/settings-popup.component';
+import { NotFoundPopupComponent } from './components/popups/not-found/not-found.component';
 
 
 @singleton()
@@ -14,6 +15,7 @@ class Entry {
         protected draggableToolbar: DraggableToolbarComponent,
         protected minimizedToolbar: MinimizedToolbarComponent,
         protected settingsPopupComponent: SettingsPopupComponent,
+        protected notFoundPopup: NotFoundPopupComponent,
         @inject("Shadow") shadow: ShadowRoot,
     ) {
         const element = document.createElement('div');
@@ -22,6 +24,7 @@ class Entry {
             draggableToolbar.rootElement,
             minimizedToolbar.rootElement,
             settingsPopupComponent.rootElement,
+            notFoundPopup.rootElement,
             addMaterialIcons(),
             getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`),
         );

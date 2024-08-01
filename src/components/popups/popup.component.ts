@@ -49,11 +49,11 @@ export abstract class PopupComponent extends BaseComponent {
         this.wrapper.append(content);
     }
 
-    protected show() {
+    public show() {
         this.rootElement.classList.remove(styles.hidden);
     }
 
-    protected hide() {
+    public hide() {
         this.onClose.inform();
         this.rootElement.classList.add(styles.hidden);
     }
