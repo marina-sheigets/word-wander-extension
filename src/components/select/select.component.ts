@@ -48,4 +48,18 @@ export class SelectComponent extends BaseComponent {
     onChange(e: Event) {
         this.onSelectChange.inform((e.target as HTMLSelectElement).value);
     }
+
+    disable() {
+        this.selectInput.disabled = true;
+        this.selectInput.classList.add(styles.disabled);
+    }
+
+    enable() {
+        this.selectInput.disabled = false;
+        this.selectInput.classList.remove(styles.disabled);
+    }
+
+    addTooltip(text: string) {
+        this.rootElement.title = text;
+    }
 }

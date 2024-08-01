@@ -10,3 +10,7 @@
     font-weight: 200;
     color: #9EA5AE;
 }
+
+.disabled {
+    cursor: not-allowed;
+}

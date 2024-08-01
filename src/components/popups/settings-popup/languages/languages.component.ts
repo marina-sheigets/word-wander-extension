@@ -47,6 +47,11 @@ export class LanguagesComponent extends BaseComponent {
         this.sourceLanguageSelect.onSelectChange.subscribe(this.onSourceLanguageChange.bind(this));
         this.targetLanguageSelect.onSelectChange.subscribe(this.onTargetLanguageChange.bind(this));
 
+        this.sourceLanguageSelect.disable();
+        this.targetLanguageSelect.disable();
+
+        this.sourceLanguageSelect.addTooltip('Selecting other languages is not supported yet');
+        this.targetLanguageSelect.addTooltip('Selecting other languages is not supported yet');
     }
 
     private onTargetLanguageChange(value: string) {
