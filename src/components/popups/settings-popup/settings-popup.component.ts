@@ -7,6 +7,7 @@ import { TranslationComponent } from './translation/translation.component';
 import { PronunciationComponent } from './pronunciation/pronunciation.component';
 import { MessengerService } from '../../../services/messenger/messenger.service';
 import { Messages } from '../../../constants/messages';
+import { ToolbarButtonService } from '../../../services/toolbar-button/toolbar-button.service';
 
 @singleton()
 export class SettingsPopupComponent extends PopupComponent {
@@ -21,7 +22,8 @@ export class SettingsPopupComponent extends PopupComponent {
         protected languagesComponent: LanguagesComponent,
         protected translationComponent: TranslationComponent,
         protected pronunciationComponent: PronunciationComponent,
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected toolbarButtonService: ToolbarButtonService
     ) {
         super(iconService);
 
@@ -44,5 +46,7 @@ export class SettingsPopupComponent extends PopupComponent {
         this.hide();
 
         this.messenger.subscribe(Messages.OpenSettings, this.show.bind(this));
+
+        this.onClose.subscribe(this.toolbarButtonService.setAllButtonsInactive.bind(this.toolbarButtonService));
     }
 }

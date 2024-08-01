@@ -20,4 +20,10 @@ export class ToolbarButtonService {
         });
         activeButton.setActive();
     }
+
+    public setAllButtonsInactive() {
+        this.buttons.forEach(button => {
+            button.unsetActive();
+        });
+    }
 }

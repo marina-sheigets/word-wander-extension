@@ -1,4 +1,5 @@
 import { IconService } from "../../services/icon/icon.component";
+import { Informer } from "../../services/informer/informer.service";
 import { BaseComponent } from "../base-component/base-component";
 import * as styles from './popup.component.css';
 
@@ -8,6 +9,8 @@ export abstract class PopupComponent extends BaseComponent {
     protected headerWrapper = document.createElement('div');
     protected title = document.createElement('h1');;
     protected closeButton = document.createElement('div');
+    protected onClose = new Informer();
+
     constructor(
         protected iconService: IconService
     ) {
@@ -51,6 +54,7 @@ export abstract class PopupComponent extends BaseComponent {
     }
 
     protected hide() {
+        this.onClose.inform();
         this.rootElement.classList.add(styles.hidden);
     }
 }
