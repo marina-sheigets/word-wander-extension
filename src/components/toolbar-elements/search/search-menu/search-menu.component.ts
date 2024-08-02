@@ -8,6 +8,8 @@ import { LoaderComponent } from "../../../loader/loader.component";
 import { SearchContentComponent } from "../search-content/search-content.component";
 import { MessengerService } from "../../../../services/messenger/messenger.service";
 import { Messages } from "../../../../constants/messages";
+import { SearchErrorPopupComponent } from "../../../popups/search-error/search-error.component";
+import { DictionaryApiService } from "../../../../services/api/dictionary-api/dictionary-api.service";
 
 @singleton()
 export class SearchMenuComponent extends MenuComponent {
@@ -21,7 +23,9 @@ export class SearchMenuComponent extends MenuComponent {
         private searchService: SearchService,
         private loader: LoaderComponent,
         private searchContent: SearchContentComponent,
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected searchErrorPopup: SearchErrorPopupComponent,
+        protected dictionaryService: DictionaryApiService
     ) {
         super();
 
@@ -65,7 +69,12 @@ export class SearchMenuComponent extends MenuComponent {
             return;
         }
 
-        this.searchContent.clearData()
+        if (value.trim().split(' ').length > 1) {
+            this.searchErrorPopup.show();
+            return;
+        }
+
+        this.searchContent.clearData();
 
         this.searchContent.hide();
         this.loader.show();
@@ -73,19 +82,20 @@ export class SearchMenuComponent extends MenuComponent {
         this.inputComponent.setDisabled();
         this.emptyContainer.classList.add(styles.hidden);
 
-        const result: any = await this.searchService.searchWord(value);
+        const translation: string = await this.searchService.searchWord(value);
+        const dictionaryResult = await this.dictionaryService.fetchData(value);
 
         this.loader.hide();
         this.button.enable();
         this.inputComponent.setEnabled();
 
-        if (result) {
+        if (translation.length && dictionaryResult) {
             this.inputComponent.clear();
-            this.searchContent.fillWithData(value, result);
+            this.searchContent.fillWithData(value, translation, dictionaryResult);
 
             this.searchContent.show();
         } else {
-            this.emptyContainer.textContent = "Something went wrong. Try again..."
+            this.emptyContainer.textContent = "No definition found. Try another word.";
             this.emptyContainer.classList.remove(styles.hidden);
         }
     }

@@ -1,7 +1,7 @@
 .rootClassName {
     height: 300px;
     overflow-y: auto;
-    overflow-x: unset;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items:center; 

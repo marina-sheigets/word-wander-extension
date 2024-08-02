@@ -1,9 +1,9 @@
 
 export class SearchService {
 
-    async searchWord(word: string) {
+    async searchWord(word: string): Promise<string> {
         return new Promise((resolve) => {
-            setTimeout(() => resolve(false), 3000);
-        })
+            setTimeout(() => resolve("Hello"), 3000);
+        });
     }
 }

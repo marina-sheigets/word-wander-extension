@@ -7,6 +7,7 @@ import { DraggableToolbarComponent } from './components/toolbars/draggable-toolb
 import { addMaterialIcons } from './utils/getMaterialIcons';
 import { SettingsPopupComponent } from './components/popups/settings-popup/settings-popup.component';
 import { NotFoundPopupComponent } from './components/popups/not-found/not-found.component';
+import { SearchErrorPopupComponent } from './components/popups/search-error/search-error.component';
 
 
 @singleton()
@@ -16,6 +17,7 @@ class Entry {
         protected minimizedToolbar: MinimizedToolbarComponent,
         protected settingsPopupComponent: SettingsPopupComponent,
         protected notFoundPopup: NotFoundPopupComponent,
+        protected searchErrorPopupComponent: SearchErrorPopupComponent,
         @inject("Shadow") shadow: ShadowRoot,
     ) {
         const element = document.createElement('div');
@@ -25,6 +27,7 @@ class Entry {
             minimizedToolbar.rootElement,
             settingsPopupComponent.rootElement,
             notFoundPopup.rootElement,
+            searchErrorPopupComponent.rootElement,
             addMaterialIcons(),
             getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`),
         );

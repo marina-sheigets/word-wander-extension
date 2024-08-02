@@ -2,66 +2,109 @@ import { singleton } from "tsyringe";
 import { BaseComponent } from "../../../base-component/base-component";
 import * as styles from './search-content.component.css'
 import { WordTranslationComponent } from "../../../word-translation/word-translation.component";
-import { WordMeaningComponent } from "../../../word-meaning/word-meaning.component";
-import { WordUsageComponent } from "../../../word-usage/word-usage.component";
-import { SynonymsComponent } from "../../../synonyms/synonyms.component";
-
-interface TranslationData {
-    translation: string,
-    synonyms: string[],
-    meaning: string,
-    usage: string[]
-}
-
+import { Dictionary } from "../../../../types/Dictionary";
 
 @singleton()
 export class SearchContentComponent extends BaseComponent {
 
     constructor(
         protected wordTranslationComponent: WordTranslationComponent,
-        protected wordMeaningComponent: WordMeaningComponent,
-        protected wordUsageComponent: WordUsageComponent,
-        protected synonymsComponent: SynonymsComponent
     ) {
         super(styles);
 
         this.rootElement.append(
             this.wordTranslationComponent.rootElement,
-            this.wordMeaningComponent.rootElement,
-            this.wordUsageComponent.rootElement,
-            this.synonymsComponent.rootElement
         );
 
         this.hide();
     }
 
-    fillWithData(word: string, data: TranslationData) {
-        if (data.translation) {
+    fillWithData(word: string, translation: string, dictionaryResponse: Dictionary[]) {
+        if (translation) {
             this.wordTranslationComponent.show();
-            this.wordTranslationComponent.addPair(word, data.translation);
+            this.wordTranslationComponent.addPair(word, translation);
         }
 
-        if (data.meaning) {
-            this.wordMeaningComponent.addMeaning(data.meaning);
-            this.wordMeaningComponent.show();
-        }
-
-        if (data.usage) {
-            this.wordUsageComponent.addExamples(data.usage);
-            this.wordUsageComponent.show();
-        }
-
-        if (data.synonyms) {
-            this.synonymsComponent.addSynonyms(data.synonyms);
-            this.synonymsComponent.show();
+        if (dictionaryResponse) {
+            dictionaryResponse.forEach((item) => {
+                this.processDictionaryItem(item);
+            });
         }
     }
 
+    private processDictionaryItem(item: Dictionary) {
+        const wordMeaningTitle = document.createElement('h3');
+        const wordUsageTitle = document.createElement('h3');
+        const synonymsTitle = document.createElement('h3');
+
+        wordMeaningTitle.textContent = 'Meaning';
+        wordUsageTitle.textContent = 'Usage';
+        synonymsTitle.textContent = 'Synonyms';
+
+        const wordMeaningComponent = document.createElement('div');
+        const wordUsageComponent = document.createElement('div');
+        const synonymsComponent = document.createElement('div');
+
+        wordMeaningComponent.classList.add(styles.wordMeaning);
+        wordUsageComponent.classList.add(styles.wordUsage);
+        synonymsComponent.classList.add(styles.synonyms);
+
+        const processPartOfSpeech = (partOfSpeech: { meaning: string[], usage: string[] }, partOfSpeechName: string) => {
+            if (partOfSpeech.meaning.length > 1) {
+                partOfSpeech.meaning = partOfSpeech.meaning.slice(0, 1);
+            }
+
+            partOfSpeech.meaning.forEach((meaning) => {
+                const p = document.createElement('p');
+                p.textContent = `-${partOfSpeechName} : ` + meaning;
+                wordMeaningComponent.append(p);
+            });
+
+            partOfSpeech.usage.forEach((usage) => {
+                const p = document.createElement('div');
+                p.textContent = usage;
+                wordUsageComponent.append(p);
+            });
+        };
+
+        if (item.noun) {
+            processPartOfSpeech(item.noun, 'noun');
+        }
+
+        if (item.adjective) {
+            processPartOfSpeech(item.adjective, 'adjective');
+        }
+
+        if (item.verb) {
+            processPartOfSpeech(item.verb, 'verb');
+        }
+
+        if (item.interjection) {
+            processPartOfSpeech(item.interjection, 'interjection');
+        }
+
+        if (item.synonyms) {
+            // const synonymsList = document.createElement('ul');
+            // synonymsComponent.append(synonymsList);
+
+
+            synonymsComponent.textContent = item.synonyms.flat().join(', ');
+
+        }
+
+        this.rootElement.append(
+            wordMeaningTitle,
+            wordMeaningComponent,
+            wordUsageTitle,
+            wordUsageComponent,
+            synonymsTitle,
+            synonymsComponent
+        );
+    }
+
+
     clearData() {
-        this.wordTranslationComponent.clear();
-        this.wordMeaningComponent.clear();
-        this.wordUsageComponent.clear();
-        this.synonymsComponent.clear();
+        this.rootElement.innerHTML = '';
     }
 
     show() {

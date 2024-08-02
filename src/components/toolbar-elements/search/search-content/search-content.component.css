@@ -7,3 +7,26 @@
 .hidden {
     display: none !important;
 }
+
+.wordMeaning {
+    color: white;
+    font-weight: 200;
+    font-size: 12px;
+}
+
+.wordMeaning p {
+    font-style: italic;
+}
+
+.wordUsage, .synonyms, h3 {
+     color: #FFFFFF;
+}
+
+.wordUsage div {
+    font-size: 12px;
+    font-weight: 200;
+    padding-bottom: 5px;
+}
+.synonyms {
+    padding-bottom:10px;
+}
