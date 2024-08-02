@@ -35,6 +35,16 @@ export class ToolbarButtonComponent extends BaseComponent {
         this.onPress.inform(this.isActive);
     }
 
+    public toggleActive(isActive: boolean) {
+        this.isActive = isActive;
+        if (this.isActive) {
+            this.toolbarButtonService.setAllButtonsInactive();
+            this.setActive();
+        } else {
+            this.unsetActive();
+        }
+    }
+
     public addTooltip(tooltip: string) {
         this.iconWrapper.title = tooltip;
     }

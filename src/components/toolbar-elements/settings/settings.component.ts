@@ -20,6 +20,9 @@ export class SettingsComponent extends BaseComponent {
             this.menu.rootElement
         );
 
-        this.button.onPress.subscribe(this.menu.toggleMenu.bind(this.menu))
+        this.button.onPress.subscribe((isActive: boolean) => {
+            this.menu.toggleMenu(isActive);
+            this.button.toggleActive(isActive);
+        })
     }
 }

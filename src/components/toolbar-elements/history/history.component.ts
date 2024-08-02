@@ -22,6 +22,9 @@ export class HistoryComponent extends BaseComponent {
             menu.rootElement
         );
 
-        this.button.onPress.subscribe(this.menu.toggleMenu.bind(this.menu));
+        this.button.onPress.subscribe((isActive) => {
+            this.menu.toggleMenu(isActive);
+            this.button.toggleActive(isActive);
+        });
     }
 }

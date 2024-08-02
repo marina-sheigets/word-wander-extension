@@ -5,6 +5,7 @@ import * as styles from './player.component.css'
 import { TextToSpeechService } from "../../../services/voices/text-to-speach.service";
 import { TextManagerService } from "../../../services/text-manager/text-manager.service";
 import { NotFoundPopupComponent } from "../../popups/not-found/not-found.component";
+import { ToolbarButtonService } from "../../../services/toolbar-button/toolbar-button.service";
 
 @singleton()
 export class PlayerComponent extends BaseComponent {
@@ -15,12 +16,16 @@ export class PlayerComponent extends BaseComponent {
         protected resumeButton: ToolbarButtonComponent,
         protected textToSpeechService: TextToSpeechService,
         protected textManager: TextManagerService,
-        protected notFoundPopup: NotFoundPopupComponent
+        protected notFoundPopup: NotFoundPopupComponent,
+        protected toolbarButtonService: ToolbarButtonService
     ) {
         super(styles);
 
         this.playButton.addIcon('play_circle');
-        this.playButton.onPress.subscribe(this.playText.bind(this));
+        this.playButton.onPress.subscribe(() => {
+            this.playText.bind(this);
+            toolbarButtonService.setAllButtonsInactive();
+        });
 
         this.pauseButton.addIcon('pause_circle');
         this.pauseButton.onPress.subscribe(this.pausePlay.bind(this));

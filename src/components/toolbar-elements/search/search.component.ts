@@ -9,7 +9,7 @@ export class SearchComponent extends BaseComponent {
 
     constructor(
         protected button: ToolbarButtonComponent,
-        protected menu: SearchMenuComponent
+        protected menu: SearchMenuComponent,
     ) {
         super(styles);
 
@@ -20,6 +20,9 @@ export class SearchComponent extends BaseComponent {
             menu.rootElement
         );
 
-        this.button.onPress.subscribe(this.menu.toggleMenu.bind(this.menu));
+        this.button.onPress.subscribe((isActive: boolean) => {
+            this.menu.toggleMenu(isActive);
+            this.button.toggleActive(isActive);
+        });
     }
 }
