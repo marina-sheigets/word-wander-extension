@@ -1,6 +1,7 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const DotenvWebpackPlugin = require('dotenv-webpack');
 
 
 let environments = {
@@ -77,6 +78,7 @@ module.exports = commandArgs => {
             ]
         },
         plugins: [
+            new DotenvWebpackPlugin(),
             new CopyWebpackPlugin({
                 patterns: [
                     {

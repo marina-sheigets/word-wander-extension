@@ -12,18 +12,17 @@ export class SearchContentComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.rootElement.append(
-            this.wordTranslationComponent.rootElement,
-        );
-
         this.hide();
     }
 
-    fillWithData(word: string, translation: string, dictionaryResponse: Dictionary[]) {
-        if (translation) {
-            this.wordTranslationComponent.show();
+    fillWithData(word: string, translations: string[], dictionaryResponse: Dictionary[]) {
+        this.clearData();
+
+        translations.forEach((translation) => {
             this.wordTranslationComponent.addPair(word, translation);
-        }
+        });
+
+        this.rootElement.append(this.wordTranslationComponent.rootElement);
 
         if (dictionaryResponse) {
             dictionaryResponse.forEach((item) => {
@@ -54,17 +53,25 @@ export class SearchContentComponent extends BaseComponent {
                 partOfSpeech.meaning = partOfSpeech.meaning.slice(0, 1);
             }
 
-            partOfSpeech.meaning.forEach((meaning) => {
-                const p = document.createElement('p');
-                p.textContent = `-${partOfSpeechName} : ` + meaning;
-                wordMeaningComponent.append(p);
-            });
+            if (partOfSpeech.meaning.length > 0) {
+                partOfSpeech.meaning.forEach((meaning) => {
+                    const p = document.createElement('p');
+                    p.textContent = `-${partOfSpeechName} : ` + meaning;
+                    wordMeaningComponent.append(p);
+                });
 
-            partOfSpeech.usage.forEach((usage) => {
-                const p = document.createElement('div');
-                p.textContent = usage;
-                wordUsageComponent.append(p);
-            });
+                this.rootElement.append(wordMeaningTitle, wordMeaningComponent);
+            }
+
+            if (partOfSpeech.usage.length > 0) {
+                partOfSpeech.usage.forEach((usage) => {
+                    const p = document.createElement('div');
+                    p.textContent = usage;
+                    wordUsageComponent.append(p);
+                });
+
+                this.rootElement.append(wordUsageTitle, wordUsageComponent);
+            }
         };
 
         if (item.noun) {
@@ -84,26 +91,18 @@ export class SearchContentComponent extends BaseComponent {
         }
 
         if (item.synonyms) {
-            // const synonymsList = document.createElement('ul');
-            // synonymsComponent.append(synonymsList);
-
-
             synonymsComponent.textContent = item.synonyms.flat().join(', ');
-
+            if (synonymsComponent.textContent.length > 0) {
+                this.rootElement.append(synonymsTitle, synonymsComponent);
+            }
         }
 
-        this.rootElement.append(
-            wordMeaningTitle,
-            wordMeaningComponent,
-            wordUsageTitle,
-            wordUsageComponent,
-            synonymsTitle,
-            synonymsComponent
-        );
+
     }
 
 
     clearData() {
+        this.wordTranslationComponent.clear();
         this.rootElement.innerHTML = '';
     }
 

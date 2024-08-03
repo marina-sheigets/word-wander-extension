@@ -3,13 +3,13 @@ import { MenuComponent } from "../../../menu/menu.component";
 import * as styles from './search-menu.component.css';
 import { InputComponent } from "../../../input/input.component";
 import { ButtonComponent } from "../../../button/button.component";
-import { SearchService } from "../../../../services/search/search.service";
 import { LoaderComponent } from "../../../loader/loader.component";
 import { SearchContentComponent } from "../search-content/search-content.component";
 import { MessengerService } from "../../../../services/messenger/messenger.service";
 import { Messages } from "../../../../constants/messages";
 import { SearchErrorPopupComponent } from "../../../popups/search-error/search-error.component";
 import { DictionaryApiService } from "../../../../services/api/dictionary-api/dictionary-api.service";
+import { GoogleTranslateService } from "../../../../services/api/google-translate/google-translate.service";
 
 @singleton()
 export class SearchMenuComponent extends MenuComponent {
@@ -20,7 +20,7 @@ export class SearchMenuComponent extends MenuComponent {
     constructor(
         private inputComponent: InputComponent,
         private button: ButtonComponent,
-        private searchService: SearchService,
+        private googleTranslateService: GoogleTranslateService,
         private loader: LoaderComponent,
         private searchContent: SearchContentComponent,
         protected messenger: MessengerService,
@@ -82,16 +82,16 @@ export class SearchMenuComponent extends MenuComponent {
         this.inputComponent.setDisabled();
         this.emptyContainer.classList.add(styles.hidden);
 
-        const translation: string = await this.searchService.searchWord(value);
+        const translations: string[] = await this.googleTranslateService.translateText(value);
         const dictionaryResult = await this.dictionaryService.fetchData(value);
 
         this.loader.hide();
         this.button.enable();
         this.inputComponent.setEnabled();
 
-        if (translation.length && dictionaryResult) {
+        if (translations.length && dictionaryResult) {
             this.inputComponent.clear();
-            this.searchContent.fillWithData(value, translation, dictionaryResult);
+            this.searchContent.fillWithData(value, translations, dictionaryResult);
 
             this.searchContent.show();
         } else {

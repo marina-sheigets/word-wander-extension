@@ -7,3 +7,4 @@ coverage/
 dist/
 *.map
 package-lock.json
+.env

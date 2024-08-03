@@ -7,38 +7,37 @@ import ukrainianFlag from '../../../assets/flags/flag_422.png';
 
 @injectable()
 export class WordTranslationComponent extends BaseComponent {
-    wordFlag = document.createElement('img');
-    translationFlag = document.createElement('img');
-
-    word = document.createElement('div');
-    translation = document.createElement('div');
-    arrow = document.createElement('div');
-
     constructor(
         private iconService: IconService
     ) {
         super(styles);
 
-        this.wordFlag.src = englishFlag;
-        this.wordFlag.width = 35;
-        this.translationFlag.src = ukrainianFlag;
-        this.translationFlag.width = 35;
-
-        this.rootElement.append(
-            this.wordFlag,
-            this.word,
-            this.arrow,
-            this.translationFlag,
-            this.translation
-        )
-
-
     }
 
-    addPair(word: string, translation: string) {
-        this.word.textContent = word;
-        this.translation.textContent = translation;
-        this.arrow.append(this.iconService.init('arrow_forward'))
+    addPair(sourceWord: string, targetWord: string) {
+        const wordFlag = document.createElement('img');
+        const translationFlag = document.createElement('img');
+        const word = document.createElement('div');
+        const translation = document.createElement('div');
+        const arrow = document.createElement('div');
+
+        wordFlag.src = englishFlag;
+        wordFlag.width = 35;
+        translationFlag.src = ukrainianFlag;
+        translationFlag.width = 35;
+
+        word.textContent = sourceWord;
+        translation.textContent = targetWord;
+        arrow.append(this.iconService.init('arrow_forward'));
+
+        this.rootElement.append(wordFlag,
+            word,
+            arrow,
+            translationFlag,
+            translation
+        );
+
+        this.show();
     }
 
     show() {
@@ -50,8 +49,6 @@ export class WordTranslationComponent extends BaseComponent {
     }
 
     clear() {
-        this.arrow.innerHTML = '';
-        this.translation.textContent = '';
-        this.word.textContent = '';
+        this.rootElement.innerHTML = '';
     }
 }
