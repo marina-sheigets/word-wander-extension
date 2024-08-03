@@ -14,6 +14,7 @@ export class SearchComponent extends BaseComponent {
         super(styles);
 
         this.button.addIcon('search');
+        this.button.addTooltip('Search');
 
         this.rootElement.append(
             button.rootElement,

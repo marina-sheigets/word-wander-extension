@@ -22,15 +22,18 @@ export class PlayerComponent extends BaseComponent {
         super(styles);
 
         this.playButton.addIcon('play_circle');
+        this.playButton.addTooltip('Play');
         this.playButton.onPress.subscribe(() => {
             this.playText.bind(this);
             toolbarButtonService.setAllButtonsInactive();
         });
 
         this.pauseButton.addIcon('pause_circle');
+        this.pauseButton.addTooltip('Pause');
         this.pauseButton.onPress.subscribe(this.pausePlay.bind(this));
 
         this.resumeButton.addIcon('play_circle');
+        this.resumeButton.addTooltip('Resume');
         this.resumeButton.onPress.subscribe(this.resumePlay.bind(this));
 
         this.pauseButton.rootElement.classList.add(styles.hidden);

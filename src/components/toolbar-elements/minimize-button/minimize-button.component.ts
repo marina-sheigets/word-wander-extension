@@ -18,6 +18,7 @@ export class MinimizeButtonComponent extends BaseComponent {
         );
 
         this.rootElement.addEventListener('mousedown', this.onMinimize.bind(this));
+        this.rootElement.title = 'Minimize';
     }
 
     onMinimize() {

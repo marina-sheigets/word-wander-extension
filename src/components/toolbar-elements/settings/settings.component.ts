@@ -14,6 +14,7 @@ export class SettingsComponent extends BaseComponent {
         super(styles);
 
         this.button.addIcon('settings');
+        this.button.addTooltip('Settings');
 
         this.rootElement.append(
             button.rootElement,

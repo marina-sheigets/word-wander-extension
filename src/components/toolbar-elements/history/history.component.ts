@@ -14,6 +14,7 @@ export class HistoryComponent extends BaseComponent {
         super(styles);
 
         this.button.addIcon('history');
+        this.button.addTooltip('History');
 
         this.menu.setContent();
 
