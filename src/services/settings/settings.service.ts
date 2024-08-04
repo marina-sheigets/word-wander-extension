@@ -48,7 +48,7 @@ export class SettingsService {
     inform(key: string) {
         if (this.callbacks[key]) {
             this.callbacks[key].forEach((callback) => {
-                callback();
+                callback(this.settings[key]);
             });
         }
 
