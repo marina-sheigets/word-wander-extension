@@ -3,12 +3,15 @@ import { BaseComponent } from "../../../base-component/base-component";
 import * as styles from './search-content.component.css'
 import { WordTranslationComponent } from "../../../word-translation/word-translation.component";
 import { Dictionary } from "../../../../types/Dictionary";
+import { SettingsService } from "../../../../services/settings/settings.service";
+import { SettingsNames } from "../../../../constants/settingsNames";
 
 @singleton()
 export class SearchContentComponent extends BaseComponent {
 
     constructor(
         protected wordTranslationComponent: WordTranslationComponent,
+        protected settings: SettingsService
     ) {
         super(styles);
 
@@ -32,72 +35,93 @@ export class SearchContentComponent extends BaseComponent {
     }
 
     private processDictionaryItem(item: Dictionary) {
-        const wordMeaningTitle = document.createElement('h3');
-        const wordUsageTitle = document.createElement('h3');
-        const synonymsTitle = document.createElement('h3');
+        const hr = document.createElement('hr');
 
-        wordMeaningTitle.textContent = 'Meaning';
-        wordUsageTitle.textContent = 'Usage';
-        synonymsTitle.textContent = 'Synonyms';
-
-        const wordMeaningComponent = document.createElement('div');
-        const wordUsageComponent = document.createElement('div');
-        const synonymsComponent = document.createElement('div');
-
-        wordMeaningComponent.classList.add(styles.wordMeaning);
-        wordUsageComponent.classList.add(styles.wordUsage);
-        synonymsComponent.classList.add(styles.synonyms);
-
-        const processPartOfSpeech = (partOfSpeech: { meaning: string[], usage: string[] }, partOfSpeechName: string) => {
-            if (partOfSpeech.meaning.length > 1) {
-                partOfSpeech.meaning = partOfSpeech.meaning.slice(0, 1);
-            }
-
-            if (partOfSpeech.meaning.length > 0) {
-                partOfSpeech.meaning.forEach((meaning) => {
-                    const p = document.createElement('p');
-                    p.textContent = `-${partOfSpeechName} : ` + meaning;
-                    wordMeaningComponent.append(p);
-                });
-
-                this.rootElement.append(wordMeaningTitle, wordMeaningComponent);
-            }
-
-            if (partOfSpeech.usage.length > 0) {
-                partOfSpeech.usage.forEach((usage) => {
-                    const p = document.createElement('div');
-                    p.textContent = usage;
-                    wordUsageComponent.append(p);
-                });
-
-                this.rootElement.append(wordUsageTitle, wordUsageComponent);
-            }
+        const titles = {
+            wordMeaning: this.createTitle('Meaning'),
+            wordUsage: this.createTitle('Usage'),
+            synonyms: this.createTitle('Synonyms')
         };
 
-        if (item.noun) {
-            processPartOfSpeech(item.noun, 'noun');
+        const components = {
+            wordMeaning: this.createComponent(styles.wordMeaning),
+            wordUsage: this.createComponent(styles.wordUsage),
+            synonyms: this.createComponent(styles.synonyms)
+        };
+
+        const processPartOfSpeech = (partOfSpeech: { meaning: string[], usage: string[] }, partOfSpeechName: string) => {
+            this.processMeanings(partOfSpeech.meaning, partOfSpeechName, components.wordMeaning);
+            this.processUsages(partOfSpeech.usage, components.wordUsage);
+        };
+
+        if (item.noun) processPartOfSpeech(item.noun, 'noun');
+        if (item.adjective) processPartOfSpeech(item.adjective, 'adjective');
+        if (item.verb) processPartOfSpeech(item.verb, 'verb');
+        if (item.interjection) processPartOfSpeech(item.interjection, 'interjection');
+
+        this.processSynonyms(item.synonyms, components.synonyms);
+
+        this.rootElement.append(hr);
+        this.appendToRoot(titles.wordMeaning, components.wordMeaning);
+        this.appendToRoot(titles.wordUsage, components.wordUsage);
+        this.appendToRoot(titles.synonyms, components.synonyms);
+    }
+
+    private createTitle(text: string): HTMLHeadingElement {
+        const title = document.createElement('h3');
+        title.textContent = text;
+        return title;
+    }
+
+    private createComponent(className: string): HTMLDivElement {
+        const component = document.createElement('div');
+        component.classList.add(className);
+        return component;
+    }
+
+    private processMeanings(meanings: string[], partOfSpeechName: string, component: HTMLDivElement) {
+        if (meanings.length > 1) {
+            meanings = meanings.slice(0, 1);
         }
 
-        if (item.adjective) {
-            processPartOfSpeech(item.adjective, 'adjective');
+        if (meanings.length > 0) {
+            meanings.forEach((meaning) => {
+                const p = document.createElement('p');
+                p.textContent = `-${partOfSpeechName} : ` + meaning;
+                component.append(p);
+            });
         }
+    }
 
-        if (item.verb) {
-            processPartOfSpeech(item.verb, 'verb');
+    private processUsages(usages: string[], component: HTMLDivElement) {
+        if (usages.length > 0 && this.isUsageEnabled()) {
+            usages.forEach((usage) => {
+                const p = document.createElement('div');
+                p.textContent = usage;
+                component.append(p);
+            });
         }
+    }
 
-        if (item.interjection) {
-            processPartOfSpeech(item.interjection, 'interjection');
+    private processSynonyms(synonyms: string[][], component: HTMLDivElement) {
+        if (synonyms && this.isSynonymsEnabled()) {
+            component.textContent = synonyms.flat().join(', ');
         }
+    }
 
-        if (item.synonyms) {
-            synonymsComponent.textContent = item.synonyms.flat().join(', ');
-            if (synonymsComponent.textContent.length > 0) {
-                this.rootElement.append(synonymsTitle, synonymsComponent);
-            }
+    private appendToRoot(title: HTMLHeadingElement, component: HTMLDivElement) {
+        if (component.textContent && component.textContent.length > 0) {
+            this.rootElement.append(title, component);
         }
+    }
 
 
+    isSynonymsEnabled() {
+        return this.settings.get(SettingsNames.ShowSynonyms);
+    }
+
+    isUsageEnabled() {
+        return this.settings.get(SettingsNames.ShowExamples);
     }
 
 
