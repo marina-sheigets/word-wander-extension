@@ -2,7 +2,7 @@ import { singleton } from "tsyringe";
 import { BaseComponent } from "../../base-component/base-component";
 import { ToolbarButtonComponent } from "../../toolbar-button/toolbar-button.component";
 import * as styles from './player.component.css'
-import { TextToSpeechService } from "../../../services/voices/text-to-speach.service";
+import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
 import { TextManagerService } from "../../../services/text-manager/text-manager.service";
 import { NotFoundPopupComponent } from "../../popups/not-found/not-found.component";
 import { ToolbarButtonService } from "../../../services/toolbar-button/toolbar-button.service";
