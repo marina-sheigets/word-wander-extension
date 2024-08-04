@@ -4,6 +4,8 @@ import * as styles from './pronunciation.component.css';
 import { SwitchComponent } from "../../../switch/switch.component";
 import { SliderComponent } from "../../../slider/slider.component";
 import { SelectComponent } from "../../../select/select.component";
+import { SettingsService } from "../../../../services/settings/settings.service";
+import { SettingsNames } from "../../../../constants/settingsNames";
 
 @singleton()
 export class PronunciationComponent extends BaseComponent {
@@ -11,15 +13,24 @@ export class PronunciationComponent extends BaseComponent {
     private controlsWrapper = document.createElement('div');
 
     constructor(
+        protected pronounceWithDoubleClick: SwitchComponent,
         protected pronounceSwitch: SwitchComponent,
         protected selectSpeedSlider: SliderComponent,
         protected selectVoice: SelectComponent,
+        protected settings: SettingsService
     ) {
         super(styles);
 
         this.title.textContent = "Pronunciation";
 
         this.pronounceSwitch.setLabel('Pronounce by default');
+        this.pronounceWithDoubleClick.setLabel('Pronounce with double click');
+
+        this.pronounceSwitch.setValue(this.settings.get(SettingsNames.PronounceByDefault));
+        this.pronounceSwitch.onSwitch.subscribe(this.onPronounceDefaultChange.bind(this));
+
+        this.pronounceWithDoubleClick.setValue(this.settings.get(SettingsNames.PronounceWithDoubleClick));
+        this.pronounceWithDoubleClick.onSwitch.subscribe(this.onPronounceWithDoubleClickChange.bind(this));
 
         this.selectSpeedSlider.setLabel('Select th speed')
         this.selectSpeedSlider.setMax("5");
@@ -29,6 +40,7 @@ export class PronunciationComponent extends BaseComponent {
 
         this.controlsWrapper.append(
             this.pronounceSwitch.rootElement,
+            this.pronounceWithDoubleClick.rootElement,
             this.selectSpeedSlider.rootElement,
             this.selectVoice.rootElement
         );
@@ -37,5 +49,13 @@ export class PronunciationComponent extends BaseComponent {
             this.title,
             this.controlsWrapper
         );
+    }
+
+    private onPronounceWithDoubleClickChange(value: boolean) {
+        this.settings.set(SettingsNames.PronounceWithDoubleClick, value);
+    }
+
+    private onPronounceDefaultChange(value: boolean) {
+        this.settings.set(SettingsNames.PronounceByDefault, value);
     }
 }

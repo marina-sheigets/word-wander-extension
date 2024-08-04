@@ -51,7 +51,6 @@ export abstract class Toolbar extends BaseComponent {
         const target: any = e.target;
 
         if (target && target.closest(".rootClassName__menu-component__word-wander")) {
-            debugger;
             return;
         }
 

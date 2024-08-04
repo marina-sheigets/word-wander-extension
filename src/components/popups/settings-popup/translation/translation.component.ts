@@ -23,7 +23,7 @@ export class TranslationComponent extends BaseComponent {
         this.synonymsSwitch.setLabel('Show synonyms');
         this.usageSwitch.setLabel('Show examples of usage');
 
-        this.doubleClickSwitch.setValue(this.settings.get(SettingsNames.DoubleClick));
+        this.doubleClickSwitch.setValue(this.settings.get(SettingsNames.TranslateWithDoubleClick));
         this.synonymsSwitch.setValue(this.settings.get(SettingsNames.ShowSynonyms));
         this.usageSwitch.setValue(this.settings.get(SettingsNames.ShowExamples));
 
@@ -46,7 +46,7 @@ export class TranslationComponent extends BaseComponent {
     }
 
     private onDoubleClickSwitch(value: boolean) {
-        this.settings.set(SettingsNames.DoubleClick, value);
+        this.settings.set(SettingsNames.TranslateWithDoubleClick, value);
     }
 
     private onSynonymsSwitch(value: boolean) {

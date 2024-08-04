@@ -4,7 +4,7 @@ import * as styles from './search-content.component.css'
 import { WordTranslationComponent } from "../../../word-translation/word-translation.component";
 import { Dictionary } from "../../../../types/Dictionary";
 import { SettingsService } from "../../../../services/settings/settings.service";
-import { SettingsNames } from "../../../../constants/settingsNames";
+import { PermissionsService } from "../../../../services/permissions/permissions.service";
 
 @singleton()
 export class SearchContentComponent extends BaseComponent {
@@ -12,6 +12,7 @@ export class SearchContentComponent extends BaseComponent {
     constructor(
         protected wordTranslationComponent: WordTranslationComponent,
         protected settings: SettingsService,
+        protected permissions: PermissionsService
     ) {
         super(styles);
 
@@ -94,7 +95,7 @@ export class SearchContentComponent extends BaseComponent {
     }
 
     private processUsages(usages: string[], component: HTMLDivElement) {
-        if (usages.length > 0 && this.isUsageEnabled()) {
+        if (usages.length > 0 && this.permissions.isUsageEnabled()) {
             usages.forEach((usage) => {
                 const p = document.createElement('div');
                 p.textContent = usage;
@@ -104,7 +105,7 @@ export class SearchContentComponent extends BaseComponent {
     }
 
     private processSynonyms(synonyms: string[][], component: HTMLDivElement) {
-        if (synonyms && this.isSynonymsEnabled()) {
+        if (synonyms && this.permissions.isSynonymsEnabled()) {
             component.textContent = synonyms.flat().join(', ');
         }
     }
@@ -114,16 +115,6 @@ export class SearchContentComponent extends BaseComponent {
             this.rootElement.append(title, component);
         }
     }
-
-
-    isSynonymsEnabled() {
-        return this.settings.get(SettingsNames.ShowSynonyms);
-    }
-
-    isUsageEnabled() {
-        return this.settings.get(SettingsNames.ShowExamples);
-    }
-
 
     clearData() {
         this.wordTranslationComponent.clear();

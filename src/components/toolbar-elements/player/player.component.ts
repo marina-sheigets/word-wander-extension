@@ -6,6 +6,7 @@ import { TextToSpeechService } from "../../../services/voices/text-to-speach.ser
 import { TextManagerService } from "../../../services/text-manager/text-manager.service";
 import { NotFoundPopupComponent } from "../../popups/not-found/not-found.component";
 import { ToolbarButtonService } from "../../../services/toolbar-button/toolbar-button.service";
+import { PermissionsService } from "../../../services/permissions/permissions.service";
 
 @singleton()
 export class PlayerComponent extends BaseComponent {
@@ -17,14 +18,15 @@ export class PlayerComponent extends BaseComponent {
         protected textToSpeechService: TextToSpeechService,
         protected textManager: TextManagerService,
         protected notFoundPopup: NotFoundPopupComponent,
-        protected toolbarButtonService: ToolbarButtonService
+        protected toolbarButtonService: ToolbarButtonService,
+        protected permissions: PermissionsService
     ) {
         super(styles);
 
         this.playButton.addIcon('play_circle');
         this.playButton.addTooltip('Play');
         this.playButton.onPress.subscribe(() => {
-            this.playText.bind(this);
+            this.playText();
             toolbarButtonService.setAllButtonsInactive();
         });
 
@@ -46,6 +48,12 @@ export class PlayerComponent extends BaseComponent {
         );
 
         this.textToSpeechService.onPlayerFinished.subscribe(this.finishSpeech.bind(this));
+
+        document.addEventListener('dblclick', () => {
+            if (this.permissions.isPronounceWithDoubleClickedEnabled()) {
+                this.playText();
+            }
+        });
     }
 
     playText() {

@@ -1,7 +1,8 @@
 export enum SettingsNames {
     TargetLanguage = 'TargetLanguage',
     SourceLanguage = 'SourceLanguage',
-    DoubleClick = 'DoubleClick',
+    PronounceWithDoubleClick = 'PronounceWithDoubleClick',
+    TranslateWithDoubleClick = 'TranslateWithDoubleClick',
     ShowSynonyms = 'ShowSynonyms',
     ShowExamples = 'ShowExamples',
     PronounceByDefault = 'PronounceByDefault',
