@@ -48,11 +48,12 @@ export abstract class Toolbar extends BaseComponent {
     }
 
     async onMouseDown(e: MouseEvent) {
-        // const target: any = e.target;
+        const target: any = e.target;
 
-        // if (target && target.closest(".rootClassName__toolbar-button__word-wander")) {
-        //     return;
-        // }
+        if (target && target.closest(".rootClassName__menu-component__word-wander")) {
+            debugger;
+            return;
+        }
 
         this.rootElement.classList.add(styles.draggable);
 
