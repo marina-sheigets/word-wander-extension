@@ -26,8 +26,8 @@ export class PlayerComponent extends BaseComponent {
         this.playButton.addIcon('play_circle');
         this.playButton.addTooltip('Play');
         this.playButton.onPress.subscribe(() => {
-            this.playText();
             toolbarButtonService.setAllButtonsInactive();
+            this.playText();
         });
 
         this.pauseButton.addIcon('pause_circle');
