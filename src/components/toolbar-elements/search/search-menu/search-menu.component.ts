@@ -10,6 +10,7 @@ import { Messages } from "../../../../constants/messages";
 import { SearchErrorPopupComponent } from "../../../popups/search-error/search-error.component";
 import { DictionaryApiService } from "../../../../services/api/dictionary-api/dictionary-api.service";
 import { GoogleTranslateService } from "../../../../services/api/google-translate/google-translate.service";
+import { HistoryService } from "../../../../services/history/history.service";
 
 @singleton()
 export class SearchMenuComponent extends MenuComponent {
@@ -25,7 +26,8 @@ export class SearchMenuComponent extends MenuComponent {
         private searchContent: SearchContentComponent,
         protected messenger: MessengerService,
         protected searchErrorPopup: SearchErrorPopupComponent,
-        protected dictionaryService: DictionaryApiService
+        protected dictionaryService: DictionaryApiService,
+        protected historyService: HistoryService
     ) {
         super();
 
@@ -91,6 +93,7 @@ export class SearchMenuComponent extends MenuComponent {
 
         if (translations.length && dictionaryResult) {
             this.inputComponent.clear();
+            this.historyService.addHistoryItem(translations, value);
             this.searchContent.fillWithData(value, translations, dictionaryResult);
 
             this.searchContent.show();

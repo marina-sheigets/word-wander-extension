@@ -1,8 +1,10 @@
 .rootClassName {
     display: flex;
     flex-direction: column;
-    align-items: end;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
+    width: 80%;
 }
 
 .emptyResultContainer {
@@ -15,6 +17,9 @@
     flex-direction: column;
 }
 
+.clearHistoryButton {
+    margin-left:auto;
+}
 .hidden {
     display: none !important;
 }

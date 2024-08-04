@@ -1,5 +1,3 @@
-import { STORAGE_KEYS } from "../../../../constants/localStorage-keys";
-import { LocalStorageService } from "../../../../services/localStorage/localStorage.service";
 import { ButtonComponent } from "../../../button/button.component";
 import { MenuComponent } from "../../../menu/menu.component";
 import * as styles from './history-menu.component.css';
@@ -8,11 +6,8 @@ import { WordTranslationComponent } from "../../../word-translation/word-transla
 import { singleton } from "tsyringe";
 import { MessengerService } from "../../../../services/messenger/messenger.service";
 import { Messages } from "../../../../constants/messages";
-
-interface HistoryItem {
-    translation: string,
-    word: string;
-}
+import { HistoryService } from "../../../../services/history/history.service";
+import { HistoryItem } from "../../../../types/History";
 
 @singleton()
 export class HistoryMenuComponent extends MenuComponent {
@@ -21,9 +16,9 @@ export class HistoryMenuComponent extends MenuComponent {
 
     constructor(
         private clearHistoryButton: ButtonComponent,
-        private localStorage: LocalStorageService,
         protected iconService: IconService,
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected historyService: HistoryService
     ) {
         super();
 
@@ -37,25 +32,27 @@ export class HistoryMenuComponent extends MenuComponent {
         this.clearHistoryButton.addButtonName('Clear history');
         this.clearHistoryButton.addButtonIcon('delete');
 
-        this.clearHistoryButton.onClick.subscribe(this.clearHistory.bind(this))
+        this.clearHistoryButton.onClick.subscribe(this.clearHistory.bind(this));
+        this.clearHistoryButton.rootElement.classList.add(styles.clearHistoryButton);
+
         this.rootElement.append(
             this.clearHistoryButton.rootElement,
             this.emptyResultContainer,
             this.historyContainer
         )
 
+        this.setContent();
         this.messenger.subscribe(Messages.CloseAllMenus, this.hide.bind(this));
     }
 
     setContent() {
-        const history = this.localStorage.get(STORAGE_KEYS.History);
+        const history = this.historyService.getHistory();
 
-        if (history) {
-            const historyItems = JSON.parse(history);
+        if (history.length) {
 
             this.historyContainer.innerHTML = '';
 
-            historyItems.forEach((item: HistoryItem) => {
+            history.forEach((item: HistoryItem) => {
                 const wordTranslationComponent = new WordTranslationComponent(this.iconService);
                 wordTranslationComponent.addPair(item.word, item.translation);
                 this.historyContainer.append(wordTranslationComponent.rootElement);
@@ -68,7 +65,7 @@ export class HistoryMenuComponent extends MenuComponent {
     }
 
     clearHistory() {
-        this.localStorage.delete(STORAGE_KEYS.History);
+        this.historyService.clearHistory();
         this.hideHistory();
     }
 

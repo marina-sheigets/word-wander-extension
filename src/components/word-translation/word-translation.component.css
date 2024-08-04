@@ -1,8 +1,8 @@
 .rootClassName {
     color:#9EA5AE;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
     align-items: center;
+    grid-template-columns: repeat(5, 35px);
     gap: 8px;
 }
 .hidden {

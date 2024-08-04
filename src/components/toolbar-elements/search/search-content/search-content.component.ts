@@ -11,7 +11,7 @@ export class SearchContentComponent extends BaseComponent {
 
     constructor(
         protected wordTranslationComponent: WordTranslationComponent,
-        protected settings: SettingsService
+        protected settings: SettingsService,
     ) {
         super(styles);
 
