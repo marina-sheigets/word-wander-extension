@@ -30,6 +30,8 @@ export class TextToSpeechService {
             this.voices.map(voice => voice.voiceURI)
                 .filter(uri => uri.toLowerCase().includes('english'));
 
+        this.voice = this.voices.find(voice => voice.voiceURI === this.settingsService.get(SettingsNames.Voice)) || this.voices[0];
+
         this.settingsService.set(SettingsNames.Voices, voicesUris);
     }
 
@@ -39,6 +41,7 @@ export class TextToSpeechService {
 
     play(text: string) {
         if (!this.voice) {
+            alert("Something went wrong. Please, try again later");
             return;
         }
 
@@ -54,6 +57,7 @@ export class TextToSpeechService {
         this.synth.cancel();
         this.speech = new SpeechSynthesisUtterance(text);
         this.speech.lang = 'en';
+        this.speech.rate = +this.settingsService.get(SettingsNames.PronunciationSpeed);
         this.speech.voice = this.voice;
 
         this.speech.addEventListener('end', this.onSpeakFinished.bind(this));

@@ -8,7 +8,7 @@ export const DEFAULT_SETTINGS = {
     [SettingsNames.ShowSynonyms]: true,
     [SettingsNames.ShowExamples]: true,
     [SettingsNames.PronounceByDefault]: true,
-    [SettingsNames.PronunciationSpeed]: 1,
+    [SettingsNames.PronunciationSpeed]: "5",
     [SettingsNames.Voice]: '',
     [SettingsNames.Voices]: [],
     [SettingsNames.LanguagesList]: [

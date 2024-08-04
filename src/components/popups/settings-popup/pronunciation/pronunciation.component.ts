@@ -11,6 +11,8 @@ import { SettingsNames } from "../../../../constants/settingsNames";
 export class PronunciationComponent extends BaseComponent {
     private title = document.createElement('h2');
     private controlsWrapper = document.createElement('div');
+    private maxSpeed = "10";
+    private minSpeed = "1";
 
     constructor(
         protected pronounceWithDoubleClick: SwitchComponent,
@@ -32,9 +34,11 @@ export class PronunciationComponent extends BaseComponent {
         this.pronounceWithDoubleClick.setValue(this.settings.get(SettingsNames.PronounceWithDoubleClick));
         this.pronounceWithDoubleClick.onSwitch.subscribe(this.onPronounceWithDoubleClickChange.bind(this));
 
-        this.selectSpeedSlider.setLabel('Select th speed')
-        this.selectSpeedSlider.setMax("5");
-        this.selectSpeedSlider.setMin("1");
+        this.selectSpeedSlider.setLabel('Select the speed')
+        this.selectSpeedSlider.setMax(this.maxSpeed);
+        this.selectSpeedSlider.setMin(this.minSpeed);
+
+        this.settings.follow(SettingsNames.PronunciationSpeed, this.setSpeedValue.bind(this));
 
         this.selectVoice.setLabel('Select the voice');
         this.selectVoice.disable();
@@ -72,5 +76,9 @@ export class PronunciationComponent extends BaseComponent {
 
     private onPronounceDefaultChange(value: boolean) {
         this.settings.set(SettingsNames.PronounceByDefault, value);
+    }
+
+    private setSpeedValue(speed: string) {
+        this.selectSpeedSlider.setValue(speed);
     }
 }
