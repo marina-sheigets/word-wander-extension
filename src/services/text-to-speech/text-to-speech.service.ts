@@ -1,6 +1,7 @@
 import { singleton } from "tsyringe";
 import { SettingsService } from "../settings/settings.service";
 import { Informer } from "../informer/informer.service";
+import { SettingsNames } from "../../constants/settingsNames";
 
 @singleton()
 export class TextToSpeechService {
@@ -9,15 +10,27 @@ export class TextToSpeechService {
     private speech: SpeechSynthesisUtterance | null = null;
     public onPlayerFinished = new Informer();
     public isPaused = false;
+    private voice: SpeechSynthesisVoice | null = null;
+
     constructor(
         protected settingsService: SettingsService
     ) {
         this.synth = window.speechSynthesis;
         this.synth.onvoiceschanged = this.setVoices.bind(this);
+
+        this.settingsService.subscribe(SettingsNames.Voice, (selectedVoice: string) => {
+            this.voice = this.voices.find(voice => voice.voiceURI === selectedVoice) || this.voices[0];
+        });
     }
 
     setVoices() {
         this.voices = this.synth.getVoices();
+
+        const voicesUris =
+            this.voices.map(voice => voice.voiceURI)
+                .filter(uri => uri.toLowerCase().includes('english'));
+
+        this.settingsService.set(SettingsNames.Voices, voicesUris);
     }
 
     getVoices() {
@@ -25,9 +38,14 @@ export class TextToSpeechService {
     }
 
     play(text: string) {
+        if (!this.voice) {
+            return;
+        }
+
         if (this.synth.speaking && !this.isPaused) {
             return;
         }
+
         if (this.voices.length === 0) {
             alert("No voices available");
             this.onSpeakFinished();
@@ -36,7 +54,7 @@ export class TextToSpeechService {
         this.synth.cancel();
         this.speech = new SpeechSynthesisUtterance(text);
         this.speech.lang = 'en';
-        this.speech.voice = this.voices[0];
+        this.speech.voice = this.voice;
 
         this.speech.addEventListener('end', this.onSpeakFinished.bind(this));
         this.speech.addEventListener('error', this.onSpeakFinished.bind(this));

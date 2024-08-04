@@ -36,6 +36,17 @@ export class PronunciationComponent extends BaseComponent {
         this.selectSpeedSlider.setMax("5");
         this.selectSpeedSlider.setMin("1");
 
+        this.selectVoice.setLabel('Select the voice');
+        this.selectVoice.disable();
+        this.selectVoice.rootElement.classList.add(styles.selectVoice);
+
+        this.settings.subscribe(SettingsNames.Voices, (voices: string[]) => {
+            this.selectVoice.setOptions(voices.map(voice => ({ value: voice, label: voice })));
+            this.selectVoice.enable();
+        });
+
+        this.selectVoice.onSelectChange.subscribe(this.onVoiceChange.bind(this));
+
         this.controlsWrapper.classList.add(styles.controlsWrapper);
 
         this.controlsWrapper.append(
@@ -49,6 +60,10 @@ export class PronunciationComponent extends BaseComponent {
             this.title,
             this.controlsWrapper
         );
+    }
+
+    private onVoiceChange(voice: string) {
+        this.settings.set(SettingsNames.Voice, voice);
     }
 
     private onPronounceWithDoubleClickChange(value: boolean) {

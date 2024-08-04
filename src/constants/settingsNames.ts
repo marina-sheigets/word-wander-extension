@@ -8,5 +8,6 @@ export enum SettingsNames {
     PronounceByDefault = 'PronounceByDefault',
     PronunciationSpeed = 'PronunciationSpeed',
     Voice = 'Voice',
+    Voices = "Voices",
     LanguagesList = 'LanguagesList',
 }

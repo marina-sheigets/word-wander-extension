@@ -14,3 +14,11 @@
     flex-direction: column;
     gap: 10px;
 }
+
+.selectVoice{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60%;
+    gap: 5px;
+}

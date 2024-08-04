@@ -9,7 +9,8 @@ export const DEFAULT_SETTINGS = {
     [SettingsNames.ShowExamples]: true,
     [SettingsNames.PronounceByDefault]: true,
     [SettingsNames.PronunciationSpeed]: 1,
-    [SettingsNames.Voice]: 'some_voice',
+    [SettingsNames.Voice]: '',
+    [SettingsNames.Voices]: [],
     [SettingsNames.LanguagesList]: [
         { value: 'en', label: 'English' },
         { value: 'uk', label: 'Ukrainian' }
