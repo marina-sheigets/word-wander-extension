@@ -8,22 +8,21 @@ import { SettingsNames } from "../../constants/settingsNames";
 export class SliderComponent extends BaseComponent {
     private input = document.createElement('input');
     private label = document.createElement('label');
-
+    private value = document.createElement('div');
     constructor(
         protected settings: SettingsService
     ) {
         super(styles);
 
         this.input.type = 'range';
-        this.input.addEventListener('change', () => {
-            console.log("slider is changing");
-        })
 
         this.rootElement.append(
             this.label,
-            this.input
+            this.input,
+            this.value
         );
 
+        this.input.addEventListener('input', this.setDisplayValue.bind(this));
         this.input.addEventListener('change', this.onSliderChange.bind(this));
     }
 
@@ -44,5 +43,10 @@ export class SliderComponent extends BaseComponent {
 
     setValue(value: string) {
         this.input.value = value;
+        this.setDisplayValue();
+    }
+
+    private setDisplayValue() {
+        this.value.textContent = this.input.value;
     }
 }
