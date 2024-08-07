@@ -19,6 +19,7 @@ export class SearchContentComponent extends BaseComponent {
         protected wordTranslationComponent: WordTranslationComponent,
         protected settings: SettingsService,
         protected clearButton: ButtonComponent,
+        protected saveToDictionaryButton: ButtonComponent,
         protected pronounceButton: ButtonComponent,
         protected permissions: PermissionsService,
         protected textToSpeechService: TextToSpeechService
@@ -36,10 +37,17 @@ export class SearchContentComponent extends BaseComponent {
         this.pronounceButton.addTooltip('Pronounce');
         this.pronounceButton.onClick.subscribe(this.pronounceWord.bind(this));
 
+        this.saveToDictionaryButton.addButtonName('Save to dictionary');
+        this.saveToDictionaryButton.rootElement.classList.add(styles.saveToDictionaryButton);
+
         this.controlsWrapper = document.createElement('div');
         this.controlsWrapper.classList.add(styles.controlsWrapper);
 
-        this.controlsWrapper.append(this.clearButton.rootElement, this.pronounceButton.rootElement);
+        this.controlsWrapper.append(
+            this.saveToDictionaryButton.rootElement,
+            this.clearButton.rootElement,
+            this.pronounceButton.rootElement
+        );
 
         this.hide();
     }

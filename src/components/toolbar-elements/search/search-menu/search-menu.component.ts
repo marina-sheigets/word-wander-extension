@@ -97,7 +97,6 @@ export class SearchMenuComponent extends MenuComponent {
         this.inputComponent.setEnabled();
 
         if (translations.length && dictionaryResult) {
-            this.inputComponent.clear();
             this.historyService.addHistoryItem(translations, value);
             this.searchContent.fillWithData(value, translations, dictionaryResult);
 
@@ -108,4 +107,8 @@ export class SearchMenuComponent extends MenuComponent {
         }
     }
 
+    public setAutomaticSearch(value: string) {
+        this.inputComponent.input.value = value;
+        this.onSearch(value);
+    }
 }
