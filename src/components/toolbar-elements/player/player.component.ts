@@ -59,7 +59,7 @@ export class PlayerComponent extends BaseComponent {
     playText() {
         const text = this.textManager.getSelectedTextOnPage();
 
-        if (!text) {
+        if (!text.trim()) {
             this.notFoundPopup.show();
             return;
         }
