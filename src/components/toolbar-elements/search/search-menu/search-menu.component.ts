@@ -64,6 +64,11 @@ export class SearchMenuComponent extends MenuComponent {
         );
 
         this.messenger.subscribe(Messages.CloseAllMenus, this.hide.bind(this));
+
+        this.searchContent.onClear.subscribe(() => {
+            this.emptyContainer.classList.remove(styles.hidden);
+            this.searchContent.hide();
+        });
     }
 
     private async onSearch(value: string) {

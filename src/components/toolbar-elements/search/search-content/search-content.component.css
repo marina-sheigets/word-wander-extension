@@ -38,3 +38,15 @@
 .synonyms {
     padding-bottom:10px;
 }
+
+.controlsWrapper {
+    display: flex;
+    justify-content: end;
+    gap: 5px;
+    padding: 5px 0;
+    button {
+        background-color: transparent;
+        border: 1px solid #9EA5AE;
+        color: #9EA5AE;
+    }
+}

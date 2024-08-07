@@ -5,27 +5,54 @@ import { WordTranslationComponent } from "../../../word-translation/word-transla
 import { Dictionary } from "../../../../types/Dictionary";
 import { SettingsService } from "../../../../services/settings/settings.service";
 import { PermissionsService } from "../../../../services/permissions/permissions.service";
+import { ButtonComponent } from "../../../button/button.component";
+import { TextToSpeechService } from "../../../../services/text-to-speech/text-to-speech.service";
+import { Informer } from "../../../../services/informer/informer.service";
 
 @singleton()
 export class SearchContentComponent extends BaseComponent {
+    private word: string = '';
+    private controlsWrapper = document.createElement('div');
+    public onClear = new Informer<void>();
 
     constructor(
         protected wordTranslationComponent: WordTranslationComponent,
         protected settings: SettingsService,
-        protected permissions: PermissionsService
+        protected clearButton: ButtonComponent,
+        protected pronounceButton: ButtonComponent,
+        protected permissions: PermissionsService,
+        protected textToSpeechService: TextToSpeechService
     ) {
         super(styles);
+
+        this.clearButton.addButtonIcon('clear');
+        this.pronounceButton.addTooltip('Clear results');
+        this.clearButton.onClick.subscribe(() => {
+            this.onClear.inform();
+            this.clearData()
+        });
+
+        this.pronounceButton.addButtonIcon('music_note');
+        this.pronounceButton.addTooltip('Pronounce');
+        this.pronounceButton.onClick.subscribe(this.pronounceWord.bind(this));
+
+        this.controlsWrapper = document.createElement('div');
+        this.controlsWrapper.classList.add(styles.controlsWrapper);
+
+        this.controlsWrapper.append(this.clearButton.rootElement, this.pronounceButton.rootElement);
 
         this.hide();
     }
 
     fillWithData(word: string, translations: string[], dictionaryResponse: Dictionary[]) {
         this.clearData();
+        this.word = word;
 
         translations.forEach((translation) => {
             this.wordTranslationComponent.addPair(word, translation);
         });
 
+        this.rootElement.append(this.controlsWrapper);
         this.rootElement.append(this.wordTranslationComponent.rootElement);
 
         if (dictionaryResponse) {
@@ -127,5 +154,9 @@ export class SearchContentComponent extends BaseComponent {
 
     hide() {
         this.rootElement.classList.add(styles.hidden);
+    }
+
+    pronounceWord() {
+        this.textToSpeechService.play(this.word);
     }
 }

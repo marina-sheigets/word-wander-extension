@@ -39,4 +39,8 @@ export class ButtonComponent extends BaseComponent {
         this.button.disabled = false;
         this.rootElement.classList.remove(styles.disabled);
     }
+
+    addTooltip(text: string) {
+        this.rootElement.setAttribute('title', text);
+    }
 }
