@@ -17,6 +17,11 @@ let bundles = [
         path: './src/top.index.ts',
         hash: null,
     },
+    {
+        name: 'background',
+        path: './src/background.ts',
+        hash: null,
+    },
 ];
 
 const DEFAULT_ENVIRONMENT = "dev";
