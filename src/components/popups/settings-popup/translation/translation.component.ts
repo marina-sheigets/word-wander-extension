@@ -10,7 +10,6 @@ export class TranslationComponent extends BaseComponent {
     private title = document.createElement('h2');
     private switchWrapper = document.createElement('div');
     constructor(
-        protected doubleClickSwitch: SwitchComponent,
         protected synonymsSwitch: SwitchComponent,
         protected usageSwitch: SwitchComponent,
         protected settings: SettingsService
@@ -19,18 +18,15 @@ export class TranslationComponent extends BaseComponent {
 
         this.title.textContent = 'Translation';
 
-        this.doubleClickSwitch.setLabel('Translate with double click');
         this.synonymsSwitch.setLabel('Show synonyms');
         this.usageSwitch.setLabel('Show examples of usage');
 
-        this.doubleClickSwitch.setValue(this.settings.get(SettingsNames.TranslateWithDoubleClick));
         this.synonymsSwitch.setValue(this.settings.get(SettingsNames.ShowSynonyms));
         this.usageSwitch.setValue(this.settings.get(SettingsNames.ShowExamples));
 
         this.switchWrapper.classList.add(styles.switchWrapper);
 
         this.switchWrapper.append(
-            this.doubleClickSwitch.rootElement,
             this.synonymsSwitch.rootElement,
             this.usageSwitch.rootElement
         );
@@ -40,13 +36,8 @@ export class TranslationComponent extends BaseComponent {
             this.switchWrapper
         );
 
-        this.doubleClickSwitch.onSwitch.subscribe(this.onDoubleClickSwitch.bind(this));
         this.synonymsSwitch.onSwitch.subscribe(this.onSynonymsSwitch.bind(this));
         this.usageSwitch.onSwitch.subscribe(this.onUsageSwitch.bind(this));
-    }
-
-    private onDoubleClickSwitch(value: boolean) {
-        this.settings.set(SettingsNames.TranslateWithDoubleClick, value);
     }
 
     private onSynonymsSwitch(value: boolean) {
