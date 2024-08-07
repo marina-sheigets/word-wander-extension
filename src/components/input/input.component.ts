@@ -6,7 +6,8 @@ import { IconService } from "../../services/icon/icon.component";
 
 @injectable()
 export class InputComponent extends BaseComponent {
-    input = document.createElement('input');
+    private label = document.createElement('label');
+    public input = document.createElement('input');
     onChange = new Informer<string>();
 
     constructor(
@@ -16,8 +17,12 @@ export class InputComponent extends BaseComponent {
 
         this.input.addEventListener('keydown', this.onInputChange.bind(this));
 
-        this.rootElement.append(
+        this.label.append(
             this.input,
+        );
+
+        this.rootElement.append(
+            this.label,
         );
     }
 
@@ -27,6 +32,10 @@ export class InputComponent extends BaseComponent {
         e.stopPropagation();
 
         this.onChange.inform(this.input.value);
+    }
+
+    setLabel(text: string) {
+        this.label.prepend(text);
     }
 
     setInputSettings(type: string, placeholder: string) {

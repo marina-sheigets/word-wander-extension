@@ -8,6 +8,7 @@ import { addMaterialIcons } from './utils/getMaterialIcons';
 import { SettingsPopupComponent } from './components/popups/settings-popup/settings-popup.component';
 import { NotFoundPopupComponent } from './components/popups/not-found/not-found.component';
 import { SearchErrorPopupComponent } from './components/popups/search-error/search-error.component';
+import { SignInPopupComponent } from './components/popups/sign-in/sign-in.component';
 
 
 @singleton()
@@ -18,6 +19,7 @@ class Entry {
         protected settingsPopupComponent: SettingsPopupComponent,
         protected notFoundPopup: NotFoundPopupComponent,
         protected searchErrorPopupComponent: SearchErrorPopupComponent,
+        protected signInPopupComponent: SignInPopupComponent,
         @inject("Shadow") shadow: ShadowRoot,
     ) {
         const element = document.createElement('div');
@@ -28,6 +30,7 @@ class Entry {
             settingsPopupComponent.rootElement,
             notFoundPopup.rootElement,
             searchErrorPopupComponent.rootElement,
+            signInPopupComponent.rootElement,
             addMaterialIcons(),
             getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`),
         );

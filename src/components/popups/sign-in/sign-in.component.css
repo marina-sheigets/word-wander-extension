@@ -1,0 +1,23 @@
+.rootClassName > div > div {
+    width: 300px;
+}
+
+.content {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.rootClassName div:has(>button) {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+
+    button {
+        width: 50%;
+        height: 100%;
+    }
+}

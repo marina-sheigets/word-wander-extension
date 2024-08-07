@@ -1,9 +1,17 @@
 .rootClassName input{
     height: -webkit-fill-available;
+    min-height: 24px;
     border-radius: 5px;
     padding-left: 8px;
-
 }
+
+.rootClassName label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+}
+
 .rootClassName input::placeholder {
     color: #9EA5AE;
 }

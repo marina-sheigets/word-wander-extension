@@ -8,10 +8,12 @@ import { PermissionsService } from "../../../../services/permissions/permissions
 import { ButtonComponent } from "../../../button/button.component";
 import { TextToSpeechService } from "../../../../services/text-to-speech/text-to-speech.service";
 import { Informer } from "../../../../services/informer/informer.service";
+import { DictionaryService } from "../../../../services/dictionary/dictionary.service";
 
 @singleton()
 export class SearchContentComponent extends BaseComponent {
     private word: string = '';
+    private translations: string[] = [];
     private controlsWrapper = document.createElement('div');
     public onClear = new Informer<void>();
 
@@ -22,7 +24,8 @@ export class SearchContentComponent extends BaseComponent {
         protected saveToDictionaryButton: ButtonComponent,
         protected pronounceButton: ButtonComponent,
         protected permissions: PermissionsService,
-        protected textToSpeechService: TextToSpeechService
+        protected textToSpeechService: TextToSpeechService,
+        protected dictionaryService: DictionaryService
     ) {
         super(styles);
 
@@ -39,6 +42,9 @@ export class SearchContentComponent extends BaseComponent {
 
         this.saveToDictionaryButton.addButtonName('Save to dictionary');
         this.saveToDictionaryButton.rootElement.classList.add(styles.saveToDictionaryButton);
+        this.saveToDictionaryButton.onClick.subscribe(() => {
+            this.dictionaryService.addWordToDictionary(this.word, this.translations);
+        });
 
         this.controlsWrapper = document.createElement('div');
         this.controlsWrapper.classList.add(styles.controlsWrapper);
@@ -55,6 +61,7 @@ export class SearchContentComponent extends BaseComponent {
     fillWithData(word: string, translations: string[], dictionaryResponse: Dictionary[]) {
         this.clearData();
         this.word = word;
+        this.translations = translations;
 
         translations.forEach((translation) => {
             this.wordTranslationComponent.addPair(word, translation);
