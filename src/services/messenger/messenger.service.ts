@@ -25,7 +25,7 @@ export class MessengerService {
         }
     }
 
-    sendToBackground(message: string, data?: any) {
-        window.postMessage({ message, data });
+    sendToBackground(message: string, setting?: { [key: string]: any }) {
+        window.postMessage({ message, data: setting });
     }
 }

@@ -21,8 +21,8 @@ export class TranslationComponent extends BaseComponent {
         this.synonymsSwitch.setLabel('Show synonyms');
         this.usageSwitch.setLabel('Show examples of usage');
 
-        this.synonymsSwitch.setValue(this.settings.get(SettingsNames.ShowSynonyms));
-        this.usageSwitch.setValue(this.settings.get(SettingsNames.ShowExamples));
+        this.settings.subscribe(SettingsNames.ShowSynonyms, this.synonymsSwitch.setValue.bind(this.synonymsSwitch));
+        this.settings.subscribe(SettingsNames.ShowExamples, this.usageSwitch.setValue.bind(this.usageSwitch));
 
         this.switchWrapper.classList.add(styles.switchWrapper);
 

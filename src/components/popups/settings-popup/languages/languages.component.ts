@@ -38,11 +38,10 @@ export class LanguagesComponent extends BaseComponent {
             this.selectionWrapper
         );
 
-        this.sourceLanguageSelect.setOptions(this.getLanguageOptions());
-        this.sourceLanguageSelect.setValue(this.settings.get(SettingsNames.SourceLanguage));
+        this.settings.subscribe(SettingsNames.LanguagesList, this.getLanguageOptions.bind(this));
 
-        this.targetLanguageSelect.setOptions(this.getLanguageOptions());
-        this.targetLanguageSelect.setValue(this.settings.get(SettingsNames.TargetLanguage));
+        this.settings.subscribe(SettingsNames.SourceLanguage, this.sourceLanguageSelect.setValue.bind(this.sourceLanguageSelect));
+        this.settings.subscribe(SettingsNames.TargetLanguage, this.targetLanguageSelect.setValue.bind(this.targetLanguageSelect));
 
         this.sourceLanguageSelect.onSelectChange.subscribe(this.onSourceLanguageChange.bind(this));
         this.targetLanguageSelect.onSelectChange.subscribe(this.onTargetLanguageChange.bind(this));
@@ -62,9 +61,11 @@ export class LanguagesComponent extends BaseComponent {
         this.settings.set(SettingsNames.SourceLanguage, value);
     }
 
-    private getLanguageOptions(): Language[] {
-        return this.settings.get(SettingsNames.LanguagesList);
+    private getLanguageOptions(settings: Language[]): void {
+        this.targetLanguageSelect.setOptions(settings);
+        this.sourceLanguageSelect.setOptions(settings);
+
+        this.targetLanguageSelect.setValue(settings[1].value);
+        this.sourceLanguageSelect.setValue(settings[0].value);
     }
-
-
 }

@@ -1,39 +1,36 @@
 import { singleton } from "tsyringe";
-import { LocalStorageService } from "../localStorage/localStorage.service";
-import { STORAGE_KEYS } from "../../constants/localStorage-keys";
+import { MessengerService } from "../messenger/messenger.service";
+import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { DEFAULT_SETTINGS } from "../../constants/defaultSettings";
 
 @singleton()
 export class SettingsService {
-    callbacks: { [key: string]: Function[] } = {};
-    protected settings: { [key: string]: any } = {};
+    private callbacks: Map<string, Function[]> = new Map();
+    private settings: { [key: string]: any } = {};
 
     constructor(
-        protected localStorage: LocalStorageService
+        private messenger: MessengerService
     ) {
-        this.loadSettings();
+        this.messenger.sendToBackground(BackgroundMessages.GetSettings);
+
+        window.addEventListener('message', (event) => {
+            if (event.data.message === BackgroundMessages.SyncSettings) {
+                this.settings = event.data.data || DEFAULT_SETTINGS;
+                this.informAll();
+            }
+        });
     }
 
     subscribe(key: string, callback: Function) {
-        if (this.callbacks[key]) {
-            this.callbacks[key].push(callback);
-        } else {
-            this.callbacks[key] = [callback];
+        if (!this.callbacks.has(key)) {
+            this.callbacks.set(key, []);
         }
+        this.callbacks.get(key)!.push(callback);
     }
 
     follow(key: string, callback: Function) {
         this.subscribe(key, callback);
         callback(this.get(key));
-    }
-
-    loadSettings() {
-        const savedSettings = this.localStorage.get(STORAGE_KEYS.Settings);
-        if (savedSettings) {
-            this.settings = JSON.parse(savedSettings);
-        } else {
-            this.settings = DEFAULT_SETTINGS;
-        }
     }
 
     get(key: string) {
@@ -42,17 +39,27 @@ export class SettingsService {
 
     set(key: string, value: any) {
         this.settings[key] = value;
+        this.messenger.sendToBackground(BackgroundMessages.UpdateSettings, { [key]: value });
         this.inform(key);
     }
 
-    inform(key: string) {
-        if (this.callbacks[key]) {
-            this.callbacks[key].forEach((callback) => {
-                callback(this.settings[key]);
-            });
-        }
+    batchUpdate(updates: { [key: string]: any }) {
+        Object.assign(this.settings, updates);
+        this.messenger.sendToBackground(BackgroundMessages.UpdateSettings, updates);
+        this.informAll();
+    }
 
-        this.localStorage.set(STORAGE_KEYS.Settings, JSON.stringify(this.settings));
+    private inform(key: string) {
+        const callbacks = this.callbacks.get(key);
+        if (callbacks) {
+            callbacks.forEach(callback => callback(this.settings[key]));
+        }
+    }
+
+    private informAll() {
+        for (const key of Object.keys(this.settings)) {
+            this.inform(key);
+        }
     }
 
     getAllSettings() {

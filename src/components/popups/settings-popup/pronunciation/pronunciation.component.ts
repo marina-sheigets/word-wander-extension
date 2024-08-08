@@ -28,17 +28,17 @@ export class PronunciationComponent extends BaseComponent {
         this.pronounceSwitch.setLabel('Pronounce by default');
         this.pronounceWithDoubleClick.setLabel('Pronounce with double click');
 
-        this.pronounceSwitch.setValue(this.settings.get(SettingsNames.PronounceByDefault));
+        this.settings.subscribe(SettingsNames.PronounceByDefault, this.pronounceSwitch.setValue.bind(this.pronounceSwitch));
         this.pronounceSwitch.onSwitch.subscribe(this.onPronounceDefaultChange.bind(this));
 
-        this.pronounceWithDoubleClick.setValue(this.settings.get(SettingsNames.PronounceWithDoubleClick));
+        this.settings.subscribe(SettingsNames.PronounceWithDoubleClick, this.pronounceWithDoubleClick.setValue.bind(this.pronounceWithDoubleClick));
         this.pronounceWithDoubleClick.onSwitch.subscribe(this.onPronounceWithDoubleClickChange.bind(this));
 
         this.selectSpeedSlider.setLabel('Select the speed')
         this.selectSpeedSlider.setMax(this.maxSpeed);
         this.selectSpeedSlider.setMin(this.minSpeed);
 
-        this.settings.follow(SettingsNames.PronunciationSpeed, this.setSpeedValue.bind(this));
+        this.settings.subscribe(SettingsNames.PronunciationSpeed, this.setSpeedValue.bind(this));
 
         this.selectVoice.setLabel('Select the voice');
         this.selectVoice.disable();
@@ -48,6 +48,8 @@ export class PronunciationComponent extends BaseComponent {
             this.selectVoice.setOptions(voices.map(voice => ({ value: voice, label: voice })));
             this.selectVoice.enable();
         });
+
+        this.settings.subscribe(SettingsNames.Voice, this.setVoiceValue.bind(this));
 
         this.selectVoice.onSelectChange.subscribe(this.onVoiceChange.bind(this));
 
@@ -80,5 +82,9 @@ export class PronunciationComponent extends BaseComponent {
 
     private setSpeedValue(speed: string) {
         this.selectSpeedSlider.setValue(speed);
+    }
+
+    private setVoiceValue(voice: string) {
+        this.selectVoice.setValue(voice || this.settings.get(SettingsNames.Voices)[0]);
     }
 }
