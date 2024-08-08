@@ -1,0 +1,24 @@
+.rootClassName .description {
+    text-align: center;
+    font-weight: 600;
+}
+
+.rootClassName .subdescription {
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.rootClassName .okButton button{
+    padding: 10px 20px;
+}
+
+.content {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
