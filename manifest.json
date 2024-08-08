@@ -8,6 +8,9 @@
         "48": "assets/logo.png",
         "128": "assets/logo.png"
     },
+    "permissions": [
+        "storage"
+    ],
     "action": {
         "default_icon": "assets/logo.png",
         "default_title": "WordWander"
@@ -24,7 +27,8 @@
                 "<all_urls>"
             ],
             "js": [
-                "loader.js"
+                "loader.js",
+                "content-script.js"
             ],
             "run_at": "document_start",
             "all_frames": true
