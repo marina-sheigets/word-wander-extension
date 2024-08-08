@@ -24,4 +24,8 @@ export class MessengerService {
             eventSubscribers.forEach(subscriber => subscriber(data));
         }
     }
+
+    sendToBackground(message: string, data?: any) {
+        window.postMessage({ message, data });
+    }
 }
