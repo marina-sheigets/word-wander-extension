@@ -54,6 +54,7 @@ export class PlayerComponent extends BaseComponent {
                 this.playText();
             }
         });
+
     }
 
     playText() {
@@ -77,6 +78,15 @@ export class PlayerComponent extends BaseComponent {
         this.pauseButton.rootElement.classList.add(styles.hidden);
         this.resumeButton.setActive();
         this.textToSpeechService.pause();
+
+        document.addEventListener('selectionchange', this.interruptPlay.bind(this));
+
+    }
+
+    interruptPlay() {
+        document.removeEventListener('selectionchange', this.interruptPlay.bind(this));
+        this.textToSpeechService.cancel();
+        this.finishSpeech.bind(this)
     }
 
     resumePlay() {
