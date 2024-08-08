@@ -21,3 +21,23 @@
         height: 100%;
     }
 }
+
+.resetPasswordWrapper {
+    margin-top: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.resetPasswordButton button {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid #9EA5AE;
+    color: #9EA5AE;
+    width: 90% !important;
+}
+
+.resetPasswordButton {
+    flex: 1;
+}

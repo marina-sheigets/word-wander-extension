@@ -11,6 +11,8 @@ import { AuthService } from "../../../services/auth/auth.service";
 @singleton()
 export class SignInPopupComponent extends PopupComponent {
     private content = document.createElement('div');
+    private resetPasswordWrapper = document.createElement('div');
+    private resetPasswordLabel = document.createElement('div');
 
     constructor(
         protected iconService: IconService,
@@ -18,7 +20,8 @@ export class SignInPopupComponent extends PopupComponent {
         protected emailInputComponent: InputComponent,
         protected passwordInputComponent: InputComponent,
         protected signInButton: ButtonComponent,
-        protected authService: AuthService
+        protected authService: AuthService,
+        protected resetPasswordButton: ButtonComponent
     ) {
         super(iconService);
 
@@ -37,12 +40,26 @@ export class SignInPopupComponent extends PopupComponent {
         this.signInButton.addButtonName('Sign in');
         this.signInButton.onClick.subscribe(this.signIn.bind(this));
 
+        this.resetPasswordWrapper.classList.add(styles.resetPasswordWrapper);
+
+        this.resetPasswordLabel.textContent = 'Forgot your password?';
+
+        this.resetPasswordButton.addButtonName('Reset password');
+        this.resetPasswordButton.rootElement.classList.add(styles.resetPasswordButton);
+        this.resetPasswordButton.onClick.subscribe(this.resetPassword.bind(this));
+
+        this.resetPasswordWrapper.append(
+            this.resetPasswordLabel,
+            this.resetPasswordButton.rootElement
+        );
+
         this.content.classList.add(styles.content);
 
         this.content.append(
             this.emailInputComponent.rootElement,
             this.passwordInputComponent.rootElement,
-            this.signInButton.rootElement
+            this.signInButton.rootElement,
+            this.resetPasswordWrapper
         );
 
         this.setContent(this.content);
@@ -52,5 +69,10 @@ export class SignInPopupComponent extends PopupComponent {
 
     private signIn() {
         this.authService.signIn(this.emailInputComponent.input.value, this.passwordInputComponent.input.value);
+    }
+
+    private resetPassword() {
+        this.hide();
+        this.messenger.send(Messages.OpenResetPasswordPopup);
     }
 }
