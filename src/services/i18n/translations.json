@@ -128,5 +128,9 @@
     "ShowExamples":{
         "en":"Show examples of usage",
         "uk":"Показувати у контексті"
+    },
+    "SelectSpeed":{
+        "en":"Select speed",
+        "uk":"Виберіть швидкість вимови"
     }
 }
