@@ -39,7 +39,7 @@ export class PronunciationComponent extends BaseComponent {
         this.settings.subscribe(SettingsNames.PronounceWithDoubleClick, this.pronounceWithDoubleClick.setValue.bind(this.pronounceWithDoubleClick));
         this.pronounceWithDoubleClick.onSwitch.subscribe(this.onPronounceWithDoubleClickChange.bind(this));
 
-        this.selectSpeedSlider.setLabel('Select the speed')
+        this.selectSpeedSlider.setLabel(i18nKeys.SelectSpeed);
         this.selectSpeedSlider.setMax(this.maxSpeed);
         this.selectSpeedSlider.setMin(this.minSpeed);
 

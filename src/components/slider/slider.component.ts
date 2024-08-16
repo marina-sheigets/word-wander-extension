@@ -3,6 +3,8 @@ import { BaseComponent } from "../base-component/base-component";
 import * as styles from './slider.component.css';
 import { SettingsService } from "../../services/settings/settings.service";
 import { SettingsNames } from "../../constants/settingsNames";
+import { I18nService } from "../../services/i18n/i18n.service";
+import { i18nKeys } from "../../services/i18n/i18n-keys";
 
 @injectable()
 export class SliderComponent extends BaseComponent {
@@ -10,7 +12,8 @@ export class SliderComponent extends BaseComponent {
     private label = document.createElement('label');
     private value = document.createElement('div');
     constructor(
-        protected settings: SettingsService
+        protected settings: SettingsService,
+        protected i18n: I18nService
     ) {
         super(styles);
 
@@ -30,8 +33,10 @@ export class SliderComponent extends BaseComponent {
         this.settings.set(SettingsNames.PronunciationSpeed, this.input.value);
     }
 
-    setLabel(label: string) {
-        this.label.textContent = label;
+    setLabel(key: i18nKeys) {
+        this.i18n.follow(key, (label) => {
+            this.label.textContent = label;
+        })
     }
     setMax(value: string) {
         this.input.max = value;

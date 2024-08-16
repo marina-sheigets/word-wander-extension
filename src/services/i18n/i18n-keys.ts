@@ -28,4 +28,5 @@ export const enum i18nKeys {
     InterfaceLanguage = "InterfaceLanguage",
     SelectVoice = "SelectVoice",
     NotSupportedLanguage = "NotSupportedLanguage",
+    SelectSpeed = "SelectSpeed",
 }
