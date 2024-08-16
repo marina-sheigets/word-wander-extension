@@ -27,19 +27,31 @@ class Entry {
         @inject("Shadow") shadow: ShadowRoot,
     ) {
         const element = document.createElement('div');
-        element.classList.add("wordWander")
+        element.classList.add("wordWander");
+
+        const materialIcons = addMaterialIcons();
+        const topCss = getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`);
+
         shadow.append(
-            draggableToolbar.rootElement,
-            minimizedToolbar.rootElement,
-            settingsPopupComponent.rootElement,
-            notFoundPopup.rootElement,
-            searchErrorPopupComponent.rootElement,
-            signInPopupComponent.rootElement,
-            resetPasswordPopupComponent.rootElement,
-            resetLinkSentPopup.rootElement,
-            addMaterialIcons(),
-            getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`),
+
+            materialIcons,
+            topCss,
         );
+
+        materialIcons.onload = topCss.onload = () => {
+            shadow.append(
+                draggableToolbar.rootElement,
+                minimizedToolbar.rootElement,
+                settingsPopupComponent.rootElement,
+                notFoundPopup.rootElement,
+                searchErrorPopupComponent.rootElement,
+                signInPopupComponent.rootElement,
+                resetPasswordPopupComponent.rootElement,
+                resetLinkSentPopup.rootElement,
+                addMaterialIcons(),
+                getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`),
+            );
+        }
 
         document.body.append(
             addMaterialIcons(),
