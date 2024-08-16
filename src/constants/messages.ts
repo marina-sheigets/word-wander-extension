@@ -4,4 +4,5 @@ export const enum Messages {
     CloseAllMenus = 'CloseAllMenus',
     OpenSignInPopup = 'OpenSignInPopup',
     OpenResetPasswordPopup = 'OpenResetPasswordPopup',
+    OpenReportPopup = 'OpenReportPopup',
 }

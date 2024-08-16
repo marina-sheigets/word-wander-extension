@@ -11,6 +11,7 @@ import { SearchErrorPopupComponent } from './components/popups/search-error/sear
 import { SignInPopupComponent } from './components/popups/sign-in/sign-in.component';
 import { ResetPasswordPopupComponent } from './components/popups/reset-password/reset-password-popup.component';
 import { ResetLinkSentPopupComponent } from './components/popups/reset-link-sent/reset-link-sent-popup.component';
+import { ReportPopupComponent } from './components/popups/report/report-popup.component';
 
 
 @singleton()
@@ -24,6 +25,7 @@ class Entry {
         protected signInPopupComponent: SignInPopupComponent,
         protected resetPasswordPopupComponent: ResetPasswordPopupComponent,
         protected resetLinkSentPopup: ResetLinkSentPopupComponent,
+        protected reportPopupComponent: ReportPopupComponent,
         @inject("Shadow") shadow: ShadowRoot,
     ) {
         const element = document.createElement('div');
@@ -48,6 +50,7 @@ class Entry {
                 signInPopupComponent.rootElement,
                 resetPasswordPopupComponent.rootElement,
                 resetLinkSentPopup.rootElement,
+                reportPopupComponent.rootElement,
                 addMaterialIcons(),
                 getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`),
             );

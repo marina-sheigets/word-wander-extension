@@ -34,8 +34,6 @@ export abstract class PopupComponent extends BaseComponent {
             this.closeButton
         );
 
-
-
         this.wrapper.append(this.headerWrapper);
         this.backdrop.append(this.wrapper);
         this.rootElement.append(this.backdrop);
@@ -56,5 +54,9 @@ export abstract class PopupComponent extends BaseComponent {
     public hide() {
         this.onClose.inform();
         this.rootElement.classList.add(styles.hidden);
+    }
+
+    setWidth(width: string) {
+        this.wrapper.style.width = width;
     }
 }

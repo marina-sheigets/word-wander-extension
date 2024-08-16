@@ -11,7 +11,7 @@ import { Messages } from "../../../../constants/messages";
 export class SettingsMenuComponent extends MenuComponent {
     constructor(
         private openSettingsItem: MenuItemComponent,
-        private supportItem: MenuItemComponent,
+        private reportItem: MenuItemComponent,
         private downloadManualItem: MenuItemComponent,
         private iconService: IconService,
         protected messenger: MessengerService
@@ -21,12 +21,12 @@ export class SettingsMenuComponent extends MenuComponent {
         this.applyRootStyle(styles);
 
         this.addOpenSettingsItem();
-        this.addSupportItem();
+        this.addReportItem();
         this.addDownloadManualItem();
 
         this.rootElement.append(
             this.openSettingsItem.rootElement,
-            this.supportItem.rootElement,
+            this.reportItem.rootElement,
             this.downloadManualItem.rootElement
         );
 
@@ -44,12 +44,12 @@ export class SettingsMenuComponent extends MenuComponent {
         });
     }
 
-    private addSupportItem() {
-        const supportIcon = this.iconService.init('info');
-        this.supportItem.addItem('Support', supportIcon);
+    private addReportItem() {
+        const reportIcon = this.iconService.init('info');
+        this.reportItem.addItem('Report', reportIcon);
 
-        this.supportItem.onItemPress.subscribe(() => {
-            console.log("supportItem");
+        this.reportItem.onItemPress.subscribe(() => {
+            this.messenger.send(Messages.OpenReportPopup);
         });
     }
 
