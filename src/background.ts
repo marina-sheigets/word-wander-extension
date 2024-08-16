@@ -27,6 +27,10 @@ export class Background {
                     }
 
                     tabs.forEach((tab) => {
+                        if (tab.url && tab.url.indexOf('chrome://') === 0) {
+                            return;
+                        }
+
                         chrome.tabs.sendMessage(tab.id || 0, {
                             message: BackgroundMessages.SettingsChanged,
                             data: changes[ExtensionPrefix + 'settings'].newValue
