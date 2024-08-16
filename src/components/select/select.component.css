@@ -1,3 +1,9 @@
+.rootClassName {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
 .rootClassName select {
     border: none;
     min-width: 150px;
