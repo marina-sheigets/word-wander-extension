@@ -23,8 +23,8 @@ export class TranslationComponent extends BaseComponent {
             this.title.textContent = text;
         });
 
-        this.synonymsSwitch.setLabel('Show synonyms');
-        this.usageSwitch.setLabel('Show examples of usage');
+        this.synonymsSwitch.setLabel(i18nKeys.ShowSynonyms);
+        this.usageSwitch.setLabel(i18nKeys.ShowExamples);
 
         this.settings.subscribe(SettingsNames.ShowSynonyms, this.synonymsSwitch.setValue.bind(this.synonymsSwitch));
         this.settings.subscribe(SettingsNames.ShowExamples, this.usageSwitch.setValue.bind(this.usageSwitch));

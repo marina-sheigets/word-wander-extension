@@ -112,5 +112,21 @@
     },
     "NotSupportedLanguage":{
         "en":"Selecting other languages is not supported yet"
+    },
+    "PronounceByDefault":{
+        "en":"Pronounce by default",
+        "uk":"Вимовляти за замовчуванням"
+    },
+    "PronounceWithDoubleClick":{
+        "en":"Pronounce with double click",
+        "uk":"Вимовляти після подвійного кліка"
+    },
+    "ShowSynonyms":{
+        "en":"Show synonyms",
+        "uk":"Показувати синоніми"
+    },
+    "ShowExamples":{
+        "en":"Show examples of usage",
+        "uk":"Показувати у контексті"
     }
 }

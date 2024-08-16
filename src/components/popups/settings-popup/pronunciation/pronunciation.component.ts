@@ -30,8 +30,8 @@ export class PronunciationComponent extends BaseComponent {
             this.title.textContent = text;
         });
 
-        this.pronounceSwitch.setLabel('Pronounce by default');
-        this.pronounceWithDoubleClick.setLabel('Pronounce with double click');
+        this.pronounceSwitch.setLabel(i18nKeys.PronounceByDefault);
+        this.pronounceWithDoubleClick.setLabel(i18nKeys.PronounceWithDoubleClick);
 
         this.settings.subscribe(SettingsNames.PronounceByDefault, this.pronounceSwitch.setValue.bind(this.pronounceSwitch));
         this.pronounceSwitch.onSwitch.subscribe(this.onPronounceDefaultChange.bind(this));
