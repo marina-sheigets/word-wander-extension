@@ -29,10 +29,10 @@ export class ButtonComponent extends BaseComponent {
         this.button.append(this.iconService.init(iconName));
     }
 
-    addButtonName(key: string) {
-        this.i18n.follow(key as i18nKeys, (name: string) => {
+    addButtonName(key: i18nKeys) {
+        this.i18n.follow(key, (name: string) => {
             this.button.textContent = name;
-        })
+        });
     }
 
     disable() {

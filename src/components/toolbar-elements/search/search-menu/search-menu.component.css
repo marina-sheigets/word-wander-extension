@@ -13,6 +13,10 @@
     border-radius: 8px;
 }
 
+.searchContainer > div label {
+    gap:0;
+}
+
 .emptyContainer {
     display: flex;
     align-items:center;

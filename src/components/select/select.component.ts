@@ -31,8 +31,8 @@ export class SelectComponent extends BaseComponent {
 
     }
 
-    setLabel(key: string) {
-        this.i18n.follow(key as i18nKeys, (text) => {
+    setLabel(key: i18nKeys) {
+        this.i18n.follow(key, (text) => {
             this.label.textContent = text;
         });
     }
@@ -65,8 +65,8 @@ export class SelectComponent extends BaseComponent {
         this.selectInput.classList.remove(styles.disabled);
     }
 
-    addTooltip(key: string) {
-        this.i18n.follow(key as i18nKeys, (tooltip) => {
+    addTooltip(key: i18nKeys) {
+        this.i18n.follow(key, (tooltip) => {
             this.rootElement.title = tooltip;
         });
     }

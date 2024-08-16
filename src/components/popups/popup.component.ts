@@ -42,8 +42,8 @@ export abstract class PopupComponent extends BaseComponent {
         this.rootElement.append(this.backdrop);
     }
 
-    protected setTitle(title: string) {
-        this.i18n.follow(title as i18nKeys, (value: string) => {
+    protected setTitle(title: i18nKeys) {
+        this.i18n.follow(title, (value: string) => {
             this.title.textContent = value;
         });
     }

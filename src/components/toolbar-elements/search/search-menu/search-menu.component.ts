@@ -33,7 +33,6 @@ export class SearchMenuComponent extends MenuComponent {
 
         this.applyRootStyle(styles);
 
-        this.button.addButtonName('');
         this.button.addButtonIcon('search');
 
         this.inputComponent.setInputSettings('text', 'Type something...');
