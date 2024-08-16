@@ -11,4 +11,6 @@ export const enum i18nKeys {
     SignIn = "SignIn",
     ClearHistory = "ClearHistory",
     SaveToDictionary = "SaveToDictionary",
+    EnterEmail = "EnterEmail",
+    EnterPassword = "EnterPassword",
 }

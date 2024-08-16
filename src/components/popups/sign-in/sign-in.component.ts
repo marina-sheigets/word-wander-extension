@@ -35,10 +35,10 @@ export class SignInPopupComponent extends PopupComponent {
         this.setTitle(i18nKeys.LogIn);
 
         this.emailInputComponent.setInputSettings('email', 'Email');
-        this.emailInputComponent.setLabel('Enter your email');
+        this.emailInputComponent.setLabel(i18nKeys.EnterEmail);
 
         this.passwordInputComponent.setInputSettings('password', 'Password');
-        this.passwordInputComponent.setLabel('Enter your password');
+        this.passwordInputComponent.setLabel(i18nKeys.EnterPassword);
 
         this.signInButton.addButtonName(i18nKeys.SignIn);
         this.signInButton.onClick.subscribe(this.signIn.bind(this));

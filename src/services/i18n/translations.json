@@ -1,6 +1,6 @@
 {
   "NoTextFound":{
-    "en":"'No selected text found'",
+    "en":"No selected text found",
     "uk":"Не знайдено вибраного тексту"
   },
     "SelectSomeText":{
@@ -13,7 +13,7 @@
     },
     "ResetPassword":{
         "en":"Reset password",
-        "uk":"Скинути пароль"
+        "uk":"Скинути"
     },
     "Error":{
         "en":"Error",
@@ -46,5 +46,13 @@
     "SaveToDictionary":{
         "en":"Save to dictionary",
         "uk":"Зберегти в словник"
+    },
+    "EnterEmail":{
+        "en":"Enter email",
+        "uk":"Введіть email"
+    },
+    "EnterPassword":{
+        "en":"Enter password",
+        "uk":"Введіть пароль"
     }
 }
