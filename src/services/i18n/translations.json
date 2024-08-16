@@ -132,5 +132,9 @@
     "SelectSpeed":{
         "en":"Select speed",
         "uk":"Виберіть швидкість вимови"
+    },
+    "ReportBugPlaceholder":{
+        "en":"Describe the bug...",
+        "uk":"Опишіть помилку..."
     }
 }

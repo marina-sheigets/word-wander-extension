@@ -33,4 +33,5 @@ export const enum i18nKeys {
     PronounceWithDoubleClick = "PronounceWithDoubleClick",
     ShowSynonyms = "ShowSynonyms",
     ShowExamples = "ShowExamples",
+    ReportBugPlaceholder = "ReportBugPlaceholder",
 }
