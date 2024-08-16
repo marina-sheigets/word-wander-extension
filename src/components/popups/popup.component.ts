@@ -1,3 +1,5 @@
+import { i18nKeys } from "../../services/i18n/i18n-keys";
+import { I18nService } from "../../services/i18n/i18n.service";
 import { IconService } from "../../services/icon/icon.component";
 import { Informer } from "../../services/informer/informer.service";
 import { BaseComponent } from "../base-component/base-component";
@@ -12,7 +14,8 @@ export abstract class PopupComponent extends BaseComponent {
     protected onClose = new Informer();
 
     constructor(
-        protected iconService: IconService
+        protected iconService: IconService,
+        protected i18n: I18nService
     ) {
         super(styles);
 
@@ -40,7 +43,9 @@ export abstract class PopupComponent extends BaseComponent {
     }
 
     protected setTitle(title: string) {
-        this.title.textContent = title;
+        this.i18n.follow(title as i18nKeys, (value: string) => {
+            this.title.textContent = value;
+        });
     }
 
     protected setContent(content: HTMLElement) {

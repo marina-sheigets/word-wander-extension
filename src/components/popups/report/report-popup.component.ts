@@ -6,6 +6,8 @@ import * as styles from './report-popup.component.css';
 import { MessengerService } from "../../../services/messenger/messenger.service";
 import { Messages } from "../../../constants/messages";
 import { TextareaComponent } from "../../textarea/textarea.component";
+import { I18nService } from "../../../services/i18n/i18n.service";
+import { i18nKeys } from "../../../services/i18n/i18n-keys";
 
 @singleton()
 export class ReportPopupComponent extends PopupComponent {
@@ -15,13 +17,14 @@ export class ReportPopupComponent extends PopupComponent {
         protected iconService: IconService,
         protected submitButton: SubmitButton,
         protected messenger: MessengerService,
-        protected textarea: TextareaComponent
+        protected textarea: TextareaComponent,
+        protected i18n: I18nService
     ) {
-        super(iconService);
+        super(iconService, i18n);
         this.applyRootStyle(styles);
 
         this.setWidth('400px');
-        this.setTitle('Report a bug');
+        this.setTitle(i18nKeys.ReportBug);
         this.content.textContent = `Provide a detailed description of the bug including steps to reproduce it, 
                                     expected behavior, and actual behavior. Include any relevant information or observations.`;
         this.content.classList.add(styles.content);

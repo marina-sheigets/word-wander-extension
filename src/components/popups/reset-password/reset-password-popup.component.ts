@@ -6,6 +6,8 @@ import { InputComponent } from "../../input/input.component";
 import { ButtonComponent } from "../../button/button.component";
 import { MessengerService } from "../../../services/messenger/messenger.service";
 import { Messages } from "../../../constants/messages";
+import { I18nService } from "../../../services/i18n/i18n.service";
+import { i18nKeys } from "../../../services/i18n/i18n-keys";
 
 @singleton()
 export class ResetPasswordPopupComponent extends PopupComponent {
@@ -15,12 +17,13 @@ export class ResetPasswordPopupComponent extends PopupComponent {
         protected iconService: IconService,
         protected emailInput: InputComponent,
         protected submitButton: ButtonComponent,
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected i18n: I18nService
     ) {
-        super(iconService);
+        super(iconService, i18n);
         this.applyRootStyle(styles);
 
-        this.setTitle('Reset Password');
+        this.setTitle(i18nKeys.ResetPassword);
 
         this.description.textContent = 'Enter your email address and we will send you a link to reset your password';
         this.description.classList.add(styles.description);

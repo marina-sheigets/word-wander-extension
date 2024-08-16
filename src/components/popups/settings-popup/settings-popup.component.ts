@@ -8,6 +8,8 @@ import { PronunciationComponent } from './pronunciation/pronunciation.component'
 import { MessengerService } from '../../../services/messenger/messenger.service';
 import { Messages } from '../../../constants/messages';
 import { ToolbarButtonService } from '../../../services/toolbar-button/toolbar-button.service';
+import { I18nService } from '../../../services/i18n/i18n.service';
+import { i18nKeys } from '../../../services/i18n/i18n-keys';
 
 @singleton()
 export class SettingsPopupComponent extends PopupComponent {
@@ -23,13 +25,14 @@ export class SettingsPopupComponent extends PopupComponent {
         protected translationComponent: TranslationComponent,
         protected pronunciationComponent: PronunciationComponent,
         protected messenger: MessengerService,
-        protected toolbarButtonService: ToolbarButtonService
+        protected toolbarButtonService: ToolbarButtonService,
+        protected i18n: I18nService
     ) {
-        super(iconService);
+        super(iconService, i18n);
 
         this.applyRootStyle(styles);
 
-        this.setTitle('Settings');
+        this.setTitle(i18nKeys.Settings);
 
         this.setContent(this.titleHr);
 

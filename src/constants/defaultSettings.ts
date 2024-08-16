@@ -1,3 +1,4 @@
+import { InterfaceLanguage } from "../types/InterfaceLanguage";
 import { SettingsNames } from "./settingsNames";
 
 export const DEFAULT_SETTINGS = {
@@ -13,5 +14,6 @@ export const DEFAULT_SETTINGS = {
     [SettingsNames.LanguagesList]: [
         { value: 'en', label: 'English' },
         { value: 'uk', label: 'Ukrainian' }
-    ]
+    ],
+    [SettingsNames.InterfaceLanguage]: InterfaceLanguage.Ukrainian,
 }

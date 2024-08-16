@@ -7,6 +7,8 @@ import { InputComponent } from "../../input/input.component";
 import * as styles from './sign-in.component.css';
 import { ButtonComponent } from "../../button/button.component";
 import { AuthService } from "../../../services/auth/auth.service";
+import { I18nService } from "../../../services/i18n/i18n.service";
+import { i18nKeys } from "../../../services/i18n/i18n-keys";
 
 @singleton()
 export class SignInPopupComponent extends PopupComponent {
@@ -21,15 +23,16 @@ export class SignInPopupComponent extends PopupComponent {
         protected passwordInputComponent: InputComponent,
         protected signInButton: ButtonComponent,
         protected authService: AuthService,
-        protected resetPasswordButton: ButtonComponent
+        protected resetPasswordButton: ButtonComponent,
+        protected i18n: I18nService
     ) {
-        super(iconService);
+        super(iconService, i18n);
 
         this.applyRootStyle(styles);
 
         this.messenger.subscribe(Messages.OpenSignInPopup, this.show.bind(this));
 
-        this.setTitle('Log in');
+        this.setTitle(i18nKeys.LogIn);
 
         this.emailInputComponent.setInputSettings('email', 'Email');
         this.emailInputComponent.setLabel('Enter your email');

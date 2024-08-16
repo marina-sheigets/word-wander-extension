@@ -1,0 +1,30 @@
+{
+  "NoTextFound":{
+    "en":"'No selected text found'",
+    "uk":"Не знайдено вибраного тексту"
+  },
+    "SelectSomeText":{
+        "en":"Please select some text and try again.",
+        "uk":"Будь ласка, виберіть текст і спробуйте ще раз."
+    },
+    "ReportBug":{
+        "en":"Report a bug",
+        "uk":"Повідомити про помилку"
+    },
+    "ResetPassword":{
+        "en":"Reset password",
+        "uk":"Скинути пароль"
+    },
+    "Error":{
+        "en":"Error",
+        "uk":"Помилка"
+    },
+    "Settings":{
+        "en":"Settings",
+        "uk":"Налаштування"
+    },
+    "LogIn":{
+        "en":"Log in",
+        "uk":"Увійти"
+    }
+}
