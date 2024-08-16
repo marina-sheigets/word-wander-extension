@@ -21,7 +21,7 @@ export class I18nService {
         this.inform();
     }
 
-    inform(label?: string, params?: any) {
+    inform(label?: string) {
         if (!label) {
             for (const key in this.subscribers) {
                 this.inform(key);
@@ -29,9 +29,9 @@ export class I18nService {
             return;
         }
 
-        const eventSubscribers = this.subscribers[params];
+        const eventSubscribers = this.subscribers[label];
         if (eventSubscribers) {
-            eventSubscribers.forEach(subscriber => subscriber(params));
+            eventSubscribers.forEach(subscriber => subscriber(translations[label][this.interfaceLanguage]));
         }
     }
 
