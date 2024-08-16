@@ -1,7 +1,7 @@
 {
   "NoTextFound":{
     "en":"No selected text found",
-    "uk":"Не знайдено вибраного тексту"
+    "uk":"Не знайдено тексту"
   },
     "SelectSomeText":{
         "en":"Please select some text and try again.",
@@ -13,7 +13,7 @@
     },
     "ResetPassword":{
         "en":"Reset password",
-        "uk":"Скинути"
+        "uk":"Скинути пароль"
     },
     "Error":{
         "en":"Error",
@@ -54,5 +54,45 @@
     "EnterPassword":{
         "en":"Enter password",
         "uk":"Введіть пароль"
+    },
+    "ReportPopupContent":{
+        "en":"Please describe the problem you encountered",
+        "uk":"Будь ласка, опишіть проблему, з якою ви зіштовхнулись"
+    },
+    "ResetLinkDescription":{
+        "en":"A password reset link has been successfully sent to your email address." ,
+        "uk":"Посилання для скидання пароля було відправлено на вашу електронну адресу."
+    },
+    "ResetLinkSubDescription":{
+        "en":"Please follow the instructions in the email to reset your password.",
+        "uk":"Будь ласка, дотримуйтесь інструкцій у листі, щоб скинути пароль."
+    },
+    "ResetPasswordDescription":{
+        "en":"Enter your email address and we will send you a link to reset your password",
+        "uk":"Введіть свою електронну адресу, і ми надішлемо вам посилання для скидання пароля"
+    },
+    "SearchErrorContent":{
+        "en": "Sentence's translation is not available at the moment. Please enter only one word at a time.",
+        "uk": "Переклад речення наразі недоступний. Будь ласка, введіть лише одне слово за раз."
+    },
+    "Languages":{
+        "en":"Languages",
+        "uk":"Мови"
+    },
+    "Profile":{
+        "en":"Profile",
+        "uk":"Профіль"
+    },
+    "Pronunciation":{
+        "en":"Pronunciation",
+        "uk":"Вимова"
+    },
+    "Translation":{
+        "en":"Translation",
+        "uk":"Переклад"
+    },
+    "ForgotPassword":{
+        "en":"Forgot password?",
+        "uk":"Забули пароль?"
     }
 }

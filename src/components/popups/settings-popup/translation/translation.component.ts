@@ -4,6 +4,8 @@ import { SwitchComponent } from "../../../switch/switch.component";
 import * as styles from './translation.component.css';
 import { SettingsService } from "../../../../services/settings/settings.service";
 import { SettingsNames } from "../../../../constants/settingsNames";
+import { I18nService } from "../../../../services/i18n/i18n.service";
+import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 
 @singleton()
 export class TranslationComponent extends BaseComponent {
@@ -12,11 +14,14 @@ export class TranslationComponent extends BaseComponent {
     constructor(
         protected synonymsSwitch: SwitchComponent,
         protected usageSwitch: SwitchComponent,
-        protected settings: SettingsService
+        protected settings: SettingsService,
+        protected i18n: I18nService
     ) {
         super(styles);
 
-        this.title.textContent = 'Translation';
+        this.i18n.follow(i18nKeys.Translation, (text) => {
+            this.title.textContent = text;
+        });
 
         this.synonymsSwitch.setLabel('Show synonyms');
         this.usageSwitch.setLabel('Show examples of usage');

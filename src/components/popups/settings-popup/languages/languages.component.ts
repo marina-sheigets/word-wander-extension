@@ -6,6 +6,8 @@ import * as styles from './languages.component.css';
 import { SettingsService } from "../../../../services/settings/settings.service";
 import { SettingsNames } from "../../../../constants/settingsNames";
 import { Language } from "../../../../types/Language";
+import { I18nService } from "../../../../services/i18n/i18n.service";
+import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 
 @singleton()
 export class LanguagesComponent extends BaseComponent {
@@ -16,11 +18,14 @@ export class LanguagesComponent extends BaseComponent {
         private sourceLanguageSelect: SelectComponent,
         private targetLanguageSelect: SelectComponent,
         private iconService: IconService,
-        private settings: SettingsService
+        private settings: SettingsService,
+        protected i18n: I18nService
     ) {
         super(styles);
 
-        this.title.textContent = "Languages";
+        this.i18n.follow(i18nKeys.Languages, (text) => {
+            this.title.textContent = text;
+        });
 
         this.sourceLanguageSelect.setLabel('Select source language');
         this.targetLanguageSelect.setLabel('Select target language');

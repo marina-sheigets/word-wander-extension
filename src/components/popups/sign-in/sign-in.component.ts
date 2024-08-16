@@ -45,7 +45,9 @@ export class SignInPopupComponent extends PopupComponent {
 
         this.resetPasswordWrapper.classList.add(styles.resetPasswordWrapper);
 
-        this.resetPasswordLabel.textContent = 'Forgot your password?';
+        this.i18n.follow(i18nKeys.ForgotPassword, (text) => {
+            this.resetPasswordLabel.textContent = text;
+        });
 
         this.resetPasswordButton.addButtonName(i18nKeys.ResetPassword);
         this.resetPasswordButton.rootElement.classList.add(styles.resetPasswordButton);

@@ -15,7 +15,11 @@ export class SearchErrorPopupComponent extends PopupComponent {
         super(iconService, i18n);
 
         this.setTitle(i18nKeys.Error);
-        this.content.textContent = 'Text translation is not available at the moment. Please enter only one word at a time.';
+
+        this.i18n.follow(i18nKeys.SearchErrorContent, (text) => {
+            this.content.textContent = text;
+        });
+
         this.setContent(this.content);
         this.hide();
     }

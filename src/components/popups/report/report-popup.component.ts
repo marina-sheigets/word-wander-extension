@@ -25,8 +25,11 @@ export class ReportPopupComponent extends PopupComponent {
 
         this.setWidth('400px');
         this.setTitle(i18nKeys.ReportBug);
-        this.content.textContent = `Provide a detailed description of the bug including steps to reproduce it, 
-                                    expected behavior, and actual behavior. Include any relevant information or observations.`;
+
+        this.i18n.follow(i18nKeys.ReportPopupContent, (text) => {
+            this.content.textContent = text;
+        });
+
         this.content.classList.add(styles.content);
 
         this.submitButton.addButtonName(i18nKeys.Submit);

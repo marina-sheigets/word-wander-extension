@@ -25,7 +25,10 @@ export class ResetPasswordPopupComponent extends PopupComponent {
 
         this.setTitle(i18nKeys.ResetPassword);
 
-        this.description.textContent = 'Enter your email address and we will send you a link to reset your password';
+        this.i18n.follow(i18nKeys.ResetPasswordDescription, (text) => {
+            this.description.textContent = text;
+        });
+
         this.description.classList.add(styles.description);
 
         this.emailInput.setInputSettings('email', 'Email');

@@ -22,8 +22,14 @@ export class ResetLinkSentPopupComponent extends PopupComponent {
 
         this.setTitle(i18nKeys.ResetPassword);
 
-        this.description.textContent = 'A password reset link has been successfully sent to your email address.';
-        this.subdescription.textContent = 'Please follow the instructions in the email to reset your password.';
+        this.i18n.follow(i18nKeys.ResetLinkDescription, (text) => {
+            this.description.textContent = text;
+        });
+
+        this.i18n.follow(i18nKeys.ResetLinkSubDescription, (text) => {
+            this.subdescription.textContent = text;
+        });
+
 
         this.content.classList.add(styles.content);
         this.description.classList.add(styles.description);

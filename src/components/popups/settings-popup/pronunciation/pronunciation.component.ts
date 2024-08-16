@@ -6,6 +6,8 @@ import { SliderComponent } from "../../../slider/slider.component";
 import { SelectComponent } from "../../../select/select.component";
 import { SettingsService } from "../../../../services/settings/settings.service";
 import { SettingsNames } from "../../../../constants/settingsNames";
+import { I18nService } from "../../../../services/i18n/i18n.service";
+import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 
 @singleton()
 export class PronunciationComponent extends BaseComponent {
@@ -19,11 +21,14 @@ export class PronunciationComponent extends BaseComponent {
         protected pronounceSwitch: SwitchComponent,
         protected selectSpeedSlider: SliderComponent,
         protected selectVoice: SelectComponent,
-        protected settings: SettingsService
+        protected settings: SettingsService,
+        protected i18n: I18nService
     ) {
         super(styles);
 
-        this.title.textContent = "Pronunciation";
+        this.i18n.follow(i18nKeys.Pronunciation, (text) => {
+            this.title.textContent = text;
+        });
 
         this.pronounceSwitch.setLabel('Pronounce by default');
         this.pronounceWithDoubleClick.setLabel('Pronounce with double click');

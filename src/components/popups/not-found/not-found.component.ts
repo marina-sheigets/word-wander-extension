@@ -16,7 +16,9 @@ export class NotFoundPopupComponent extends PopupComponent {
 
         this.setTitle(i18nKeys.NoTextFound);
 
-        this.content.textContent = i18nKeys.SelectSomeText;
+        this.i18n.follow(i18nKeys.SelectSomeText, (text) => {
+            this.content.textContent = text;
+        });
 
         this.setContent(this.content);
         this.hide();
