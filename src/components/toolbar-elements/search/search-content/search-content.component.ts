@@ -9,6 +9,7 @@ import { ButtonComponent } from "../../../button/button.component";
 import { TextToSpeechService } from "../../../../services/text-to-speech/text-to-speech.service";
 import { Informer } from "../../../../services/informer/informer.service";
 import { DictionaryService } from "../../../../services/dictionary/dictionary.service";
+import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 
 @singleton()
 export class SearchContentComponent extends BaseComponent {
@@ -40,7 +41,7 @@ export class SearchContentComponent extends BaseComponent {
         this.pronounceButton.addTooltip('Pronounce');
         this.pronounceButton.onClick.subscribe(this.pronounceWord.bind(this));
 
-        this.saveToDictionaryButton.addButtonName('Save to dictionary');
+        this.saveToDictionaryButton.addButtonName(i18nKeys.SaveToDictionary);
         this.saveToDictionaryButton.rootElement.classList.add(styles.saveToDictionaryButton);
         this.saveToDictionaryButton.onClick.subscribe(() => {
             this.dictionaryService.addWordToDictionary(this.word, this.translations);

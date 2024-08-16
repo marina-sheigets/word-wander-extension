@@ -8,6 +8,7 @@ import { MessengerService } from "../../../../services/messenger/messenger.servi
 import { Messages } from "../../../../constants/messages";
 import { HistoryService } from "../../../../services/history/history.service";
 import { HistoryItem } from "../../../../types/History";
+import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 
 @singleton()
 export class HistoryMenuComponent extends MenuComponent {
@@ -29,7 +30,7 @@ export class HistoryMenuComponent extends MenuComponent {
         this.historyContainer.classList.add(styles.historyContainer);
         this.emptyResultContainer.classList.add(styles.emptyResultContainer);
 
-        this.clearHistoryButton.addButtonName('Clear history');
+        this.clearHistoryButton.addButtonName(i18nKeys.ClearHistory);
         this.clearHistoryButton.addButtonIcon('delete');
 
         this.clearHistoryButton.onClick.subscribe(this.clearHistory.bind(this));

@@ -30,7 +30,7 @@ export class ResetPasswordPopupComponent extends PopupComponent {
 
         this.emailInput.setInputSettings('email', 'Email');
 
-        this.submitButton.addButtonName('Submit');
+        this.submitButton.addButtonName(i18nKeys.Submit);
         this.submitButton.rootElement.classList.add(styles.submitButton);
 
         this.setContent(this.description);

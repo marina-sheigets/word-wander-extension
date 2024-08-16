@@ -26,5 +26,25 @@
     "LogIn":{
         "en":"Log in",
         "uk":"Увійти"
+    },
+    "Submit":{
+        "en":"Submit",
+        "uk":"Підтвердити"
+    },
+    "OK":{
+        "en":"OK",
+        "uk":"OK"
+    },
+    "SignIn":{
+        "en":"Sign in",
+        "uk":"Увійти"
+    },
+    "ClearHistory":{
+        "en":"Clear history",
+        "uk":"Очистити історію"
+    },
+    "SaveToDictionary":{
+        "en":"Save to dictionary",
+        "uk":"Зберегти в словник"
     }
 }

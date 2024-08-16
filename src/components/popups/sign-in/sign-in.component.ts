@@ -40,14 +40,14 @@ export class SignInPopupComponent extends PopupComponent {
         this.passwordInputComponent.setInputSettings('password', 'Password');
         this.passwordInputComponent.setLabel('Enter your password');
 
-        this.signInButton.addButtonName('Sign in');
+        this.signInButton.addButtonName(i18nKeys.SignIn);
         this.signInButton.onClick.subscribe(this.signIn.bind(this));
 
         this.resetPasswordWrapper.classList.add(styles.resetPasswordWrapper);
 
         this.resetPasswordLabel.textContent = 'Forgot your password?';
 
-        this.resetPasswordButton.addButtonName('Reset password');
+        this.resetPasswordButton.addButtonName(i18nKeys.ResetPassword);
         this.resetPasswordButton.rootElement.classList.add(styles.resetPasswordButton);
         this.resetPasswordButton.onClick.subscribe(this.resetPassword.bind(this));
 

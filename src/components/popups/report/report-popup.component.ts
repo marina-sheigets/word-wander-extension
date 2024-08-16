@@ -29,7 +29,7 @@ export class ReportPopupComponent extends PopupComponent {
                                     expected behavior, and actual behavior. Include any relevant information or observations.`;
         this.content.classList.add(styles.content);
 
-        this.submitButton.addButtonName('Submit');
+        this.submitButton.addButtonName(i18nKeys.Submit);
 
         this.textarea.setPlaceholder('Describe the bug...');
         this.textarea.setRows(5);

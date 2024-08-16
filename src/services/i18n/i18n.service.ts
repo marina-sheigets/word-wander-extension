@@ -22,7 +22,11 @@ export class I18nService {
     }
 
     inform(label?: string) {
-        if (!label) {
+        if (label?.length === 0) {
+            return;
+        }
+
+        if (label === undefined) {
             for (const key in this.subscribers) {
                 this.inform(key);
             }
@@ -36,6 +40,10 @@ export class I18nService {
     }
 
     follow(key: i18nKeys, callback: (value?: any) => void) {
+        if (!translations[key]) {
+            return;
+        }
+
         this.subscribe(key, callback);
         callback(translations[key][this.interfaceLanguage]);
     }
