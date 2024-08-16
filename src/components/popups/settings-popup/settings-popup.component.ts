@@ -10,6 +10,7 @@ import { Messages } from '../../../constants/messages';
 import { ToolbarButtonService } from '../../../services/toolbar-button/toolbar-button.service';
 import { I18nService } from '../../../services/i18n/i18n.service';
 import { i18nKeys } from '../../../services/i18n/i18n-keys';
+import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 
 @singleton()
 export class SettingsPopupComponent extends PopupComponent {
@@ -21,6 +22,7 @@ export class SettingsPopupComponent extends PopupComponent {
 
     constructor(
         protected iconService: IconService,
+        protected profileSettingsComponent: ProfileSettingsComponent,
         protected languagesComponent: LanguagesComponent,
         protected translationComponent: TranslationComponent,
         protected pronunciationComponent: PronunciationComponent,
@@ -33,6 +35,8 @@ export class SettingsPopupComponent extends PopupComponent {
         this.applyRootStyle(styles);
 
         this.setTitle(i18nKeys.Settings);
+
+        this.setContent(this.profileSettingsComponent.rootElement);
 
         this.setContent(this.titleHr);
 
