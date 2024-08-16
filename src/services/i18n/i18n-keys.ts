@@ -23,4 +23,9 @@ export const enum i18nKeys {
     Pronunciation = "Pronunciation",
     Translation = "Translation",
     ForgotPassword = "ForgotPassword",
+    SelectSourceLanguage = "SelectSourceLanguage",
+    SelectTargetLanguage = "SelectTargetLanguage",
+    InterfaceLanguage = "InterfaceLanguage",
+    SelectVoice = "SelectVoice",
+    NotSupportedLanguage = "NotSupportedLanguage",
 }

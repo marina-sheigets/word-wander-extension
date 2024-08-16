@@ -45,7 +45,7 @@ export class PronunciationComponent extends BaseComponent {
 
         this.settings.subscribe(SettingsNames.PronunciationSpeed, this.setSpeedValue.bind(this));
 
-        this.selectVoice.setLabel('Select the voice');
+        this.selectVoice.setLabel(i18nKeys.SelectVoice);
         this.selectVoice.disable();
         this.selectVoice.rootElement.classList.add(styles.selectVoice);
 

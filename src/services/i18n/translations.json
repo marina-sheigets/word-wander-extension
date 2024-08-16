@@ -94,5 +94,23 @@
     "ForgotPassword":{
         "en":"Forgot password?",
         "uk":"Забули пароль?"
+    },
+    "SelectSourceLanguage":{
+        "en":"Select source language",
+        "uk":"Виберіть мову джерела"},
+    "SelectTargetLanguage":{
+        "en":"Select target language",
+        "uk":"Виберіть цільову мову"
+    },
+    "InterfaceLanguage":{
+        "en":"Interface language",
+        "uk":"Мова інтерфейсу"
+    },
+    "SelectVoice":{
+        "en":"Select voice",
+        "uk":"Виберіть голос"
+    },
+    "NotSupportedLanguage":{
+        "en":"Selecting other languages is not supported yet"
     }
 }

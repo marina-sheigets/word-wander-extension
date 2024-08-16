@@ -25,7 +25,7 @@ export class ProfileSettingsComponent extends BaseComponent {
             this.title.textContent = text;
         })
 
-        this.interfaceLanguageSelector.setLabel('Interface language');
+        this.interfaceLanguageSelector.setLabel(i18nKeys.InterfaceLanguage);
         this.interfaceLanguageSelector.setOptions(InterfaceLanguages);
         this.interfaceLanguageSelector.onSelectChange.subscribe(this.onInterfaceLanguageChange.bind(this));
         this.settings.subscribe(SettingsNames.InterfaceLanguage, this.interfaceLanguageSelector.setValue.bind(this.interfaceLanguageSelector));

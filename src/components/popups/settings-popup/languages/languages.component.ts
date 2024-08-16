@@ -27,8 +27,8 @@ export class LanguagesComponent extends BaseComponent {
             this.title.textContent = text;
         });
 
-        this.sourceLanguageSelect.setLabel('Select source language');
-        this.targetLanguageSelect.setLabel('Select target language');
+        this.sourceLanguageSelect.setLabel(i18nKeys.SelectSourceLanguage);
+        this.targetLanguageSelect.setLabel(i18nKeys.SelectTargetLanguage);
 
         this.selectionWrapper.append(
             this.sourceLanguageSelect.rootElement,
@@ -54,8 +54,8 @@ export class LanguagesComponent extends BaseComponent {
         this.sourceLanguageSelect.disable();
         this.targetLanguageSelect.disable();
 
-        this.sourceLanguageSelect.addTooltip('Selecting other languages is not supported yet');
-        this.targetLanguageSelect.addTooltip('Selecting other languages is not supported yet');
+        this.sourceLanguageSelect.addTooltip(i18nKeys.NotSupportedLanguage);
+        this.targetLanguageSelect.addTooltip(i18nKeys.NotSupportedLanguage);
     }
 
     private onTargetLanguageChange(value: string) {

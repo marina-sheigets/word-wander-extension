@@ -2,6 +2,8 @@ import { injectable } from "tsyringe";
 import { BaseComponent } from "../base-component/base-component";
 import * as styles from './select.component.css';
 import { Informer } from "../../services/informer/informer.service";
+import { I18nService } from "../../services/i18n/i18n.service";
+import { i18nKeys } from "../../services/i18n/i18n-keys";
 
 interface Option {
     value: string,
@@ -13,7 +15,9 @@ export class SelectComponent extends BaseComponent {
     private label = document.createElement('label');
     public onSelectChange = new Informer();
 
-    constructor() {
+    constructor(
+        protected i18n: I18nService,
+    ) {
         super(styles);
 
         this.label.classList.add(styles.label);
@@ -27,8 +31,10 @@ export class SelectComponent extends BaseComponent {
 
     }
 
-    setLabel(label: string) {
-        this.label.textContent = label;
+    setLabel(key: string) {
+        this.i18n.follow(key as i18nKeys, (text) => {
+            this.label.textContent = text;
+        });
     }
 
     setOptions(options: Option[]) {
@@ -59,7 +65,9 @@ export class SelectComponent extends BaseComponent {
         this.selectInput.classList.remove(styles.disabled);
     }
 
-    addTooltip(text: string) {
-        this.rootElement.title = text;
+    addTooltip(key: string) {
+        this.i18n.follow(key as i18nKeys, (tooltip) => {
+            this.rootElement.title = tooltip;
+        });
     }
 }
