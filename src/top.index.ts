@@ -35,7 +35,6 @@ class Entry {
         const topCss = getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`);
 
         shadow.append(
-
             materialIcons,
             topCss,
         );
@@ -51,13 +50,10 @@ class Entry {
                 resetPasswordPopupComponent.rootElement,
                 resetLinkSentPopup.rootElement,
                 reportPopupComponent.rootElement,
-                addMaterialIcons(),
-                getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`),
             );
         }
 
         document.body.append(
-            addMaterialIcons(),
             shadowWrapper
         );
 
