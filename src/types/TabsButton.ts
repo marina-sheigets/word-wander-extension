@@ -1,6 +1,6 @@
-import { SettingsTabs } from "./SettingsTabs";
+import { SettingsTab } from "./SettingsTabs";
 
 export interface TabsButton {
-    label: SettingsTabs,
+    label: SettingsTab,
     component: HTMLElement
 }
