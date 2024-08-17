@@ -9,7 +9,7 @@ import { i18nKeys } from "../../services/i18n/i18n-keys";
 @injectable()
 export class ButtonComponent extends BaseComponent {
     button = document.createElement('button');
-    onClick = new Informer<string>();
+    onClick = new Informer<any>();
 
     constructor(
         protected iconService: IconService,
@@ -17,12 +17,15 @@ export class ButtonComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.button.addEventListener('mousedown', () => this.onClick.inform());
+        this.button.addEventListener('mousedown', (e: Event) => this.onClick.inform(e));
 
         this.rootElement.append(
             this.button
         );
+    }
 
+    addButtonValue(value: string) {
+        this.button.value = value;
     }
 
     addButtonIcon(iconName: string) {
