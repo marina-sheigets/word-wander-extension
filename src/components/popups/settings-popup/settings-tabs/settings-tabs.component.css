@@ -18,9 +18,10 @@
     flex: 3;
     justify-content: start;
 
-    .active {
-        background:#9EA5AE;
-    }
+}
+
+.buttonsContainer .active {
+    background:#9EA5AE;
 }
 
 .tabContent {

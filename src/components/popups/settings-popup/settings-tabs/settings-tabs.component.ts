@@ -63,8 +63,14 @@ export class SettingsTabsComponent extends BaseComponent {
 
             buttonComponent.addButtonValue(button.label);
             buttonComponent.addButtonName(button.label as i18nKeys);
+
+            if (button.label === i18nKeys.Profile) {
+                buttonComponent.rootElement.classList.add(styles.active);
+            }
+
             buttonComponent.onClick.subscribe((e: MouseEvent) => {
                 this.setTabContent(e);
+                this.setAllUnactive();
                 buttonComponent.rootElement.classList.add(styles.active);
             })
             this.buttonsContainer.append(buttonComponent.rootElement);
@@ -83,5 +89,15 @@ export class SettingsTabsComponent extends BaseComponent {
 
     private clearTabContent() {
         this.tabContent.innerHTML = '';
+    }
+
+    private setAllUnactive() {
+        const buttons = this.buttonsContainer.childNodes;
+
+        buttons.forEach((button: HTMLElement) => {
+            if (button.classList.contains(styles.active)) {
+                button.classList.remove(styles.active);
+            }
+        })
     }
 }
