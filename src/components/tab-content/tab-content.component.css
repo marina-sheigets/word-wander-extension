@@ -1,0 +1,10 @@
+.rootClassName h2 {
+    color: white;
+    margin: 0;
+}
+
+.rootClassName {
+    display: flex;
+    flex-direction: column;
+    gap:16px;
+}

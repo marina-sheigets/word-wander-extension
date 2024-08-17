@@ -1,0 +1,28 @@
+.rootClassName {
+    min-height: 400px;
+    margin-top: 30px;
+    display: flex;
+    gap: 30px;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonsContainer button {
+    min-width: 100px;
+    padding: 5px 10px;
+    background: transparent;
+    color: white;
+    flex: 3;
+    justify-content: start;
+
+    .active {
+        background:#9EA5AE;
+    }
+}
+
+.tabContent {
+    flex: 7;
+}

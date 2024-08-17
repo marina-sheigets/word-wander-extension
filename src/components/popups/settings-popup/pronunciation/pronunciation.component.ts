@@ -1,5 +1,4 @@
 import { singleton } from "tsyringe";
-import { BaseComponent } from "../../../base-component/base-component";
 import * as styles from './pronunciation.component.css';
 import { SwitchComponent } from "../../../switch/switch.component";
 import { SliderComponent } from "../../../slider/slider.component";
@@ -8,10 +7,10 @@ import { SettingsService } from "../../../../services/settings/settings.service"
 import { SettingsNames } from "../../../../constants/settingsNames";
 import { I18nService } from "../../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
+import { TabContent } from "../../../tab-content/tab-content.component";
 
 @singleton()
-export class PronunciationComponent extends BaseComponent {
-    private title = document.createElement('h2');
+export class PronunciationComponent extends TabContent {
     private controlsWrapper = document.createElement('div');
     private maxSpeed = "10";
     private minSpeed = "1";
@@ -26,9 +25,7 @@ export class PronunciationComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.i18n.follow(i18nKeys.Pronunciation, (text) => {
-            this.title.textContent = text;
-        });
+        this.setTitle(i18nKeys.Pronunciation);
 
         this.pronounceSwitch.setLabel(i18nKeys.PronounceByDefault);
         this.pronounceWithDoubleClick.setLabel(i18nKeys.PronounceWithDoubleClick);
@@ -67,10 +64,7 @@ export class PronunciationComponent extends BaseComponent {
             this.selectVoice.rootElement
         );
 
-        this.rootElement.append(
-            this.title,
-            this.controlsWrapper
-        );
+        this.setContent(this.controlsWrapper);
     }
 
     private onVoiceChange(voice: string) {

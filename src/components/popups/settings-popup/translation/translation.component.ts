@@ -1,15 +1,14 @@
 import { singleton } from "tsyringe";
-import { BaseComponent } from "../../../base-component/base-component";
 import { SwitchComponent } from "../../../switch/switch.component";
 import * as styles from './translation.component.css';
 import { SettingsService } from "../../../../services/settings/settings.service";
 import { SettingsNames } from "../../../../constants/settingsNames";
 import { I18nService } from "../../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
+import { TabContent } from "../../../tab-content/tab-content.component";
 
 @singleton()
-export class TranslationComponent extends BaseComponent {
-    private title = document.createElement('h2');
+export class TranslationComponent extends TabContent {
     private switchWrapper = document.createElement('div');
     constructor(
         protected synonymsSwitch: SwitchComponent,
@@ -19,9 +18,7 @@ export class TranslationComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.i18n.follow(i18nKeys.Translation, (text) => {
-            this.title.textContent = text;
-        });
+        this.setTitle(i18nKeys.Translation);
 
         this.synonymsSwitch.setLabel(i18nKeys.ShowSynonyms);
         this.usageSwitch.setLabel(i18nKeys.ShowExamples);
@@ -36,8 +33,7 @@ export class TranslationComponent extends BaseComponent {
             this.usageSwitch.rootElement
         );
 
-        this.rootElement.append(
-            this.title,
+        this.setContent(
             this.switchWrapper
         );
 
@@ -51,9 +47,5 @@ export class TranslationComponent extends BaseComponent {
 
     private onUsageSwitch(value: boolean) {
         this.settings.set(SettingsNames.ShowExamples, value);
-    }
-
-    setTitle(title: string) {
-        this.title.textContent = title;
     }
 }
