@@ -50,7 +50,6 @@ export class PlayerComponent extends BaseComponent {
         this.textToSpeechService.onPlayerFinished.subscribe(this.finishSpeech.bind(this));
 
         document.addEventListener('dblclick', (e: Event) => {
-            debugger;
             const element = e.target as HTMLElement;
 
             if (element.nodeName === 'WORD-WANDER') {

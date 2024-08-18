@@ -40,6 +40,12 @@ export abstract class PopupComponent extends BaseComponent {
         this.wrapper.append(this.headerWrapper);
         this.backdrop.append(this.wrapper);
         this.rootElement.append(this.backdrop);
+
+        this.backdrop.addEventListener('mousedown', (e) => {
+            if (e.target === this.backdrop) {
+                this.hide();
+            }
+        });
     }
 
     protected setTitle(title: i18nKeys) {
