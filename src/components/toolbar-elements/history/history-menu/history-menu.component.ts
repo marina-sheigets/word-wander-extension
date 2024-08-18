@@ -42,7 +42,7 @@ export class HistoryMenuComponent extends MenuComponent {
             this.historyContainer
         )
 
-        this.setContent();
+        this.historyService.historyUpdated.follow(this.setContent.bind(this));
         this.messenger.subscribe(Messages.CloseAllMenus, this.hide.bind(this));
     }
 

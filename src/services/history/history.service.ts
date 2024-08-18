@@ -2,24 +2,35 @@ import { singleton } from "tsyringe";
 import { STORAGE_KEYS } from "../../constants/localStorage-keys";
 import { HistoryItem } from "../../types/History";
 import { LocalStorageService } from "../localStorage/localStorage.service";
+import { MessengerService } from "../messenger/messenger.service";
+import { BackgroundMessages } from "../../constants/backgroundMessages";
+import { Informer } from "../informer/informer.service";
 
 @singleton()
 export class HistoryService {
     private history: HistoryItem[] = [];
+    public historyUpdated = new Informer();
 
     constructor(
-        private localStorage: LocalStorageService
+        private localStorage: LocalStorageService,
+        private messenger: MessengerService
     ) {
-        this.initHistory();
-    }
+        this.messenger.sendToBackground(BackgroundMessages.GetHistory);
 
-    private initHistory() {
-        const historyObj = this.localStorage.get(STORAGE_KEYS.History) || '[]';
-        this.history = JSON.parse(historyObj);
+        this.listenToHistoryUpdates();
     }
 
     public getHistory() {
         return this.history;
+    }
+
+    private listenToHistoryUpdates() {
+        addEventListener('message', (event) => {
+            if (event.data.message === BackgroundMessages.SyncHistory) {
+                this.history = event.data.data;
+                this.historyUpdated.inform();
+            }
+        });
     }
 
     public addHistoryItem(translations: string[], word: string) {
@@ -44,7 +55,8 @@ export class HistoryService {
         if (this.history.length > 7) {
             this.history.pop();
         }
-        this.localStorage.set(STORAGE_KEYS.History, JSON.stringify(this.history));
+
+        this.messenger.sendToBackground(BackgroundMessages.UpdateHistory, this.history);
     }
 
     private isItemAlreadyInHistory(newItem: HistoryItem) {

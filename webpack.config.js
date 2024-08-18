@@ -19,14 +19,20 @@ let bundles = [
     },
     {
         name: 'background',
-        path: './src/background.ts',
+        path: './src/service-workers/background.ts',
         hash: null,
     },
     {
-        name: 'content-script',
-        path: './src/content.script.ts',
+        name: 'settings-content-script',
+        path: './src/content-scripts/settings-content.script.ts',
         hash: null
-    }
+    },
+    {
+        name: 'history-content-script',
+        path: './src/content-scripts/history-content-script.ts',
+        hash: null
+    },
+
 ];
 
 const DEFAULT_ENVIRONMENT = "dev";

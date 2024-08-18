@@ -4,7 +4,7 @@ import { ShadowWrapper } from "./components/wrappers/shadow-wrapper.component";
 import { MinimizedToolbarComponent } from './components/toolbars/minimized-toolbar/minimized-toolbar.component';
 import { getCssLink } from './utils/getCssLink';
 import { DraggableToolbarComponent } from './components/toolbars/draggable-toolbar/draggable-toolbar.component';
-import { addMaterialIcons } from './utils/getMaterialIcons';
+import { getMaterialIcons } from './utils/getMaterialIcons';
 import { SettingsPopupComponent } from './components/popups/settings-popup/settings-popup.component';
 import { NotFoundPopupComponent } from './components/popups/not-found/not-found.component';
 import { SearchErrorPopupComponent } from './components/popups/search-error/search-error.component';
@@ -31,7 +31,7 @@ class Entry {
         const element = document.createElement('div');
         element.classList.add("wordWander");
 
-        const materialIcons = addMaterialIcons();
+        const materialIcons = getMaterialIcons();
         const topCss = getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`);
 
         shadow.append(
@@ -54,7 +54,9 @@ class Entry {
         }
 
         document.body.append(
-            shadowWrapper
+            shadowWrapper,
+            getMaterialIcons()
+
         );
 
     }

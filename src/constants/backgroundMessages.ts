@@ -6,4 +6,10 @@ export const BackgroundMessages = {
     SettingsChanged: ExtensionPrefix + 'SettingsChanged',
     SyncSettings: ExtensionPrefix + 'SyncSettings',
     GetSettings: ExtensionPrefix + 'GetSettings',
+
+    //history
+    GetHistory: ExtensionPrefix + 'GetHistory',
+    HistoryChanged: ExtensionPrefix + 'HistoryChanged',
+    SyncHistory: ExtensionPrefix + 'SyncHistory',
+    UpdateHistory: ExtensionPrefix + 'UpdateHistory',
 }

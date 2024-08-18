@@ -33,7 +33,8 @@
             ],
             "js": [
                 "loader.js",
-                "content-script.js"
+                "settings-content-script.js",
+                "history-content-script.js"
             ],
             "run_at": "document_start",
             "all_frames": true

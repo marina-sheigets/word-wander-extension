@@ -1,10 +1,11 @@
 import 'reflect-metadata';
 import { container, singleton } from "tsyringe";
-import { BackgroundMessages, ExtensionPrefix } from './constants/backgroundMessages';
-import { DEFAULT_SETTINGS } from './constants/defaultSettings';
+import { BackgroundMessages } from '../constants/backgroundMessages';
+import { DEFAULT_SETTINGS } from '../constants/defaultSettings';
+import { ChromeStorageKeys } from '../constants/chromeStorageKeys';
 
 @singleton()
-class ContentScript {
+class SettingsContentScript {
     constructor() {
 
         addEventListener('message', async (message) => {
@@ -43,15 +44,15 @@ class ContentScript {
 
             const settings = { ...savedSettings, ...setting };
 
-            chrome.storage.local.set({ [ExtensionPrefix + 'settings']: settings });
+            chrome.storage.local.set({ [ChromeStorageKeys.Settings]: settings });
         } catch (error) {
             console.error('Error changing Chrome storage settings:', error);
         }
     }
 
     async getSettings() {
-        const savedSettings = await chrome.storage.local.get([ExtensionPrefix + 'settings']);
-        const settings = { ...DEFAULT_SETTINGS, ...savedSettings[ExtensionPrefix + 'settings'] };
+        const savedSettings = await chrome.storage.local.get([ChromeStorageKeys.Settings]);
+        const settings = { ...DEFAULT_SETTINGS, ...savedSettings[ChromeStorageKeys.Settings] };
         return settings
     }
 
@@ -66,8 +67,8 @@ class ContentScript {
 }
 
 container.register('BundleName', {
-    useValue: 'content',
+    useValue: 'settings-content-script',
 });
 
-container.resolve(ContentScript);
+container.resolve(SettingsContentScript);
 
