@@ -46,6 +46,12 @@ export abstract class PopupComponent extends BaseComponent {
                 this.hide();
             }
         });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isVisible()) {
+                this.hide();
+            }
+        });
     }
 
     protected setTitle(title: i18nKeys) {
@@ -65,6 +71,10 @@ export abstract class PopupComponent extends BaseComponent {
     public hide() {
         this.onClose.inform();
         this.rootElement.classList.add(styles.hidden);
+    }
+
+    private isVisible() {
+        return !this.rootElement.classList.contains(styles.hidden);
     }
 
     setWidth(width: string) {
