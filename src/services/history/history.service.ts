@@ -1,7 +1,5 @@
 import { singleton } from "tsyringe";
-import { STORAGE_KEYS } from "../../constants/localStorage-keys";
 import { HistoryItem } from "../../types/History";
-import { LocalStorageService } from "../localStorage/localStorage.service";
 import { MessengerService } from "../messenger/messenger.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { Informer } from "../informer/informer.service";
@@ -12,7 +10,6 @@ export class HistoryService {
     public historyUpdated = new Informer();
 
     constructor(
-        private localStorage: LocalStorageService,
         private messenger: MessengerService
     ) {
         this.messenger.sendToBackground(BackgroundMessages.GetHistory);
@@ -48,7 +45,8 @@ export class HistoryService {
 
     public clearHistory() {
         this.history = [];
-        this.localStorage.delete(STORAGE_KEYS.History);
+        this.historyUpdated.inform();
+        this.messenger.sendToBackground(BackgroundMessages.UpdateHistory, this.history);
     }
 
     private checkHistoryLength() {
