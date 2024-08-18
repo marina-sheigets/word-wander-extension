@@ -23,9 +23,15 @@ export class HistoryService {
     }
 
     public addHistoryItem(translations: string[], word: string) {
+
         const items: HistoryItem[] = translations.map((translation) => ({ translation, word }));
 
-        this.history.unshift(...items);
+        items.forEach((item) => {
+            if (!this.isItemAlreadyInHistory(item)) {
+                this.history.unshift(item);
+            }
+        });
+
         this.checkHistoryLength();
     }
 
@@ -39,5 +45,9 @@ export class HistoryService {
             this.history.pop();
         }
         this.localStorage.set(STORAGE_KEYS.History, JSON.stringify(this.history));
+    }
+
+    private isItemAlreadyInHistory(newItem: HistoryItem) {
+        return this.history.some((item) => item.word === newItem.word && item.translation === newItem.translation);
     }
 }
