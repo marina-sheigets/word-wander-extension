@@ -1,7 +1,6 @@
 import { ButtonComponent } from "../../../button/button.component";
 import { MenuComponent } from "../../../menu/menu.component";
 import * as styles from './history-menu.component.css';
-import { IconService } from "../../../../services/icon/icon.component";
 import { WordTranslationComponent } from "../../../word-translation/word-translation.component";
 import { singleton } from "tsyringe";
 import { MessengerService } from "../../../../services/messenger/messenger.service";
@@ -9,6 +8,7 @@ import { Messages } from "../../../../constants/messages";
 import { HistoryService } from "../../../../services/history/history.service";
 import { HistoryItem } from "../../../../types/History";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
+import { IconComponent } from "../../../icon/icon.component";
 
 @singleton()
 export class HistoryMenuComponent extends MenuComponent {
@@ -17,7 +17,7 @@ export class HistoryMenuComponent extends MenuComponent {
 
     constructor(
         private clearHistoryButton: ButtonComponent,
-        protected iconService: IconService,
+        protected icon: IconComponent,
         protected messenger: MessengerService,
         protected historyService: HistoryService
     ) {
@@ -54,7 +54,7 @@ export class HistoryMenuComponent extends MenuComponent {
             this.historyContainer.innerHTML = '';
 
             history.forEach((item: HistoryItem) => {
-                const wordTranslationComponent = new WordTranslationComponent(this.iconService);
+                const wordTranslationComponent = new WordTranslationComponent(this.icon);
                 wordTranslationComponent.addPair(item.word, item.translation);
                 this.historyContainer.append(wordTranslationComponent.rootElement);
             });

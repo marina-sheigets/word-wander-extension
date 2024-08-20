@@ -1,11 +1,11 @@
 import { injectable } from "tsyringe";
 import { BaseComponent } from "../base-component/base-component";
 import * as styles from './toolbar-button.component.css';
-import { IconService } from "../../services/icon/icon.component";
 import { Informer } from "../../services/informer/informer.service";
 import { ToolbarButtonService } from "../../services/toolbar-button/toolbar-button.service";
 import { MessengerService } from "../../services/messenger/messenger.service";
 import { Messages } from "../../constants/messages";
+import { IconComponent } from "../icon/icon.component";
 
 @injectable()
 export class ToolbarButtonComponent extends BaseComponent {
@@ -14,7 +14,6 @@ export class ToolbarButtonComponent extends BaseComponent {
     onPress = new Informer<boolean>();
 
     constructor(
-        protected iconService: IconService,
         protected toolbarButtonService: ToolbarButtonService,
         protected messenger: MessengerService
     ) {
@@ -50,8 +49,11 @@ export class ToolbarButtonComponent extends BaseComponent {
     }
 
     public addIcon(name: string) {
+        const newIcon = new IconComponent();
+        newIcon.setIcon(name);
+
         this.iconWrapper.classList.add(styles.iconWrapper);
-        this.iconWrapper.append(this.iconService.init(name));
+        this.iconWrapper.append(newIcon.rootElement);
     }
 
     public setActive() {

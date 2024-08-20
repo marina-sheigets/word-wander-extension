@@ -2,11 +2,12 @@
     width: 20px;
     height: 20px;
     padding: 2px 2px 0 0;
-    text-align: end;
+    justify-content: center;
+    display: flex;
 }
 
-.rootElement span {
-    font-size: 18px;
+.rootElement div:has(svg){ 
+    width: 15px;
+    height: 15px;
     cursor: pointer;
-    color: #9EA5AE;
 }

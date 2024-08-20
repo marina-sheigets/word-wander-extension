@@ -1,12 +1,12 @@
 import { injectable } from "tsyringe";
 import { BaseComponent } from "../base-component/base-component";
 import * as styles from './word-translation.component.css';
-import { IconService } from "../../services/icon/icon.component";
+import { IconComponent } from "../icon/icon.component";
 
 @injectable()
 export class WordTranslationComponent extends BaseComponent {
     constructor(
-        private iconService: IconService
+        private arrowIcon: IconComponent
     ) {
         super(styles);
 
@@ -19,7 +19,10 @@ export class WordTranslationComponent extends BaseComponent {
 
         word.textContent = sourceWord;
         translation.textContent = targetWord;
-        arrow.append(this.iconService.init('arrow_forward'));
+
+        this.arrowIcon.setIcon('arrow_forward');
+
+        arrow.append(this.arrowIcon.rootElement);
 
         this.rootElement.append(
             word,

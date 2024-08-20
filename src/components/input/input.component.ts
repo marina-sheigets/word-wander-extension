@@ -2,7 +2,6 @@ import { injectable } from "tsyringe";
 import { BaseComponent } from "../base-component/base-component";
 import * as styles from './input.component.css';
 import { Informer } from "../../services/informer/informer.service";
-import { IconService } from "../../services/icon/icon.component";
 import { I18nService } from "../../services/i18n/i18n.service";
 import { i18nKeys } from "../../services/i18n/i18n-keys";
 
@@ -14,7 +13,6 @@ export class InputComponent extends BaseComponent {
     onChange = new Informer<string>();
 
     constructor(
-        protected iconService: IconService,
         protected i18nService: I18nService,
     ) {
         super(styles);

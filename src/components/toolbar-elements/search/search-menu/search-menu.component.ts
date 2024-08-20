@@ -20,7 +20,7 @@ export class SearchMenuComponent extends MenuComponent {
 
     constructor(
         private inputComponent: InputComponent,
-        private button: ButtonComponent,
+        private searchButton: ButtonComponent,
         private googleTranslateService: GoogleTranslateService,
         private loader: LoaderComponent,
         private searchContent: SearchContentComponent,
@@ -33,11 +33,12 @@ export class SearchMenuComponent extends MenuComponent {
 
         this.applyRootStyle(styles);
 
-        this.button.addButtonIcon('search');
+        this.searchButton.addButtonIcon('search');
+        this.searchButton.rootElement.classList.add(styles.searchButton);
 
         this.inputComponent.setInputSettings('text', 'Type something...');
         this.inputComponent.onChange.subscribe(this.onSearch.bind(this));
-        this.button.onClick.subscribe(() => {
+        this.searchButton.onClick.subscribe(() => {
             this.onSearch(this.inputComponent.input.value)
         })
 
@@ -49,7 +50,7 @@ export class SearchMenuComponent extends MenuComponent {
 
         this.searchContainer.append(
             this.inputComponent.rootElement,
-            this.button.rootElement
+            this.searchButton.rootElement
         )
 
         this.content.append(
@@ -84,7 +85,7 @@ export class SearchMenuComponent extends MenuComponent {
 
         this.searchContent.hide();
         this.loader.show();
-        this.button.disable();
+        this.searchButton.disable();
         this.inputComponent.setDisabled();
         this.emptyContainer.classList.add(styles.hidden);
 
@@ -92,7 +93,7 @@ export class SearchMenuComponent extends MenuComponent {
         const dictionaryResult = await this.dictionaryService.fetchData(value);
 
         this.loader.hide();
-        this.button.enable();
+        this.searchButton.enable();
         this.inputComponent.setEnabled();
 
         if (translations.length && dictionaryResult) {

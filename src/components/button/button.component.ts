@@ -2,9 +2,9 @@ import { injectable } from "tsyringe";
 import { BaseComponent } from "../base-component/base-component";
 import * as styles from './button.component.css';
 import { Informer } from "../../services/informer/informer.service";
-import { IconService } from "../../services/icon/icon.component";
 import { I18nService } from "../../services/i18n/i18n.service";
 import { i18nKeys } from "../../services/i18n/i18n-keys";
+import { IconComponent } from "../icon/icon.component";
 
 @injectable()
 export class ButtonComponent extends BaseComponent {
@@ -12,7 +12,6 @@ export class ButtonComponent extends BaseComponent {
     onClick = new Informer<any>();
 
     constructor(
-        protected iconService: IconService,
         protected i18n: I18nService,
     ) {
         super(styles);
@@ -29,7 +28,10 @@ export class ButtonComponent extends BaseComponent {
     }
 
     addButtonIcon(iconName: string) {
-        this.button.append(this.iconService.init(iconName));
+        const icon = new IconComponent();
+        icon.setIcon(iconName);
+
+        this.button.append(icon.rootElement);
     }
 
     addButtonName(key: i18nKeys) {

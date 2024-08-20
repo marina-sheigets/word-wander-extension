@@ -1,5 +1,4 @@
 import { singleton } from "tsyringe";
-import { IconService } from "../../../services/icon/icon.component";
 import { PopupComponent } from "../popup.component";
 import * as styles from './reset-password-popup.component.css';
 import { InputComponent } from "../../input/input.component";
@@ -8,19 +7,20 @@ import { MessengerService } from "../../../services/messenger/messenger.service"
 import { Messages } from "../../../constants/messages";
 import { I18nService } from "../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
+import { IconComponent } from "../../icon/icon.component";
 
 @singleton()
 export class ResetPasswordPopupComponent extends PopupComponent {
     private description = document.createElement('div');
 
     constructor(
-        protected iconService: IconService,
+        protected iconComponent: IconComponent,
         protected emailInput: InputComponent,
         protected submitButton: ButtonComponent,
         protected messenger: MessengerService,
         protected i18n: I18nService
     ) {
-        super(iconService, i18n);
+        super(iconComponent, i18n);
         this.applyRootStyle(styles);
 
         this.setTitle(i18nKeys.ResetPassword);

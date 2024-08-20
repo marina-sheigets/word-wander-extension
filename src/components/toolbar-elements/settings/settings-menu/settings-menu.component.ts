@@ -2,9 +2,9 @@ import { singleton } from "tsyringe";
 import { MenuComponent } from "../../../menu/menu.component";
 import * as styles from './settings-menu.component.css';
 import { MenuItemComponent } from "../../../menu-item/menu-item.component";
-import { IconService } from "../../../../services/icon/icon.component";
 import { MessengerService } from "../../../../services/messenger/messenger.service";
 import { Messages } from "../../../../constants/messages";
+import { IconComponent } from "../../../icon/icon.component";
 
 
 @singleton()
@@ -13,7 +13,9 @@ export class SettingsMenuComponent extends MenuComponent {
         private openSettingsItem: MenuItemComponent,
         private reportItem: MenuItemComponent,
         private downloadManualItem: MenuItemComponent,
-        private iconService: IconService,
+        private infoIcon: IconComponent,
+        private downloadIcon: IconComponent,
+        private manufacturingIcon: IconComponent,
         protected messenger: MessengerService
     ) {
         super();
@@ -36,8 +38,8 @@ export class SettingsMenuComponent extends MenuComponent {
     }
 
     private addOpenSettingsItem() {
-        const openSettingsIcon = this.iconService.init('manufacturing');
-        this.openSettingsItem.addItem('Open settings', openSettingsIcon);
+        this.manufacturingIcon.setIcon('manufacturing');
+        this.openSettingsItem.addItem('Open settings', this.manufacturingIcon.rootElement);
 
         this.openSettingsItem.onItemPress.subscribe(() => {
             this.messenger.send(Messages.OpenSettings);
@@ -45,8 +47,8 @@ export class SettingsMenuComponent extends MenuComponent {
     }
 
     private addReportItem() {
-        const reportIcon = this.iconService.init('info');
-        this.reportItem.addItem('Report', reportIcon);
+        this.infoIcon.setIcon('info');
+        this.reportItem.addItem('Report', this.infoIcon.rootElement);
 
         this.reportItem.onItemPress.subscribe(() => {
             this.messenger.send(Messages.OpenReportPopup);
@@ -54,8 +56,8 @@ export class SettingsMenuComponent extends MenuComponent {
     }
 
     private addDownloadManualItem() {
-        const downloadManualIcon = this.iconService.init('download');
-        this.downloadManualItem.addItem('Download manual', downloadManualIcon);
+        this.downloadIcon.setIcon('download');
+        this.downloadManualItem.addItem('Download manual', this.downloadIcon.rootElement);
 
         this.downloadManualItem.onItemPress.subscribe(() => {
             console.log("downloadManualItem");

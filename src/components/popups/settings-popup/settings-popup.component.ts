@@ -1,24 +1,24 @@
 import { singleton } from 'tsyringe';
 import * as styles from './settings-popup.component.css'
 import { PopupComponent } from '../popup.component';
-import { IconService } from '../../../services/icon/icon.component';
 import { MessengerService } from '../../../services/messenger/messenger.service';
 import { Messages } from '../../../constants/messages';
 import { ToolbarButtonService } from '../../../services/toolbar-button/toolbar-button.service';
 import { I18nService } from '../../../services/i18n/i18n.service';
 import { i18nKeys } from '../../../services/i18n/i18n-keys';
 import { SettingsTabsComponent } from './settings-tabs/settings-tabs.component';
+import { IconComponent } from '../../icon/icon.component';
 
 @singleton()
 export class SettingsPopupComponent extends PopupComponent {
     constructor(
-        protected iconService: IconService,
+        protected icon: IconComponent,
         protected messenger: MessengerService,
         protected toolbarButtonService: ToolbarButtonService,
         protected i18n: I18nService,
         protected settingsTabs: SettingsTabsComponent
     ) {
-        super(iconService, i18n);
+        super(icon, i18n);
 
         this.setWidth("600px");
         this.applyRootStyle(styles);

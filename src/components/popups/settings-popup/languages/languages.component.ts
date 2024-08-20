@@ -1,5 +1,4 @@
 import { singleton } from "tsyringe";
-import { IconService } from "../../../../services/icon/icon.component";
 import { SelectComponent } from "../../../select/select.component";
 import * as styles from './languages.component.css';
 import { SettingsService } from "../../../../services/settings/settings.service";
@@ -8,6 +7,7 @@ import { Language } from "../../../../types/Language";
 import { I18nService } from "../../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { TabContent } from "../../../tab-content/tab-content.component";
+import { IconComponent } from "../../../icon/icon.component";
 
 @singleton()
 export class LanguagesComponent extends TabContent {
@@ -16,7 +16,7 @@ export class LanguagesComponent extends TabContent {
     constructor(
         private sourceLanguageSelect: SelectComponent,
         private targetLanguageSelect: SelectComponent,
-        private iconService: IconService,
+        private icon: IconComponent,
         private settings: SettingsService,
         protected i18n: I18nService
     ) {
@@ -27,9 +27,11 @@ export class LanguagesComponent extends TabContent {
         this.sourceLanguageSelect.setLabel(i18nKeys.SelectSourceLanguage);
         this.targetLanguageSelect.setLabel(i18nKeys.SelectTargetLanguage);
 
+        this.icon.setIcon('arrow_forward');
+
         this.selectionWrapper.append(
             this.sourceLanguageSelect.rootElement,
-            this.iconService.init('arrow_forward'),
+            this.icon.rootElement,
             this.targetLanguageSelect.rootElement,
         );
 

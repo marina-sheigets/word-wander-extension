@@ -32,4 +32,19 @@ export abstract class BaseComponent {
             }
         }
     }
+
+    htmlToElement(html: string): HTMLElement {
+        let tempWrapper = document.createElement('div');
+
+        tempWrapper.innerHTML = this.secureHtml(html);
+        return tempWrapper.firstElementChild as HTMLElement;
+    }
+
+    protected secureHtml(html: string): string {
+        const htmlPolicy = (window as any).trustedTypes.createPolicy("policy", {
+            createHTML: (string: string) => string,
+        });
+
+        return htmlPolicy.createHTML(html);
+    }
 }

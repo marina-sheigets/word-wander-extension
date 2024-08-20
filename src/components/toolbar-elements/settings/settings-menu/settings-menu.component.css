@@ -4,3 +4,8 @@
     flex-direction: column;
     padding: 0;
 }
+
+.rootClassName div :has(> svg) {
+    width: 25px;
+    height: 25px;
+}

@@ -1,7 +1,6 @@
 import { singleton } from "tsyringe";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { I18nService } from "../../../../services/i18n/i18n.service";
-import { IconService } from "../../../../services/icon/icon.component";
 import { TabsButton } from "../../../../types/TabsButton";
 import { BaseComponent } from "../../../base-component/base-component";
 import { ButtonComponent } from "../../../button/button.component";
@@ -40,7 +39,6 @@ export class SettingsTabsComponent extends BaseComponent {
         protected languagesComponent: LanguagesComponent,
         protected translationComponent: TranslationComponent,
         protected pronunciationComponent: PronunciationComponent,
-        protected iconService: IconService,
         protected i18n: I18nService
     ) {
         super();
@@ -59,7 +57,7 @@ export class SettingsTabsComponent extends BaseComponent {
 
     private initTabsButtons() {
         this.tabsButtons.forEach((button: TabsButton) => {
-            const buttonComponent = new ButtonComponent(this.iconService, this.i18n);
+            const buttonComponent = new ButtonComponent(this.i18n);
 
             buttonComponent.addButtonValue(button.label);
             buttonComponent.addButtonName(button.label as i18nKeys);
