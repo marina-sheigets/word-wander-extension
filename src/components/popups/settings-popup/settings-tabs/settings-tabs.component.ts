@@ -76,7 +76,7 @@ export class SettingsTabsComponent extends BaseComponent {
     }
 
     protected setTabContent(e: MouseEvent) {
-        const target = e.target as HTMLInputElement;
+        const target = e.currentTarget as HTMLInputElement;
         const selectedComponent = this.tabsButtons.find((button: TabsButton) => button.label === target.value)?.component;
 
         this.clearTabContent();
