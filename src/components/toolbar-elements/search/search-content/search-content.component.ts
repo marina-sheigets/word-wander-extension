@@ -10,6 +10,7 @@ import { TextToSpeechService } from "../../../../services/text-to-speech/text-to
 import { Informer } from "../../../../services/informer/informer.service";
 import { DictionaryService } from "../../../../services/dictionary/dictionary.service";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
+import { IconName } from "../../../../types/IconName";
 
 @singleton()
 export class SearchContentComponent extends BaseComponent {
@@ -30,14 +31,14 @@ export class SearchContentComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.clearButton.addButtonIcon('clear');
+        this.clearButton.addButtonIcon(IconName.Clear);
         this.pronounceButton.addTooltip('Clear results');
         this.clearButton.onClick.subscribe(() => {
             this.onClear.inform();
             this.clearData()
         });
 
-        this.pronounceButton.addButtonIcon('music_note');
+        this.pronounceButton.addButtonIcon(IconName.MusicNote);
         this.pronounceButton.addTooltip('Pronounce');
         this.pronounceButton.onClick.subscribe(this.pronounceWord.bind(this));
 

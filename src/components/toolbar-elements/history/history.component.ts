@@ -3,6 +3,7 @@ import { BaseComponent } from "../../base-component/base-component";
 import { ToolbarButtonComponent } from "../../toolbar-button/toolbar-button.component";
 import * as styles from './history.component.css'
 import { HistoryMenuComponent } from "./history-menu/history-menu.component";
+import { IconName } from "../../../types/IconName";
 
 @singleton()
 export class HistoryComponent extends BaseComponent {
@@ -13,7 +14,7 @@ export class HistoryComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.button.addIcon('history');
+        this.button.addIcon(IconName.History);
         this.button.addTooltip('History');
 
         this.menu.setContent();

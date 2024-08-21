@@ -8,6 +8,7 @@ import { I18nService } from "../../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { TabContent } from "../../../tab-content/tab-content.component";
 import { IconComponent } from "../../../icon/icon.component";
+import { IconName } from "../../../../types/IconName";
 
 @singleton()
 export class LanguagesComponent extends TabContent {
@@ -27,7 +28,7 @@ export class LanguagesComponent extends TabContent {
         this.sourceLanguageSelect.setLabel(i18nKeys.SelectSourceLanguage);
         this.targetLanguageSelect.setLabel(i18nKeys.SelectTargetLanguage);
 
-        this.icon.setIcon('arrow_forward');
+        this.icon.setIcon(IconName.Arrow);
 
         this.selectionWrapper.append(
             this.sourceLanguageSelect.rootElement,

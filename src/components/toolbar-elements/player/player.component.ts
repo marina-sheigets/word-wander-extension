@@ -7,6 +7,7 @@ import { TextManagerService } from "../../../services/text-manager/text-manager.
 import { NotFoundPopupComponent } from "../../popups/not-found/not-found.component";
 import { ToolbarButtonService } from "../../../services/toolbar-button/toolbar-button.service";
 import { PermissionsService } from "../../../services/permissions/permissions.service";
+import { IconName } from "../../../types/IconName";
 
 @singleton()
 export class PlayerComponent extends BaseComponent {
@@ -23,18 +24,18 @@ export class PlayerComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.playButton.addIcon('play_circle');
+        this.playButton.addIcon(IconName.Play);
         this.playButton.addTooltip('Play');
         this.playButton.onPress.subscribe(() => {
             toolbarButtonService.setAllButtonsInactive();
             this.playText();
         });
 
-        this.pauseButton.addIcon('pause_circle');
+        this.pauseButton.addIcon(IconName.Pause);
         this.pauseButton.addTooltip('Pause');
         this.pauseButton.onPress.subscribe(this.pausePlay.bind(this));
 
-        this.resumeButton.addIcon('play_circle');
+        this.resumeButton.addIcon(IconName.Play);
         this.resumeButton.addTooltip('Resume');
         this.resumeButton.onPress.subscribe(this.resumePlay.bind(this));
 

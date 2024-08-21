@@ -6,6 +6,7 @@ import { MessengerService } from "../../../services/messenger/messenger.service"
 import { Messages } from "../../../constants/messages";
 import { ToolbarButtonService } from "../../../services/toolbar-button/toolbar-button.service";
 import { IconComponent } from "../../icon/icon.component";
+import { IconName } from "../../../types/IconName";
 
 @singleton()
 export class MinimizeButtonComponent extends BaseComponent {
@@ -18,7 +19,7 @@ export class MinimizeButtonComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.icon.setIcon('close_fullscreen');
+        this.icon.setIcon(IconName.Minimize);
         this.rootElement.append(this.icon.rootElement);
 
         this.rootElement.addEventListener('mousedown', this.onMinimize.bind(this));

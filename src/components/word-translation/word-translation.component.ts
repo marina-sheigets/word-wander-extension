@@ -2,6 +2,7 @@ import { injectable } from "tsyringe";
 import { BaseComponent } from "../base-component/base-component";
 import * as styles from './word-translation.component.css';
 import { IconComponent } from "../icon/icon.component";
+import { IconName } from "../../types/IconName";
 
 @injectable()
 export class WordTranslationComponent extends BaseComponent {
@@ -20,7 +21,7 @@ export class WordTranslationComponent extends BaseComponent {
         word.textContent = sourceWord;
         translation.textContent = targetWord;
 
-        this.arrowIcon.setIcon('arrow_forward');
+        this.arrowIcon.setIcon(IconName.Arrow);
 
         arrow.append(this.arrowIcon.rootElement);
 

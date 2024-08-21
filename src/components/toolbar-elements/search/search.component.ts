@@ -4,6 +4,7 @@ import { ToolbarButtonComponent } from "../../toolbar-button/toolbar-button.comp
 import * as styles from './search.component.css'
 import { SearchMenuComponent } from "./search-menu/search-menu.component";
 import { TextManagerService } from "../../../services/text-manager/text-manager.service";
+import { IconName } from "../../../types/IconName";
 
 @singleton()
 export class SearchComponent extends BaseComponent {
@@ -15,7 +16,7 @@ export class SearchComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.button.addIcon('search');
+        this.button.addIcon(IconName.Search);
         this.button.addTooltip('Search');
 
         this.rootElement.append(
