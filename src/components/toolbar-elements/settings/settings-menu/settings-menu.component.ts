@@ -5,6 +5,7 @@ import { MenuItemComponent } from "../../../menu-item/menu-item.component";
 import { MessengerService } from "../../../../services/messenger/messenger.service";
 import { Messages } from "../../../../constants/messages";
 import { IconComponent } from "../../../icon/icon.component";
+import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 
 
 @singleton()
@@ -39,7 +40,7 @@ export class SettingsMenuComponent extends MenuComponent {
 
     private addOpenSettingsItem() {
         this.manufacturingIcon.setIcon('manufacturing');
-        this.openSettingsItem.addItem('Open settings', this.manufacturingIcon.rootElement);
+        this.openSettingsItem.addItem(i18nKeys.OpenSettings, this.manufacturingIcon.rootElement);
 
         this.openSettingsItem.onItemPress.subscribe(() => {
             this.messenger.send(Messages.OpenSettings);
@@ -48,7 +49,7 @@ export class SettingsMenuComponent extends MenuComponent {
 
     private addReportItem() {
         this.infoIcon.setIcon('info');
-        this.reportItem.addItem('Report', this.infoIcon.rootElement);
+        this.reportItem.addItem(i18nKeys.Report, this.infoIcon.rootElement);
 
         this.reportItem.onItemPress.subscribe(() => {
             this.messenger.send(Messages.OpenReportPopup);
@@ -57,7 +58,7 @@ export class SettingsMenuComponent extends MenuComponent {
 
     private addDownloadManualItem() {
         this.downloadIcon.setIcon('download');
-        this.downloadManualItem.addItem('Download manual', this.downloadIcon.rootElement);
+        this.downloadManualItem.addItem(i18nKeys.DownloadManual, this.downloadIcon.rootElement);
 
         this.downloadManualItem.onItemPress.subscribe(() => {
             console.log("downloadManualItem");

@@ -34,4 +34,7 @@ export const enum i18nKeys {
     ShowSynonyms = "ShowSynonyms",
     ShowExamples = "ShowExamples",
     ReportBugPlaceholder = "ReportBugPlaceholder",
+    OpenSettings = "OpenSettings",
+    Report = "Report",
+    DownloadManual = "DownloadManual",
 }

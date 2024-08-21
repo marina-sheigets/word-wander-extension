@@ -136,5 +136,17 @@
     "ReportBugPlaceholder":{
         "en":"Describe the bug...",
         "uk":"Опишіть помилку..."
+    },
+    "OpenSettings":{
+        "en":"Open settings",
+        "uk":"Відкрити налаштування"
+    },
+    "Report":{
+        "en":"Report",
+        "uk":"Зворотній зв'язок"
+    },
+    "DownloadManual":{
+        "en":"Download manual",
+        "uk":"Завантажити інструкцію"
     }
 }
