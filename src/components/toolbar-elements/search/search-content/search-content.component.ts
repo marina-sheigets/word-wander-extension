@@ -102,6 +102,8 @@ export class SearchContentComponent extends BaseComponent {
         if (item.adjective) processPartOfSpeech(item.adjective, 'adjective');
         if (item.verb) processPartOfSpeech(item.verb, 'verb');
         if (item.interjection) processPartOfSpeech(item.interjection, 'interjection');
+        if (item.preposition) processPartOfSpeech(item.preposition, 'preposition');
+        if (item.conjunction) processPartOfSpeech(item.conjunction, 'conjunction');
 
         this.processSynonyms(item.synonyms, components.synonyms);
 

@@ -3,6 +3,8 @@ export interface Dictionary {
     adjective?: WordDictionary;
     noun?: WordDictionary,
     verb?: WordDictionary,
+    preposition?: WordDictionary,
+    conjunction?: WordDictionary,
     synonyms: Array<string[]>;
 }
 
