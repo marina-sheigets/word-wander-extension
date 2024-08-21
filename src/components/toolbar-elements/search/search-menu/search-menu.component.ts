@@ -11,6 +11,7 @@ import { SearchErrorPopupComponent } from "../../../popups/search-error/search-e
 import { DictionaryApiService } from "../../../../services/api/dictionary-api/dictionary-api.service";
 import { GoogleTranslateService } from "../../../../services/api/google-translate/google-translate.service";
 import { HistoryService } from "../../../../services/history/history.service";
+import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 
 @singleton()
 export class SearchMenuComponent extends MenuComponent {
@@ -37,7 +38,7 @@ export class SearchMenuComponent extends MenuComponent {
         this.searchButton.addButtonIcon('search');
         this.searchButton.rootElement.classList.add(styles.searchButton);
 
-        this.inputComponent.setInputSettings('text', 'Type something...');
+        this.inputComponent.setInputSettings('text', i18nKeys.TypeSomething);
         this.inputComponent.onChange.subscribe(this.onSearch.bind(this));
         this.searchButton.onClick.subscribe(() => {
             this.onSearch(this.inputComponent.input.value)

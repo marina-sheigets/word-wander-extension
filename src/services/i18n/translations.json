@@ -176,5 +176,9 @@
     "Search":{
         "en": "Search",
         "uk": "Пошук"
+    },
+    "TypeSomething":{
+        "en": "Type something...",
+        "uk": "Напишіть щось..."
     }
 }

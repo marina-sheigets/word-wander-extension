@@ -43,5 +43,6 @@ export const enum i18nKeys {
     Play = "Play",
     Pause = 'Pause',
     Resume = "Resume",
-    Search = "Search"
+    Search = "Search",
+    TypeSomething = 'TypeSomething'
 }
