@@ -4,6 +4,7 @@ import { ToolbarButtonComponent } from "../../toolbar-button/toolbar-button.comp
 import * as styles from './history.component.css'
 import { HistoryMenuComponent } from "./history-menu/history-menu.component";
 import { IconName } from "../../../types/IconName";
+import { i18nKeys } from "../../../services/i18n/i18n-keys";
 
 @singleton()
 export class HistoryComponent extends BaseComponent {
@@ -15,7 +16,7 @@ export class HistoryComponent extends BaseComponent {
         super(styles);
 
         this.button.addIcon(IconName.History);
-        this.button.addTooltip('History');
+        this.button.addTooltip(i18nKeys.History);
 
         this.menu.setContent();
 

@@ -4,6 +4,7 @@ import { ToolbarButtonComponent } from "../../toolbar-button/toolbar-button.comp
 import * as styles from './settings.component.css'
 import { SettingsMenuComponent } from "./settings-menu/settings-menu.component";
 import { IconName } from "../../../types/IconName";
+import { i18nKeys } from "../../../services/i18n/i18n-keys";
 
 @singleton()
 export class SettingsComponent extends BaseComponent {
@@ -15,7 +16,7 @@ export class SettingsComponent extends BaseComponent {
         super(styles);
 
         this.button.addIcon(IconName.Settings);
-        this.button.addTooltip('Settings');
+        this.button.addTooltip(i18nKeys.Settings);
 
         this.rootElement.append(
             button.rootElement,

@@ -52,7 +52,9 @@ export class ButtonComponent extends BaseComponent {
         this.rootElement.classList.remove(styles.disabled);
     }
 
-    addTooltip(text: string) {
-        this.rootElement.setAttribute('title', text);
+    addTooltip(key: i18nKeys) {
+        this.i18n.follow(key, (value) => {
+            this.rootElement.setAttribute('title', value);
+        });
     }
 }

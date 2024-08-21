@@ -148,5 +148,33 @@
     "DownloadManual":{
         "en":"Download manual",
         "uk":"Завантажити інструкцію"
+    },
+    "ClearResults":{
+        "en": "Clear results",
+        "uk": "Очистити результат"
+    },
+    "Pronounce":{
+        "en":"Pronounce",
+        "uk": "Озвучити"
+    },
+    "History":{
+        "en":"History",
+        "uk":"Історія"
+    },
+    "Play":{
+        "en": "Play",
+        "uk": "Озвучити"
+    },
+    "Pause":{
+        "en": "Pause",
+        "uk": "Пауза"
+    },
+    "Resume":{
+        "en": "Resume",
+        "uk": "Продовжити"
+    },
+    "Search":{
+        "en": "Search",
+        "uk": "Пошук"
     }
 }

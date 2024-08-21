@@ -32,14 +32,14 @@ export class SearchContentComponent extends BaseComponent {
         super(styles);
 
         this.clearButton.addButtonIcon(IconName.Clear);
-        this.pronounceButton.addTooltip('Clear results');
+        this.pronounceButton.addTooltip(i18nKeys.ClearResults);
         this.clearButton.onClick.subscribe(() => {
             this.onClear.inform();
             this.clearData()
         });
 
         this.pronounceButton.addButtonIcon(IconName.MusicNote);
-        this.pronounceButton.addTooltip('Pronounce');
+        this.pronounceButton.addTooltip(i18nKeys.Pronounce);
         this.pronounceButton.onClick.subscribe(this.pronounceWord.bind(this));
 
         this.saveToDictionaryButton.addButtonName(i18nKeys.SaveToDictionary);

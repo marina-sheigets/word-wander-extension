@@ -8,6 +8,7 @@ import { NotFoundPopupComponent } from "../../popups/not-found/not-found.compone
 import { ToolbarButtonService } from "../../../services/toolbar-button/toolbar-button.service";
 import { PermissionsService } from "../../../services/permissions/permissions.service";
 import { IconName } from "../../../types/IconName";
+import { i18nKeys } from "../../../services/i18n/i18n-keys";
 
 @singleton()
 export class PlayerComponent extends BaseComponent {
@@ -25,18 +26,18 @@ export class PlayerComponent extends BaseComponent {
         super(styles);
 
         this.playButton.addIcon(IconName.Play);
-        this.playButton.addTooltip('Play');
+        this.playButton.addTooltip(i18nKeys.Play);
         this.playButton.onPress.subscribe(() => {
             toolbarButtonService.setAllButtonsInactive();
             this.playText();
         });
 
         this.pauseButton.addIcon(IconName.Pause);
-        this.pauseButton.addTooltip('Pause');
+        this.pauseButton.addTooltip(i18nKeys.Pause);
         this.pauseButton.onPress.subscribe(this.pausePlay.bind(this));
 
         this.resumeButton.addIcon(IconName.Play);
-        this.resumeButton.addTooltip('Resume');
+        this.resumeButton.addTooltip(i18nKeys.Resume);
         this.resumeButton.onPress.subscribe(this.resumePlay.bind(this));
 
         this.pauseButton.rootElement.classList.add(styles.hidden);

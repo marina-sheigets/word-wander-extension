@@ -6,6 +6,8 @@ import { ToolbarButtonService } from "../../services/toolbar-button/toolbar-butt
 import { MessengerService } from "../../services/messenger/messenger.service";
 import { Messages } from "../../constants/messages";
 import { IconComponent } from "../icon/icon.component";
+import { I18nService } from "../../services/i18n/i18n.service";
+import { i18nKeys } from "../../services/i18n/i18n-keys";
 
 @injectable()
 export class ToolbarButtonComponent extends BaseComponent {
@@ -15,7 +17,8 @@ export class ToolbarButtonComponent extends BaseComponent {
 
     constructor(
         protected toolbarButtonService: ToolbarButtonService,
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected i18n: I18nService
     ) {
         super(styles);
 
@@ -44,8 +47,10 @@ export class ToolbarButtonComponent extends BaseComponent {
         }
     }
 
-    public addTooltip(tooltip: string) {
-        this.iconWrapper.title = tooltip;
+    public addTooltip(key: i18nKeys) {
+        this.i18n.follow(key, (value) => {
+            this.iconWrapper.title = value;
+        });
     }
 
     public addIcon(name: string) {
