@@ -17,6 +17,7 @@ export class SearchMenuComponent extends MenuComponent {
     searchContainer = document.createElement('div');
     emptyContainer = document.createElement('div');
     content = document.createElement('div');
+    searchValue: string = '';
 
     constructor(
         private inputComponent: InputComponent,
@@ -72,7 +73,7 @@ export class SearchMenuComponent extends MenuComponent {
     }
 
     private async onSearch(value: string) {
-        if (value.trim().length === 0) {
+        if (value.trim().length === 0 || value === this.searchValue) {
             return;
         }
 
@@ -81,6 +82,7 @@ export class SearchMenuComponent extends MenuComponent {
             return;
         }
 
+        this.searchValue = value;
         this.searchContent.clearData();
 
         this.searchContent.hide();
