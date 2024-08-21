@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/eda6670a-48e8-444a-9689-fd22e46aa271)
+
+
 **WordWander** is an extension that allows you to:
 
  * Translate words on any webpage
