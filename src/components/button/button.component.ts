@@ -8,6 +8,8 @@ import { IconComponent } from "../icon/icon.component";
 
 @injectable()
 export class ButtonComponent extends BaseComponent {
+    buttonIconWrapper = document.createElement('div');
+    buttonLabel = document.createElement('span');
     button = document.createElement('button');
     onClick = new Informer<any>();
 
@@ -17,7 +19,7 @@ export class ButtonComponent extends BaseComponent {
         super(styles);
 
         this.button.addEventListener('mousedown', (e: Event) => this.onClick.inform(e));
-
+        this.button.append(this.buttonIconWrapper, this.buttonLabel);
         this.rootElement.append(
             this.button
         );
@@ -31,12 +33,12 @@ export class ButtonComponent extends BaseComponent {
         const icon = new IconComponent();
         icon.setIcon(iconName);
 
-        this.button.append(icon.rootElement);
+        this.buttonIconWrapper.append(icon.rootElement);
     }
 
     addButtonName(key: i18nKeys) {
         this.i18n.follow(key, (name: string) => {
-            this.button.textContent = name;
+            this.buttonLabel.textContent = name;
         });
     }
 
