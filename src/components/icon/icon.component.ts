@@ -12,7 +12,6 @@ export class IconComponent extends BaseComponent {
 
     setIcon(name: string) {
         const iconSvg = require(`../../../assets/icons/${name}.svg`);
-        const icon = this.htmlToElement(iconSvg);
-        this.rootElement.append(icon);
+        this.rootElement.innerHTML = iconSvg;
     }
 }
