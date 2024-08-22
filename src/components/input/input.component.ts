@@ -43,9 +43,11 @@ export class InputComponent extends BaseComponent {
         });
     }
 
-    setInputSettings(type: string, placeholder: string) {
+    setInputSettings(type: string, placeholder: i18nKeys) {
         this.input.type = type;
-        this.input.placeholder = placeholder;
+        this.i18nService.follow(placeholder, (text) => {
+            this.input.placeholder = text;
+        });
     }
 
     setDisabled() {
