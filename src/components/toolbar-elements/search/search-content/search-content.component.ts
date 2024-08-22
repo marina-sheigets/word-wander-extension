@@ -167,6 +167,7 @@ export class SearchContentComponent extends BaseComponent {
     }
 
     clearData() {
+        this.word = '';
         this.wordTranslationComponent.clear();
         this.rootElement.innerHTML = '';
     }
@@ -181,5 +182,9 @@ export class SearchContentComponent extends BaseComponent {
 
     pronounceWord() {
         this.textToSpeechService.play(this.word);
+    }
+
+    getWord(): string {
+        return this.word;
     }
 }
