@@ -30,7 +30,7 @@ class Entry {
         const element = document.createElement('div');
         element.classList.add("wordWander");
 
-        const topCss = getCssLink(`chrome-extension://ddglnclgkdlmnikgndlnionilakomjdd/top.css`);
+        const topCss = getCssLink(`chrome-extension://piiahlmbfeklidfhfndjconeedgfnnhm/top.css`);
 
         shadow.append(
             topCss,

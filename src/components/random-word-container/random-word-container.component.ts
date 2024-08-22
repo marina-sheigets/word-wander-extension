@@ -20,7 +20,7 @@ export class RandomWordContainerComponent extends BaseComponent {
         super();
         this.applyRootStyle(styles);
 
-        this.i18n.follow(i18nKeys.CreateRandomWord, (value) => {
+        this.i18n.follow(i18nKeys.GenerateRandomWord, (value) => {
             this.label.textContent = value;
         });
 

@@ -45,7 +45,7 @@ export const enum i18nKeys {
     Resume = "Resume",
     Search = "Search",
     TypeSomething = 'TypeSomething',
-    CreateRandomWord = 'CreateRandomWord',
+    GenerateRandomWord = 'GenerateRandomWord',
     Email = 'Email',
     Password = 'Password',
     NoDefinitions = 'NoDefinitions',

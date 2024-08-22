@@ -181,9 +181,9 @@
         "en": "Type something...",
         "uk": "Напишіть щось..."
     },
-    "CreateRandomWord":{
-        "en": "Create random word",
-        "uk": "Створити випадкове слово"
+    "GenerateRandomWord":{
+        "en": "Generate random word",
+        "uk": "Згенерувати випадкове слово"
     },
     "Email":{
         "en": "Email",
