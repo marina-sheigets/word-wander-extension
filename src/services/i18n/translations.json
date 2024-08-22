@@ -192,5 +192,9 @@
     "Password":{
         "en": "Password",
         "uk": "Пароль"
+    },
+    "NoDefinitions":{
+        "en":"No definition found. Try another word.",
+        "uk":"Визначення не знайдено. Спробуйте інше слово."
     }
 }

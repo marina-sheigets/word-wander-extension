@@ -14,6 +14,7 @@ import { HistoryService } from "../../../../services/history/history.service";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { RandomWordContainerComponent } from "../../../random-word-container/random-word-container.component";
 import { IconName } from "../../../../types/IconName";
+import { I18nService } from "../../../../services/i18n/i18n.service";
 
 @singleton()
 export class SearchMenuComponent extends MenuComponent {
@@ -32,7 +33,8 @@ export class SearchMenuComponent extends MenuComponent {
         protected searchErrorPopup: SearchErrorPopupComponent,
         protected dictionaryService: DictionaryApiService,
         protected historyService: HistoryService,
-        protected randomWordContainer: RandomWordContainerComponent
+        protected randomWordContainer: RandomWordContainerComponent,
+        protected i18n: I18nService
     ) {
         super();
 
@@ -126,7 +128,9 @@ export class SearchMenuComponent extends MenuComponent {
 
             this.searchContent.show();
         } else {
-            this.emptyContainer.textContent = "No definition found. Try another word.";
+            this.i18n.follow(i18nKeys.NoDefinitions, (text) => {
+                this.emptyContainer.textContent = text;
+            });
             this.emptyContainer.classList.remove(styles.hidden);
         }
     }
