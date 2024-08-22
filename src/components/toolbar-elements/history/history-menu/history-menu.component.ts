@@ -10,6 +10,9 @@ import { HistoryItem } from "../../../../types/History";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { IconComponent } from "../../../icon/icon.component";
 import { IconName } from "../../../../types/IconName";
+import { I18nService } from "../../../../services/i18n/i18n.service";
+import { TextToSpeechService } from "../../../../services/text-to-speech/text-to-speech.service";
+import { DictionaryService } from "../../../../services/dictionary/dictionary.service";
 
 @singleton()
 export class HistoryMenuComponent extends MenuComponent {
@@ -20,7 +23,10 @@ export class HistoryMenuComponent extends MenuComponent {
         private clearHistoryButton: ButtonComponent,
         protected icon: IconComponent,
         protected messenger: MessengerService,
-        protected historyService: HistoryService
+        protected historyService: HistoryService,
+        protected i18n: I18nService,
+        protected textToSpeechService: TextToSpeechService,
+        protected dictionaryService: DictionaryService
     ) {
         super();
 
@@ -55,9 +61,29 @@ export class HistoryMenuComponent extends MenuComponent {
             this.historyContainer.innerHTML = '';
 
             history.forEach((item: HistoryItem) => {
-                const wordTranslationComponent = new WordTranslationComponent(this.icon);
-                wordTranslationComponent.addPair(item.word, item.translation);
-                this.historyContainer.append(wordTranslationComponent.rootElement);
+                const playButton = new ButtonComponent(this.i18n);
+                playButton.addButtonIcon(IconName.Play);
+                playButton.addTooltip(i18nKeys.Play);
+                playButton.onClick.subscribe(() => {
+                    this.textToSpeechService.play(item.word);
+                });
+
+                const translation = new WordTranslationComponent(this.icon);
+                translation.addPair(item.word, item.translation, false);
+
+
+                const addWordButton = new ButtonComponent(this.i18n);
+                addWordButton.addButtonIcon(IconName.Plus);
+                addWordButton.addTooltip(i18nKeys.AddToDictionary);
+                addWordButton.onClick.subscribe(() => {
+                    this.dictionaryService.addWordToDictionary(item.word, [item.translation]);
+                });
+                this.historyContainer.append(
+                    playButton.rootElement,
+                    translation.rootElement,
+                    addWordButton.rootElement
+
+                );
             });
 
             this.showHistory();

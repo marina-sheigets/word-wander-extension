@@ -11,3 +11,7 @@
 .rootClassName > div:first-child {
     color: #00CE8F;
 }
+
+.rootClassName > div:last-child {
+    text-align: end;
+}

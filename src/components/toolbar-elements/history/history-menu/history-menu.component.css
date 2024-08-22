@@ -4,7 +4,6 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    width: 80%;
 }
 
 .emptyResultContainer {
@@ -12,9 +11,12 @@
 }
 
 .historyContainer {
-    display: flex;
-    gap: 8px;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 200px 1fr;
+
+    button {
+        background-color: transparent;
+    }
 }
 
 .clearHistoryButton {

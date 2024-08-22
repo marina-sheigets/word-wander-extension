@@ -13,7 +13,7 @@ export class WordTranslationComponent extends BaseComponent {
 
     }
 
-    addPair(sourceWord: string, targetWord: string) {
+    addPair(sourceWord: string, targetWord: string, isArrowVisible: boolean = true) {
         const word = document.createElement('div');
         const translation = document.createElement('div');
         const arrow = document.createElement('div');
@@ -25,11 +25,13 @@ export class WordTranslationComponent extends BaseComponent {
 
         arrow.append(this.arrowIcon.rootElement);
 
-        this.rootElement.append(
-            word,
-            arrow,
-            translation
-        );
+        this.rootElement.append(word);
+
+        if (isArrowVisible) {
+            this.rootElement.append(arrow);
+        }
+
+        this.rootElement.append(translation);
 
         this.show();
     }

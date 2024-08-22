@@ -196,5 +196,9 @@
     "NoDefinitions":{
         "en":"No definition found. Try another word.",
         "uk":"Визначення не знайдено. Спробуйте інше слово."
+    },
+    "AddToDictionary":{
+        "en":"Add to dictionary",
+        "uk":"Додати до словника"
     }
 }

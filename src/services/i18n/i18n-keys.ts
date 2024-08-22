@@ -49,4 +49,5 @@ export const enum i18nKeys {
     Email = 'Email',
     Password = 'Password',
     NoDefinitions = 'NoDefinitions',
+    AddToDictionary = 'AddToDictionary',
 }

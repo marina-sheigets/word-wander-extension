@@ -14,4 +14,5 @@ export enum IconName {
     Info = 'info',
     Download = 'download',
     Random = 'random',
+    Plus = 'plus',
 }
