@@ -1,0 +1,12 @@
+.rootClassName{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    background-color: inherit;
+    color: #9EA5AE;
+}
+
+.rootClassName > div > div {
+    display: flex;
+    justify-content:center;
+}

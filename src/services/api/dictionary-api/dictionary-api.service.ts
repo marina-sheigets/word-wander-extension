@@ -25,13 +25,55 @@ interface MeaningResponse {
         synonyms: string[];
     }
 }
+
+interface RandomWord {
+    definition: string,
+    word: string,
+    example: string
+}
 @singleton()
 export class DictionaryApiService {
     private readonly baseUrl = "https://api.dictionaryapi.dev/api/v2/entries/";
+    private readonly urbanDictionaryUrl = "https://api.urbandictionary.com/v0/random";
+
     constructor(
         protected settingsService: SettingsService,
     ) {
 
+    }
+
+    public async getRandomWord(): Promise<any> {
+        try {
+            const response = await fetch(this.urbanDictionaryUrl);
+            const json = await response.json();
+
+            if (json.list && json.list.length) {
+                const singleWord = this.getSingleWord(json.list);
+                if (!singleWord) {
+                    return null;
+                }
+
+                return this.formatRandomWord(singleWord);
+            }
+        } catch (error) {
+            return null;
+        }
+    }
+
+    private formatRandomWord(item: RandomWord) {
+        return {
+            word: item.word.replace(/[\[\]']+/g, ''), // remove unnecessary square brackets
+            dictionaryResult: [{
+                unknown: {
+                    meaning: [item.definition],
+                    usage: [item.example.replace(/[\[\]']+/g, '')] // remove unnecessary square brackets
+                },
+            }]
+        }
+    }
+
+    private getSingleWord(list: RandomWord[]) {
+        return list.find((item: RandomWord) => item.word.split(' ').length === 1);
     }
 
     private formatData(data: any): DictionaryData[] {

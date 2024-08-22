@@ -5,6 +5,7 @@ export interface Dictionary {
     verb?: WordDictionary,
     preposition?: WordDictionary,
     conjunction?: WordDictionary,
+    unknown?: WordDictionary,
     synonyms: Array<string[]>;
 }
 

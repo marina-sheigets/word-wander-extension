@@ -37,12 +37,15 @@ export const enum i18nKeys {
     OpenSettings = "OpenSettings",
     Report = "Report",
     DownloadManual = "DownloadManual",
-    ClearResults = 'Clear results',
+    ClearResults = 'ClearResults',
     Pronounce = 'Pronounce',
     History = "History",
     Play = "Play",
     Pause = 'Pause',
     Resume = "Resume",
     Search = "Search",
-    TypeSomething = 'TypeSomething'
+    TypeSomething = 'TypeSomething',
+    CreateRandomWord = 'CreateRandomWord',
+    Email = 'Email',
+    Password = 'Password',
 }

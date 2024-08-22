@@ -12,5 +12,6 @@ export enum IconName {
     Minimize = 'close_fullscreen',
     Manufacturing = 'manufacturing',
     Info = 'info',
-    Download = 'download'
+    Download = 'download',
+    Random = 'random',
 }

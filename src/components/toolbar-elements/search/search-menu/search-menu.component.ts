@@ -12,6 +12,8 @@ import { DictionaryApiService } from "../../../../services/api/dictionary-api/di
 import { GoogleTranslateService } from "../../../../services/api/google-translate/google-translate.service";
 import { HistoryService } from "../../../../services/history/history.service";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
+import { RandomWordContainerComponent } from "../../../random-word-container/random-word-container.component";
+import { IconName } from "../../../../types/IconName";
 
 @singleton()
 export class SearchMenuComponent extends MenuComponent {
@@ -29,13 +31,14 @@ export class SearchMenuComponent extends MenuComponent {
         protected messenger: MessengerService,
         protected searchErrorPopup: SearchErrorPopupComponent,
         protected dictionaryService: DictionaryApiService,
-        protected historyService: HistoryService
+        protected historyService: HistoryService,
+        protected randomWordContainer: RandomWordContainerComponent
     ) {
         super();
 
         this.applyRootStyle(styles);
 
-        this.searchButton.addButtonIcon('search');
+        this.searchButton.addButtonIcon(IconName.Search);
         this.searchButton.rootElement.classList.add(styles.searchButton);
 
         this.inputComponent.setInputSettings('text', i18nKeys.TypeSomething);
@@ -46,9 +49,9 @@ export class SearchMenuComponent extends MenuComponent {
 
         this.searchContainer.classList.add(styles.searchContainer);
         this.emptyContainer.classList.add(styles.emptyContainer);
+        this.emptyContainer.classList.add(styles.hidden);
         this.content.classList.add(styles.content);
 
-        this.emptyContainer.textContent = 'No results...';
 
         this.searchContainer.append(
             this.inputComponent.rootElement,
@@ -56,6 +59,7 @@ export class SearchMenuComponent extends MenuComponent {
         )
 
         this.content.append(
+            this.randomWordContainer.rootElement,
             this.emptyContainer,
             this.loader.rootElement,
             this.searchContent.rootElement
@@ -68,9 +72,26 @@ export class SearchMenuComponent extends MenuComponent {
         this.messenger.subscribe(Messages.CloseAllMenus, this.hide.bind(this));
 
         this.searchContent.onClear.subscribe(() => {
-            this.emptyContainer.classList.remove(styles.hidden);
+            this.randomWordContainer.rootElement.classList.remove(styles.hidden);
             this.searchContent.hide();
+            this.inputComponent.input.value = '';
         });
+
+        this.randomWordContainer.onRandomizeWord.subscribe(this.randomizeWord.bind(this));
+
+    }
+
+    private async randomizeWord() {
+        this.randomWordContainer.rootElement.classList.add(styles.hidden);
+        const randomWord = await this.dictionaryService.getRandomWord();
+
+        if (randomWord) {
+            this.inputComponent.input.value = randomWord.word;
+            this.searchContent.clearData();
+            this.emptyContainer.classList.add(styles.hidden);
+            this.searchContent.fillWithData(randomWord.word, [], randomWord.dictionaryResult);
+            this.searchContent.show();
+        }
     }
 
     private async onSearch(value: string) {
@@ -90,7 +111,7 @@ export class SearchMenuComponent extends MenuComponent {
         this.loader.show();
         this.searchButton.disable();
         this.inputComponent.setDisabled();
-        this.emptyContainer.classList.add(styles.hidden);
+        this.randomWordContainer.rootElement.classList.add(styles.hidden);
 
         const translations: string[] = await this.googleTranslateService.translateText(value);
         const dictionaryResult = await this.dictionaryService.fetchData(value);

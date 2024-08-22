@@ -32,7 +32,7 @@ export class SearchContentComponent extends BaseComponent {
         super(styles);
 
         this.clearButton.addButtonIcon(IconName.Clear);
-        this.pronounceButton.addTooltip(i18nKeys.ClearResults);
+        this.clearButton.addTooltip(i18nKeys.ClearResults);
         this.clearButton.onClick.subscribe(() => {
             this.onClear.inform();
             this.clearData()
@@ -48,7 +48,6 @@ export class SearchContentComponent extends BaseComponent {
             this.dictionaryService.addWordToDictionary(this.word, this.translations);
         });
 
-        this.controlsWrapper = document.createElement('div');
         this.controlsWrapper.classList.add(styles.controlsWrapper);
 
         this.controlsWrapper.append(
@@ -64,6 +63,10 @@ export class SearchContentComponent extends BaseComponent {
         this.clearData();
         this.word = word;
         this.translations = translations;
+
+        if (!translations.length) {
+            this.controlsWrapper.classList.add(styles.hidden);
+        }
 
         translations.forEach((translation) => {
             this.wordTranslationComponent.addPair(word, translation);
@@ -105,6 +108,7 @@ export class SearchContentComponent extends BaseComponent {
         if (item.interjection) processPartOfSpeech(item.interjection, 'interjection');
         if (item.preposition) processPartOfSpeech(item.preposition, 'preposition');
         if (item.conjunction) processPartOfSpeech(item.conjunction, 'conjunction');
+        if (item.unknown) processPartOfSpeech(item.unknown, 'unknown');
 
         this.processSynonyms(item.synonyms, components.synonyms);
 

@@ -180,5 +180,17 @@
     "TypeSomething":{
         "en": "Type something...",
         "uk": "Напишіть щось..."
+    },
+    "CreateRandomWord":{
+        "en": "Create random word",
+        "uk": "Створити випадкове слово"
+    },
+    "Email":{
+        "en": "Email",
+        "uk": "Email"
+    },
+    "Password":{
+        "en": "Password",
+        "uk": "Пароль"
     }
 }
