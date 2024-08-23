@@ -8,6 +8,7 @@ import { Messages } from "../../constants/messages";
 import { IconComponent } from "../icon/icon.component";
 import { I18nService } from "../../services/i18n/i18n.service";
 import { i18nKeys } from "../../services/i18n/i18n-keys";
+import { IconName } from "../../types/IconName";
 
 @injectable()
 export class ToolbarButtonComponent extends BaseComponent {
@@ -53,7 +54,7 @@ export class ToolbarButtonComponent extends BaseComponent {
         });
     }
 
-    public addIcon(name: string) {
+    public addIcon(name: IconName) {
         const newIcon = new IconComponent();
         newIcon.setIcon(name);
 

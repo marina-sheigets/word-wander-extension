@@ -10,12 +10,14 @@ import { SettingsComponent } from "../../toolbar-elements/settings/settings.comp
 import { TOOLBAR_MODE, ToolbarService } from "../../../services/toolbar/toolbar.service";
 import { MessengerService } from "../../../services/messenger/messenger.service";
 import { ToolbarBlockLayerComponent } from "../../toolbar-block-layer/toolbar-block-layer.component";
+import { LearnComponent } from "../../toolbar-elements/learn/learn.component";
 
 @singleton()
 export class DraggableToolbarComponent extends Toolbar {
     mode = TOOLBAR_MODE.DRAGGABLE;
     constructor(
         private logoComponent: ToolbarLogoComponent,
+        protected learn: LearnComponent,
         protected search: SearchComponent,
         protected history: HistoryComponent,
         private player: PlayerComponent,
@@ -34,6 +36,7 @@ export class DraggableToolbarComponent extends Toolbar {
             this.search.rootElement,
             this.history.rootElement,
             this.player.rootElement,
+            this.learn.rootElement,
             this.settings.rootElement,
             this.toolbarBlockLayer.rootElement,
         );
