@@ -3,6 +3,7 @@
     "name": "WordWander",
     "version": "0.0.1",
     "description": "Translate the words easily",
+    "options_page": "trainings.html",
     "icons": {
         "16": "assets/logo.png",
         "48": "assets/logo.png",

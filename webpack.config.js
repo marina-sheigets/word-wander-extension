@@ -2,7 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const DotenvWebpackPlugin = require('dotenv-webpack');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let environments = {
     dev : {
@@ -32,6 +32,10 @@ let bundles = [
         path: './src/content-scripts/history-content-script.ts',
         hash: null
     },
+    {
+        name: 'trainings',
+        path:"./src/pages/trainings.index.ts",
+    }
 
 ];
 
@@ -99,6 +103,12 @@ module.exports = commandArgs => {
         },
         plugins: [
             new DotenvWebpackPlugin(),
+            new HtmlWebpackPlugin({
+                title: 'WordWander | Trainings',
+                filename: 'trainings.html',
+                chunks: ['trainings'],
+                publicPath: "",
+            }),
             new CopyWebpackPlugin({
                 patterns: [
                     {
