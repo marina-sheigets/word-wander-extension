@@ -50,4 +50,6 @@ export const enum i18nKeys {
     Password = 'Password',
     NoDefinitions = 'NoDefinitions',
     AddToDictionary = 'AddToDictionary',
+    YouAreOffline = 'YouAreOffline',
+    GoToTrainings = 'GoToTrainings',
 }

@@ -200,5 +200,14 @@
     "AddToDictionary":{
         "en":"Add to dictionary",
         "uk":"Додати до словника"
+    },
+    "YouAreOffline":{
+        "en":"You are offline",
+        "uk":"Ви не в мережі"
+    },
+    "GoToTrainings":{
+        "en":"Go to trainings",
+        "uk":"Перейти до тренувань"
     }
+    
 }

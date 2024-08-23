@@ -9,11 +9,12 @@ import { PlayerComponent } from "../../toolbar-elements/player/player.component"
 import { SettingsComponent } from "../../toolbar-elements/settings/settings.component";
 import { MinimizeButtonComponent } from "../../toolbar-elements/minimize-button/minimize-button.component";
 import { TOOLBAR_MODE, ToolbarService } from "../../../services/toolbar/toolbar.service";
+import { MessengerService } from "../../../services/messenger/messenger.service";
+import { ToolbarBlockLayerComponent } from "../../toolbar-block-layer/toolbar-block-layer.component";
 
 @singleton()
 export class DraggableToolbarComponent extends Toolbar {
     mode = TOOLBAR_MODE.DRAGGABLE;
-
     constructor(
         private logoComponent: ToolbarLogoComponent,
         protected search: SearchComponent,
@@ -22,21 +23,23 @@ export class DraggableToolbarComponent extends Toolbar {
         private settings: SettingsComponent,
         private minimize: MinimizeButtonComponent,
         protected localStorage: LocalStorageService,
-        protected toolbarService: ToolbarService
+        protected toolbarService: ToolbarService,
+        protected messenger: MessengerService,
+        protected toolbarBlockLayer: ToolbarBlockLayerComponent,
     ) {
         super(localStorage, toolbarService);
 
         this.applyRootStyle(styles);
 
         this.logoComponent.rootElement.classList.add(styles.logo);
-
         this.rootElement.append(
             this.logoComponent.rootElement,
             this.search.rootElement,
             this.history.rootElement,
             this.player.rootElement,
             this.settings.rootElement,
-            this.minimize.rootElement
+            this.minimize.rootElement,
+            this.toolbarBlockLayer.rootElement,
         );
 
         this.initializeToolbar();
