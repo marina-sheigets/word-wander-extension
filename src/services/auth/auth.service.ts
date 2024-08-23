@@ -10,6 +10,7 @@ export class AuthService {
         return this.isAuth;
     }
 
+    // @ts-ignore
     public signIn(email: string, password: string) {
         // add endpoint to sign in
     }

@@ -12,6 +12,7 @@ export class DictionaryService {
 
     }
 
+    // @ts-ignore
     addWordToDictionary(word: string, translations: string[]) {
         if (!this.authService.isAuthorized()) {
             this.messenger.send(Messages.OpenSignInPopup);

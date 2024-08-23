@@ -30,7 +30,8 @@
             ],
             "exclude_matches":[
                 "https://*/_/chrome/*",
-                "https://github.com/*"
+                "https://github.com/*",
+                "https://www.figma.com/*"
             ],
             "js": [
                 "loader.js",
