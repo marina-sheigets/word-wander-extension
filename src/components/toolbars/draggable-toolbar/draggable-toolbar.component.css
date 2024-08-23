@@ -4,14 +4,4 @@
     display: flex;
     background: #292A2E;
     z-index: 2147483647;
-    border-top-left-radius: 27px;
-    border-bottom-left-radius: 27px;
-}
-
-.logo {
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: white;
 }

@@ -18,16 +18,10 @@ export class MinimizedToolbarComponent extends Toolbar {
 
         this.applyRootStyle(styles);
 
-        this.logoComponent.rootElement.addEventListener('mouseup', this.setDraggable.bind(this));
         this.rootElement.append(
             this.logoComponent.rootElement
         );
 
         this.initializeToolbar();
     }
-
-    setDraggable() {
-        this.toolbarService.setToolbarMode(TOOLBAR_MODE.DRAGGABLE);
-    }
-
 }

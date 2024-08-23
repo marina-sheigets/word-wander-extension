@@ -7,7 +7,6 @@ import { SearchComponent } from "../../toolbar-elements/search/search.component"
 import { HistoryComponent } from "../../toolbar-elements/history/history.component";
 import { PlayerComponent } from "../../toolbar-elements/player/player.component";
 import { SettingsComponent } from "../../toolbar-elements/settings/settings.component";
-import { MinimizeButtonComponent } from "../../toolbar-elements/minimize-button/minimize-button.component";
 import { TOOLBAR_MODE, ToolbarService } from "../../../services/toolbar/toolbar.service";
 import { MessengerService } from "../../../services/messenger/messenger.service";
 import { ToolbarBlockLayerComponent } from "../../toolbar-block-layer/toolbar-block-layer.component";
@@ -21,7 +20,6 @@ export class DraggableToolbarComponent extends Toolbar {
         protected history: HistoryComponent,
         private player: PlayerComponent,
         private settings: SettingsComponent,
-        private minimize: MinimizeButtonComponent,
         protected localStorage: LocalStorageService,
         protected toolbarService: ToolbarService,
         protected messenger: MessengerService,
@@ -31,14 +29,12 @@ export class DraggableToolbarComponent extends Toolbar {
 
         this.applyRootStyle(styles);
 
-        this.logoComponent.rootElement.classList.add(styles.logo);
         this.rootElement.append(
             this.logoComponent.rootElement,
             this.search.rootElement,
             this.history.rootElement,
             this.player.rootElement,
             this.settings.rootElement,
-            this.minimize.rootElement,
             this.toolbarBlockLayer.rootElement,
         );
 
