@@ -2,14 +2,24 @@ import 'reflect-metadata';
 import { container, singleton } from "tsyringe";
 import { BackgroundMessages } from '../constants/backgroundMessages';
 import { ChromeStorageKeys } from '../constants/chromeStorageKeys';
+import { getTrainingsPageURL } from '../utils/getTrainingsPageURL';
 
 @singleton()
 export class Background {
     constructor() {
 
         chrome.runtime.onMessage.addListener((request) => {
+
             if (!request || !request.type || !Object.values(BackgroundMessages).includes(request.type)) {
+                console.error('Invalid request:', request);
                 return;
+            }
+
+            switch (request.type) {
+                case BackgroundMessages.GoToTrainings: {
+                    this.goToTrainingsPage();
+                    break;
+                }
             }
         });
 
@@ -49,6 +59,17 @@ export class Background {
             });
         });
     };
+
+    private goToTrainingsPage() {
+        chrome.tabs.query({}, (tabs) => {
+            const trainingsTab = tabs.find(tab => tab.url?.includes('trainings'));
+            if (trainingsTab) {
+                chrome.tabs.update(trainingsTab.id || 0, { active: true });
+            } else {
+                chrome.tabs.create({ url: getTrainingsPageURL(), active: true });
+            }
+        });
+    }
 }
 
 container.register('BundleName', {

@@ -5,16 +5,16 @@
     "description": "Translate the words easily",
     "options_page": "trainings.html",
     "icons": {
-        "16": "assets/logo.png",
-        "48": "assets/logo.png",
-        "128": "assets/logo.png"
+        "16": "assets/logo.webp",
+        "48": "assets/logo.webp",
+        "128": "assets/logo.webp"
     },
     "permissions": [
         "storage",
         "tabs"
     ],
     "action": {
-        "default_icon": "assets/logo.png",
+        "default_icon": "assets/logo.webp",
         "default_title": "WordWander"
     },
     "host_permissions": [
@@ -34,6 +34,7 @@
             ],
             "js": [
                 "loader.js",
+                "base-content-script.js",
                 "settings-content-script.js",
                 "history-content-script.js"
             ],

@@ -4,11 +4,14 @@ import { IconName } from "../../../types/IconName";
 import { BaseComponent } from "../../base-component/base-component";
 import { ToolbarButtonComponent } from "../../toolbar-button/toolbar-button.component";
 import * as styles from './learn.component.css';
+import { MessengerService } from "../../../services/messenger/messenger.service";
+import { BackgroundMessages } from "../../../constants/backgroundMessages";
 
 @singleton()
 export class LearnComponent extends BaseComponent {
     constructor(
         protected button: ToolbarButtonComponent,
+        protected messenger: MessengerService
     ) {
         super(styles);
 
@@ -22,6 +25,6 @@ export class LearnComponent extends BaseComponent {
     }
 
     private goToTrainingsPage() {
-        // navigate to trainings page
+        this.messenger.sendToBackground(BackgroundMessages.GoToTrainings);
     }
 } 

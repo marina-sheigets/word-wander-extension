@@ -12,4 +12,6 @@ export const BackgroundMessages = {
     HistoryChanged: ExtensionPrefix + 'HistoryChanged',
     SyncHistory: ExtensionPrefix + 'SyncHistory',
     UpdateHistory: ExtensionPrefix + 'UpdateHistory',
+
+    GoToTrainings: ExtensionPrefix + 'GoToTrainings',
 }

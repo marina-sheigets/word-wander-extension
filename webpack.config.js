@@ -33,6 +33,11 @@ let bundles = [
         hash: null
     },
     {
+        name: 'base-content-script',
+        path: './src/content-scripts/base-content-script.ts',
+        hash: null
+    },
+    {
         name: 'trainings',
         path:"./src/pages/trainings.index.ts",
     }
