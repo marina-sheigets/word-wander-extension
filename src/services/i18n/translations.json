@@ -208,6 +208,17 @@
     "GoToTrainings":{
         "en":"Go to trainings",
         "uk":"Перейти до тренувань"
+    },
+    "Trainings":{
+        "en":"Trainings",
+        "uk":"Тренування"
+    },
+    "Dictionary":{
+        "en":"Dictionary",
+        "uk":"Словник"
+    },
+    "Statistics":{
+        "en":"Statistics",
+        "uk":"Статистика"
     }
-    
 }

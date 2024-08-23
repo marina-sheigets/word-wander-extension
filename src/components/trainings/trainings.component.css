@@ -1,0 +1,7 @@
+.rootClassName {
+    height: 100vh;
+    background-color: #292A2E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

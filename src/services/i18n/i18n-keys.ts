@@ -52,4 +52,7 @@ export const enum i18nKeys {
     AddToDictionary = 'AddToDictionary',
     YouAreOffline = 'YouAreOffline',
     GoToTrainings = 'GoToTrainings',
+    Trainings = 'Trainings',
+    Dictionary = 'Dictionary',
+    Statistics = 'Statistics',
 }

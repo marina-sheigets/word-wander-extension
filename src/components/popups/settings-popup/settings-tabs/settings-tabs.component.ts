@@ -1,7 +1,7 @@
 import { singleton } from "tsyringe";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { I18nService } from "../../../../services/i18n/i18n.service";
-import { TabsButton } from "../../../../types/TabsButton";
+import { SettingsTabsButton } from "../../../../types/TabsButton";
 import { BaseComponent } from "../../../base-component/base-component";
 import { ButtonComponent } from "../../../button/button.component";
 import { LanguagesComponent } from "../languages/languages.component";
@@ -15,7 +15,7 @@ export class SettingsTabsComponent extends BaseComponent {
     private buttonsContainer = document.createElement('div');
     private tabContent = document.createElement('div');
 
-    readonly tabsButtons: TabsButton[] = [
+    readonly tabsButtons: SettingsTabsButton[] = [
         {
             label: i18nKeys.Profile,
             component: this.profileSettingsComponent.rootElement
@@ -56,11 +56,11 @@ export class SettingsTabsComponent extends BaseComponent {
     }
 
     private initTabsButtons() {
-        this.tabsButtons.forEach((button: TabsButton) => {
+        this.tabsButtons.forEach((button: SettingsTabsButton) => {
             const buttonComponent = new ButtonComponent(this.i18n);
 
             buttonComponent.addButtonValue(button.label);
-            buttonComponent.addButtonName(button.label as i18nKeys);
+            buttonComponent.addButtonName(button.label);
 
             if (button.label === i18nKeys.Profile) {
                 buttonComponent.rootElement.classList.add(styles.active);
@@ -77,7 +77,7 @@ export class SettingsTabsComponent extends BaseComponent {
 
     protected setTabContent(e: MouseEvent) {
         const target = e.currentTarget as HTMLInputElement;
-        const selectedComponent = this.tabsButtons.find((button: TabsButton) => button.label === target.value)?.component;
+        const selectedComponent = this.tabsButtons.find((button: SettingsTabsButton) => button.label === target.value)?.component;
 
         this.clearTabContent();
         if (selectedComponent) {
