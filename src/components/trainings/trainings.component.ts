@@ -14,6 +14,4 @@ export class TrainingsComponent extends BaseComponent {
             this.trainingsContent.rootElement
         );
     }
-
-
 }

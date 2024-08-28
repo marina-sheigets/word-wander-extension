@@ -1,0 +1,24 @@
+.rootClassName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.buttonsContainer button {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 0;
+    background-color: transparent;
+    color: #9EA5AE;
+}
+
+.buttonsContainer .active {
+    background-color: #3F4246;
+}

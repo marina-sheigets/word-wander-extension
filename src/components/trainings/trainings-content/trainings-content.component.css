@@ -1,6 +1,13 @@
 .rootClassName {
     width: 70%;
     height: 70%;
-    background-color: #3F4246;
+    display: flex;
+}
 
+.rootClassName > div:first-child {
+    flex: 1;
+}
+
+.rootClassName > div:last-child {
+    flex: 4;
 }
