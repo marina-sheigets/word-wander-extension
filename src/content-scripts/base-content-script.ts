@@ -8,7 +8,6 @@ class BaseContentScript {
         addEventListener('message', async (event) => {
             switch (event.data.message) {
                 case BackgroundMessages.GoToTrainings: {
-                    debugger;
                     chrome.runtime.sendMessage({
                         type: event.data.message,
                         data: event.data.data
