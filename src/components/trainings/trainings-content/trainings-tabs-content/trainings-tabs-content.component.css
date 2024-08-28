@@ -1,4 +1,13 @@
 .rootClassName {
     background-color: #3F4246;
     border-radius: 20px;
+    padding: 20px;
+}
+
+.title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: #FFFFFF;
+    margin-bottom: 20px;
 }

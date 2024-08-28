@@ -55,4 +55,6 @@ export const enum i18nKeys {
     Trainings = 'Trainings',
     Dictionary = 'Dictionary',
     Statistics = 'Statistics',
+    EnterWord = 'EnterWord',
+    FindWord = 'FindWord',
 }

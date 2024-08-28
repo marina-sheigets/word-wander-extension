@@ -220,5 +220,13 @@
     "Statistics":{
         "en":"Statistics",
         "uk":"Статистика"
+    },
+    "EnterWord":{
+        "en":"Enter word",
+        "uk":"Введіть слово"
+    },
+    "FindWord":{
+        "en":"Find word",
+        "uk":"Знайти слово"
     }
 }

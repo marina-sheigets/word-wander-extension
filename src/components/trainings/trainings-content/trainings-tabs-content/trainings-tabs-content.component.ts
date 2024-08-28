@@ -38,6 +38,7 @@ export class TrainingsTabsContentComponent extends BaseComponent {
 
         this.setTabContent(this.trainingsTabsService.getCurrentTab());
 
+        this.title.classList.add(styles.title);
         this.trainingsTabsService.onTabChange.subscribe(this.setTabContent.bind(this));
 
         this.rootElement.append(

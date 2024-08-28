@@ -3,9 +3,6 @@ import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { I18nService } from "../../../../services/i18n/i18n.service";
 import { BaseComponent } from "../../../base-component/base-component";
 import { ButtonComponent } from "../../../button/button.component";
-import { TrainingsDictionaryComponent } from "../trainings-tabs-content/trainings-dictionary/trainings-dictionary.component";
-import { TrainingsListComponent } from "../trainings-tabs-content/trainings-list/trainings-list.component";
-import { TrainingsStatisticsComponent } from "../trainings-tabs-content/trainings-statistics/trainings-statistics.component";
 import * as styles from './trainings-tabs-buttons.component.css';
 import { TrainingsTabsService } from "../../../../services/trainings-tabs/trainings-tabs.service";
 import { TrainingsTab } from "../../../../types/TrainingsTabs";
@@ -16,9 +13,6 @@ export class TrainingsTabsButtonsComponent extends BaseComponent {
 
     constructor(
         protected i18n: I18nService,
-        protected trainingsListComponent: TrainingsListComponent,
-        protected trainingsDictionaryComponent: TrainingsDictionaryComponent,
-        protected trainingsStatistics: TrainingsStatisticsComponent,
         protected trainingsTabsService: TrainingsTabsService
     ) {
         super(styles);
