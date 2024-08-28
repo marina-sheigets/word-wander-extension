@@ -8,6 +8,7 @@
     border: none;
     cursor: pointer;
     color:#292A2E;
+    height: 100%;
 }
 
 .disabled button {

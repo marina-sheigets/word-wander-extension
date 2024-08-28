@@ -19,6 +19,8 @@ export class InputComponent extends BaseComponent {
 
         this.input.addEventListener('keydown', this.onInputChange.bind(this));
 
+        this.labelText.classList.add(styles.hidden);
+
         this.label.append(
             this.labelText,
             this.input,
@@ -38,6 +40,8 @@ export class InputComponent extends BaseComponent {
     }
 
     setLabel(key: string) {
+        this.labelText.classList.remove(styles.hidden);
+
         this.i18nService.follow(key as i18nKeys, (text) => {
             this.labelText.textContent = text;
         });

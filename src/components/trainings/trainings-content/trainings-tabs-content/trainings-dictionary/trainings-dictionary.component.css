@@ -1,1 +1,10 @@
-.rootClassName {}
+.rootClassName .toolsContainer {
+    display: flex;
+    justify-content: start;
+    align-items: stretch;
+    gap: 1rem;
+}
+
+.toolsContainer > div:last-child {
+    margin-left: auto;
+}

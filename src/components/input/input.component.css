@@ -20,3 +20,7 @@
 .rootClassName input::placeholder {
     color: #9EA5AE;
 }
+
+.hidden {
+    display: none;
+}

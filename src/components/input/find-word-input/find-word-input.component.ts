@@ -11,6 +11,5 @@ export class FindWordInputComponent extends InputComponent {
         super(i18nService);
 
         this.setInputSettings('text', i18nKeys.EnterWord);
-        this.setLabel(i18nKeys.FindWord);
     }
 }

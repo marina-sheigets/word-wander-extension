@@ -228,5 +228,9 @@
     "FindWord":{
         "en":"Find word",
         "uk":"Знайти слово"
+    },
+    "AddCustomTranslation":{
+        "en":"Add custom translation",
+        "uk":"Додати власний переклад"
     }
 }

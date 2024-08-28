@@ -57,4 +57,5 @@ export const enum i18nKeys {
     Statistics = 'Statistics',
     EnterWord = 'EnterWord',
     FindWord = 'FindWord',
+    AddCustomTranslation = 'AddCustomTranslation',
 }
