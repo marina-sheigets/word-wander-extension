@@ -12,6 +12,11 @@
     height: 100%;
 }
 
+.rootClassName label span {
+    color: #9EA5AE;
+}
+
+
 .rootClassName input::placeholder {
     color: #9EA5AE;
 }
