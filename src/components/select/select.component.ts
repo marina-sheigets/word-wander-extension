@@ -4,11 +4,8 @@ import * as styles from './select.component.css';
 import { Informer } from "../../services/informer/informer.service";
 import { I18nService } from "../../services/i18n/i18n.service";
 import { i18nKeys } from "../../services/i18n/i18n-keys";
+import { Option } from "../../types/Option";
 
-interface Option {
-    value: string,
-    label: string,
-}
 @injectable()
 export class SelectComponent extends BaseComponent {
     private selectInput = document.createElement('select');
