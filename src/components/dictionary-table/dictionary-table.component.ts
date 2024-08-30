@@ -15,6 +15,7 @@ export class DictionaryTableComponent extends BaseComponent {
     constructor(
         protected i18n: I18nService,
         protected selectAllButton: ButtonComponent,
+        protected unselectAllButton: ButtonComponent,
         protected sendOnTrainingButton: ButtonComponent,
         protected tableComponent: TableComponent
     ) {
@@ -22,9 +23,15 @@ export class DictionaryTableComponent extends BaseComponent {
 
         this.selectAllButton.addButtonName(i18nKeys.SelectAll);
         this.selectAllButton.rootElement.classList.add(styles.selectAllButton);
+        this.selectAllButton.onClick.subscribe(this.tableComponent.toggleSelectAllWords.bind(this.tableComponent, true));
 
         this.sendOnTrainingButton.addButtonName(i18nKeys.SendOnTraining);
         this.sendOnTrainingButton.hide();
+
+        this.unselectAllButton.addButtonName(i18nKeys.UnselectAll);
+        this.unselectAllButton.rootElement.classList.add(styles.selectAllButton);
+        this.unselectAllButton.onClick.subscribe(this.tableComponent.toggleSelectAllWords.bind(this.tableComponent, false));
+        this.unselectAllButton.hide();
 
         this.amountWordsLabel.classList.add(styles.amountWords);
         this.tableHeaderTools.classList.add(styles.tableHeaderTools);
@@ -37,6 +44,7 @@ export class DictionaryTableComponent extends BaseComponent {
 
         this.tableHeaderTools.append(
             this.selectAllButton.rootElement,
+            this.unselectAllButton.rootElement,
             this.sendOnTrainingButton.rootElement,
             this.wordsSelectedLabel
         );
@@ -52,6 +60,8 @@ export class DictionaryTableComponent extends BaseComponent {
 
     private changeWordsSelectedLabel() {
         const amountOfSelectedWords = this.tableComponent.getTableData().filter(item => item.selected).length;
+
+        this.toggleSelectAllWordsButtons(amountOfSelectedWords);
 
         if (amountOfSelectedWords) {
             this.sendOnTrainingButton.show();
@@ -70,5 +80,15 @@ export class DictionaryTableComponent extends BaseComponent {
             this.wordsSelectedLabel.textContent = "";
         }
 
+    }
+
+    protected toggleSelectAllWordsButtons(amountOfSelectedWords: number) {
+        if (amountOfSelectedWords === this.tableComponent.getTableData().length) {
+            this.selectAllButton.hide();
+            this.unselectAllButton.show();
+        } else {
+            this.selectAllButton.show();
+            this.unselectAllButton.hide();
+        }
     }
 }

@@ -252,5 +252,9 @@
     "ManyWordsSelected":{
         "en":" words selected",
         "uk": " слів вибрано"
+    },
+    "UnselectAll":{
+        "en": "Unselect all",
+        "uk": "Відмінити всі"
     }
 }

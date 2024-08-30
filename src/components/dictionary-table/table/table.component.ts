@@ -84,4 +84,14 @@ export class TableComponent extends BaseComponent {
     public getTableData() {
         return this.tableData;
     }
+
+    public toggleSelectAllWords(allSelected: boolean) {
+        const checkboxes = this.rootElement.querySelectorAll('input[type=checkbox]');
+        checkboxes.forEach((elem: HTMLInputElement) => elem.checked = allSelected);
+
+        this.tableData.forEach(item => item.selected = allSelected);
+        this.onSelectedChange.inform();
+    }
+
+
 }
