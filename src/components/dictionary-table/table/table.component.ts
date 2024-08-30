@@ -5,8 +5,8 @@ import { BaseComponent } from "../../base-component/base-component";
 import { ButtonComponent } from "../../button/button.component";
 import { CheckboxComponent } from "../../checkbox/checkbox.component";
 import * as styles from "./table.component.css";
-import { IconComponent } from "../../icon/icon.component";
 import { Informer } from "../../../services/informer/informer.service";
+import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
 
 @singleton()
 export class TableComponent extends BaseComponent {
@@ -33,7 +33,8 @@ export class TableComponent extends BaseComponent {
         },
     ]
     constructor(
-        protected i18n: I18nService
+        protected i18n: I18nService,
+        protected textToSpeechService: TextToSpeechService
     ) {
         super(styles);
 
@@ -44,8 +45,12 @@ export class TableComponent extends BaseComponent {
         this.tableData.forEach((item) => {
             const checkbox = new CheckboxComponent(item.id);
             const removeWordIcon = new ButtonComponent(this.i18n);
-            const playWordIcon = new IconComponent();
-            playWordIcon.setIcon(IconName.MusicNote);
+
+            const playWordIcon = new ButtonComponent(this.i18n);
+            playWordIcon.addButtonIcon(IconName.MusicNote);
+            playWordIcon.onClick.subscribe(() => {
+                this.textToSpeechService.play(item.word);
+            })
 
             const wordContainer = document.createElement('div');
             wordContainer.classList.add(styles.wordContainer);
