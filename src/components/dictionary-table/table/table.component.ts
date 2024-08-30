@@ -47,6 +47,7 @@ export class TableComponent extends BaseComponent {
             const removeWordIcon = new ButtonComponent(this.i18n);
 
             const playWordIcon = new ButtonComponent(this.i18n);
+            playWordIcon.rootElement.classList.add(styles.playWordIcon);
             playWordIcon.addButtonIcon(IconName.MusicNote);
             playWordIcon.onClick.subscribe(() => {
                 this.textToSpeechService.play(item.word);
