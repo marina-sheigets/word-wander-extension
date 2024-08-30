@@ -244,5 +244,13 @@
     "SendOnTraining":{
         "en":"Send on training",
         "uk":"На тренування"
+    },
+    "OneWordSelected":{
+        "en": "1 word selected",
+        "uk": "1 слово вибрано"
+    },
+    "ManyWordsSelected":{
+        "en":" words selected",
+        "uk": " слів вибрано"
     }
 }

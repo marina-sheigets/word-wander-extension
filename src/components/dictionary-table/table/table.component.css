@@ -1,0 +1,22 @@
+.rootClassName {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 50px 50px 1fr 1fr 50px;
+    row-gap: 7px;
+    
+}
+
+.wordContainer, .translationContainer {
+    display: flex;
+    align-items:center;
+    font-weight: 600;
+}
+
+.wordContainer {
+    color: #00CE8F;
+}
+
+.translationContainer {
+    color: #9EA5AE;
+}
+

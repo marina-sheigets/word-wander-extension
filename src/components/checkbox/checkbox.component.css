@@ -1,0 +1,10 @@
+.rootClassName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rootClassName input {
+    width: 25px;
+    height: 25px;
+}

@@ -61,4 +61,6 @@ export const enum i18nKeys {
     AmountWords = "AmountWords",
     SelectAll = "SelectAll",
     SendOnTraining = "SendOnTraining",
+    OneWordSelected = "OneWordSelected",
+    ManyWordsSelected = "ManyWordsSelected"
 }

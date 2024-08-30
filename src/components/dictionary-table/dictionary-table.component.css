@@ -20,3 +20,8 @@
     color: #9EA5AE;
     padding: 0.5rem 1rem;
 }
+
+.wordsSelectedLabel {
+    color: white;
+    margin-left: auto;
+}
