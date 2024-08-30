@@ -57,4 +57,12 @@ export class ButtonComponent extends BaseComponent {
             this.rootElement.setAttribute('title', value);
         });
     }
+
+    show() {
+        this.rootElement.classList.remove(styles.hidden);
+    }
+
+    hide() {
+        this.rootElement.classList.add(styles.hidden);
+    }
 }

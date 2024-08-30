@@ -24,6 +24,8 @@ export class DictionaryTableComponent extends BaseComponent {
         this.selectAllButton.rootElement.classList.add(styles.selectAllButton);
 
         this.sendOnTrainingButton.addButtonName(i18nKeys.SendOnTraining);
+        this.sendOnTrainingButton.hide();
+
         this.amountWordsLabel.classList.add(styles.amountWords);
         this.tableHeaderTools.classList.add(styles.tableHeaderTools);
 
@@ -52,6 +54,8 @@ export class DictionaryTableComponent extends BaseComponent {
         const amountOfSelectedWords = this.tableComponent.getTableData().filter(item => item.selected).length;
 
         if (amountOfSelectedWords) {
+            this.sendOnTrainingButton.show();
+
             if (amountOfSelectedWords === 1) {
                 this.i18n.follow(i18nKeys.OneWordSelected, (value) => {
                     this.wordsSelectedLabel.textContent = value;
@@ -62,6 +66,7 @@ export class DictionaryTableComponent extends BaseComponent {
                 })
             }
         } else {
+            this.sendOnTrainingButton.hide();
             this.wordsSelectedLabel.textContent = "";
         }
 
