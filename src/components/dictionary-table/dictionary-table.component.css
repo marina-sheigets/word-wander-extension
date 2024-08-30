@@ -1,0 +1,22 @@
+
+
+
+.amountWords {
+    font-weight: lighter;
+    font-size: 14px;
+    color: #9EA5AE;
+    margin: 16px 0;
+}
+
+.tableHeaderTools {
+    display: flex;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.selectAllButton  button{
+    background-color: transparent;
+    border: 1px solid #9EA5AE;
+    color: #9EA5AE;
+    padding: 0.5rem 1rem;
+}

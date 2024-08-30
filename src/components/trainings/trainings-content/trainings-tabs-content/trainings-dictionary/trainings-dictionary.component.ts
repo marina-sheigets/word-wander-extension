@@ -5,6 +5,7 @@ import { FindWordInputComponent } from "../../../../input/find-word-input/find-w
 import { ButtonComponent } from "../../../../button/button.component";
 import { SelectTargetLanguageComponent } from "../../../../select/select-target-language/select-target-language.component";
 import { i18nKeys } from "../../../../../services/i18n/i18n-keys";
+import { DictionaryTableComponent } from "../../../../dictionary-table/dictionary-table.component";
 
 @singleton()
 export class TrainingsDictionaryComponent extends BaseComponent {
@@ -14,6 +15,7 @@ export class TrainingsDictionaryComponent extends BaseComponent {
         protected findWordInputComponent: FindWordInputComponent,
         protected addCustomTranslationButton: ButtonComponent,
         protected selectTargetLanguageComponent: SelectTargetLanguageComponent,
+        protected dictionaryTable: DictionaryTableComponent,
     ) {
         super(styles);
 
@@ -28,7 +30,8 @@ export class TrainingsDictionaryComponent extends BaseComponent {
         );
 
         this.rootElement.append(
-            this.toolsContainer
+            this.toolsContainer,
+            this.dictionaryTable.rootElement,
         );
     }
 }

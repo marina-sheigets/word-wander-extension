@@ -58,4 +58,7 @@ export const enum i18nKeys {
     EnterWord = 'EnterWord',
     FindWord = 'FindWord',
     AddCustomTranslation = 'AddCustomTranslation',
+    AmountWords = "AmountWords",
+    SelectAll = "SelectAll",
+    SendOnTraining = "SendOnTraining",
 }

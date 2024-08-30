@@ -232,5 +232,17 @@
     "AddCustomTranslation":{
         "en":"Add custom translation",
         "uk":"Додати власний переклад"
+    },
+    "AmountWords":{
+        "en":" words in dictionary",
+        "uk":" слів у словнику"
+    },
+    "SelectAll":{
+        "en":"Select all",
+        "uk":"Вибрати все"
+    },
+    "SendOnTraining":{
+        "en":"Send on training",
+        "uk":"На тренування"
     }
 }
