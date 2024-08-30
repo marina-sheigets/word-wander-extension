@@ -23,7 +23,7 @@ export class ToolbarButtonComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.rootElement.addEventListener('mousedown', this.onToolbarButtonPress.bind(this))
+        this.rootElement.addEventListener('mouseup', this.onToolbarButtonPress.bind(this))
         this.rootElement.append(
             this.iconWrapper
         );
