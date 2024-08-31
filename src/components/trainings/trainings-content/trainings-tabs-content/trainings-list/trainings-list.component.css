@@ -1,0 +1,7 @@
+.rootClassName {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 220px);
+    justify-content: space-evenly;
+    gap: 1rem;
+}

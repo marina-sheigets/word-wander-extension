@@ -1,0 +1,38 @@
+.rootClassName {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #3F4246;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    position: relative;
+}
+
+.rootClassName:hover {
+    transform: scale(1.05);
+}
+
+.rootClassName h2, p {
+    color: white;
+}
+
+.rootClassName h2 {
+    margin: 0;
+}
+
+.rootClassName p {
+    width: 60%;
+    color: #9EA5AE;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.rootClassName svg {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+}

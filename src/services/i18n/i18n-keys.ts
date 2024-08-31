@@ -63,5 +63,22 @@ export const enum i18nKeys {
     SendOnTraining = "SendOnTraining",
     OneWordSelected = "OneWordSelected",
     ManyWordsSelected = "ManyWordsSelected",
-    UnselectAll = "UnselectAll"
+    UnselectAll = "UnselectAll",
+
+    // trainings
+    WordTranslationTitle = "WordTranslationTitle",
+    TranslationWordTitle = "TranslationWordTitle",
+    RepeatWordsTitle = "RepeatWordsTitle",
+    WordConstructionTitle = "WordConstructionTitle",
+    ListeningTitle = "ListeningTitle",
+    AudioChallengeTitle = "AudioChallengeTitle",
+
+    WordTranslationDescription = "WordTranslationDescription",
+    TranslationWordDescription = "TranslationWordDescription",
+    RepeatWordsDescription = "RepeatWordsDescription",
+    WordConstructionDescription = "WordConstructionDescription",
+    ListeningDescription = "ListeningDescription",
+    AudioChallengeDescription = "AudioChallengeDescription",
+
+
 }

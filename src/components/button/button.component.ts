@@ -5,6 +5,7 @@ import { Informer } from "../../services/informer/informer.service";
 import { I18nService } from "../../services/i18n/i18n.service";
 import { i18nKeys } from "../../services/i18n/i18n-keys";
 import { IconComponent } from "../icon/icon.component";
+import { IconName } from "../../types/IconName";
 
 @injectable()
 export class ButtonComponent extends BaseComponent {
@@ -29,7 +30,7 @@ export class ButtonComponent extends BaseComponent {
         this.button.value = value;
     }
 
-    addButtonIcon(iconName: string) {
+    addButtonIcon(iconName: IconName) {
         const icon = new IconComponent();
         icon.setIcon(iconName);
 

@@ -256,5 +256,53 @@
     "UnselectAll":{
         "en": "Unselect all",
         "uk": "Відмінити всі"
+    },
+    "WordTranslationTitle":{
+        "en":"Word - Translation",
+        "uk":"Слово - Переклад"
+    },
+    "WordTranslationDescription":{
+        "en":"Select the correct translation for the word",
+        "uk":"Виберіть правильний переклад слова"
+    },
+    "TranslationWordTitle":{
+        "en":"Translation - Word",
+        "uk":"Переклад - Слово"
+    },
+    "TranslationWordDescription":{
+        "en":"Select the correct word for the translation",
+        "uk":"Виберіть правильне слово для перекладу"
+    },
+    "RepeatWordsTitle":{
+        "en":"Repeating",
+        "uk":"Повторення слів"
+    },
+    "RepeatWordsDescription":{
+        "en":"Repeat the words you have learned",
+        "uk":"Повторіть слова, які ви вивчили"
+    },
+    "WordConstructionTitle":{
+        "en":"Word Construction",
+        "uk":"Конструктор слова"
+    },
+    "WordConstructionDescription":{
+        "en":"Construct the word from the letters",
+        "uk":"Складіть слово з літер"
+    },
+    "ListeningTitle":{
+        "en":"Listening",
+        "uk":"Аудіювання"
+    },
+    "ListeningDescription":{
+        "en":"Listen to the audio and type the correct word",
+        "uk":"Прослухайте аудіо і введіть правильне слово"
+    },
+    "AudioChallengeTitle":{
+        "en":"Audio Challenge",
+        "uk":"Аудіовиклик"
+    },
+    "AudioChallengeDescription":{
+        "en":"Listen to the audio and select the correct translation",
+        "uk":"Прослухайте аудіо і виберіть правильний переклад"
     }
 }
