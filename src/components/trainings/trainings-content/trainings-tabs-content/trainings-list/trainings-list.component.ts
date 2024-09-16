@@ -3,7 +3,6 @@ import { BaseComponent } from '../../../../base-component/base-component';
 import * as styles from './trainings-list.component.css';
 import { GameCardComponent } from '../../../../game-card/game-card.component';
 import { I18nService } from '../../../../../services/i18n/i18n.service';
-import { i18nKeys } from '../../../../../services/i18n/i18n-keys';
 import { trainings } from '../../../../../constants/trainings';
 
 @singleton()
