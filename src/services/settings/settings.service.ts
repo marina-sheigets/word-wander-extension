@@ -2,6 +2,7 @@ import { singleton } from "tsyringe";
 import { MessengerService } from "../messenger/messenger.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { DEFAULT_SETTINGS } from "../../constants/defaultSettings";
+import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
 
 @singleton()
 export class SettingsService {
@@ -9,16 +10,32 @@ export class SettingsService {
     private settings: { [key: string]: any } = {};
 
     constructor(
-        private messenger: MessengerService
+        private messenger: MessengerService,
+        protected extensionPageManagerService: ExtensionPageManagerService,
     ) {
-        this.messenger.sendToBackground(BackgroundMessages.GetSettings);
-
-        window.addEventListener('message', (event) => {
-            if (event.data.message === BackgroundMessages.SyncSettings) {
-                this.settings = event.data.data || DEFAULT_SETTINGS;
+        if (chrome.storage) {
+            // for getting initial settings 
+            this.extensionPageManagerService.detectSettingsChange((settings: { [key: string]: any }) => {
+                this.settings = settings;
                 this.informAll();
-            }
-        });
+            });
+
+            // for updating settings when user changes them
+            this.extensionPageManagerService.getSettingsForExtensionPage().then(settings => {
+                this.settings = settings;
+                this.informAll();
+            });
+        } else {
+            this.messenger.sendToBackground(BackgroundMessages.GetSettings);
+
+            window.addEventListener('message', (event) => {
+                if (event.data.message === BackgroundMessages.SyncSettings) {
+                    this.settings = event.data.data || DEFAULT_SETTINGS;
+                    this.informAll();
+                }
+            });
+        }
+
     }
 
     subscribe(key: string, callback: Function) {
