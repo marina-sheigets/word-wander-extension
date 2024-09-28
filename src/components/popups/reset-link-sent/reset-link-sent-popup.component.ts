@@ -4,7 +4,6 @@ import { PopupComponent } from "../popup.component";
 import * as styles from './reset-link-sent-popup.component.css';
 import { I18nService } from "../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
-import { IconComponent } from "../../icon/icon.component";
 
 @singleton()
 export class ResetLinkSentPopupComponent extends PopupComponent {
@@ -13,11 +12,10 @@ export class ResetLinkSentPopupComponent extends PopupComponent {
     private subdescription = document.createElement('div');
 
     constructor(
-        protected iconComponent: IconComponent,
         protected okButton: ButtonComponent,
         protected i18n: I18nService
     ) {
-        super(iconComponent, i18n);
+        super(i18n);
         this.applyRootStyle(styles);
 
         this.setTitle(i18nKeys.ResetPassword);

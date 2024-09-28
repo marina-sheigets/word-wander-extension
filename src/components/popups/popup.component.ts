@@ -1,9 +1,7 @@
 import { i18nKeys } from "../../services/i18n/i18n-keys";
 import { I18nService } from "../../services/i18n/i18n.service";
 import { Informer } from "../../services/informer/informer.service";
-import { IconName } from "../../types/IconName";
 import { BaseComponent } from "../base-component/base-component";
-import { IconComponent } from "../icon/icon.component";
 import * as styles from './popup.component.css';
 
 export abstract class PopupComponent extends BaseComponent {
@@ -15,7 +13,6 @@ export abstract class PopupComponent extends BaseComponent {
     protected onClose = new Informer();
 
     constructor(
-        protected closeIcon: IconComponent,
         protected i18n: I18nService
     ) {
         super(styles);
@@ -26,11 +23,7 @@ export abstract class PopupComponent extends BaseComponent {
         this.title.classList.add(styles.title);
         this.closeButton.classList.add(styles.closeButton);
 
-        this.closeIcon.setIcon(IconName.Close);
-
-        this.closeButton.append(
-            this.closeIcon.rootElement
-        );
+        this.closeButton.innerHTML = `&#x2715;`;
 
         this.closeButton.addEventListener('mouseup', () => this.hide())
 

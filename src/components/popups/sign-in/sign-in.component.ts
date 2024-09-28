@@ -8,7 +8,6 @@ import { ButtonComponent } from "../../button/button.component";
 import { AuthService } from "../../../services/auth/auth.service";
 import { I18nService } from "../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
-import { IconComponent } from "../../icon/icon.component";
 
 @singleton()
 export class SignInPopupComponent extends PopupComponent {
@@ -17,7 +16,6 @@ export class SignInPopupComponent extends PopupComponent {
     private resetPasswordLabel = document.createElement('div');
 
     constructor(
-        protected icon: IconComponent,
         protected messenger: MessengerService,
         protected emailInputComponent: InputComponent,
         protected passwordInputComponent: InputComponent,
@@ -26,7 +24,7 @@ export class SignInPopupComponent extends PopupComponent {
         protected resetPasswordButton: ButtonComponent,
         protected i18n: I18nService
     ) {
-        super(icon, i18n);
+        super(i18n);
 
         this.applyRootStyle(styles);
 

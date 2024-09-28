@@ -20,7 +20,7 @@ export class ReportPopupComponent extends PopupComponent {
         protected textarea: TextareaComponent,
         protected i18n: I18nService
     ) {
-        super(iconComponent, i18n);
+        super(i18n);
         this.applyRootStyle(styles);
 
         this.setWidth('400px');
