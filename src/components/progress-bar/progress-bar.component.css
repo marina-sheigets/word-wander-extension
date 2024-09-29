@@ -1,0 +1,29 @@
+.rootClassName {
+    width: 100%;
+    height: 10px;
+    border-radius: 50px;
+    background-color: transparent;
+    border: 1px solid #9EA5AE;
+    margin-top: 20px;
+    display: flex;
+}
+
+.wrongSection {
+    background-color: #EE8144; 
+    height: 10px;
+}
+
+.correctSection {
+    background-color: #00CE8F; 
+    height: 10px;
+}
+
+.rootClassName div:first-child {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.rootClassName div:last-child {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
