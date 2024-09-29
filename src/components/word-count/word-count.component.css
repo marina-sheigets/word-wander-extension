@@ -1,0 +1,13 @@
+.rootClassName {
+    background-color: transparent;
+    width:100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.rootClassName p {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 200;
+}
