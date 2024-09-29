@@ -80,5 +80,7 @@ export const enum i18nKeys {
     ListeningDescription = "ListeningDescription",
     AudioChallengeDescription = "AudioChallengeDescription",
 
-
+    StartTrainingTitle = "StartTrainingTitle",
+    StartTrainingDescription = "StartTrainingDescription",
+    Yes = "Yes",
 }

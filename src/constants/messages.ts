@@ -11,4 +11,5 @@ export const enum Messages {
     FinishTraining = 'FinishTraining',
 
     ShowTrainingStatistics = 'ShowTrainingStatistics',
+    ShowStartTrainingPopup = 'ShowStartTrainingPopup',
 }

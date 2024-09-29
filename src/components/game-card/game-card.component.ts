@@ -6,6 +6,8 @@ import { I18nService } from '../../services/i18n/i18n.service';
 import { IconComponent } from '../icon/icon.component';
 import { IconName } from '../../types/IconName';
 import { TrainingsService } from '../../services/trainings/trainings.service';
+import { MessengerService } from '../../services/messenger/messenger.service';
+import { Messages } from '../../constants/messages';
 
 @injectable()
 export class GameCardComponent extends BaseComponent {
@@ -16,7 +18,8 @@ export class GameCardComponent extends BaseComponent {
 
     constructor(
         protected i18n: I18nService,
-        protected trainingsService: TrainingsService
+        protected trainingsService: TrainingsService,
+        protected messenger: MessengerService
     ) {
         super(styles);
 
@@ -51,7 +54,7 @@ export class GameCardComponent extends BaseComponent {
 
     private handleClick() {
         if (this.gameID) {
-            this.trainingsService.startGame(this.gameID);
+            this.messenger.send(Messages.ShowStartTrainingPopup, this.gameID);
         }
     }
 }

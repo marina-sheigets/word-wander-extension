@@ -5,6 +5,7 @@ import { GameCardComponent } from '../../../../game-card/game-card.component';
 import { I18nService } from '../../../../../services/i18n/i18n.service';
 import { trainings } from '../../../../../constants/trainings';
 import { TrainingsService } from '../../../../../services/trainings/trainings.service';
+import { MessengerService } from '../../../../../services/messenger/messenger.service';
 
 @singleton()
 export class TrainingsListComponent extends BaseComponent {
@@ -13,6 +14,7 @@ export class TrainingsListComponent extends BaseComponent {
         protected trainingsService: TrainingsService,
         protected gameCardComponent: GameCardComponent,
         protected i18n: I18nService,
+        protected messenger: MessengerService
     ) {
         super(styles);
 
@@ -21,7 +23,7 @@ export class TrainingsListComponent extends BaseComponent {
 
     private initGameCards() {
         trainings.forEach((training) => {
-            const card = new GameCardComponent(this.i18n, this.trainingsService);
+            const card = new GameCardComponent(this.i18n, this.trainingsService, this.messenger);
             card.setGameID(training.id);
             card.setTitle(training.title);
             card.setDescription(training.description);

@@ -304,5 +304,17 @@
     "AudioChallengeDescription":{
         "en":"Listen to the audio and select the correct translation",
         "uk":"Прослухайте аудіо і виберіть правильний переклад"
+    },
+    "StartTrainingTitle":{
+        "en":"Start training",
+        "uk":"Почати тренування"
+    },
+    "StartTrainingDescription":{
+        "en":"Are you sure you want to start training “Word-Translation” ?",
+        "uk":"Ви впевнені, що хочете почати тренування «Слово - Переклад»?"
+    },
+    "Yes":{
+        "en":"Yes",
+        "uk":"Так"
     }
 }
