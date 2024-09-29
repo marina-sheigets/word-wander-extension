@@ -5,7 +5,7 @@ import { i18nKeys } from '../../services/i18n/i18n-keys';
 import { I18nService } from '../../services/i18n/i18n.service';
 import { IconComponent } from '../icon/icon.component';
 import { IconName } from '../../types/IconName';
-import { Informer } from '../../services/informer/informer.service';
+import { TrainingsService } from '../../services/trainings/trainings.service';
 
 @injectable()
 export class GameCardComponent extends BaseComponent {
@@ -13,10 +13,10 @@ export class GameCardComponent extends BaseComponent {
     private title = document.createElement('h2');
     private description = document.createElement('p');
     private amountOfWords = document.createElement('p');
-    public onGameCardClick = new Informer<number>();
 
     constructor(
         protected i18n: I18nService,
+        protected trainingsService: TrainingsService
     ) {
         super(styles);
 
@@ -51,7 +51,7 @@ export class GameCardComponent extends BaseComponent {
 
     private handleClick() {
         if (this.gameID) {
-            this.onGameCardClick.inform(this.gameID);
+            this.trainingsService.startGame(this.gameID);
         }
     }
 }
