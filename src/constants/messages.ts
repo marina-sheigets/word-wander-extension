@@ -5,4 +5,10 @@ export const enum Messages {
     OpenSignInPopup = 'OpenSignInPopup',
     OpenResetPasswordPopup = 'OpenResetPasswordPopup',
     OpenReportPopup = 'OpenReportPopup',
+
+    //Trainings
+    StartWordTranslationTraining = 'StartWordTranslationTraining',
+    FinishTraining = 'FinishTraining',
+
+    ShowTrainingStatistics = 'ShowTrainingStatistics',
 }
