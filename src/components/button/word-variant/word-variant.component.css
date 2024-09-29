@@ -1,0 +1,12 @@
+.rootClassName {
+    border: 1px solid #9EA5AE;
+    background-color: transparent;
+    color: #fff;
+    padding: 16px 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+.rootClassName:hover {
+    background-color: #292A2E;
+}
