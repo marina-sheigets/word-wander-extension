@@ -1,7 +1,6 @@
 import { singleton } from "tsyringe";
 import * as styles from './word-translation-training.component.css';
 import { TrainingsService } from "../../../services/trainings/trainings.service";
-import { PopupComponent } from "../../popups/popup.component";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
 import { WordCountComponent } from "../../word-count/word-count.component";
 import { MessengerService } from "../../../services/messenger/messenger.service";
@@ -13,9 +12,10 @@ import { HistoryItem } from "../../../types/History";
 import { WordVariantButton } from "../../button/word-variant/word-variant.component";
 import { TrainingsStatisticsService } from "../../../services/trainings-statistics/trainings-statistics.service";
 import { ProgressBarComponent } from "../../progress-bar/progress-bar.component";
+import { GameWrapperPopupComponent } from "../../popups/game-wrapper-popup/game-wrapper-popup.component";
 
 @singleton()
-export class WordTranslationTrainingComponent extends PopupComponent {
+export class WordTranslationTrainingComponent extends GameWrapperPopupComponent {
     private trainingWrapper = document.createElement('div');
     private currentWordElement = document.createElement('div');
     private variantsWrapper = document.createElement('div');
@@ -115,9 +115,9 @@ export class WordTranslationTrainingComponent extends PopupComponent {
             this.statistics.addRightWord(this.currentWord);
             this.progressBar.addCorrectSection();
         } else {
+            this.progressBar.addWrongSection();
             this.statistics.addWrongWord(this.currentWord as HistoryItem);
             await this.setAnimationForWrongAnswer(target);
-            this.progressBar.addWrongSection();
         }
 
         if (this.currentWordIndex === this.data?.translations.length) {

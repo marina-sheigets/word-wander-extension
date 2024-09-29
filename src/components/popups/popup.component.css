@@ -23,6 +23,8 @@
 }
 
 .wrapper {
+    pointer-events: auto;
+    cursor: default;
     border-radius: 10px;
     padding: 20px;
     width: 500px;

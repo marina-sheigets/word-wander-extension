@@ -47,7 +47,7 @@ export class StartTrainingPopup extends PopupComponent {
     }
 
     private showTrainingPopup() {
-        this.messenger.send(Messages.StartWordTranslationTraining, this.gameID);
         this.hide();
+        this.messenger.send(Messages.StartWordTranslationTraining, this.gameID);
     }
 }
