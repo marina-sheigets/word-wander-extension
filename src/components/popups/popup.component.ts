@@ -25,7 +25,9 @@ export abstract class PopupComponent extends BaseComponent {
 
         this.closeButton.innerHTML = `&#x2715;`;
 
-        this.closeButton.addEventListener('mouseup', () => this.hide())
+        this.closeButton.onclick = () => {
+            this.hide()
+        }
 
         this.headerWrapper.append(
             this.title,
@@ -38,12 +40,6 @@ export abstract class PopupComponent extends BaseComponent {
 
         this.backdrop.addEventListener('mousedown', (e) => {
             if (e.target === this.backdrop) {
-                this.hide();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isVisible()) {
                 this.hide();
             }
         });
@@ -66,10 +62,6 @@ export abstract class PopupComponent extends BaseComponent {
     public hide() {
         this.onClose.inform();
         this.rootElement.classList.add(styles.hidden);
-    }
-
-    private isVisible() {
-        return !this.rootElement.classList.contains(styles.hidden);
     }
 
     setWidth(width: string) {
