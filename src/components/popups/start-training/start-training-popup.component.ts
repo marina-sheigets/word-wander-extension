@@ -6,6 +6,7 @@ import { MessengerService } from "../../../services/messenger/messenger.service"
 import { ButtonComponent } from "../../button/button.component";
 import { PopupComponent } from "../popup.component";
 import * as styles from './start-training-popup.component.css';
+import { StartTrainingsMessages } from "../../../constants/startTrainingsMessages";
 
 @singleton()
 export class StartTrainingPopup extends PopupComponent {
@@ -48,6 +49,6 @@ export class StartTrainingPopup extends PopupComponent {
 
     private showTrainingPopup() {
         this.hide();
-        this.messenger.send(Messages.StartWordTranslationTraining, this.gameID);
+        this.messenger.send(StartTrainingsMessages[this.gameID as number], this.gameID);
     }
 }

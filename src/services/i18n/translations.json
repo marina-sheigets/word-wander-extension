@@ -310,8 +310,16 @@
         "uk":"Почати тренування"
     },
     "StartTrainingDescription":{
-        "en":"Are you sure you want to start training “Word-Translation” ?",
-        "uk":"Ви впевнені, що хочете почати тренування «Слово - Переклад»?"
+        "en":"Are you sure you want to start training ?",
+        "uk":"Ви впевнені, що хочете почати тренування ?"
+    },
+    "FinishTrainingTitle":{
+        "en":"Finish training",
+        "uk":"Завершити тренування"
+    },
+    "FinishTrainingDescription":{
+        "en":"Are you sure you want to finish training ?",
+        "uk":"Ви впевнені, що хочете завершити тренування ?"
     },
     "Yes":{
         "en":"Yes",
