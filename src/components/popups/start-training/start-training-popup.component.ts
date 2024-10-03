@@ -6,7 +6,7 @@ import { MessengerService } from "../../../services/messenger/messenger.service"
 import { ButtonComponent } from "../../button/button.component";
 import { PopupComponent } from "../popup.component";
 import * as styles from './start-training-popup.component.css';
-import { StartTrainingsMessages } from "../../../constants/startTrainingsMessages";
+import { StartTrainingsMessages } from "../../../constants/trainingMessages";
 
 @singleton()
 export class StartTrainingPopup extends PopupComponent {

@@ -19,7 +19,10 @@ export class ButtonComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.button.addEventListener('mousedown', (e: Event) => this.onClick.inform(e));
+        this.button.addEventListener('mousedown', (e: Event) => {
+            e.stopPropagation();
+            this.onClick.inform(e)
+        });
         this.button.append(this.buttonIconWrapper, this.buttonLabel);
         this.rootElement.append(
             this.button

@@ -33,7 +33,7 @@ export class GameCardComponent extends BaseComponent {
             handIcon.rootElement
         );
 
-        this.rootElement.addEventListener('mouseup', this.handleClick.bind(this));
+        this.rootElement.addEventListener('mousedown', this.handleClick.bind(this));
     }
 
     setGameID(id: number) {
@@ -52,7 +52,9 @@ export class GameCardComponent extends BaseComponent {
         })
     }
 
-    private handleClick() {
+    private handleClick(e: MouseEvent) {
+        e.stopPropagation();
+
         if (this.gameID) {
             this.messenger.send(Messages.ShowStartTrainingPopup, this.gameID);
         }
