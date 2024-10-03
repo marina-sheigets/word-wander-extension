@@ -1,5 +1,5 @@
 import { injectable } from 'tsyringe';
-import logoImg from '../../../../assets/logo.webp';
+import logoImg from '../../../../assets/logo.png';
 import { BaseComponent } from '../../base-component/base-component';
 import * as styles from './toolbar-logo.component.css';
 import { TOOLBAR_MODE, ToolbarService } from '../../../services/toolbar/toolbar.service';

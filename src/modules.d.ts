@@ -5,7 +5,6 @@ declare module "*.html" {
 
 declare module "*.css";
 declare module "*.png";
-declare module "*.webp";
 
 declare module "*.json" {
     const content: any;
