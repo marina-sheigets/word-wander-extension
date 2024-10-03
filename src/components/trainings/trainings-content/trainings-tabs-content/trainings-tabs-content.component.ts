@@ -7,6 +7,8 @@ import { TrainingsDictionaryComponent } from "./trainings-dictionary/trainings-d
 import { TrainingsListComponent } from "./trainings-list/trainings-list.component";
 import { TrainingsStatisticsComponent } from "./trainings-statistics/trainings-statistics.component";
 import * as styles from "./trainings-tabs-content.component.css";
+import { I18nService } from "../../../../services/i18n/i18n.service";
+import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 
 @singleton()
 export class TrainingsTabsContentComponent extends BaseComponent {
@@ -32,7 +34,8 @@ export class TrainingsTabsContentComponent extends BaseComponent {
         protected trainingsDictionaryComponent: TrainingsDictionaryComponent,
         protected trainingsListComponent: TrainingsListComponent,
         protected trainingsStatistics: TrainingsStatisticsComponent,
-        protected trainingsTabsService: TrainingsTabsService
+        protected trainingsTabsService: TrainingsTabsService,
+        protected i18n: I18nService
     ) {
         super(styles);
 
@@ -64,6 +67,10 @@ export class TrainingsTabsContentComponent extends BaseComponent {
     }
 
     private setTitle() {
-        this.title.textContent = this.trainingsTabsService.getCurrentTab();
+        const tabTitleKey = this.trainingsTabsService.getCurrentTab();
+
+        this.i18n.follow(tabTitleKey as any, (title: string) => {
+            this.title.textContent = title;
+        });
     }
 }
