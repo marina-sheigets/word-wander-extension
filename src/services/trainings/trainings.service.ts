@@ -1,12 +1,10 @@
 import { singleton } from "tsyringe";
 import { Messages } from "../../constants/messages";
 import { MessengerService } from "../messenger/messenger.service";
+import { FinishTrainingsMessages, StartTrainingsMessages } from "../../constants/trainingMessages";
 
 @singleton()
 export class TrainingsService {
-    private MESSAGES_FOR_START_TRAINING: { [key: number]: Messages } = {
-        1: Messages.StartWordTranslationTraining
-    }
     protected isGameInProgress = false;
     private currentGame: number | null = null;
 
@@ -14,14 +12,18 @@ export class TrainingsService {
         protected messenger: MessengerService
     ) {
 
-
+        this.messenger.subscribe(Messages.InterruptTraining, this.interruptTraining.bind(this));
         this.messenger.subscribe(Messages.FinishTraining, this.finishGame.bind(this));
     }
 
     startGame(gameID: number) {
         this.isGameInProgress = true;
         this.currentGame = gameID;
-        this.messenger.send(this.MESSAGES_FOR_START_TRAINING[gameID]);
+        this.messenger.send(StartTrainingsMessages[gameID]);
+    }
+
+    showCloseTrainingPopup() {
+        this.messenger.send(Messages.ShowCloseTrainingPopup, this.currentGame);
     }
 
     public fetchDataForWordTranslation() {
@@ -59,11 +61,14 @@ export class TrainingsService {
         }
 
     }
-
-    private finishGame() {
+    private interruptTraining() {
+        this.messenger.send(FinishTrainingsMessages[this.currentGame || 0]);
         this.isGameInProgress = false;
         this.currentGame = null;
 
+    }
+    private finishGame() {
+        this.interruptTraining();
         this.messenger.send(Messages.ShowTrainingStatistics, { gameID: this.currentGame });
     }
 }

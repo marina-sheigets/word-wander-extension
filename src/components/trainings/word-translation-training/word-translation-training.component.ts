@@ -34,7 +34,7 @@ export class WordTranslationTrainingComponent extends GameWrapperPopupComponent 
         protected messenger: MessengerService,
         protected i18n: I18nService
     ) {
-        super(i18n);
+        super(i18n, messenger);
 
         this.setTitle(i18nKeys.WordTranslationTitle);
 
@@ -61,6 +61,7 @@ export class WordTranslationTrainingComponent extends GameWrapperPopupComponent 
         this.loader.show();
 
         this.messenger.subscribe(Messages.StartWordTranslationTraining, this.start.bind(this));
+        this.messenger.subscribe(Messages.FinishWordTranslationTraining, this.interruptTraining.bind(this));
     }
 
     private async start() {
@@ -137,6 +138,16 @@ export class WordTranslationTrainingComponent extends GameWrapperPopupComponent 
                 resolve();
             }, 300);
         });
+    }
+
+    private interruptTraining() {
+        this.hide();
+        this.resetTraining();
+    }
+
+    private resetTraining() {
+        this.currentWordIndex = 0;
+        this.progressBar.clear();
     }
 
 }

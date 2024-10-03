@@ -9,6 +9,7 @@ export const enum Messages {
     //Trainings
     StartWordTranslationTraining = 'StartWordTranslationTraining',
     FinishWordTranslationTraining = 'FinishWordTranslationTraining',
+    InterruptTraining = 'InterruptTraining',
     FinishTraining = 'FinishTraining',
 
     ShowTrainingStatistics = 'ShowTrainingStatistics',

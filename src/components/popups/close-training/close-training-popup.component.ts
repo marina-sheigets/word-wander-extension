@@ -5,34 +5,31 @@ import { I18nService } from "../../../services/i18n/i18n.service";
 import { MessengerService } from "../../../services/messenger/messenger.service";
 import { ButtonComponent } from "../../button/button.component";
 import { PopupComponent } from "../popup.component";
-import * as styles from './start-training-popup.component.css';
-import { TrainingsService } from "../../../services/trainings/trainings.service";
-
+import * as styles from './close-training-popup.component.css';
 @singleton()
-export class StartTrainingPopup extends PopupComponent {
+export class CloseTrainingPopup extends PopupComponent {
     private content = document.createElement('div');
     private description = document.createElement('p');
-    private gameID: null | number = null;
 
     constructor(
         protected i18n: I18nService,
         protected yesButton: ButtonComponent,
-        protected messenger: MessengerService,
-        protected trainingService: TrainingsService
+        protected messenger: MessengerService
     ) {
         super(i18n);
 
+        this.rootElement.classList.add(styles.closeTrainingPopup);
         this.content.classList.add(styles.content);
 
-        i18n.follow(i18nKeys.StartTrainingDescription, (value) => {
+        i18n.follow(i18nKeys.FinishTrainingDescription, (value) => {
             this.description.textContent = value;
         });
 
-        this.setTitle(i18nKeys.StartTrainingTitle);
+        this.setTitle(i18nKeys.FinishTrainingDescription);
 
         this.yesButton.addButtonName(i18nKeys.Yes);
         this.yesButton.onClick.subscribe(() => {
-            this.showTrainingPopup();
+            this.hideTrainingPopup();
         });
         this.content.append(
             this.description,
@@ -42,14 +39,11 @@ export class StartTrainingPopup extends PopupComponent {
 
         this.hide();
 
-        this.messenger.subscribe(Messages.ShowStartTrainingPopup, (gameID: number) => {
-            this.gameID = gameID;
-            this.show();
-        });
+        this.messenger.subscribe(Messages.ShowCloseTrainingPopup, () => { this.show() });
     }
 
-    private showTrainingPopup() {
+    private hideTrainingPopup() {
         this.hide();
-        this.trainingService.startGame(this.gameID as number);
+        this.messenger.send(Messages.InterruptTraining);
     }
 }
