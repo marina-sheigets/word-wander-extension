@@ -8,7 +8,7 @@ import { TrainingsListComponent } from "./trainings-list/trainings-list.componen
 import { TrainingsStatisticsComponent } from "./trainings-statistics/trainings-statistics.component";
 import * as styles from "./trainings-tabs-content.component.css";
 import { I18nService } from "../../../../services/i18n/i18n.service";
-import { i18nKeys } from "../../../../services/i18n/i18n-keys";
+import { UnauthorizedOverlayComponent } from "../../../unauthorized-overlay/unauthorized-overlay.component";
 
 @singleton()
 export class TrainingsTabsContentComponent extends BaseComponent {
@@ -34,6 +34,7 @@ export class TrainingsTabsContentComponent extends BaseComponent {
         protected trainingsDictionaryComponent: TrainingsDictionaryComponent,
         protected trainingsListComponent: TrainingsListComponent,
         protected trainingsStatistics: TrainingsStatisticsComponent,
+        protected unauthorizedOverlay: UnauthorizedOverlayComponent,
         protected trainingsTabsService: TrainingsTabsService,
         protected i18n: I18nService
     ) {
@@ -46,7 +47,8 @@ export class TrainingsTabsContentComponent extends BaseComponent {
 
         this.rootElement.append(
             this.title,
-            this.tabContent
+            this.tabContent,
+            this.unauthorizedOverlay.rootElement
         );
     }
 
@@ -55,6 +57,7 @@ export class TrainingsTabsContentComponent extends BaseComponent {
     }
 
     protected setTabContent(tabName: TrainingsTab) {
+        this.unauthorizedOverlay.setDescription(tabName);
         this.clearTabContent();
 
         const selectedComponent = this.tabsButtons.find((button: TrainingsTabsButton) => button.label === tabName)?.component;

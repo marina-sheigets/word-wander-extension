@@ -1,0 +1,36 @@
+.rootClassName {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    background: rgb(63, 66, 70, 0);
+    backdrop-filter: blur(15px);
+    position: absolute;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rootClassName button {
+    padding: 10px 20px;
+}
+
+.rootClassName h2 {
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.centralBlock {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.hidden {
+  display: none;
+}
