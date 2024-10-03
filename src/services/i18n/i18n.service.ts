@@ -48,6 +48,25 @@ export class I18nService {
         callback(translations[key][this.interfaceLanguage]);
     }
 
+    followMany(keys: i18nKeys[], callback: (values: (string | undefined)[]) => void) {
+        const values: (string | undefined)[] = [];
+
+        keys.forEach((key, index) => {
+            if (!translations[key]) {
+                values[index] = '';
+                return;
+            }
+
+            this.subscribe(key, (value: any) => {
+                values[index] = value;
+                callback(values);
+            });
+
+            values[index] = translations[key][this.interfaceLanguage];
+            callback(values);
+        });
+    }
+
     subscribe(key: string, callback: Function) {
         if (!this.subscribers[key]) {
             this.subscribers[key] = [];
