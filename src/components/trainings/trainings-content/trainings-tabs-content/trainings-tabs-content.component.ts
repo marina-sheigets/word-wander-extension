@@ -9,6 +9,8 @@ import { TrainingsStatisticsComponent } from "./trainings-statistics/trainings-s
 import * as styles from "./trainings-tabs-content.component.css";
 import { I18nService } from "../../../../services/i18n/i18n.service";
 import { UnauthorizedOverlayComponent } from "../../../unauthorized-overlay/unauthorized-overlay.component";
+import { MessengerService } from "../../../../services/messenger/messenger.service";
+import { Messages } from "../../../../constants/messages";
 
 @singleton()
 export class TrainingsTabsContentComponent extends BaseComponent {
@@ -36,7 +38,8 @@ export class TrainingsTabsContentComponent extends BaseComponent {
         protected trainingsStatistics: TrainingsStatisticsComponent,
         protected unauthorizedOverlay: UnauthorizedOverlayComponent,
         protected trainingsTabsService: TrainingsTabsService,
-        protected i18n: I18nService
+        protected i18n: I18nService,
+        protected messenger: MessengerService
     ) {
         super(styles);
 
@@ -57,6 +60,7 @@ export class TrainingsTabsContentComponent extends BaseComponent {
     }
 
     protected setTabContent(tabName: TrainingsTab) {
+        this.messenger.send(Messages.ChangeExtensionPageTitle, tabName);
         this.unauthorizedOverlay.setDescription(tabName);
         this.clearTabContent();
 

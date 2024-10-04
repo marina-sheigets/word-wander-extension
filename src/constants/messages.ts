@@ -1,4 +1,5 @@
 export const enum Messages {
+    ChangeExtensionPageTitle = 'ChangeExtensionPageTitle',
     OpenSettings = 'OpenSettings',
     CloseSettings = 'CloseSettings',
     CloseAllMenus = 'CloseAllMenus',

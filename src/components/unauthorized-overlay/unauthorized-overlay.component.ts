@@ -36,6 +36,8 @@ export class UnauthorizedOverlayComponent extends BaseComponent {
         );
 
         this.rootElement.append(this.centralBlock);
+
+        this.hide();
     }
 
     hide() {
