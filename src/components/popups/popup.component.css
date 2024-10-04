@@ -7,6 +7,10 @@
     bottom: 0;
 }
 
+.rootClassName button {
+    padding: 10px 20px;
+}
+
 .rootClassName hr {
     width: 100%;
     border: 1px solid #9EA5AE;

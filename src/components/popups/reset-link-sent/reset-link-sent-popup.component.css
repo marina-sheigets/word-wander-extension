@@ -7,10 +7,6 @@
     font-size: 14px;
 }
 
-.rootClassName .okButton button{
-    padding: 10px 20px;
-}
-
 .content {
     padding-top: 20px;
     display: flex;
