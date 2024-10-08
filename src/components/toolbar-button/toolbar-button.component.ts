@@ -2,7 +2,6 @@ import { injectable } from "tsyringe";
 import { BaseComponent } from "../base-component/base-component";
 import * as styles from './toolbar-button.component.css';
 import { Informer } from "../../services/informer/informer.service";
-import { ToolbarButtonService } from "../../services/toolbar-button/toolbar-button.service";
 import { MessengerService } from "../../services/messenger/messenger.service";
 import { Messages } from "../../constants/messages";
 import { IconComponent } from "../icon/icon.component";
@@ -17,7 +16,6 @@ export class ToolbarButtonComponent extends BaseComponent {
     onPress = new Informer<boolean>();
 
     constructor(
-        protected toolbarButtonService: ToolbarButtonService,
         protected messenger: MessengerService,
         protected i18n: I18nService
     ) {
@@ -27,8 +25,6 @@ export class ToolbarButtonComponent extends BaseComponent {
         this.rootElement.append(
             this.iconWrapper
         );
-
-        this.toolbarButtonService.registerButton(this);
     }
 
     onToolbarButtonPress() {
@@ -36,16 +32,6 @@ export class ToolbarButtonComponent extends BaseComponent {
 
         this.isActive = !this.isActive;
         this.onPress.inform(this.isActive);
-    }
-
-    public toggleActive(isActive: boolean) {
-        this.isActive = isActive;
-        if (this.isActive) {
-            this.toolbarButtonService.setAllButtonsInactive();
-            this.setActive();
-        } else {
-            this.unsetActive();
-        }
     }
 
     public addTooltip(key: i18nKeys) {
@@ -60,13 +46,5 @@ export class ToolbarButtonComponent extends BaseComponent {
 
         this.iconWrapper.classList.add(styles.iconWrapper);
         this.iconWrapper.append(newIcon.rootElement);
-    }
-
-    public setActive() {
-        this.iconWrapper.classList.add(styles.active);
-    }
-
-    public unsetActive() {
-        this.iconWrapper.classList.remove(styles.active);
     }
 }

@@ -5,7 +5,6 @@ import * as styles from './player.component.css'
 import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
 import { TextManagerService } from "../../../services/text-manager/text-manager.service";
 import { NotFoundPopupComponent } from "../../popups/not-found/not-found.component";
-import { ToolbarButtonService } from "../../../services/toolbar-button/toolbar-button.service";
 import { PermissionsService } from "../../../services/permissions/permissions.service";
 import { IconName } from "../../../types/IconName";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
@@ -20,7 +19,6 @@ export class PlayerComponent extends BaseComponent {
         protected textToSpeechService: TextToSpeechService,
         protected textManager: TextManagerService,
         protected notFoundPopup: NotFoundPopupComponent,
-        protected toolbarButtonService: ToolbarButtonService,
         protected permissions: PermissionsService
     ) {
         super(styles);
@@ -28,7 +26,6 @@ export class PlayerComponent extends BaseComponent {
         this.playButton.addIcon(IconName.Play);
         this.playButton.addTooltip(i18nKeys.Play);
         this.playButton.onPress.subscribe(() => {
-            toolbarButtonService.setAllButtonsInactive();
             this.playText();
         });
 
@@ -74,7 +71,6 @@ export class PlayerComponent extends BaseComponent {
         }
 
         this.pauseButton.rootElement.classList.remove(styles.hidden);
-        this.pauseButton.setActive();
         this.playButton.rootElement.classList.add(styles.hidden);
 
         this.textToSpeechService.play(text);
@@ -84,7 +80,6 @@ export class PlayerComponent extends BaseComponent {
         this.playButton.rootElement.classList.add(styles.hidden);
         this.resumeButton.rootElement.classList.remove(styles.hidden);
         this.pauseButton.rootElement.classList.add(styles.hidden);
-        this.resumeButton.setActive();
         this.textToSpeechService.pause();
 
         document.addEventListener('selectionchange', this.interruptPlay.bind(this));
@@ -100,7 +95,6 @@ export class PlayerComponent extends BaseComponent {
     resumePlay() {
         this.resumeButton.rootElement.classList.add(styles.hidden);
         this.pauseButton.rootElement.classList.remove(styles.hidden);
-        this.pauseButton.setActive();
         this.textToSpeechService.resume();
     }
 
@@ -108,6 +102,5 @@ export class PlayerComponent extends BaseComponent {
         this.pauseButton.rootElement.classList.add(styles.hidden);
         this.resumeButton.rootElement.classList.add(styles.hidden);
         this.playButton.rootElement.classList.remove(styles.hidden);
-        this.playButton.unsetActive();
     }
 }

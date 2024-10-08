@@ -27,7 +27,6 @@ export class SearchComponent extends BaseComponent {
 
         this.button.onPress.subscribe((isActive: boolean) => {
             this.menu.toggleMenu(isActive);
-            this.button.toggleActive(isActive);
             this.processSearch(isActive);
         });
     }
