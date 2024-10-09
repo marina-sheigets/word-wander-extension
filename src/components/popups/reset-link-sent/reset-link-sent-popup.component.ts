@@ -34,7 +34,6 @@ export class ResetLinkSentPopupComponent extends PopupComponent {
         this.subdescription.classList.add(styles.subdescription);
 
         this.okButton.addButtonName(i18nKeys.Ok);
-        this.okButton.rootElement.classList.add(styles.okButton);
         this.okButton.onClick.subscribe(this.hide.bind(this));
 
         this.content.append(

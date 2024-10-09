@@ -3,7 +3,6 @@ import * as styles from './settings-popup.component.css'
 import { PopupComponent } from '../popup.component';
 import { MessengerService } from '../../../services/messenger/messenger.service';
 import { Messages } from '../../../constants/messages';
-import { ToolbarButtonService } from '../../../services/toolbar-button/toolbar-button.service';
 import { I18nService } from '../../../services/i18n/i18n.service';
 import { i18nKeys } from '../../../services/i18n/i18n-keys';
 import { SettingsTabsComponent } from './settings-tabs/settings-tabs.component';
@@ -12,7 +11,6 @@ import { SettingsTabsComponent } from './settings-tabs/settings-tabs.component';
 export class SettingsPopupComponent extends PopupComponent {
     constructor(
         protected messenger: MessengerService,
-        protected toolbarButtonService: ToolbarButtonService,
         protected i18n: I18nService,
         protected settingsTabs: SettingsTabsComponent
     ) {
@@ -27,7 +25,5 @@ export class SettingsPopupComponent extends PopupComponent {
         this.hide();
 
         this.messenger.subscribe(Messages.OpenSettings, this.show.bind(this));
-
-        this.onClose.subscribe(this.toolbarButtonService.setAllButtonsInactive.bind(this.toolbarButtonService));
     }
 }

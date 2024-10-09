@@ -37,8 +37,8 @@ export class PlayerComponent extends BaseComponent {
         this.resumeButton.addTooltip(i18nKeys.Resume);
         this.resumeButton.onPress.subscribe(this.resumePlay.bind(this));
 
-        this.pauseButton.rootElement.classList.add(styles.hidden);
-        this.resumeButton.rootElement.classList.add(styles.hidden);
+        this.pauseButton.rootElement.classList.add(styles.hidden, styles.pauseButton);
+        this.resumeButton.rootElement.classList.add(styles.hidden, styles.resumeButton);
 
         this.rootElement.append(
             this.playButton.rootElement,
@@ -71,6 +71,7 @@ export class PlayerComponent extends BaseComponent {
         }
 
         this.pauseButton.rootElement.classList.remove(styles.hidden);
+        this.setActive();
         this.playButton.rootElement.classList.add(styles.hidden);
 
         this.textToSpeechService.play(text);
@@ -80,6 +81,7 @@ export class PlayerComponent extends BaseComponent {
         this.playButton.rootElement.classList.add(styles.hidden);
         this.resumeButton.rootElement.classList.remove(styles.hidden);
         this.pauseButton.rootElement.classList.add(styles.hidden);
+        this.setActive();
         this.textToSpeechService.pause();
 
         document.addEventListener('selectionchange', this.interruptPlay.bind(this));
@@ -95,6 +97,7 @@ export class PlayerComponent extends BaseComponent {
     resumePlay() {
         this.resumeButton.rootElement.classList.add(styles.hidden);
         this.pauseButton.rootElement.classList.remove(styles.hidden);
+        this.setActive();
         this.textToSpeechService.resume();
     }
 
@@ -102,5 +105,14 @@ export class PlayerComponent extends BaseComponent {
         this.pauseButton.rootElement.classList.add(styles.hidden);
         this.resumeButton.rootElement.classList.add(styles.hidden);
         this.playButton.rootElement.classList.remove(styles.hidden);
+        this.unsetActive();
+    }
+
+    setActive() {
+        this.rootElement.classList.add(styles.active);
+    }
+
+    unsetActive() {
+        this.rootElement.classList.remove(styles.active);
     }
 }

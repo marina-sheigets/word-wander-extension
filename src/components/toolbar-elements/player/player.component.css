@@ -1,5 +1,17 @@
-.rootElement{}
-
 .hidden {
     display: none;
+}
+
+.active circle {
+    stroke: #00CE8F !important;
+}
+
+.active .resumeButton path {
+    fill: #00CE8F !important; 
+    stroke: #00CE8F !important; 
+}
+
+    
+.active .pauseButton path{
+    stroke: #00CE8F !important;
 }
