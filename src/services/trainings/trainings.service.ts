@@ -27,7 +27,10 @@ export class TrainingsService {
     }
 
     public fetchDataForWordTranslation() {
-        setTimeout(() => { }, 1000);
+        setTimeout(() => {
+
+
+        }, 1000);
 
         // fetch list of words and translations, mix them up
         return {
@@ -60,6 +63,41 @@ export class TrainingsService {
             ]
         }
 
+    }
+
+    fetchDataForTranslationWord() {
+        setTimeout(() => { }, 1000);
+
+        // fetch list of words and translations, mix them up
+        return {
+            translations: [
+                {
+                    word: "school",
+                    translation: "школа"
+                },
+                {
+                    word: "university",
+                    translation: "університет"
+                },
+                {
+                    word: "book",
+                    translation: "книга"
+                }
+            ],
+            variants: [{
+                word: "школа",
+                translations: ["university", "house", "book", "school"]
+            },
+            {
+                word: "університет",
+                translations: ["university", "house", "book", "school"]
+            },
+            {
+                word: "книга",
+                translations: ["university", "house", "book", "school"]
+            },
+            ]
+        }
     }
     private interruptTraining() {
         this.messenger.send(FinishTrainingsMessages[this.currentGame || 0]);

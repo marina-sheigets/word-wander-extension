@@ -6,6 +6,7 @@ import { StartTrainingPopup } from '../components/popups/start-training/start-tr
 import { CloseTrainingPopup } from '../components/popups/close-training/close-training-popup.component';
 import { MessengerService } from '../services/messenger/messenger.service';
 import { Messages } from '../constants/messages';
+import { TranslationWordTrainingComponent } from '../components/trainings/translation-word-training/translation-word-training.component';
 
 @singleton()
 class Trainings {
@@ -14,6 +15,7 @@ class Trainings {
         protected startTrainingPopup: StartTrainingPopup,
         protected closeTrainingPopup: CloseTrainingPopup,
         protected wordTranslationTraining: WordTranslationTrainingComponent,
+        protected translationWordTraining: TranslationWordTrainingComponent,
         protected messenger: MessengerService,
     ) {
         document.body.style.margin = "0";
@@ -24,7 +26,8 @@ class Trainings {
             this.trainingsComponent.rootElement,
             this.startTrainingPopup.rootElement,
             this.closeTrainingPopup.rootElement,
-            this.wordTranslationTraining.rootElement
+            this.wordTranslationTraining.rootElement,
+            this.translationWordTraining.rootElement,
         );
 
         this.messenger.subscribe(Messages.ChangeExtensionPageTitle, (newTitle: string) => {

@@ -3,8 +3,11 @@ export interface WordTranslationTrainingData {
         word: string;
         translation: string;
     }[];
-    variants: {
-        word: string;
-        translations: string[];
-    }[];
+    variants: Variant[];
+}
+
+export interface TranslationWordTrainingData extends WordTranslationTrainingData { }
+export interface Variant {
+    word: string;
+    translations: string[];
 }
