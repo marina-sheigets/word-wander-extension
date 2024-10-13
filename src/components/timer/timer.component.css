@@ -1,0 +1,33 @@
+.rootClassName {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 50%;
+    border: 5px solid #00CE8F;
+}
+
+.timer > div {
+    width: 48px;
+    height: 48px;
+}
+
+.timer {
+    font-size: 48px;
+    font-weight: bold;
+    color: #00CE8F;
+}
+
+.failed .content {
+    border: 5px solid #EE8144;
+}
+
