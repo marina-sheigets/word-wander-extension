@@ -17,4 +17,5 @@ export enum IconName {
     Plus = 'plus',
     Learn = 'learn',
     Muscle = 'muscle',
+    Tick = 'tick',
 }
