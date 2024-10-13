@@ -2,6 +2,7 @@ import { singleton } from "tsyringe";
 import { Messages } from "../../constants/messages";
 import { MessengerService } from "../messenger/messenger.service";
 import { FinishTrainingsMessages, StartTrainingsMessages } from "../../constants/trainingMessages";
+import { RepeatingTrainingData } from "../../types/TrainingsData";
 
 @singleton()
 export class TrainingsService {
@@ -99,6 +100,44 @@ export class TrainingsService {
             ]
         }
     }
+
+    public fetchDataForRepeating(): Promise<RepeatingTrainingData> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    translations: [
+                        {
+                            word: "school",
+                            translation: 'школа'
+                        },
+                        {
+                            word: "university",
+                            translation: 'університет'
+                        },
+                        {
+                            word: "house",
+                            translation: "дом"
+                        }
+                    ],
+                    variants: [{
+                        word: "школа",
+                        translations: ["school", "university"]
+                    },
+                    {
+                        word: "університет",
+                        translations: ["house", "university"]
+                    },
+                    {
+                        word: "дом",
+                        translations: ["school", "house"]
+                    },
+                    ]
+                });
+            }, 1000);
+        });
+    }
+
+
     private interruptTraining() {
         this.messenger.send(FinishTrainingsMessages[this.currentGame || 0]);
         this.isGameInProgress = false;
