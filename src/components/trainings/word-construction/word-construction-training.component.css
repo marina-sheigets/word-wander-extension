@@ -1,0 +1,23 @@
+.trainingWrapper {
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+}
+
+.currentWord {
+    font-size: 30px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    padding: 20px 0 40px;
+}

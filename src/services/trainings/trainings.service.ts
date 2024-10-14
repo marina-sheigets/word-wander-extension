@@ -2,7 +2,7 @@ import { singleton } from "tsyringe";
 import { Messages } from "../../constants/messages";
 import { MessengerService } from "../messenger/messenger.service";
 import { FinishTrainingsMessages, StartTrainingsMessages } from "../../constants/trainingMessages";
-import { RepeatingTrainingData } from "../../types/TrainingsData";
+import { RepeatingTrainingData, WordConstructionTrainingData } from "../../types/TrainingsData";
 
 @singleton()
 export class TrainingsService {
@@ -137,6 +137,30 @@ export class TrainingsService {
         });
     }
 
+
+    public fetchDataForWordConstructionTraining(): Promise<WordConstructionTrainingData> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    translations: [
+                        {
+                            word: "school",
+                            translation: 'школа'
+                        },
+                        {
+                            word: "university",
+                            translation: 'університет'
+                        },
+                        {
+                            word: "house",
+                            translation: "дом"
+                        }
+                    ],
+
+                });
+            }, 1000);
+        });
+    }
 
     private interruptTraining() {
         this.messenger.send(FinishTrainingsMessages[this.currentGame || 0]);

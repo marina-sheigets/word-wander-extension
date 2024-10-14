@@ -17,6 +17,9 @@ export const enum Messages {
     StartRepeatingTraining = 'StartRepeatingTraining',
     FinishRepeatingTraining = 'FinishRepeatingTraining',
 
+    StartWordConstructionTraining = 'StartWordConstructionTraining',
+    FinishWordConstructionTraining = 'FinishWordConstructionTraining',
+
     InterruptTraining = 'InterruptTraining',
     FinishTraining = 'FinishTraining',
 
