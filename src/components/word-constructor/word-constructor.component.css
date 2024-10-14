@@ -1,0 +1,53 @@
+.rootClassName {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.rootClassName:not(:has(.cellsWrapper, .lettersWrapper)) {
+    display: none;
+}
+
+.cellsWrapper, .lettersWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:10px;
+} 
+
+.cell {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 22px;
+    font-weight: 600;
+    border: 1px solid #9EA5AE;
+}
+
+.emptyCell {
+    background-color: transparent;
+}
+
+.letterCell{
+    background-color: #9EA5AE;
+    color: #FFFF;
+}
+
+.rightLetter {
+    background-color: #00CE8F;
+    border: 1px solid #00CE8F;
+    color: #3F4246;
+}
+
+.wrongAnswer {
+    background-color: #EE8144;
+    border: 1px solid #EE8144;
+    color: #FFFF;
+}
