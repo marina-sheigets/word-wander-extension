@@ -20,6 +20,9 @@ export const enum Messages {
     StartWordConstructionTraining = 'StartWordConstructionTraining',
     FinishWordConstructionTraining = 'FinishWordConstructionTraining',
 
+    StartListeningTraining = 'StartListeningTraining',
+    FinishListeningTraining = 'FinishListeningTraining',
+
     InterruptTraining = 'InterruptTraining',
     FinishTraining = 'FinishTraining',
 

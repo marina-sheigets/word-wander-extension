@@ -162,6 +162,30 @@ export class TrainingsService {
         });
     }
 
+    public fetchDataForListeningTraining(): Promise<WordConstructionTrainingData> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    translations: [
+                        {
+                            word: "school",
+                            translation: 'школа'
+                        },
+                        {
+                            word: "university",
+                            translation: 'університет'
+                        },
+                        {
+                            word: "house",
+                            translation: "дом"
+                        }
+                    ],
+
+                });
+            }, 1000);
+        });
+    }
+
     private interruptTraining() {
         this.messenger.send(FinishTrainingsMessages[this.currentGame || 0]);
         this.isGameInProgress = false;
