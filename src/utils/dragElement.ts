@@ -4,6 +4,11 @@ export function dragElement(element: HTMLElement, e: MouseEvent, savePosition: b
 
         e.preventDefault();
 
+        const dragThreshold = 5;
+
+        const startX = e.pageX;
+        const startY = e.pageY;
+
         let draggableElementRect = element.getBoundingClientRect();
 
         let shiftX = e.pageX - draggableElementRect.left;
@@ -11,6 +16,13 @@ export function dragElement(element: HTMLElement, e: MouseEvent, savePosition: b
         let isMoved = false;
 
         let onMouseMove = (event: MouseEvent) => {
+            const deltaX = Math.abs(event.pageX - startX);
+            const deltaY = Math.abs(event.pageY - startY);
+
+            if (deltaX < dragThreshold || deltaY < dragThreshold) {
+                return;
+            }
+
             if (savePosition) {
                 isMoved = true;
             }
