@@ -5,6 +5,8 @@ import { BaseComponent } from "../base-component/base-component";
 import * as styles from './word-constructor.component.css';
 
 export class WordConstructorComponent extends BaseComponent {
+    private readonly MAX_WRONG_LETTERS = 3;
+
     private cellsWrapper = document.createElement('div');
     private lettersWrapper = document.createElement('div');
 
@@ -12,7 +14,7 @@ export class WordConstructorComponent extends BaseComponent {
     private shuffledLetters: string[] = [];
     private containedCells: string[] = [];
 
-
+    private amountOfWrongLetters = 0;
     public onLettersFinished = new Informer();
 
     constructor() {
@@ -88,6 +90,10 @@ export class WordConstructorComponent extends BaseComponent {
 
         if (selectedLetter !== this.letters[this.containedCells.length]) {
             await setAnimationForWrongAnswer(cell as HTMLButtonElement, styles, 300);
+            this.amountOfWrongLetters++;
+            if (this.amountOfWrongLetters === this.MAX_WRONG_LETTERS) {
+                this.onLettersFinished.inform();
+            }
             return;
         }
 
@@ -114,6 +120,7 @@ export class WordConstructorComponent extends BaseComponent {
     }
 
     public clear() {
+        this.amountOfWrongLetters = 0;
         this.containedCells = [];
         this.shuffledLetters = [];
         this.cellsWrapper.innerHTML = '';
