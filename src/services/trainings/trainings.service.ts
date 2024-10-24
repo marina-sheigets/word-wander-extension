@@ -2,7 +2,7 @@ import { singleton } from "tsyringe";
 import { Messages } from "../../constants/messages";
 import { MessengerService } from "../messenger/messenger.service";
 import { FinishTrainingsMessages, StartTrainingsMessages } from "../../constants/trainingMessages";
-import { RepeatingTrainingData, WordConstructionTrainingData } from "../../types/TrainingsData";
+import { AudioChallengeTrainingData, RepeatingTrainingData, WordConstructionTrainingData } from "../../types/TrainingsData";
 
 @singleton()
 export class TrainingsService {
@@ -64,6 +64,44 @@ export class TrainingsService {
             ]
         }
 
+    }
+
+    public fetchDataForAudioChallengeTraining(): Promise<AudioChallengeTrainingData> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(
+                    {
+                        translations: [
+                            {
+                                word: "school",
+                                translation: 'школа'
+                            },
+                            {
+                                word: "university",
+                                translation: 'університет'
+                            },
+                            {
+                                word: "house",
+                                translation: "дом"
+                            }
+                        ],
+                        variants: [{
+                            word: "school",
+                            translations: ["школа", "бібліотека", "магістр", "кохання"]
+                        },
+                        {
+                            word: "university",
+                            translations: ["школа", "бібліотека", "університет", "кохання"]
+                        },
+                        {
+                            word: "house",
+                            translations: ["школа", "дім", "університет", "кохання"]
+                        },
+                        ]
+                    }
+                );
+            }, 1000);
+        });
     }
 
     fetchDataForTranslationWord() {

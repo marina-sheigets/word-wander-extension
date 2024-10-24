@@ -10,6 +10,7 @@ import { TranslationWordTrainingComponent } from '../components/trainings/transl
 import { RepeatingTrainingComponent } from '../components/trainings/repeating-training/repeating-training.component';
 import { WordConstructionTrainingComponent } from '../components/trainings/word-construction/word-construction-training.component';
 import { ListeningTrainingComponent } from '../components/trainings/listening/listening-training.component';
+import { AudioChallengeTrainingComponent } from '../components/trainings/audio-challenge/audio-challenge-training.component';
 
 @singleton()
 class Trainings {
@@ -22,6 +23,7 @@ class Trainings {
         protected repeatingTrainingComponent: RepeatingTrainingComponent,
         protected wordConstructionTrainingComponent: WordConstructionTrainingComponent,
         protected listeningTraining: ListeningTrainingComponent,
+        protected audioChallengeTraining: AudioChallengeTrainingComponent,
         protected messenger: MessengerService,
     ) {
         document.body.style.margin = "0";
@@ -36,6 +38,7 @@ class Trainings {
             this.translationWordTraining.rootElement,
             this.repeatingTrainingComponent.rootElement,
             this.wordConstructionTrainingComponent.rootElement,
+            this.audioChallengeTraining.rootElement,
             this.listeningTraining.rootElement,
         );
 

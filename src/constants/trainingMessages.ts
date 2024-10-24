@@ -5,7 +5,8 @@ export const StartTrainingsMessages: { [gameID: number]: Messages } = {
     2: Messages.StartTranslationWordTraining,
     3: Messages.StartRepeatingTraining,
     4: Messages.StartWordConstructionTraining,
-    5: Messages.StartListeningTraining
+    5: Messages.StartListeningTraining,
+    6: Messages.StartAudioChallengeTraining
 }
 
 export const FinishTrainingsMessages: { [gameID: number]: Messages } = {
@@ -13,6 +14,7 @@ export const FinishTrainingsMessages: { [gameID: number]: Messages } = {
     2: Messages.FinishTranslationWordTraining,
     3: Messages.FinishRepeatingTraining,
     4: Messages.FinishWordConstructionTraining,
-    5: Messages.FinishListeningTraining
+    5: Messages.FinishListeningTraining,
+    6: Messages.FinishAudioChallengeTraining
 }
 

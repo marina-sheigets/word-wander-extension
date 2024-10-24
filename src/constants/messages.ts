@@ -23,6 +23,9 @@ export const enum Messages {
     StartListeningTraining = 'StartListeningTraining',
     FinishListeningTraining = 'FinishListeningTraining',
 
+    StartAudioChallengeTraining = 'StartAudioChallengeTraining',
+    FinishAudioChallengeTraining = 'FinishAudioChallengeTraining',
+
     InterruptTraining = 'InterruptTraining',
     FinishTraining = 'FinishTraining',
 
