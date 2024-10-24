@@ -92,7 +92,11 @@ export class WordConstructorComponent extends BaseComponent {
             await setAnimationForWrongAnswer(cell as HTMLButtonElement, styles, 300);
             this.amountOfWrongLetters++;
             if (this.amountOfWrongLetters === this.MAX_WRONG_LETTERS) {
-                this.onLettersFinished.inform();
+                this.autocompleteWord();
+
+                setTimeout(() => {
+                    this.onLettersFinished.inform();
+                }, 1000);
             }
             return;
         }
@@ -131,5 +135,20 @@ export class WordConstructorComponent extends BaseComponent {
 
     private removeEventListeners() {
         document.removeEventListener('keydown', this.onKeyDown.bind(this));
+    }
+
+    private autocompleteWord() {
+        this.shuffledLetters = [];
+
+        this.lettersWrapper.innerHTML = '';
+        this.cellsWrapper.innerHTML = '';
+
+        this.letters.forEach((letter) => {
+            const cell = document.createElement('div');
+            cell.classList.add(styles.cell, styles.emptyCell, styles.wrongAnswer);
+            cell.textContent = letter;
+
+            this.cellsWrapper.append(cell);
+        });
     }
 }
