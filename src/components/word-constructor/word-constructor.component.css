@@ -36,6 +36,7 @@
 }
 
 .letterCell{
+    cursor: pointer;
     background-color: #9EA5AE;
     color: #FFFF;
 }
