@@ -19,7 +19,7 @@ export function dragElement(element: HTMLElement, e: MouseEvent, savePosition: b
             const deltaX = Math.abs(event.pageX - startX);
             const deltaY = Math.abs(event.pageY - startY);
 
-            if (deltaX < dragThreshold || deltaY < dragThreshold) {
+            if (deltaX < dragThreshold && deltaY < dragThreshold) {
                 return;
             }
 
