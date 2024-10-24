@@ -23,6 +23,8 @@ export class WordConstructorComponent extends BaseComponent {
         this.lettersWrapper.classList.add(styles.lettersWrapper);
 
         this.rootElement.append(this.cellsWrapper, this.lettersWrapper);
+
+        document.addEventListener('keydown', this.onKeyDown.bind(this));
     }
 
     init(word: string) {
@@ -37,6 +39,22 @@ export class WordConstructorComponent extends BaseComponent {
         });
     }
 
+    private onKeyDown(event: KeyboardEvent) {
+        if (!this.rootElement.parentElement || this.rootElement.parentElement.offsetParent === null) return;
+
+        event.stopPropagation();
+
+        if (!this.letters.includes(event.key)) return;
+
+        const selectedLetter = event.key;
+
+        for (let child of this.lettersWrapper.children) {
+            if (child.textContent === selectedLetter) {
+                (child as HTMLElement).click();
+                break;
+            }
+        }
+    }
 
     private createEmptyCells(letter: string | null = null) {
         const cell = document.createElement('div');
@@ -100,5 +118,11 @@ export class WordConstructorComponent extends BaseComponent {
         this.shuffledLetters = [];
         this.cellsWrapper.innerHTML = '';
         this.lettersWrapper.innerHTML = '';
+
+        this.removeEventListeners();
+    }
+
+    private removeEventListeners() {
+        document.removeEventListener('keydown', this.onKeyDown.bind(this));
     }
 }
