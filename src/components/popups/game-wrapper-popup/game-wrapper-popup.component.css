@@ -1,3 +1,8 @@
 .disableBackground  {
     pointer-events: none;
 }
+
+.rootClassName > div > div{
+    min-width: 600px;
+    height: 400px;
+}

@@ -11,6 +11,7 @@ export class GameWrapperPopupComponent extends PopupComponent {
         protected messenger: MessengerService
     ) {
         super(i18n);
+        this.applyRootStyle(styles);
 
         this.backdrop.classList.add(styles.disableBackground);
         this.closeButton.onclick = (e) => {
