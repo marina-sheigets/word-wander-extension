@@ -12,6 +12,7 @@ import { WordConstructorComponent } from "../../word-constructor/word-constructo
 import { WordCountComponent } from "../../word-count/word-count.component";
 import { WordPlayerComponent } from "../../word-player/word-player.component";
 import * as styles from "./listening-training.component.css";
+import { SkipWordButtonComponent } from "../../button/skip-word/skip-word-button.component";
 
 @singleton()
 export class ListeningTrainingComponent extends GameWrapperPopupComponent {
@@ -28,6 +29,7 @@ export class ListeningTrainingComponent extends GameWrapperPopupComponent {
         protected wordPlayerComponent: WordPlayerComponent,
         protected loader: LoaderComponent,
         protected wordCountComponent: WordCountComponent,
+        protected skipWordButton: SkipWordButtonComponent,
         protected messenger: MessengerService,
         protected i18n: I18nService,
         protected trainingsService: TrainingsService,
@@ -43,6 +45,7 @@ export class ListeningTrainingComponent extends GameWrapperPopupComponent {
             this.wordCountComponent.rootElement,
             this.wordPlayerComponent.rootElement,
             this.wordConstructorComponent.rootElement,
+            this.skipWordButton.rootElement,
         );
 
         this.trainingWrapper.append(
@@ -54,6 +57,7 @@ export class ListeningTrainingComponent extends GameWrapperPopupComponent {
         this.setContent(this.trainingWrapper);
 
         this.wordConstructorComponent.onLettersFinished.subscribe(() => this.onLettersFinished());
+        this.skipWordButton.onClick.subscribe(() => this.onWordSkip());
 
         this.messenger.subscribe(Messages.StartListeningTraining, this.start.bind(this));
         this.messenger.subscribe(Messages.FinishListeningTraining, this.interruptTraining.bind(this));
@@ -115,5 +119,15 @@ export class ListeningTrainingComponent extends GameWrapperPopupComponent {
         this.content.classList.add(styles.hidden);
         this.loader.show();
         this.wordConstructorComponent.clear();
+    }
+
+    private onWordSkip() {
+        this.skipWordButton.hide();
+        this.wordConstructorComponent.autocompleteWord();
+        setTimeout(() => {
+            this.onLettersFinished();
+            this.skipWordButton.show();
+        }, 1000);
+
     }
 }

@@ -59,7 +59,7 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
 
         this.wordConstructorComponent.onLettersFinished.subscribe(() => this.onLettersFinished());
 
-        this.skipWordButton.onSkipButtonClick.subscribe(() => this.onWordSkip());
+        this.skipWordButton.onClick.subscribe(() => this.onWordSkip());
 
         this.messenger.subscribe(Messages.StartWordConstructionTraining, this.start.bind(this));
         this.messenger.subscribe(Messages.FinishWordConstructionTraining, this.interruptTraining.bind(this));
