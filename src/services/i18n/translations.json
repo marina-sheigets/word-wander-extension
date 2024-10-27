@@ -3,6 +3,10 @@
     "en":"No selected text found",
     "uk":"Не знайдено тексту"
   },
+  "SkipWord":{
+    "en":"Skip word",
+    "uk":"Пропустити слово"
+  },
     "SelectSomeText":{
         "en":"Please select some text and try again.",
         "uk":"Будь ласка, виберіть текст і спробуйте ще раз."

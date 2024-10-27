@@ -1,0 +1,12 @@
+.rootClassName {
+    display: flex;
+    justify-content: center;
+    margin-top:20px;
+}
+
+.rootClassName button{
+    background-color: transparent;
+    border: 1px solid #9EA5AE;
+    color: #9EA5AE;
+    border-radius: 10px;
+}

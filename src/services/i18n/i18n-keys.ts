@@ -86,6 +86,8 @@ export const enum i18nKeys {
     FinishTrainingDescription = "FinishTrainingDescription",
     Yes = "Yes",
 
+    SkipWord = "SkipWord",
+
     // Auth
     UnauthorizedTitle = "UnauthorizedTitle",
     UnauthorizedDescriptionPlural = "UnauthorizedDescriptionPlural",
