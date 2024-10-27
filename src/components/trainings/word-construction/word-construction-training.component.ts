@@ -11,6 +11,7 @@ import { GameWrapperPopupComponent } from "../../popups/game-wrapper-popup/game-
 import { WordConstructorComponent } from "../../word-constructor/word-constructor.component";
 import { WordCountComponent } from "../../word-count/word-count.component";
 import * as styles from "./word-construction-training.component.css";
+import { SkipWordButtonComponent } from "../../button/skip-word/skip-word-button.component";
 
 @singleton()
 export class WordConstructionTrainingComponent extends GameWrapperPopupComponent {
@@ -27,6 +28,7 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
         protected wordConstructorComponent: WordConstructorComponent,
         protected wordCountComponent: WordCountComponent,
         protected loader: LoaderComponent,
+        protected skipWordButton: SkipWordButtonComponent,
         protected messenger: MessengerService,
         protected i18n: I18nService,
         protected trainingsService: TrainingsService,
@@ -44,6 +46,7 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
             this.wordCountComponent.rootElement,
             this.currentWordElement,
             this.wordConstructorComponent.rootElement,
+            this.skipWordButton.rootElement,
         );
 
         this.trainingWrapper.append(
@@ -55,6 +58,8 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
         this.setContent(this.trainingWrapper);
 
         this.wordConstructorComponent.onLettersFinished.subscribe(() => this.onLettersFinished());
+
+        this.skipWordButton.onSkipButtonClick.subscribe(() => this.onWordSkip());
 
         this.messenger.subscribe(Messages.StartWordConstructionTraining, this.start.bind(this));
         this.messenger.subscribe(Messages.FinishWordConstructionTraining, this.interruptTraining.bind(this));
@@ -117,5 +122,15 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
         this.loader.show();
         this.wordConstructorComponent.clear();
         this.currentWordElement.textContent = '';
+    }
+
+    private onWordSkip() {
+        this.skipWordButton.hide();
+        this.wordConstructorComponent.autocompleteWord();
+        setTimeout(() => {
+            this.onLettersFinished();
+            this.skipWordButton.show();
+        }, 1000);
+
     }
 }

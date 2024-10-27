@@ -137,7 +137,7 @@ export class WordConstructorComponent extends BaseComponent {
         document.removeEventListener('keydown', this.onKeyDown.bind(this));
     }
 
-    private autocompleteWord() {
+    public autocompleteWord() {
         this.shuffledLetters = [];
 
         this.lettersWrapper.innerHTML = '';
