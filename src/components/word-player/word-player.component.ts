@@ -23,7 +23,7 @@ export class WordPlayerComponent extends BaseComponent {
         this.iconWrapper.append(this.playIcon.rootElement);
 
         this.rootElement.append(this.iconWrapper);
-        this.rootElement.addEventListener('mousedown', this.playWord.bind(this));
+        this.iconWrapper.addEventListener('mousedown', this.playWord.bind(this));
     }
 
     public playWord() {
