@@ -89,6 +89,7 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
 
         this.currentWord = this.data.translations[index];
         this.wordPlayerComponent.setWord(this.currentWord.word);
+        this.wordPlayerComponent.playWord();
         this.wordCountComponent.setCurrentCount(index + 1);
         this.wordCountComponent.setTotalCount(this.data.translations.length);
     }
@@ -112,8 +113,6 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
             variantButton.onVariantClick.subscribe(this.handleVariantClick.bind(this));
             this.variantsWrapper.append(variantButton.rootElement);
         });
-
-        this.wordPlayerComponent.playWord();
     }
 
     private async handleVariantClick(e: Event) {

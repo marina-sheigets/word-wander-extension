@@ -14,6 +14,7 @@ import { GameWrapperPopupComponent } from "../../popups/game-wrapper-popup/game-
 import { ProgressBarComponent } from "../../progress-bar/progress-bar.component";
 import { WordCountComponent } from "../../word-count/word-count.component";
 import * as styles from './translation-word-training.component.css';
+import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
 
 @singleton()
 export class TranslationWordTrainingComponent extends GameWrapperPopupComponent {
@@ -32,6 +33,7 @@ export class TranslationWordTrainingComponent extends GameWrapperPopupComponent 
         protected statistics: TrainingsStatisticsService,
         protected loader: LoaderComponent,
         protected trainingsService: TrainingsService,
+        protected textToSpeech: TextToSpeechService,
         protected messenger: MessengerService,
         protected i18n: I18nService
     ) {
@@ -122,6 +124,8 @@ export class TranslationWordTrainingComponent extends GameWrapperPopupComponent 
             this.statistics.addWrongWord(this.currentWord as HistoryItem);
             await setAnimationForWrongAnswer(target, styles);
         }
+
+        this.textToSpeech.play(this.currentWord?.word || '');
 
         if (this.currentWordIndex === this.data?.translations.length) {
             this.hide();

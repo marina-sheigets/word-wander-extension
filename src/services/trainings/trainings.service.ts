@@ -46,7 +46,7 @@ export class TrainingsService {
                 },
                 {
                     word: "house",
-                    translation: "дом"
+                    translation: "дім"
                 }
             ],
             variants: [{
@@ -82,7 +82,7 @@ export class TrainingsService {
                             },
                             {
                                 word: "house",
-                                translation: "дом"
+                                translation: "дім"
                             }
                         ],
                         variants: [{
@@ -154,7 +154,7 @@ export class TrainingsService {
                         },
                         {
                             word: "house",
-                            translation: "дом"
+                            translation: "дім"
                         }
                     ],
                     variants: [{
@@ -166,7 +166,7 @@ export class TrainingsService {
                         translations: ["house", "university"]
                     },
                     {
-                        word: "дом",
+                        word: "дім",
                         translations: ["school", "house"]
                     },
                     ]
@@ -191,7 +191,7 @@ export class TrainingsService {
                         },
                         {
                             word: "house",
-                            translation: "дом"
+                            translation: "дім"
                         }
                     ],
 
@@ -215,7 +215,7 @@ export class TrainingsService {
                         },
                         {
                             word: "house",
-                            translation: "дом"
+                            translation: "дім"
                         }
                     ],
 

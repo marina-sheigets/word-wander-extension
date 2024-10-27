@@ -12,6 +12,7 @@ import { WordConstructorComponent } from "../../word-constructor/word-constructo
 import { WordCountComponent } from "../../word-count/word-count.component";
 import * as styles from "./word-construction-training.component.css";
 import { SkipWordButtonComponent } from "../../button/skip-word/skip-word-button.component";
+import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
 
 @singleton()
 export class WordConstructionTrainingComponent extends GameWrapperPopupComponent {
@@ -32,6 +33,7 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
         protected messenger: MessengerService,
         protected i18n: I18nService,
         protected trainingsService: TrainingsService,
+        protected textToSpeech: TextToSpeechService,
     ) {
         super(i18n, messenger);
 
@@ -98,6 +100,8 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
 
     private onLettersFinished() {
         this.currentWordIndex++;
+
+        this.textToSpeech.play(this.currentWord?.word || '');
 
         if (this.data && this.currentWordIndex === this.data.translations.length) {
             this.hide();

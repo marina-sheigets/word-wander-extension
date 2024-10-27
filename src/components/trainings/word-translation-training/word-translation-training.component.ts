@@ -14,6 +14,7 @@ import { TrainingsStatisticsService } from "../../../services/trainings-statisti
 import { ProgressBarComponent } from "../../progress-bar/progress-bar.component";
 import { GameWrapperPopupComponent } from "../../popups/game-wrapper-popup/game-wrapper-popup.component";
 import { setAnimationForWrongAnswer } from "../../../utils/setAnimationForWrongAnswer";
+import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
 
 @singleton()
 export class WordTranslationTrainingComponent extends GameWrapperPopupComponent {
@@ -33,6 +34,7 @@ export class WordTranslationTrainingComponent extends GameWrapperPopupComponent 
         protected loader: LoaderComponent,
         protected trainingsService: TrainingsService,
         protected messenger: MessengerService,
+        protected textToSpeech: TextToSpeechService,
         protected i18n: I18nService
     ) {
         super(i18n, messenger);
@@ -82,6 +84,8 @@ export class WordTranslationTrainingComponent extends GameWrapperPopupComponent 
         }
 
         this.currentWord = this.data.translations[index];
+
+        this.textToSpeech.play(this.currentWord.word);
 
         this.currentWordElement.textContent = this.currentWord.word;
         this.wordCountComponent.setCurrentCount(index + 1);
