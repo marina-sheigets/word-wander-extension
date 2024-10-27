@@ -15,6 +15,7 @@ import { WordPlayerComponent } from "../../word-player/word-player.component";
 import { WordVariantButton } from "../../button/word-variant/word-variant.component";
 import { setAnimationForWrongAnswer } from "../../../utils/setAnimationForWrongAnswer";
 import { TrainingsStatisticsService } from "../../../services/trainings-statistics/trainings-statistics.service";
+import { SkipWordButtonComponent } from "../../button/skip-word/skip-word-button.component";
 
 @singleton()
 export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
@@ -31,6 +32,7 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
         protected wordCountComponent: WordCountComponent,
         protected wordPlayerComponent: WordPlayerComponent,
         protected progressBar: ProgressBarComponent,
+        protected skipWordButton: SkipWordButtonComponent,
         protected loader: LoaderComponent,
         protected statistics: TrainingsStatisticsService,
         protected messenger: MessengerService,
@@ -49,6 +51,7 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
             this.wordCountComponent.rootElement,
             this.wordPlayerComponent.rootElement,
             this.variantsWrapper,
+            this.skipWordButton.rootElement,
             this.progressBar.rootElement
         );
 
@@ -59,6 +62,8 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
 
         this.hide();
         this.setContent(this.trainingWrapper);
+
+        this.skipWordButton.onClick.subscribe(() => this.onWordSkip());
 
         this.messenger.subscribe(Messages.StartAudioChallengeTraining, this.start.bind(this));
         this.messenger.subscribe(Messages.FinishAudioChallengeTraining, this.interruptTraining.bind(this));
@@ -147,5 +152,19 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
     private resetTraining() {
         this.currentWordIndex = 0;
         this.progressBar.clear();
+    }
+
+    private onWordSkip() {
+        this.currentWordIndex++;
+        this.progressBar.addWrongSection();
+        this.statistics.addWrongWord(this.currentWord as HistoryItem);
+
+        if (this.currentWordIndex === this.data?.translations.length) {
+            this.hide();
+            this.messenger.send(Messages.FinishTraining);
+        } else {
+            this.setCurrentWord(this.currentWordIndex);
+            this.setVariants();
+        }
     }
 }
