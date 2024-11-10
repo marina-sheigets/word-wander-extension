@@ -20,6 +20,8 @@ export class HttpService {
             }
         })
 
+        this.axiosInstance.defaults.timeout = 10000;
+
         this.initAuthInterceptor();
         this.detectAccessTokenExpiration();
     }
