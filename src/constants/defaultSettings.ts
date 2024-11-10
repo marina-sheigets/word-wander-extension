@@ -16,4 +16,5 @@ export const DEFAULT_SETTINGS = {
         { value: 'uk', label: 'Ukrainian' }
     ],
     [SettingsNames.InterfaceLanguage]: InterfaceLanguage.Ukrainian,
+    [SettingsNames.User]: null,
 }

@@ -15,6 +15,8 @@ export class SignInPopupComponent extends PopupComponent {
     private resetPasswordWrapper = document.createElement('div');
     private resetPasswordLabel = document.createElement('div');
 
+    private authErrorWrapper = document.createElement('div');
+
     constructor(
         protected messenger: MessengerService,
         protected emailInputComponent: InputComponent,
@@ -28,12 +30,12 @@ export class SignInPopupComponent extends PopupComponent {
 
         this.applyRootStyle(styles);
 
-        this.messenger.subscribe(Messages.OpenSignInPopup, this.show.bind(this));
 
         this.setTitle(i18nKeys.LogIn);
 
         this.emailInputComponent.setInputSettings('email', i18nKeys.Email);
         this.emailInputComponent.setLabel(i18nKeys.EnterEmail);
+        this.emailInputComponent.input.autocomplete = 'email';
 
         this.passwordInputComponent.setInputSettings('password', i18nKeys.Password);
         this.passwordInputComponent.setLabel(i18nKeys.EnterPassword);
@@ -42,6 +44,7 @@ export class SignInPopupComponent extends PopupComponent {
         this.signInButton.onClick.subscribe(this.signIn.bind(this));
 
         this.resetPasswordWrapper.classList.add(styles.resetPasswordWrapper);
+        this.authErrorWrapper.classList.add(styles.authErrorWrapper);
 
         this.i18n.follow(i18nKeys.ForgotPassword, (text) => {
             this.resetPasswordLabel.textContent = text;
@@ -62,20 +65,34 @@ export class SignInPopupComponent extends PopupComponent {
             this.emailInputComponent.rootElement,
             this.passwordInputComponent.rootElement,
             this.signInButton.rootElement,
+            this.authErrorWrapper,
             this.resetPasswordWrapper
         );
 
         this.setContent(this.content);
 
+        this.messenger.subscribe(Messages.OpenSignInPopup, this.show.bind(this));
+        this.messenger.subscribe(Messages.CloseSignInPopup, this.hide.bind(this));
+        this.messenger.subscribe(Messages.ShowAuthError, this.showAuthError.bind(this));
+
         this.hide();
     }
 
     private signIn() {
-        this.authService.signIn(this.emailInputComponent.input.value, this.passwordInputComponent.input.value);
+        this.hideAuthError();
+        this.authService.signUp(this.emailInputComponent.input.value, this.passwordInputComponent.input.value);
     }
 
     private resetPassword() {
         this.hide();
         this.messenger.send(Messages.OpenResetPasswordPopup);
+    }
+
+    private showAuthError(message: string) {
+        this.authErrorWrapper.textContent = message;
+    }
+
+    private hideAuthError() {
+        this.authErrorWrapper.textContent = '';
     }
 }

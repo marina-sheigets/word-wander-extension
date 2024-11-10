@@ -1,4 +1,5 @@
 import { singleton } from "tsyringe";
+import { Messages } from "../../constants/messages";
 
 @singleton()
 export class MessengerService {
@@ -18,7 +19,7 @@ export class MessengerService {
         }
     }
 
-    send(message: string, data?: any) {
+    send(message: Messages, data?: any) {
         const eventSubscribers = this.subscribers[message];
         if (eventSubscribers) {
             eventSubscribers.forEach(subscriber => subscriber(data));

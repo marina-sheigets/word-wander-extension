@@ -3,6 +3,7 @@ import { MessengerService } from "../messenger/messenger.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { DEFAULT_SETTINGS } from "../../constants/defaultSettings";
 import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
+import { SettingsNames } from "../../constants/settingsNames";
 
 @singleton()
 export class SettingsService {
@@ -38,23 +39,23 @@ export class SettingsService {
 
     }
 
-    subscribe(key: string, callback: Function) {
+    subscribe(key: SettingsNames, callback: Function) {
         if (!this.callbacks.has(key)) {
             this.callbacks.set(key, []);
         }
         this.callbacks.get(key)!.push(callback);
     }
 
-    follow(key: string, callback: Function) {
+    follow(key: SettingsNames, callback: Function) {
         this.subscribe(key, callback);
         callback(this.get(key));
     }
 
-    get(key: string) {
+    get(key: SettingsNames) {
         return this.settings[key];
     }
 
-    set(key: string, value: any) {
+    set(key: SettingsNames, value: any) {
         this.settings[key] = value;
         this.messenger.sendToBackground(BackgroundMessages.UpdateSettings, { [key]: value });
         this.inform(key);
@@ -66,7 +67,7 @@ export class SettingsService {
         this.informAll();
     }
 
-    private inform(key: string) {
+    private inform(key: SettingsNames) {
         const callbacks = this.callbacks.get(key);
         if (callbacks) {
             callbacks.forEach(callback => callback(this.settings[key]));
@@ -75,7 +76,7 @@ export class SettingsService {
 
     private informAll() {
         for (const key of Object.keys(this.settings)) {
-            this.inform(key);
+            this.inform(key as SettingsNames);
         }
     }
 

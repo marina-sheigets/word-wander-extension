@@ -4,4 +4,7 @@ export enum STORAGE_KEYS {
     Mode = "Mode",
     History = "History",
     Settings = "Settings",
+    AccessToken = "AccessToken",
+    RefreshToken = "RefreshToken",
+    User = "User",
 }

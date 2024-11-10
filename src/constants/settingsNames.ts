@@ -10,4 +10,5 @@ export enum SettingsNames {
     Voices = "Voices",
     LanguagesList = 'LanguagesList',
     InterfaceLanguage = 'InterfaceLanguage',
+    User = 'User',
 }

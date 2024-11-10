@@ -4,6 +4,7 @@ export const enum Messages {
     CloseSettings = 'CloseSettings',
     CloseAllMenus = 'CloseAllMenus',
     OpenSignInPopup = 'OpenSignInPopup',
+    CloseSignInPopup = 'CloseSignInPopup',
     OpenResetPasswordPopup = 'OpenResetPasswordPopup',
     OpenReportPopup = 'OpenReportPopup',
 
@@ -32,4 +33,7 @@ export const enum Messages {
     ShowTrainingStatistics = 'ShowTrainingStatistics',
     ShowStartTrainingPopup = 'ShowStartTrainingPopup',
     ShowCloseTrainingPopup = 'ShowCloseTrainingPopup',
+
+    //Auth
+    ShowAuthError = 'ShowAuthError',
 }
