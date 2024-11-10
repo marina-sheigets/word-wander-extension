@@ -89,6 +89,7 @@ export const enum i18nKeys {
     SkipWord = "SkipWord",
 
     // Auth
+    SignOut = "SignOut",
     UnauthorizedTitle = "UnauthorizedTitle",
     UnauthorizedDescriptionPlural = "UnauthorizedDescriptionPlural",
     UnauthorizedDescriptionSingular = "UnauthorizedDescriptionSingular",

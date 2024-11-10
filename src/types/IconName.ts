@@ -19,4 +19,6 @@ export enum IconName {
     Muscle = 'muscle',
     Tick = 'tick',
     Audio = 'audio',
+    SignIn = 'sign_in',
+    SignOut = 'sign_out',
 }

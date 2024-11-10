@@ -36,4 +36,5 @@ export const enum Messages {
 
     //Auth
     ShowAuthError = 'ShowAuthError',
+    UserAuthorized = 'UserAuthorized',
 }

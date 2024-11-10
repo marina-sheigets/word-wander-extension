@@ -26,6 +26,8 @@ export class AuthService {
         if (userData) {
             this.isAuth = true;
         }
+
+        this.messenger.send(Messages.UserAuthorized, this.isAuth);
     }
 
     public isAuthorized() {

@@ -30,4 +30,12 @@ export class MenuItemComponent extends BaseComponent {
             text
         );
     }
+
+    hide() {
+        this.rootElement.classList.add(styles.hidden);
+    }
+
+    show() {
+        this.rootElement.classList.remove(styles.hidden);
+    }
 }

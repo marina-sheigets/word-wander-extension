@@ -340,5 +340,9 @@
     "UnauthorizedDescriptionSingular":{
         "en":" is only available for authorized users. Please sign in or sign up to use it.",
         "uk":" доступний лише для авторизованих користувачів. Будь ласка, увійдіть або зареєструйтесь, щоб користуватися ним."
+    },
+    "SignOut":{
+        "en":"Sign out",
+        "uk":"Вийти"
     }
 }
