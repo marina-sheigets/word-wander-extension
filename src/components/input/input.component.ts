@@ -65,4 +65,8 @@ export class InputComponent extends BaseComponent {
     clear() {
         this.input.value = "";
     }
+
+    getValue() {
+        return this.input.value;
+    }
 }

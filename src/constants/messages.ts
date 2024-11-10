@@ -37,4 +37,7 @@ export const enum Messages {
     //Auth
     ShowAuthError = 'ShowAuthError',
     UserAuthorized = 'UserAuthorized',
+
+    CloseResetPasswordPopup = 'CloseResetPasswordPopup',
+    ResetPasswordLinkSent = 'ResetPasswordLinkSent',
 }

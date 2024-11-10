@@ -28,6 +28,10 @@ export class HttpService {
         return this.axiosInstance?.post(url, data, config);
     }
 
+    public put(url: string, data: any, config?: AxiosRequestConfig) {
+        return this.axiosInstance?.put(url, data, config);
+    }
+
     private initAuthInterceptor() {
         if (!this.axiosInstance) return;
 

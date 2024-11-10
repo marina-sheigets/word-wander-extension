@@ -4,6 +4,8 @@ import { PopupComponent } from "../popup.component";
 import * as styles from './reset-link-sent-popup.component.css';
 import { I18nService } from "../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
+import { MessengerService } from "../../../services/messenger/messenger.service";
+import { Messages } from "../../../constants/messages";
 
 @singleton()
 export class ResetLinkSentPopupComponent extends PopupComponent {
@@ -13,7 +15,8 @@ export class ResetLinkSentPopupComponent extends PopupComponent {
 
     constructor(
         protected okButton: ButtonComponent,
-        protected i18n: I18nService
+        protected i18n: I18nService,
+        protected messenger: MessengerService
     ) {
         super(i18n);
         this.applyRootStyle(styles);
@@ -33,7 +36,8 @@ export class ResetLinkSentPopupComponent extends PopupComponent {
         this.description.classList.add(styles.description);
         this.subdescription.classList.add(styles.subdescription);
 
-        this.okButton.addButtonName(i18nKeys.Ok);
+        this.okButton.addButtonName(i18nKeys.Okay);
+
         this.okButton.onClick.subscribe(this.hide.bind(this));
 
         this.content.append(
@@ -45,5 +49,7 @@ export class ResetLinkSentPopupComponent extends PopupComponent {
         this.setContent(this.content);
 
         this.hide();
+
+        this.messenger.subscribe(Messages.ResetPasswordLinkSent, this.show.bind(this));
     }
 }

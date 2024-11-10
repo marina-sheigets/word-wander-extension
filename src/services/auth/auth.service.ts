@@ -91,4 +91,18 @@ export class AuthService {
     public closeSignInPopup() {
         this.messenger.send(Messages.CloseSignInPopup);
     }
+
+    public async resetPassword(email: string) {
+        try {
+            const response = await this.http.post('/auth/forgot-password', { email });
+
+            if (!response || (response && response.data.error)) {
+                throw Error;
+            }
+
+            this.messenger.send(Messages.CloseResetPasswordPopup);
+        } catch (e) {
+            throw e;
+        }
+    }
 }

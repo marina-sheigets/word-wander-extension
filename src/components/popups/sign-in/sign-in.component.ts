@@ -30,7 +30,6 @@ export class SignInPopupComponent extends PopupComponent {
 
         this.applyRootStyle(styles);
 
-
         this.setTitle(i18nKeys.LogIn);
 
         this.emailInputComponent.setInputSettings('email', i18nKeys.Email);
@@ -94,5 +93,15 @@ export class SignInPopupComponent extends PopupComponent {
 
     private hideAuthError() {
         this.authErrorWrapper.textContent = '';
+    }
+
+    public hide() {
+        super.hide();
+        this.resetCredentials();
+    }
+
+    private resetCredentials() {
+        this.emailInputComponent.clear();
+        this.passwordInputComponent.clear();
     }
 }

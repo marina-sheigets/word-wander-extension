@@ -35,9 +35,9 @@
         "en":"Submit",
         "uk":"Підтвердити"
     },
-    "OK":{
-        "en":"OK",
-        "uk":"OK"
+    "Okay":{
+        "en":"Ok",
+        "uk":"Ok"
     },
     "SignIn":{
         "en":"Sign in",
@@ -344,5 +344,13 @@
     "SignOut":{
         "en":"Sign out",
         "uk":"Вийти"
+    },
+    "InvalidEmail":{
+        "en":"Invalid email",
+        "uk":"Невірний email"
+    },
+    "SomethingWentWrong":{
+        "en":"Something went wrong. Please try again later.",
+        "uk":"Щось пішло не так. Будь ласка, спробуйте пізніше."
     }
 }

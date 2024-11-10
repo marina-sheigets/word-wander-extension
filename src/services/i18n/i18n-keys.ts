@@ -7,7 +7,7 @@ export const enum i18nKeys {
     Settings = "Settings",
     LogIn = "LogIn",
     Submit = "Submit",
-    Ok = "Ok",
+    Okay = "Okay",
     SignIn = "SignIn",
     ClearHistory = "ClearHistory",
     SaveToDictionary = "SaveToDictionary",
@@ -93,4 +93,6 @@ export const enum i18nKeys {
     UnauthorizedTitle = "UnauthorizedTitle",
     UnauthorizedDescriptionPlural = "UnauthorizedDescriptionPlural",
     UnauthorizedDescriptionSingular = "UnauthorizedDescriptionSingular",
+    InvalidEmail = "InvalidEmail",
+    SomethingWentWrong = "SomethingWentWrong",
 }
