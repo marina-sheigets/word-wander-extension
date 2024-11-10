@@ -10,7 +10,7 @@ export class UserService {
         protected settingsService: SettingsService
     ) { }
 
-    public saveUserData(data: AuthorizationData) {
+    public saveUserData(data: AuthorizationData | null) {
         this.settingsService.set(SettingsNames.User, data);
     }
 

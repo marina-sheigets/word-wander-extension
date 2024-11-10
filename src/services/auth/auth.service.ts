@@ -20,6 +20,17 @@ export class AuthService {
         this.settingsService.subscribe(SettingsNames.User, (userData: AuthorizationData) => {
             this.checkIfUserIsAuthorized(userData);
         });
+
+        this.messenger.subscribe(Messages.UserAuthorized, (isAuthorized: boolean) => {
+            // Only update if there's a change in the authorization state
+            if (this.isAuth !== isAuthorized) {
+                this.isAuth = isAuthorized;
+
+                if (!isAuthorized) {
+                    this.userService.saveUserData(null);
+                }
+            }
+        });
     }
 
     private checkIfUserIsAuthorized(userData: AuthorizationData) {
