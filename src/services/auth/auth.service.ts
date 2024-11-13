@@ -6,10 +6,12 @@ import { UserService } from "../user/user.service";
 import { SettingsService } from "../settings/settings.service";
 import { SettingsNames } from "../../constants/settingsNames";
 import { AuthorizationData } from "../../types/AuthorizationData";
+import { Informer } from "../informer/informer.service";
 
 @singleton()
 export class AuthService {
     private isAuth: boolean = false;
+    public readonly onAuthChange = new Informer<boolean>();
 
     constructor(
         protected http: HttpService,
@@ -25,6 +27,7 @@ export class AuthService {
             // Only update if there's a change in the authorization state
             if (this.isAuth !== isAuthorized) {
                 this.isAuth = isAuthorized;
+                this.onAuthChange.inform(isAuthorized);
 
                 if (!isAuthorized) {
                     this.userService.saveUserData(null);
@@ -36,6 +39,7 @@ export class AuthService {
     private checkIfUserIsAuthorized(userData: AuthorizationData) {
         if (userData) {
             this.isAuth = true;
+            this.onAuthChange.inform(true);
         }
 
         this.messenger.send(Messages.UserAuthorized, this.isAuth);
@@ -54,6 +58,7 @@ export class AuthService {
             }
 
             this.isAuth = true;
+            this.onAuthChange.inform(true);
             this.userService.saveUserData(response.data);
 
             this.closeSignInPopup();
@@ -78,6 +83,7 @@ export class AuthService {
             }
 
             this.isAuth = true;
+            this.onAuthChange.inform(true);
             this.userService.saveUserData(response.data);
 
             this.closeSignInPopup();

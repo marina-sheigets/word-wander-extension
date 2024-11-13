@@ -3,6 +3,26 @@
     "en":"No selected text found",
     "uk":"Не знайдено тексту"
   },
+  "AccountManagement": {
+    "en": "Account management",
+    "uk": "Управління акаунтом"
+  },
+  "DeleteAccount": {
+    "en": "Delete account",
+    "uk": "Видалити акаунт"
+  },
+  "CurrentPassword":{
+    "en":"Current password",
+    "uk":"Поточний пароль"
+  },
+  "NewPassword":{
+    "en":"New password",
+    "uk":"Новий пароль"
+  },
+  "Cancel":{
+    "en":"Cancel",
+    "uk":"Скасувати"
+  },
   "SkipWord":{
     "en":"Skip word",
     "uk":"Пропустити слово"
@@ -125,13 +145,25 @@
         "en":"Pronounce with double click",
         "uk":"Вимовляти після подвійного кліка"
     },
+    "Save":{
+        "en":"Save",
+        "uk":"Зберегти"
+    },
     "ShowSynonyms":{
         "en":"Show synonyms",
         "uk":"Показувати синоніми"
     },
+    "RegistrationDate":{
+        "en":"Registration date",
+        "uk":"Дата реєстрації"
+    },
     "ShowExamples":{
         "en":"Show examples of usage",
         "uk":"Показувати у контексті"
+    },
+    "ChangePassword":{
+        "en":"Change password",
+        "uk":"Змінити пароль"
     },
     "SelectSpeed":{
         "en":"Select speed",

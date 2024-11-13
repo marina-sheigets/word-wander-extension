@@ -1,4 +1,12 @@
 export const enum i18nKeys {
+    AccountManagement = "AccountManagement",
+    Save = "Save",
+    DeleteAccount = "DeleteAccount",
+    Cancel = "Cancel",
+    NewPassword = "NewPassword",
+    CurrentPassword = "CurrentPassword",
+    ChangePassword = "ChangePassword",
+    RegistrationDate = "RegistrationDate",
     Preferences = "Preferences",
     NoTextFound = "NoTextFound",
     SelectSomeText = "SelectSomeText",

@@ -1,0 +1,14 @@
+.signOutButton button, 
+.deleteAccountButton button {
+    background-color: transparent;
+    border: 1px solid #9EA5AE;
+    color: #9EA5AE;
+    width: 100%;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
+    gap: 10px;
+    margin-bottom: 10px;
+}
