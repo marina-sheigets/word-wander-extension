@@ -6,6 +6,7 @@ import { I18nService } from "../../../../services/i18n/i18n.service";
 import { SettingsService } from "../../../../services/settings/settings.service";
 import { SelectComponent } from "../../../select/select.component";
 import { TabContent } from "../../../tab-content/tab-content.component";
+import * as styles from './preferences.component.css';
 
 @singleton()
 export class PreferencesComponent extends TabContent {
@@ -15,6 +16,8 @@ export class PreferencesComponent extends TabContent {
         protected i18n: I18nService
     ) {
         super(i18n);
+        this.applyRootStyle(styles);
+
         this.setTitle(i18nKeys.Preferences);
 
         this.interfaceLanguageSelector.setLabel(i18nKeys.InterfaceLanguage);
