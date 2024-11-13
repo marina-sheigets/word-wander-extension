@@ -9,6 +9,7 @@ import { ProfileSettingsComponent } from "../profile-settings/profile-settings.c
 import { PronunciationComponent } from "../pronunciation/pronunciation.component";
 import { TranslationComponent } from "../translation/translation.component";
 import * as styles from './settings-tabs.component.css';
+import { PreferencesComponent } from "../preferences/preferences.component";
 
 @singleton()
 export class SettingsTabsComponent extends BaseComponent {
@@ -19,6 +20,10 @@ export class SettingsTabsComponent extends BaseComponent {
         {
             label: i18nKeys.Profile,
             component: this.profileSettingsComponent.rootElement
+        },
+        {
+            label: i18nKeys.Preferences,
+            component: this.preferencesComponent.rootElement
         },
         {
             label: i18nKeys.Languages,
@@ -36,6 +41,7 @@ export class SettingsTabsComponent extends BaseComponent {
 
     constructor(
         protected profileSettingsComponent: ProfileSettingsComponent,
+        protected preferencesComponent: PreferencesComponent,
         protected languagesComponent: LanguagesComponent,
         protected translationComponent: TranslationComponent,
         protected pronunciationComponent: PronunciationComponent,

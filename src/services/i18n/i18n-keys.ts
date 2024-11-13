@@ -1,4 +1,5 @@
 export const enum i18nKeys {
+    Preferences = "Preferences",
     NoTextFound = "NoTextFound",
     SelectSomeText = "SelectSomeText",
     ReportBug = "ReportBug",
