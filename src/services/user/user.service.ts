@@ -17,4 +17,14 @@ export class UserService {
     public getUserData(): AuthorizationData | null {
         return this.settingsService.get(SettingsNames.User);
     }
+
+    public getRefreshToken(): string {
+        const userData = this.getUserData();
+        return userData?.refreshToken || '';
+    }
+
+    public getAccessToken(): string {
+        const userData = this.getUserData();
+        return userData?.accessToken || '';
+    }
 }

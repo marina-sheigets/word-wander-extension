@@ -1,6 +1,7 @@
 export const enum i18nKeys {
     AccountManagement = "AccountManagement",
     Save = "Save",
+    Added = "Added",
     DeleteAccount = "DeleteAccount",
     Cancel = "Cancel",
     NewPassword = "NewPassword",

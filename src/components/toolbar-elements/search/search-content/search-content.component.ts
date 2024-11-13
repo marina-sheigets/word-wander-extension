@@ -11,6 +11,8 @@ import { Informer } from "../../../../services/informer/informer.service";
 import { DictionaryService } from "../../../../services/dictionary/dictionary.service";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { IconName } from "../../../../types/IconName";
+import { MessengerService } from "../../../../services/messenger/messenger.service";
+import { Messages } from "../../../../constants/messages";
 
 @singleton()
 export class SearchContentComponent extends BaseComponent {
@@ -27,7 +29,9 @@ export class SearchContentComponent extends BaseComponent {
         protected pronounceButton: ButtonComponent,
         protected permissions: PermissionsService,
         protected textToSpeechService: TextToSpeechService,
-        protected dictionaryService: DictionaryService
+        protected dictionaryService: DictionaryService,
+        protected wordAddedButton: ButtonComponent,
+        protected messenger: MessengerService
     ) {
         super(styles);
 
@@ -45,18 +49,29 @@ export class SearchContentComponent extends BaseComponent {
         this.saveToDictionaryButton.addButtonName(i18nKeys.SaveToDictionary);
         this.saveToDictionaryButton.rootElement.classList.add(styles.saveToDictionaryButton);
         this.saveToDictionaryButton.onClick.subscribe(() => {
-            this.dictionaryService.addWordToDictionary(this.word, this.translations);
+            this.dictionaryService.addWordToDictionary(this.word, this.translations[0]);
         });
+
+        this.wordAddedButton.addButtonName(i18nKeys.Added);
+        this.wordAddedButton.disable();
+        this.wordAddedButton.hide();
+        this.wordAddedButton.rootElement.classList.add(styles.saveToDictionaryButton);
 
         this.controlsWrapper.classList.add(styles.controlsWrapper);
 
         this.controlsWrapper.append(
+            this.wordAddedButton.rootElement,
             this.saveToDictionaryButton.rootElement,
             this.clearButton.rootElement,
             this.pronounceButton.rootElement
         );
 
         this.hide();
+
+        this.messenger.subscribe(Messages.WordAddedToDictionary, () => {
+            this.saveToDictionaryButton.hide();
+            this.wordAddedButton.show();
+        });
     }
 
     fillWithData(word: string, translations: string[], dictionaryResponse: Dictionary[]) {
@@ -170,6 +185,8 @@ export class SearchContentComponent extends BaseComponent {
         this.word = '';
         this.wordTranslationComponent.clear();
         this.rootElement.innerHTML = '';
+        this.saveToDictionaryButton.show();
+        this.wordAddedButton.hide();
     }
 
     show() {

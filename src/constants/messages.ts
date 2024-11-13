@@ -40,4 +40,8 @@ export const enum Messages {
 
     CloseResetPasswordPopup = 'CloseResetPasswordPopup',
     ResetPasswordLinkSent = 'ResetPasswordLinkSent',
+
+    //Dictionary
+    WordAddedToDictionary = 'WordAddedToDictionary',
+    WordNotAddedToDictionary = 'WordNotAddedToDictionary',
 }

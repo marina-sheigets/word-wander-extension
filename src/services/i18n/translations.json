@@ -135,7 +135,12 @@
         "uk":"Виберіть голос"
     },
     "NotSupportedLanguage":{
-        "en":"Selecting other languages is not supported yet"
+        "en":"Selecting other languages is not supported yet",
+        "uk":"Вибір інших мов поки що не підтримується"
+    },
+    "Added":{
+        "en":"Added",
+        "uk":"Додано"
     },
     "PronounceByDefault":{
         "en":"Pronounce by default",

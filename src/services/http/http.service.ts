@@ -1,16 +1,15 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios"
-import { LocalStorageService } from "../localStorage/localStorage.service";
-import { STORAGE_KEYS } from "../../constants/localStorage-keys";
 import { MessengerService } from "../messenger/messenger.service";
 import { Messages } from "../../constants/messages";
 import { singleton } from "tsyringe";
+import { UserService } from "../user/user.service";
 
 @singleton()
 export class HttpService {
     private axiosInstance: AxiosInstance | null = null;
     constructor(
-        protected localStorage: LocalStorageService,
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected userService: UserService
     ) {
         this.axiosInstance = axios.create({
             baseURL: process.env.API_URL,
@@ -38,7 +37,7 @@ export class HttpService {
         if (!this.axiosInstance) return;
 
         this.axiosInstance.interceptors.request.use((request) => {
-            const accessToken = this.localStorage.get(STORAGE_KEYS.AccessToken);
+            const accessToken = this.userService.getAccessToken();
             if (accessToken) {
                 request.headers.Authorization = `Bearer ${accessToken}`;
             }
@@ -65,7 +64,7 @@ export class HttpService {
                 }
 
                 const originalRequest = error.config as InternalAxiosRequestConfig;
-                const accessToken = this.localStorage.get(STORAGE_KEYS.AccessToken);
+                const accessToken = this.userService.getAccessToken();
 
                 if (accessToken && originalRequest) {
                     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
@@ -78,7 +77,7 @@ export class HttpService {
 
     private async refreshTokenRequest(): Promise<string | null> {
         try {
-            const refreshToken = this.localStorage.get(STORAGE_KEYS.RefreshToken);
+            const refreshToken = this.userService.getRefreshToken();
             if (!refreshToken) {
                 this.messenger.send(Messages.OpenSignInPopup);
                 return null;
@@ -86,7 +85,7 @@ export class HttpService {
 
             const response = await this.axiosInstance?.post('/auth/refresh', { token: refreshToken });
 
-            this.localStorage.set(STORAGE_KEYS.AccessToken, response?.data.accessToken);
+            this.userService.saveUserData(response?.data);
             return response?.data.accessToken;
         } catch (e) {
             this.messenger.send(Messages.OpenSignInPopup);
