@@ -29,4 +29,12 @@ export class MessengerService {
     sendToBackground(message: string, setting?: { [key: string]: any }) {
         window.postMessage({ message, data: setting });
     }
+
+    subscribeOnBackgroundMessage(message: string, callback: (data: any) => void) {
+        window.addEventListener('message', (event) => {
+            if (event.data.message === message) {
+                callback(event.data.data);
+            }
+        })
+    }
 }
