@@ -6,6 +6,9 @@ import { UserService } from "../user/user.service";
 
 @singleton()
 export class HttpService {
+    private isRefreshing: boolean = false;
+    private refreshPromise: Promise<string | null> | null = null;
+
     private axiosInstance: AxiosInstance | null = null;
     constructor(
         protected messenger: MessengerService,
@@ -33,6 +36,10 @@ export class HttpService {
         return this.axiosInstance?.put(url, data, config);
     }
 
+    public get(url: string, config?: AxiosRequestConfig) {
+        return this.axiosInstance?.get(url, config);
+    }
+
     private initAuthInterceptor() {
         if (!this.axiosInstance) return;
 
@@ -53,26 +60,41 @@ export class HttpService {
         this.axiosInstance.interceptors.response.use(
             (response) => response,
             async (error: AxiosError) => {
+                const originalRequest = error.config as InternalAxiosRequestConfig;
+
                 if (error.response?.status !== 401) {
                     return Promise.reject(error);
                 }
 
-                const refreshedToken = await this.refreshTokenRequest();
+                if (this.isRefreshing) {
+                    await this.refreshPromise;
+                } else {
+                    this.isRefreshing = true;
+                    this.refreshPromise = this.refreshTokenRequest();
 
-                if (!refreshedToken) {
-                    return Promise.reject(error);
+                    try {
+                        const refreshedToken = await this.refreshPromise;
+                        this.isRefreshing = false;
+                        this.refreshPromise = null;
+
+                        if (!refreshedToken) {
+                            return Promise.reject(error);
+                        }
+                    } catch (refreshError) {
+                        this.isRefreshing = false;
+                        this.refreshPromise = null;
+                        return Promise.reject(refreshError);
+                    }
                 }
 
-                const originalRequest = error.config as InternalAxiosRequestConfig;
                 const accessToken = this.userService.getAccessToken();
-
-                if (accessToken && originalRequest) {
+                if (accessToken) {
                     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
                 }
 
                 return this.axiosInstance?.request(originalRequest);
             }
-        )
+        );
     }
 
     private async refreshTokenRequest(): Promise<string | null> {
