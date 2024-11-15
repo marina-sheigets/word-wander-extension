@@ -3,12 +3,14 @@ import { MessengerService } from "../messenger/messenger.service";
 import { Messages } from "../../constants/messages";
 import { singleton } from "tsyringe";
 import { UserService } from "../user/user.service";
+import { AuthorizationData } from "../../types/AuthorizationData";
+import { BackgroundMessages } from "../../constants/backgroundMessages";
+import { URL } from "../../constants/urls";
 
 @singleton()
 export class HttpService {
-    private isRefreshing: boolean = false;
-    private refreshPromise: Promise<string | null> | null = null;
-
+    private readonly MAX_LIMIT = 1;
+    private limit = 0;
     private axiosInstance: AxiosInstance | null = null;
     constructor(
         protected messenger: MessengerService,
@@ -62,53 +64,41 @@ export class HttpService {
             async (error: AxiosError) => {
                 const originalRequest = error.config as InternalAxiosRequestConfig;
 
-                if (error.response?.status !== 401) {
+                if (error.response?.status !== 401 || originalRequest.url === URL.auth.refreshToken) {
                     return Promise.reject(error);
                 }
 
-                if (this.isRefreshing) {
-                    await this.refreshPromise;
-                } else {
-                    this.isRefreshing = true;
-                    this.refreshPromise = this.refreshTokenRequest();
-
-                    try {
-                        const refreshedToken = await this.refreshPromise;
-                        this.isRefreshing = false;
-                        this.refreshPromise = null;
-
-                        if (!refreshedToken) {
-                            return Promise.reject(error);
-                        }
-                    } catch (refreshError) {
-                        this.isRefreshing = false;
-                        this.refreshPromise = null;
-                        return Promise.reject(refreshError);
+                try {
+                    this.limit++;
+                    if (this.limit > this.MAX_LIMIT) {
+                        throw Error;
                     }
-                }
 
-                const accessToken = this.userService.getAccessToken();
-                if (accessToken) {
-                    originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-                }
+                    const data = await this.refreshTokenRequest();
 
-                return this.axiosInstance?.request(originalRequest);
+                    if (!data) {
+                        this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: false });
+                        return Promise.reject(error);
+                    }
+
+                    originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+                    return this.axiosInstance?.request(originalRequest);
+                } catch (refreshError) {
+                    this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: false });
+                    return Promise.reject(refreshError);
+                }
             }
         );
     }
 
-    private async refreshTokenRequest(): Promise<string | null> {
+    public async refreshTokenRequest(): Promise<AuthorizationData | null> {
         try {
             const refreshToken = this.userService.getRefreshToken();
-            if (!refreshToken) {
-                this.messenger.send(Messages.OpenSignInPopup);
-                return null;
-            }
 
-            const response = await this.axiosInstance?.post('/auth/refresh', { token: refreshToken });
+            const response = await this.post(URL.auth.refreshToken, { token: refreshToken });
 
             this.userService.saveUserData(response?.data);
-            return response?.data.accessToken;
+            return response?.data;
         } catch (e) {
             this.messenger.send(Messages.OpenSignInPopup);
             return null;

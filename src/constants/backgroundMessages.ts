@@ -14,4 +14,7 @@ export const BackgroundMessages = {
     UpdateHistory: ExtensionPrefix + 'UpdateHistory',
 
     GoToTrainings: ExtensionPrefix + 'GoToTrainings',
+
+    //auth
+    UserAuthorized: ExtensionPrefix + 'UserAuthorized',
 }
