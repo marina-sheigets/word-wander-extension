@@ -7,6 +7,8 @@ import { CheckboxComponent } from "../../checkbox/checkbox.component";
 import * as styles from "./table.component.css";
 import { Informer } from "../../../services/informer/informer.service";
 import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
+import { DictionaryService } from "../../../services/dictionary/dictionary.service";
+import { i18nKeys } from "../../../services/i18n/i18n-keys";
 
 @singleton()
 export class TableComponent extends BaseComponent {
@@ -34,45 +36,56 @@ export class TableComponent extends BaseComponent {
     ]
     constructor(
         protected i18n: I18nService,
-        protected textToSpeechService: TextToSpeechService
+        protected textToSpeechService: TextToSpeechService,
+        protected dictionaryService: DictionaryService
     ) {
         super(styles);
 
         this.initTable()
     }
 
-    private initTable() {
-        this.tableData.forEach((item) => {
-            const checkbox = new CheckboxComponent(item.id);
-            const removeWordIcon = new ButtonComponent(this.i18n);
+    private async initTable() {
+        try {
+            this.rootElement.textContent = ""
+            this.tableData = await this.dictionaryService.fetchDictionary();
 
-            const playWordIcon = new ButtonComponent(this.i18n);
-            playWordIcon.rootElement.classList.add(styles.playWordIcon);
-            playWordIcon.addButtonIcon(IconName.MusicNote);
-            playWordIcon.onClick.subscribe(() => {
-                this.textToSpeechService.play(item.word);
-            })
+            this.tableData.forEach((item) => {
+                const checkbox = new CheckboxComponent(item.id);
+                const removeWordIcon = new ButtonComponent(this.i18n);
 
-            const wordContainer = document.createElement('div');
-            wordContainer.classList.add(styles.wordContainer);
-            wordContainer.textContent = item.word;
+                const playWordIcon = new ButtonComponent(this.i18n);
+                playWordIcon.rootElement.classList.add(styles.playWordIcon);
+                playWordIcon.addButtonIcon(IconName.MusicNote);
+                playWordIcon.onClick.subscribe(() => {
+                    this.textToSpeechService.play(item.word);
+                })
 
-            const translationContainer = document.createElement('div');
-            translationContainer.classList.add(styles.translationContainer);
-            translationContainer.textContent = item.translation;
+                const wordContainer = document.createElement('div');
+                wordContainer.classList.add(styles.wordContainer);
+                wordContainer.textContent = item.word;
 
-            checkbox.onCheckboxChange.subscribe(this.updateTableDataSelected.bind(this))
-            removeWordIcon.addButtonIcon(IconName.Delete);
+                const translationContainer = document.createElement('div');
+                translationContainer.classList.add(styles.translationContainer);
+                translationContainer.textContent = item.translation;
 
-            this.rootElement.append(
-                checkbox.rootElement,
-                playWordIcon.rootElement,
-                wordContainer,
-                translationContainer,
-                removeWordIcon.rootElement
-            );
+                checkbox.onCheckboxChange.subscribe(this.updateTableDataSelected.bind(this))
+                removeWordIcon.addButtonIcon(IconName.Delete);
 
-        });
+                this.rootElement.append(
+                    checkbox.rootElement,
+                    playWordIcon.rootElement,
+                    wordContainer,
+                    translationContainer,
+                    removeWordIcon.rootElement
+                );
+
+            });
+        } catch (e) {
+            this.tableData = [];
+            this.i18n.subscribe(i18nKeys.SomethingWentWrong, (value: string) => {
+                this.rootElement.textContent = value;
+            });
+        }
     }
 
     protected updateTableDataSelected(checkbox: HTMLInputElement) {

@@ -3,6 +3,8 @@ import { Messages } from "../../constants/messages";
 import { AuthService } from "../auth/auth.service";
 import { MessengerService } from "../messenger/messenger.service";
 import { HttpService } from "../http/http.service";
+import { URL } from "../../constants/urls";
+import { Dictionary } from "../../types/Dictionary";
 
 @singleton()
 export class DictionaryService {
@@ -28,6 +30,16 @@ export class DictionaryService {
             }
         } catch (e) {
             this.messenger.send(Messages.WordNotAddedToDictionary);
+        }
+    }
+
+    async fetchDictionary() {
+        try {
+            const response = await this.httpService.get(URL.dictionary.getWords);
+
+            return response?.data.map((item: Dictionary) => ({ ...item, selected: false }));
+        } catch (e) {
+            throw Error;
         }
     }
 }
