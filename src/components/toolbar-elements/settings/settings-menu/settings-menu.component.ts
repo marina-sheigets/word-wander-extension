@@ -7,6 +7,7 @@ import { Messages } from "../../../../constants/messages";
 import { IconComponent } from "../../../icon/icon.component";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { IconName } from "../../../../types/IconName";
+import { BackgroundMessages } from "../../../../constants/backgroundMessages";
 
 
 @singleton()
@@ -46,8 +47,8 @@ export class SettingsMenuComponent extends MenuComponent {
 
         this.messenger.subscribe(Messages.CloseAllMenus, this.hide.bind(this));
 
-        this.messenger.subscribe(Messages.UserAuthorized, (isAuthorized: boolean) => {
-            this.handleItemsVisibility(isAuthorized);
+        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.UserAuthorized, (data) => {
+            this.handleItemsVisibility(data.isAuthorized);
         });
     }
 
@@ -96,7 +97,7 @@ export class SettingsMenuComponent extends MenuComponent {
             this.messenger.send(Messages.CloseAllMenus);
             this.messenger.send(Messages.CloseSettings);
 
-            this.messenger.send(Messages.UserAuthorized, false);
+            this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: false });
         });
     }
 

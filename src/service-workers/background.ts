@@ -20,6 +20,11 @@ export class Background {
                     this.goToTrainingsPage();
                     break;
                 }
+
+                case BackgroundMessages.UserAuthorized: {
+                    this.notifyTabs(BackgroundMessages.UserAuthorized, request.data);
+                    break;
+                }
             }
         });
 

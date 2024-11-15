@@ -8,6 +8,7 @@ import { ButtonComponent } from "../../button/button.component";
 import { AuthService } from "../../../services/auth/auth.service";
 import { I18nService } from "../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
+import { SignInButton } from "../../button/sign-in/sign-in.button";
 
 @singleton()
 export class SignInPopupComponent extends PopupComponent {
@@ -21,7 +22,7 @@ export class SignInPopupComponent extends PopupComponent {
         protected messenger: MessengerService,
         protected emailInputComponent: InputComponent,
         protected passwordInputComponent: InputComponent,
-        protected signInButton: ButtonComponent,
+        protected signInButton: SignInButton,
         protected authService: AuthService,
         protected resetPasswordButton: ButtonComponent,
         protected i18n: I18nService
@@ -39,7 +40,6 @@ export class SignInPopupComponent extends PopupComponent {
         this.passwordInputComponent.setInputSettings('password', i18nKeys.Password);
         this.passwordInputComponent.setLabel(i18nKeys.EnterPassword);
 
-        this.signInButton.addButtonName(i18nKeys.SignIn);
         this.signInButton.onClick.subscribe(this.signIn.bind(this));
 
         this.resetPasswordWrapper.classList.add(styles.resetPasswordWrapper);

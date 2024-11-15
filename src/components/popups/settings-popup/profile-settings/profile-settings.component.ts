@@ -4,9 +4,11 @@ import { I18nService } from "../../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { TabContent } from "../../../tab-content/tab-content.component";
 import { AuthService } from "../../../../services/auth/auth.service";
-import { ButtonComponent } from "../../../button/button.component";
 import { ChangePasswordFormComponent } from "../../../change-password-form/change-password-form.component";
 import { AccountManagementComponent } from "../../../account-management/account-management.component";
+import { MessengerService } from "../../../../services/messenger/messenger.service";
+import { BackgroundMessages } from "../../../../constants/backgroundMessages";
+import { SignInButton } from "../../../button/sign-in/sign-in.button";
 
 @singleton()
 export class ProfileSettingsComponent extends TabContent {
@@ -25,9 +27,10 @@ export class ProfileSettingsComponent extends TabContent {
     constructor(
         protected changePasswordForm: ChangePasswordFormComponent,
         protected accountManagementComponent: AccountManagementComponent,
-        protected signInButton: ButtonComponent,
+        protected signInButton: SignInButton,
         protected authService: AuthService,
-        protected i18n: I18nService
+        protected i18n: I18nService,
+        protected messenger: MessengerService
     ) {
         super(i18n);
 
@@ -36,7 +39,6 @@ export class ProfileSettingsComponent extends TabContent {
         this.setTitle(i18nKeys.Profile);
 
         this.signInButton.hide();
-        this.signInButton.addButtonName(i18nKeys.SignIn);
 
         this.setContent(this.signInButton.rootElement);
 
@@ -46,9 +48,6 @@ export class ProfileSettingsComponent extends TabContent {
         this.emailLabel.classList.add(styles.label);
         this.registrationDateLabel.classList.add(styles.label);
 
-        this.authService.onAuthChange.subscribe((isAuth) => {
-            this.toggleVisibility(isAuth);
-        });
 
         this.wrapper.classList.add(styles.wrapper);
 
@@ -61,6 +60,8 @@ export class ProfileSettingsComponent extends TabContent {
         this.setContent(
             this.wrapper
         );
+
+        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.UserAuthorized, this.toggleVisibility.bind(this));
     }
 
     private fulfillInfo() {
@@ -81,8 +82,8 @@ export class ProfileSettingsComponent extends TabContent {
         this.userInfoWrapper.append(this.emailInfoWrapper, this.registrationDateInfoWrapper);
     }
 
-    private toggleVisibility(isAuth: boolean) {
-        if (isAuth) {
+    private toggleVisibility(data: { isAuthorized: boolean }) {
+        if (data.isAuthorized) {
             this.signInButton.hide();
             this.wrapper.style.display = 'flex';
         } else {

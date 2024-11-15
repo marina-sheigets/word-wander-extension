@@ -4,14 +4,11 @@ import { MessengerService } from "../messenger/messenger.service";
 import { Messages } from "../../constants/messages";
 import { UserService } from "../user/user.service";
 import { SettingsService } from "../settings/settings.service";
-import { SettingsNames } from "../../constants/settingsNames";
-import { AuthorizationData } from "../../types/AuthorizationData";
-import { Informer } from "../informer/informer.service";
+import { BackgroundMessages } from "../../constants/backgroundMessages";
 
 @singleton()
 export class AuthService {
     private isAuth: boolean = false;
-    public readonly onAuthChange = new Informer<boolean>();
 
     constructor(
         protected http: HttpService,
@@ -19,31 +16,20 @@ export class AuthService {
         protected userService: UserService,
         protected settingsService: SettingsService
     ) {
-        this.settingsService.subscribe(SettingsNames.User, (userData: AuthorizationData) => {
-            this.checkIfUserIsAuthorized(userData);
-        });
+        this.http.refreshTokenRequest();
 
-        this.messenger.subscribe(Messages.UserAuthorized, (isAuthorized: boolean) => {
+        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.UserAuthorized, (data) => {
             // Only update if there's a change in the authorization state
-            if (this.isAuth !== isAuthorized) {
-                this.isAuth = isAuthorized;
-                this.onAuthChange.inform(isAuthorized);
+            if (this.isAuth !== data.isAuthorized) {
+                this.isAuth = data.isAuthorized;
 
-                if (!isAuthorized) {
+                if (!data.isAuthorized) {
                     this.userService.saveUserData(null);
                 }
             }
         });
     }
 
-    private checkIfUserIsAuthorized(userData: AuthorizationData) {
-        if (userData) {
-            this.isAuth = true;
-            this.onAuthChange.inform(true);
-        }
-
-        this.messenger.send(Messages.UserAuthorized, this.isAuth);
-    }
 
     public isAuthorized() {
         return this.isAuth;
@@ -58,7 +44,7 @@ export class AuthService {
             }
 
             this.isAuth = true;
-            this.onAuthChange.inform(true);
+            this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: true });
             this.userService.saveUserData(response.data);
 
             this.closeSignInPopup();
@@ -83,7 +69,7 @@ export class AuthService {
             }
 
             this.isAuth = true;
-            this.onAuthChange.inform(true);
+            this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: true });
             this.userService.saveUserData(response.data);
 
             this.closeSignInPopup();
