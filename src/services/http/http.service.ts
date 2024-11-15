@@ -100,6 +100,7 @@ export class HttpService {
             this.userService.saveUserData(response?.data);
             return response?.data;
         } catch (e) {
+            this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: false });
             this.messenger.send(Messages.OpenSignInPopup);
             return null;
         }
