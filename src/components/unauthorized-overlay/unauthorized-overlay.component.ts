@@ -3,8 +3,8 @@ import { i18nKeys } from "../../services/i18n/i18n-keys";
 import { I18nService } from "../../services/i18n/i18n.service";
 import { TrainingsTab } from "../../types/TrainingsTabs";
 import { BaseComponent } from "../base-component/base-component";
-import { ButtonComponent } from "../button/button.component";
 import * as styles from "./unauthorized-overlay.component.css";
+import { SignInButton } from "../button/sign-in/sign-in.button";
 
 @singleton()
 export class UnauthorizedOverlayComponent extends BaseComponent {
@@ -14,7 +14,7 @@ export class UnauthorizedOverlayComponent extends BaseComponent {
     private nameOfTab = document.createElement('span');
     private tabDescription = document.createElement('span');
     constructor(
-        protected logInButton: ButtonComponent,
+        protected signInButton: SignInButton,
         protected i18n: I18nService
     ) {
         super(styles);
@@ -23,7 +23,6 @@ export class UnauthorizedOverlayComponent extends BaseComponent {
             this.title.textContent = value;
         });
 
-        this.logInButton.addButtonName(i18nKeys.LogIn);
 
         this.centralBlock.classList.add(styles.centralBlock);
 
@@ -32,7 +31,7 @@ export class UnauthorizedOverlayComponent extends BaseComponent {
         this.centralBlock.append(
             this.title,
             this.description,
-            this.logInButton.rootElement
+            this.signInButton.rootElement
         );
 
         this.rootElement.append(this.centralBlock);
