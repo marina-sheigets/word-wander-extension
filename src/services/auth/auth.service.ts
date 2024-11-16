@@ -16,7 +16,6 @@ export class AuthService {
         protected userService: UserService,
         protected settingsService: SettingsService
     ) {
-        this.http.refreshTokenRequest();
 
         this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.UserAuthorized, (data) => {
             // Only update if there's a change in the authorization state
