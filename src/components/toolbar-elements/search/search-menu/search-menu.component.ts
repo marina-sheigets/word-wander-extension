@@ -44,7 +44,7 @@ export class SearchMenuComponent extends MenuComponent {
         this.searchButton.rootElement.classList.add(styles.searchButton);
 
         this.inputComponent.setInputSettings('text', i18nKeys.TypeSomething);
-        this.inputComponent.onChange.subscribe(this.onSearch.bind(this));
+
         this.searchButton.onClick.subscribe(() => {
             this.onSearch(this.inputComponent.input.value)
         })
