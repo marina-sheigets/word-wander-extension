@@ -2,6 +2,8 @@ import { singleton } from "tsyringe";
 import { AuthorizationData } from "../../types/AuthorizationData";
 import { SettingsService } from "../settings/settings.service";
 import { SettingsNames } from "../../constants/settingsNames";
+import { parseToken } from "../../utils/parseToken";
+import { UserData } from "../../types/UserData";
 
 @singleton()
 export class UserService {
@@ -26,5 +28,14 @@ export class UserService {
     public getAccessToken(): string {
         const userData = this.getUserData();
         return userData?.accessToken || '';
+    }
+
+    public getUserInfo(): UserData {
+        const token = this.getAccessToken();
+        const data = parseToken(token);
+        return {
+            ...data,
+            registrationDate: new Date(data.registrationDate).toLocaleDateString('en-US') // mm/dd/yyyy
+        }
     }
 }

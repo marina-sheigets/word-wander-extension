@@ -9,6 +9,7 @@ import { AccountManagementComponent } from "../../../account-management/account-
 import { MessengerService } from "../../../../services/messenger/messenger.service";
 import { BackgroundMessages } from "../../../../constants/backgroundMessages";
 import { SignInButton } from "../../../button/sign-in/sign-in.button";
+import { UserService } from "../../../../services/user/user.service";
 
 @singleton()
 export class ProfileSettingsComponent extends TabContent {
@@ -28,6 +29,7 @@ export class ProfileSettingsComponent extends TabContent {
         protected changePasswordForm: ChangePasswordFormComponent,
         protected accountManagementComponent: AccountManagementComponent,
         protected signInButton: SignInButton,
+        protected userService: UserService,
         protected authService: AuthService,
         protected i18n: I18nService,
         protected messenger: MessengerService
@@ -41,8 +43,6 @@ export class ProfileSettingsComponent extends TabContent {
         this.signInButton.hide();
 
         this.setContent(this.signInButton.rootElement);
-
-        this.fulfillInfo();
 
         this.userInfoWrapper.classList.add(styles.userInfoWrapper);
         this.emailLabel.classList.add(styles.label);
@@ -73,8 +73,8 @@ export class ProfileSettingsComponent extends TabContent {
             this.registrationDateLabel.textContent = value + ":";
         });
 
-        this.emailValue.textContent = "example@gmail.com";
-        this.registrationDateValue.textContent = "01.01.2021";
+        this.emailValue.textContent = this.userService.getUserInfo().email;
+        this.registrationDateValue.textContent = this.userService.getUserInfo().registrationDate;
 
         this.emailInfoWrapper.append(this.emailLabel, this.emailValue);
         this.registrationDateInfoWrapper.append(this.registrationDateLabel, this.registrationDateValue);
@@ -86,6 +86,8 @@ export class ProfileSettingsComponent extends TabContent {
         if (data.isAuthorized) {
             this.signInButton.hide();
             this.wrapper.style.display = 'flex';
+
+            this.fulfillInfo();
         } else {
             this.signInButton.show();
             this.wrapper.style.display = 'none';
