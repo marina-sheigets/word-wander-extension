@@ -5,6 +5,7 @@ import { Messages } from "../../constants/messages";
 import { UserService } from "../user/user.service";
 import { SettingsService } from "../settings/settings.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
+import { URL } from "../../constants/urls";
 
 @singleton()
 export class AuthService {
@@ -92,6 +93,15 @@ export class AuthService {
             }
 
             this.messenger.send(Messages.CloseResetPasswordPopup);
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    public async changePassword(oldPassword: string, newPassword: string) {
+        try {
+            const response = await this.http.put(URL.auth.changePassword, { oldPassword, newPassword });
+            return response;
         } catch (e) {
             throw e;
         }

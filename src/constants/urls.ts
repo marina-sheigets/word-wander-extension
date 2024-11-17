@@ -6,6 +6,7 @@ export const URL = {
     auth: {
         login: 'auth/login',
         register: 'auth/register',
-        refreshToken: 'auth/refresh'
+        refreshToken: 'auth/refresh',
+        changePassword: 'auth/change-password',
     }
 }

@@ -5,18 +5,25 @@ import { BaseComponent } from "../base-component/base-component";
 import { ButtonComponent } from "../button/button.component";
 import { InputComponent } from "../input/input.component";
 import * as styles from './change-password-form.component.css';
+import { AuthService } from "../../services/auth/auth.service";
+import { ErrorMessageComponent } from "../error-message/error-message.component";
+import { SuccessMessageComponent } from "../success-message/success-message.component";
 
 @singleton()
 export class ChangePasswordFormComponent extends BaseComponent {
     private title = document.createElement('h2');
     private inputsWrapper = document.createElement('div');
     private buttonsWrapper = document.createElement('div');
+
     constructor(
         protected i18n: I18nService,
         protected currentPasswordInput: InputComponent,
         protected newPasswordInput: InputComponent,
         protected saveButton: ButtonComponent,
-        protected cancelButton: ButtonComponent
+        protected cancelButton: ButtonComponent,
+        protected authService: AuthService,
+        protected errorMessage: ErrorMessageComponent,
+        protected successMessage: SuccessMessageComponent
     ) {
         super(styles);
 
@@ -34,6 +41,8 @@ export class ChangePasswordFormComponent extends BaseComponent {
         this.cancelButton.addButtonName(i18nKeys.Cancel);
         this.cancelButton.rootElement.classList.add(styles.cancelButton);
 
+        this.saveButton.disable();
+
         this.inputsWrapper.classList.add(styles.wrapper);
         this.buttonsWrapper.classList.add(styles.wrapper);
 
@@ -50,7 +59,45 @@ export class ChangePasswordFormComponent extends BaseComponent {
         this.rootElement.append(
             this.title,
             this.inputsWrapper,
+            this.errorMessage.rootElement,
+            this.successMessage.rootElement,
             this.buttonsWrapper
         );
+
+        this.currentPasswordInput.onChange.subscribe(this.toggleButtonsState.bind(this));
+        this.newPasswordInput.onChange.subscribe(this.toggleButtonsState.bind(this));
+
+        this.saveButton.onClick.subscribe(this.savePassword.bind(this));
+        this.cancelButton.onClick.subscribe(this.reset.bind(this));
+    }
+
+    private toggleButtonsState() {
+        if (this.currentPasswordInput.input.value.length && this.newPasswordInput.input.value.length) {
+            this.saveButton.enable();
+        } else {
+            this.saveButton.disable();
+        }
+    }
+
+    private savePassword() {
+        const currentPassword = this.currentPasswordInput.getValue();
+        const newPassword = this.newPasswordInput.getValue();
+
+        this.authService.changePassword(currentPassword, newPassword)
+            .then(() => {
+                this.successMessage.setMessage(i18nKeys.PasswordChanged);
+                this.reset();
+            }).catch((e) => {
+                if (e.response && e.response?.data?.message) {
+                    this.errorMessage.showErrorMessage(e.response.data.message);
+                }
+            });
+    }
+
+    private reset() {
+        this.errorMessage.hideErrorMessage();
+        this.currentPasswordInput.clear();
+        this.newPasswordInput.clear();
+        this.saveButton.disable();
     }
 }
