@@ -8,3 +8,4 @@ dist/
 *.map
 package-lock.json
 .env
+node-utils/
