@@ -17,7 +17,7 @@ export class InputComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.input.addEventListener('keydown', this.onInputChange.bind(this));
+        this.input.addEventListener('input', this.onInputChange.bind(this));
 
         this.labelText.classList.add(styles.hidden);
 
@@ -32,7 +32,6 @@ export class InputComponent extends BaseComponent {
     }
 
     private onInputChange(e: KeyboardEvent) {
-        if (e.key !== 'Enter') return;
         e.preventDefault();
         e.stopPropagation();
 
