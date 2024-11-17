@@ -142,6 +142,10 @@
         "en":"Added",
         "uk":"Додано"
     },
+    "PasswordChanged":{
+        "en":"Password was changed",
+        "uk":"Пароль змінено"
+    },
     "PronounceByDefault":{
         "en":"Pronounce by default",
         "uk":"Вимовляти за замовчуванням"

@@ -1,0 +1,9 @@
+.rootClassName {
+    margin-bottom: 10px;
+}
+
+.rootClassName .message {
+    color: #00CE8F;
+    font-weight: 600;
+    text-align: center;
+}
