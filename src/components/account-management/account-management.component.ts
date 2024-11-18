@@ -4,6 +4,7 @@ import * as styles from './account-management.component.css';
 import { I18nService } from "../../services/i18n/i18n.service";
 import { i18nKeys } from "../../services/i18n/i18n-keys";
 import { ButtonComponent } from "../button/button.component";
+import { SignOutButtonComponent } from "../button/sign-out/sign-out-button.component";
 
 @singleton()
 export class AccountManagementComponent extends BaseComponent {
@@ -12,7 +13,7 @@ export class AccountManagementComponent extends BaseComponent {
 
     constructor(
         protected i18n: I18nService,
-        protected signOutButton: ButtonComponent,
+        protected signOutButton: SignOutButtonComponent,
         protected deleteAccountButton: ButtonComponent
     ) {
         super(styles);
@@ -21,10 +22,8 @@ export class AccountManagementComponent extends BaseComponent {
             this.title.textContent = value;
         });
 
-        this.signOutButton.addButtonName(i18nKeys.SignOut);
         this.deleteAccountButton.addButtonName(i18nKeys.DeleteAccount);
 
-        this.signOutButton.rootElement.classList.add(styles.signOutButton);
         this.deleteAccountButton.rootElement.classList.add(styles.deleteAccountButton);
         this.buttonsWrapper.classList.add(styles.wrapper);
 

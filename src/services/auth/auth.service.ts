@@ -106,4 +106,8 @@ export class AuthService {
             throw e;
         }
     }
+
+    public async signOut() {
+
+    }
 }

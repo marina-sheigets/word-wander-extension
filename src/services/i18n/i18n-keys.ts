@@ -1,4 +1,5 @@
 export const enum i18nKeys {
+    SignOutDescription = "SignOutDescription",
     PasswordChanged = "PasswordChanged",
     AccountManagement = "AccountManagement",
     Save = "Save",
