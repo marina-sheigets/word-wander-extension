@@ -66,11 +66,11 @@ export class ProfileSettingsComponent extends TabContent {
     }
 
     private fulfillInfo() {
-        this.i18n.subscribe(i18nKeys.Email, (value: string) => {
+        this.i18n.follow(i18nKeys.Email, (value: string) => {
             this.emailLabel.textContent = value + ":";
         });
 
-        this.i18n.subscribe(i18nKeys.RegistrationDate, (value: string) => {
+        this.i18n.follow(i18nKeys.RegistrationDate, (value: string) => {
             this.registrationDateLabel.textContent = value + ":";
         });
 
