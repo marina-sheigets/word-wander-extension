@@ -3,8 +3,6 @@ import { HttpService } from "../http/http.service";
 import { MessengerService } from "../messenger/messenger.service";
 import { Messages } from "../../constants/messages";
 import { UserService } from "../user/user.service";
-import { SettingsService } from "../settings/settings.service";
-import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { URL } from "../../constants/urls";
 
 @singleton()
@@ -15,20 +13,7 @@ export class AuthService {
         protected http: HttpService,
         protected messenger: MessengerService,
         protected userService: UserService,
-        protected settingsService: SettingsService
-    ) {
-
-        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.UserAuthorized, (data) => {
-            // Only update if there's a change in the authorization state
-            if (this.isAuth !== data.isAuthorized) {
-                this.isAuth = data.isAuthorized;
-
-                if (!data.isAuthorized) {
-                    this.userService.saveUserData(null);
-                }
-            }
-        });
-    }
+    ) { }
 
 
     public isAuthorized() {
@@ -44,7 +29,6 @@ export class AuthService {
             }
 
             this.isAuth = true;
-            this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: true });
             this.userService.saveUserData(response.data);
 
             this.closeSignInPopup();
@@ -69,7 +53,6 @@ export class AuthService {
             }
 
             this.isAuth = true;
-            this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: true });
             this.userService.saveUserData(response.data);
 
             this.closeSignInPopup();

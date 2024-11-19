@@ -7,7 +7,9 @@ import { Messages } from "../../../../constants/messages";
 import { IconComponent } from "../../../icon/icon.component";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { IconName } from "../../../../types/IconName";
-import { BackgroundMessages } from "../../../../constants/backgroundMessages";
+import { SettingsNames } from "../../../../constants/settingsNames";
+import { SettingsService } from "../../../../services/settings/settings.service";
+import { AuthorizationData } from "../../../../types/AuthorizationData";
 
 
 @singleton()
@@ -23,7 +25,8 @@ export class SettingsMenuComponent extends MenuComponent {
         private downloadIcon: IconComponent,
         private manufacturingIcon: IconComponent,
         private signOutIcon: IconComponent,
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected settingsService: SettingsService
     ) {
         super();
 
@@ -47,9 +50,7 @@ export class SettingsMenuComponent extends MenuComponent {
 
         this.messenger.subscribe(Messages.CloseAllMenus, this.hide.bind(this));
 
-        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.UserAuthorized, (data) => {
-            this.handleItemsVisibility(data.isAuthorized);
-        });
+        this.settingsService.follow(SettingsNames.User, this.handleItemsVisibility.bind(this));
     }
 
     private addSingInItem() {
@@ -97,12 +98,12 @@ export class SettingsMenuComponent extends MenuComponent {
             this.messenger.send(Messages.CloseAllMenus);
             this.messenger.send(Messages.CloseSettings);
 
-            this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: false });
+            this.messenger.send(Messages.OpenSignOutPopup);
         });
     }
 
-    private handleItemsVisibility(isAuthorized: boolean) {
-        if (isAuthorized) {
+    private handleItemsVisibility(userData: AuthorizationData) {
+        if (userData) {
             this.signInItem.hide();
             this.signOutItem.show();
         } else {

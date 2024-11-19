@@ -7,14 +7,12 @@ class BaseContentScript {
     constructor() {
         addEventListener('message', async (event) => {
             switch (event.data.message) {
-                case BackgroundMessages.GoToTrainings:
-                case BackgroundMessages.UserAuthorized:
-                    {
-                        chrome.runtime.sendMessage({
-                            type: event.data.message,
-                            data: event.data.data
-                        });
-                    }
+                case BackgroundMessages.GoToTrainings: {
+                    chrome.runtime.sendMessage({
+                        type: event.data.message,
+                        data: event.data.data
+                    });
+                }
 
             }
         });

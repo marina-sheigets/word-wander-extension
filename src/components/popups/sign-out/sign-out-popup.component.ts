@@ -7,7 +7,8 @@ import { ButtonComponent } from "../../button/button.component";
 import { PopupComponent } from "../popup.component";
 import * as styles from './sign-out-popup.component.css';
 import { AuthService } from "../../../services/auth/auth.service";
-import { BackgroundMessages } from "../../../constants/backgroundMessages";
+import { SettingsService } from "../../../services/settings/settings.service";
+import { SettingsNames } from "../../../constants/settingsNames";
 
 @singleton()
 export class SignOutPopupComponent extends PopupComponent {
@@ -18,7 +19,8 @@ export class SignOutPopupComponent extends PopupComponent {
         protected i18n: I18nService,
         protected yesButton: ButtonComponent,
         protected messenger: MessengerService,
-        protected authService: AuthService
+        protected authService: AuthService,
+        protected settingsService: SettingsService
     ) {
         super(styles);
 
@@ -46,8 +48,7 @@ export class SignOutPopupComponent extends PopupComponent {
 
     private confirmSignOut() {
         this.hide();
-        this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: false });
-
+        this.settingsService.set(SettingsNames.User, null);
         this.authService.signOut();
     }
 }

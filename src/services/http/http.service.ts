@@ -4,8 +4,9 @@ import { Messages } from "../../constants/messages";
 import { singleton } from "tsyringe";
 import { UserService } from "../user/user.service";
 import { AuthorizationData } from "../../types/AuthorizationData";
-import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { URL } from "../../constants/urls";
+import { SettingsNames } from "../../constants/settingsNames";
+import { SettingsService } from "../settings/settings.service";
 
 @singleton()
 export class HttpService {
@@ -14,7 +15,8 @@ export class HttpService {
     private axiosInstance: AxiosInstance | null = null;
     constructor(
         protected messenger: MessengerService,
-        protected userService: UserService
+        protected userService: UserService,
+        protected settingsService: SettingsService
     ) {
         this.axiosInstance = axios.create({
             baseURL: process.env.API_URL,
@@ -77,14 +79,15 @@ export class HttpService {
                     const data = await this.refreshTokenRequest();
 
                     if (!data) {
-                        this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: false });
+                        this.settingsService.set(SettingsNames.User, null);
                         return Promise.reject(error);
                     }
 
                     originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
                     return this.axiosInstance?.request(originalRequest);
                 } catch (refreshError) {
-                    this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: false });
+                    this.settingsService.set(SettingsNames.User, null);
+
                     return Promise.reject(refreshError);
                 }
             }
@@ -100,7 +103,7 @@ export class HttpService {
             this.userService.saveUserData(response?.data);
             return response?.data;
         } catch (e) {
-            this.messenger.sendToBackground(BackgroundMessages.UserAuthorized, { isAuthorized: false });
+            this.settingsService.set(SettingsNames.User, null);
             this.messenger.send(Messages.OpenSignInPopup);
             return null;
         }

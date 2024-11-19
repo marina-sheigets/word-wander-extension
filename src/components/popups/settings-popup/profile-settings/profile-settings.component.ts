@@ -6,10 +6,11 @@ import { TabContent } from "../../../tab-content/tab-content.component";
 import { AuthService } from "../../../../services/auth/auth.service";
 import { ChangePasswordFormComponent } from "../../../change-password-form/change-password-form.component";
 import { AccountManagementComponent } from "../../../account-management/account-management.component";
-import { MessengerService } from "../../../../services/messenger/messenger.service";
-import { BackgroundMessages } from "../../../../constants/backgroundMessages";
 import { SignInButton } from "../../../button/sign-in/sign-in.button";
 import { UserService } from "../../../../services/user/user.service";
+import { SettingsService } from "../../../../services/settings/settings.service";
+import { SettingsNames } from "../../../../constants/settingsNames";
+import { AuthorizationData } from "../../../../types/AuthorizationData";
 
 @singleton()
 export class ProfileSettingsComponent extends TabContent {
@@ -32,7 +33,7 @@ export class ProfileSettingsComponent extends TabContent {
         protected userService: UserService,
         protected authService: AuthService,
         protected i18n: I18nService,
-        protected messenger: MessengerService
+        protected settingsService: SettingsService
     ) {
         super(i18n);
 
@@ -61,7 +62,7 @@ export class ProfileSettingsComponent extends TabContent {
             this.wrapper
         );
 
-        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.UserAuthorized, this.toggleVisibility.bind(this));
+        this.settingsService.follow(SettingsNames.User, this.toggleVisibility.bind(this));
     }
 
     private fulfillInfo() {
@@ -82,8 +83,8 @@ export class ProfileSettingsComponent extends TabContent {
         this.userInfoWrapper.append(this.emailInfoWrapper, this.registrationDateInfoWrapper);
     }
 
-    private toggleVisibility(data: { isAuthorized: boolean }) {
-        if (data.isAuthorized) {
+    private toggleVisibility(userData: AuthorizationData) {
+        if (userData) {
             this.signInButton.hide();
             this.wrapper.style.display = 'flex';
 

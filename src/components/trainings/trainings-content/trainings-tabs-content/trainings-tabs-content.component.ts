@@ -11,7 +11,9 @@ import { I18nService } from "../../../../services/i18n/i18n.service";
 import { UnauthorizedOverlayComponent } from "../../../unauthorized-overlay/unauthorized-overlay.component";
 import { MessengerService } from "../../../../services/messenger/messenger.service";
 import { Messages } from "../../../../constants/messages";
-import { BackgroundMessages } from "../../../../constants/backgroundMessages";
+import { SettingsNames } from "../../../../constants/settingsNames";
+import { SettingsService } from "../../../../services/settings/settings.service";
+import { AuthorizationData } from "../../../../types/AuthorizationData";
 
 @singleton()
 export class TrainingsTabsContentComponent extends BaseComponent {
@@ -40,7 +42,8 @@ export class TrainingsTabsContentComponent extends BaseComponent {
         protected unauthorizedOverlay: UnauthorizedOverlayComponent,
         protected trainingsTabsService: TrainingsTabsService,
         protected i18n: I18nService,
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected settingsService: SettingsService
     ) {
         super(styles);
 
@@ -55,7 +58,7 @@ export class TrainingsTabsContentComponent extends BaseComponent {
             this.unauthorizedOverlay.rootElement
         );
 
-        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.UserAuthorized, this.toggleTabVisibility.bind(this));
+        this.settingsService.follow(SettingsNames.User, this.toggleTabVisibility.bind(this));
     }
 
     clearTabContent() {
@@ -84,8 +87,8 @@ export class TrainingsTabsContentComponent extends BaseComponent {
         });
     }
 
-    private toggleTabVisibility(data: { isAuthorized: boolean }) {
-        if (data.isAuthorized) {
+    private toggleTabVisibility(userData: AuthorizationData) {
+        if (userData) {
             this.tabContent.style.display = 'block';
             this.unauthorizedOverlay.hide();
         } else {
