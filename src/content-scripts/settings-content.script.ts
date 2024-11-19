@@ -44,7 +44,7 @@ class SettingsContentScript {
 
             const settings = { ...savedSettings, ...setting };
 
-            chrome.storage.local.set({ [ChromeStorageKeys.Settings]: settings });
+            await chrome.storage.local.set({ [ChromeStorageKeys.Settings]: settings });
         } catch (error) {
             console.error('Error changing Chrome storage settings:', error);
         }

@@ -3,6 +3,8 @@ import { container, singleton } from "tsyringe";
 import { BackgroundMessages } from '../constants/backgroundMessages';
 import { ChromeStorageKeys } from '../constants/chromeStorageKeys';
 import { getTrainingsPageURL } from '../utils/getTrainingsPageURL';
+import { URL } from '../constants/urls';
+import { SettingsNames } from '../constants/settingsNames';
 
 @singleton()
 export class Background {
@@ -33,6 +35,10 @@ export class Background {
                 this.notifyTabs(BackgroundMessages.HistoryChanged, changes[ChromeStorageKeys.History].newValue);
                 return;
             }
+        });
+
+        chrome.windows.onCreated.addListener(() => {
+            this.refreshToken();
         });
 
     }
@@ -69,6 +75,49 @@ export class Background {
                 chrome.tabs.create({ url: getTrainingsPageURL(), active: true });
             }
         });
+    }
+
+    private async refreshToken() {
+        try {
+            const userData = await this.getSetting(SettingsNames.User);
+
+            const refreshToken = userData?.refreshToken;
+
+            const response = await fetch(process.env.API_URL + '/' + URL.auth.refreshToken, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: refreshToken,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                throw new Error(data.error);
+            }
+
+            this.updateStorage(data, SettingsNames.User);
+        } catch (e) {
+            this.updateStorage(null, SettingsNames.User);
+        }
+    }
+
+    private async updateStorage(data: any, settingName: SettingsNames) {
+        try {
+            const savedSettings = await chrome.storage.local.get([ChromeStorageKeys.Settings]);
+            const updatedSettings = { ...savedSettings[ChromeStorageKeys.Settings], [settingName]: data };
+            await chrome.storage.local.set({ [ChromeStorageKeys.Settings]: updatedSettings });
+        } catch (error) {
+            console.error('Error updating storage:', error);
+        }
+    }
+
+    private async getSetting(settingName: SettingsNames) {
+        const savedSettings = await chrome.storage.local.get([ChromeStorageKeys.Settings]);
+        return savedSettings[ChromeStorageKeys.Settings][settingName];
     }
 }
 
