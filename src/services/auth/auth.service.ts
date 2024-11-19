@@ -4,6 +4,9 @@ import { MessengerService } from "../messenger/messenger.service";
 import { Messages } from "../../constants/messages";
 import { UserService } from "../user/user.service";
 import { URL } from "../../constants/urls";
+import { SettingsService } from "../settings/settings.service";
+import { SettingsNames } from "../../constants/settingsNames";
+import { AuthorizationData } from "../../types/AuthorizationData";
 
 @singleton()
 export class AuthService {
@@ -13,7 +16,12 @@ export class AuthService {
         protected http: HttpService,
         protected messenger: MessengerService,
         protected userService: UserService,
-    ) { }
+        protected settingsService: SettingsService
+    ) {
+        this.settingsService.subscribe(SettingsNames.User, (user: AuthorizationData) => {
+            this.isAuth = !!user;
+        });
+    }
 
 
     public isAuthorized() {
