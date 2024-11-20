@@ -83,6 +83,7 @@ export class ChangePasswordFormComponent extends BaseComponent {
         const currentPassword = this.currentPasswordInput.getValue();
         const newPassword = this.newPasswordInput.getValue();
 
+        this.saveButton.disable();
         this.authService.changePassword(currentPassword, newPassword)
             .then(() => {
                 this.successMessage.setMessage(i18nKeys.PasswordChanged);
@@ -91,6 +92,8 @@ export class ChangePasswordFormComponent extends BaseComponent {
                 if (e.response && e.response?.data?.message) {
                     this.errorMessage.showErrorMessage(e.response.data.message);
                 }
+            }).finally(() => {
+                this.saveButton.enable();
             });
     }
 
