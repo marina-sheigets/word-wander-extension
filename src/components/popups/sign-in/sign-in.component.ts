@@ -79,7 +79,10 @@ export class SignInPopupComponent extends PopupComponent {
 
     private signIn() {
         this.hideAuthError();
-        this.authService.signUp(this.emailInputComponent.input.value, this.passwordInputComponent.input.value);
+        this.signInButton.disable();
+        this.authService.signUp(this.emailInputComponent.input.value, this.passwordInputComponent.input.value).finally(() => {
+            this.signInButton.enable();
+        });
     }
 
     private resetPassword() {
