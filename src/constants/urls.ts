@@ -8,5 +8,7 @@ export const URL = {
         register: 'auth/register',
         refreshToken: 'auth/refresh',
         changePassword: 'auth/change-password',
+        signOut: 'auth/logout',
+        deleteAccount: 'auth/delete-account',
     }
 }

@@ -99,6 +99,20 @@ export class AuthService {
     }
 
     public async signOut() {
+        try {
+            const response = await this.http.post(URL.auth.signOut, {});
+            return response;
+        } catch (e) {
+            throw e;
+        }
+    }
 
+    public async deleteAccount() {
+        try {
+            const response = await this.http.delete(URL.auth.deleteAccount);
+            return response;
+        } catch (e) {
+            throw e;
+        }
     }
 }

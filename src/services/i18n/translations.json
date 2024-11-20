@@ -130,6 +130,10 @@
         "en":"Interface language",
         "uk":"Мова інтерфейсу"
     },
+    "DeleteAccountDescription":{
+        "en":"Are you sure you want to delete your account?",
+        "uk":"Ви впевнені, що хочете видалити свій акаунт?"
+    },
     "SignOutDescription":{
         "en":"Are you sure you want to sign out?",
         "uk":"Ви впевнені, що хочете вийти?"

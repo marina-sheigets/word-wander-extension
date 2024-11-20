@@ -3,8 +3,8 @@ import { BaseComponent } from "../base-component/base-component";
 import * as styles from './account-management.component.css';
 import { I18nService } from "../../services/i18n/i18n.service";
 import { i18nKeys } from "../../services/i18n/i18n-keys";
-import { ButtonComponent } from "../button/button.component";
 import { SignOutButtonComponent } from "../button/sign-out/sign-out-button.component";
+import { DeleteAccountButtonComponent } from "../button/delete-account/delete-account-button.component";
 
 @singleton()
 export class AccountManagementComponent extends BaseComponent {
@@ -14,7 +14,7 @@ export class AccountManagementComponent extends BaseComponent {
     constructor(
         protected i18n: I18nService,
         protected signOutButton: SignOutButtonComponent,
-        protected deleteAccountButton: ButtonComponent
+        protected deleteAccountButton: DeleteAccountButtonComponent
     ) {
         super(styles);
 
@@ -22,9 +22,6 @@ export class AccountManagementComponent extends BaseComponent {
             this.title.textContent = value;
         });
 
-        this.deleteAccountButton.addButtonName(i18nKeys.DeleteAccount);
-
-        this.deleteAccountButton.rootElement.classList.add(styles.deleteAccountButton);
         this.buttonsWrapper.classList.add(styles.wrapper);
 
         this.buttonsWrapper.append(
@@ -35,7 +32,6 @@ export class AccountManagementComponent extends BaseComponent {
         this.rootElement.append(
             this.title,
             this.buttonsWrapper
-
         );
     }
 }

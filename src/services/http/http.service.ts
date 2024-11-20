@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios"
 import { MessengerService } from "../messenger/messenger.service";
-import { Messages } from "../../constants/messages";
 import { singleton } from "tsyringe";
 import { UserService } from "../user/user.service";
 import { AuthorizationData } from "../../types/AuthorizationData";
@@ -42,6 +41,10 @@ export class HttpService {
 
     public get(url: string, config?: AxiosRequestConfig) {
         return this.axiosInstance?.get(url, config);
+    }
+
+    public delete(url: string, config?: AxiosRequestConfig) {
+        return this.axiosInstance?.delete(url, config);
     }
 
     private initAuthInterceptor() {
@@ -104,7 +107,6 @@ export class HttpService {
             return response?.data;
         } catch (e) {
             this.settingsService.set(SettingsNames.User, null);
-            this.messenger.send(Messages.OpenSignInPopup);
             return null;
         }
     }

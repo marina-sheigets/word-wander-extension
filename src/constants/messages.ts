@@ -41,6 +41,7 @@ export const enum Messages {
     ResetPasswordLinkSent = 'ResetPasswordLinkSent',
 
     OpenSignOutPopup = 'OpenSignOutPopup',
+    ShowDeleteAccountPopup = 'ShowDeleteAccountPopup',
 
     //Dictionary
     WordAddedToDictionary = 'WordAddedToDictionary',
