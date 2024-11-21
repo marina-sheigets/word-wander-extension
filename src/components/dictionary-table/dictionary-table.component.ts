@@ -5,6 +5,8 @@ import { i18nKeys } from "../../services/i18n/i18n-keys";
 import * as styles from "./dictionary-table.component.css";
 import { ButtonComponent } from "../button/button.component";
 import { TableComponent } from "./table/table.component";
+import { DictionaryService } from "../../services/dictionary/dictionary.service";
+import { DictionaryTableItem } from "../../types/DictionaryTableItem";
 
 @singleton()
 export class DictionaryTableComponent extends BaseComponent {
@@ -17,7 +19,8 @@ export class DictionaryTableComponent extends BaseComponent {
         protected selectAllButton: ButtonComponent,
         protected unselectAllButton: ButtonComponent,
         protected sendOnTrainingButton: ButtonComponent,
-        protected tableComponent: TableComponent
+        protected tableComponent: TableComponent,
+        protected dictionaryService: DictionaryService
     ) {
         super();
 
@@ -38,9 +41,7 @@ export class DictionaryTableComponent extends BaseComponent {
 
         this.wordsSelectedLabel.classList.add(styles.wordsSelectedLabel);
 
-        this.i18n.follow(i18nKeys.AmountWords, (value) => {
-            this.amountWordsLabel.innerText = 150 + value;
-        });
+        this.dictionaryService.onDataChanged.subscribe(this.changeWordsInDictionaryLabel.bind(this));
 
         this.tableHeaderTools.append(
             this.selectAllButton.rootElement,
@@ -69,17 +70,23 @@ export class DictionaryTableComponent extends BaseComponent {
             if (amountOfSelectedWords === 1) {
                 this.i18n.follow(i18nKeys.OneWordSelected, (value) => {
                     this.wordsSelectedLabel.textContent = value;
-                })
+                });
             } else {
                 this.i18n.follow(i18nKeys.ManyWordsSelected, (value) => {
                     this.wordsSelectedLabel.textContent = amountOfSelectedWords + value;
-                })
+                });
             }
         } else {
             this.sendOnTrainingButton.hide();
             this.wordsSelectedLabel.textContent = "";
         }
 
+    }
+
+    private changeWordsInDictionaryLabel(data: DictionaryTableItem[]) {
+        this.i18n.follow(i18nKeys.AmountWords, (value) => {
+            this.amountWordsLabel.textContent = data.length + value;
+        });
     }
 
     protected toggleSelectAllWordsButtons(amountOfSelectedWords: number) {

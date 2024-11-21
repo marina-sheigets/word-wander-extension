@@ -5,9 +5,13 @@ import { MessengerService } from "../messenger/messenger.service";
 import { HttpService } from "../http/http.service";
 import { URL } from "../../constants/urls";
 import { DictionaryTableItem } from "../../types/DictionaryTableItem";
+import { Informer } from "../informer/informer.service";
 
 @singleton()
 export class DictionaryService {
+    private data: DictionaryTableItem[] = [];
+    public readonly onDataChanged = new Informer<DictionaryTableItem[]>();
+
     constructor(
         protected authService: AuthService,
         protected messenger: MessengerService,
@@ -37,9 +41,15 @@ export class DictionaryService {
         try {
             const response = await this.httpService.get(URL.dictionary.getWords);
 
-            return response?.data.map((item: DictionaryTableItem) => ({ ...item, selected: false }));
+            this.data = response?.data.map((item: DictionaryTableItem) => ({ ...item, selected: false }));
+            this.onDataChanged.inform(this.data);
+            return this.data;
         } catch (e) {
             throw Error;
         }
+    }
+
+    public getDictionaryData() {
+        return this.data;
     }
 }
