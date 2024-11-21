@@ -4,7 +4,7 @@ import { AuthService } from "../auth/auth.service";
 import { MessengerService } from "../messenger/messenger.service";
 import { HttpService } from "../http/http.service";
 import { URL } from "../../constants/urls";
-import { Dictionary } from "../../types/Dictionary";
+import { DictionaryTableItem } from "../../types/DictionaryTableItem";
 
 @singleton()
 export class DictionaryService {
@@ -37,7 +37,7 @@ export class DictionaryService {
         try {
             const response = await this.httpService.get(URL.dictionary.getWords);
 
-            return response?.data.map((item: Dictionary) => ({ ...item, selected: false }));
+            return response?.data.map((item: DictionaryTableItem) => ({ ...item, selected: false }));
         } catch (e) {
             throw Error;
         }

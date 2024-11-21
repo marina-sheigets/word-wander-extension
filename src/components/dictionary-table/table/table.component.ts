@@ -9,31 +9,14 @@ import { Informer } from "../../../services/informer/informer.service";
 import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
 import { DictionaryService } from "../../../services/dictionary/dictionary.service";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
+import { DictionaryTableItem } from "../../../types/DictionaryTableItem";
 
 @singleton()
 export class TableComponent extends BaseComponent {
     public onSelectedChange = new Informer();
 
-    private tableData = [
-        {
-            id: "1",
-            word: 'word',
-            translation: 'translation',
-            selected: false,
-        },
-        {
-            id: "2",
-            word: 'word',
-            translation: 'translation',
-            selected: false,
-        },
-        {
-            id: "3",
-            word: 'word',
-            translation: 'translation',
-            selected: false,
-        },
-    ]
+    private tableData: DictionaryTableItem[] = [];
+
     constructor(
         protected i18n: I18nService,
         protected textToSpeechService: TextToSpeechService,
@@ -46,8 +29,16 @@ export class TableComponent extends BaseComponent {
 
     private async initTable() {
         try {
-            this.rootElement.textContent = ""
+            this.rootElement.textContent = "";
+
             this.tableData = await this.dictionaryService.fetchDictionary();
+
+            if (!this.tableData.length) {
+                this.i18n.subscribe(i18nKeys.EmptyDictionary, (value: string) => {
+                    this.rootElement.textContent = value;
+                });
+                return;
+            }
 
             this.tableData.forEach((item) => {
                 const checkbox = new CheckboxComponent(item.id);
