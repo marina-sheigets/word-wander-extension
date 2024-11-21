@@ -126,5 +126,6 @@ export class TableComponent extends BaseComponent {
         this.tableData = this.tableData.filter((tableItem) => tableItem.id !== item.id);
         this.initTable();
         this.onSelectedChange.inform(this.tableData);
+        this.dictionaryService.onDataChanged.inform(this.tableData);
     }
 }
