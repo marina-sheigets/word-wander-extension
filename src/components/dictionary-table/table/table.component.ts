@@ -10,6 +10,8 @@ import { TextToSpeechService } from "../../../services/text-to-speech/text-to-sp
 import { DictionaryService } from "../../../services/dictionary/dictionary.service";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
 import { DictionaryTableItem } from "../../../types/DictionaryTableItem";
+import { SettingsService } from "../../../services/settings/settings.service";
+import { SettingsNames } from "../../../constants/settingsNames";
 
 @singleton()
 export class TableComponent extends BaseComponent {
@@ -20,11 +22,12 @@ export class TableComponent extends BaseComponent {
     constructor(
         protected i18n: I18nService,
         protected textToSpeechService: TextToSpeechService,
-        protected dictionaryService: DictionaryService
+        protected dictionaryService: DictionaryService,
+        protected settingsService: SettingsService
     ) {
         super(styles);
 
-        this.initTable()
+        this.settingsService.subscribe(SettingsNames.User, this.initTable.bind(this));
     }
 
     private async initTable() {

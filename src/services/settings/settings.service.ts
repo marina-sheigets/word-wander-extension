@@ -27,16 +27,12 @@ export class SettingsService {
                 this.informAll();
             });
         } else {
-            this.messenger.sendToBackground(BackgroundMessages.GetSettings);
-
-            window.addEventListener('message', (event) => {
-                if (event.data.message === BackgroundMessages.SyncSettings) {
-                    this.settings = event.data.data || DEFAULT_SETTINGS;
+            this.messenger.sendToBackground(BackgroundMessages.GetSettings, BackgroundMessages.SyncSettings)
+                .then((settings: { [key: string]: any }) => {
+                    this.settings = settings || DEFAULT_SETTINGS;
                     this.informAll();
-                }
-            });
+                })
         }
-
     }
 
     subscribe(key: SettingsNames, callback: Function) {
@@ -57,13 +53,13 @@ export class SettingsService {
 
     set(key: SettingsNames, value: any) {
         this.settings[key] = value;
-        this.messenger.sendToBackground(BackgroundMessages.UpdateSettings, { [key]: value });
+        this.messenger.asyncSendToBackground(BackgroundMessages.UpdateSettings, { [key]: value });
         this.inform(key);
     }
 
     batchUpdate(updates: { [key: string]: any }) {
         Object.assign(this.settings, updates);
-        this.messenger.sendToBackground(BackgroundMessages.UpdateSettings, updates);
+        this.messenger.asyncSendToBackground(BackgroundMessages.UpdateSettings, updates);
         this.informAll();
     }
 

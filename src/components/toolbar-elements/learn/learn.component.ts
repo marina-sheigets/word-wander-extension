@@ -25,6 +25,6 @@ export class LearnComponent extends BaseComponent {
     }
 
     private goToTrainingsPage() {
-        this.messenger.sendToBackground(BackgroundMessages.GoToTrainings);
+        this.messenger.asyncSendToBackground(BackgroundMessages.GoToTrainings);
     }
 } 

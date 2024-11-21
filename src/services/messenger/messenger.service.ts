@@ -26,9 +26,30 @@ export class MessengerService {
         }
     }
 
-    sendToBackground(message: string, setting?: { [key: string]: any }) {
-        window.postMessage({ message, data: setting });
+    asyncSendToBackground(message: string, setting?: { [key: string]: any }) {
+        window.postMessage({ message, data: setting })
     }
+
+    sendToBackground(message: string, responseMessage?: string, setting?: { [key: string]: any }): Promise<any> {
+        return new Promise((resolve, reject) => {
+
+            const listener = (event: MessageEvent) => {
+                if (event.data.message === responseMessage) {
+                    window.removeEventListener('message', listener);
+                    if (event.data.error) {
+                        reject(event.data.error);
+                    } else {
+                        resolve(event.data.data);
+                    }
+                }
+            };
+
+            window.addEventListener('message', listener);
+
+            window.postMessage({ message, data: setting });
+        });
+    }
+
 
     subscribeOnBackgroundMessage(message: string, callback: (data: any) => void) {
         window.addEventListener('message', (event) => {

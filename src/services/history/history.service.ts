@@ -12,7 +12,7 @@ export class HistoryService {
     constructor(
         private messenger: MessengerService
     ) {
-        this.messenger.sendToBackground(BackgroundMessages.GetHistory);
+        this.messenger.asyncSendToBackground(BackgroundMessages.GetHistory);
 
         this.listenToHistoryUpdates();
     }
@@ -46,7 +46,7 @@ export class HistoryService {
     public clearHistory() {
         this.history = [];
         this.historyUpdated.inform();
-        this.messenger.sendToBackground(BackgroundMessages.UpdateHistory, this.history);
+        this.messenger.asyncSendToBackground(BackgroundMessages.UpdateHistory, this.history);
     }
 
     private checkHistoryLength() {
@@ -54,7 +54,7 @@ export class HistoryService {
             this.history.pop();
         }
 
-        this.messenger.sendToBackground(BackgroundMessages.UpdateHistory, this.history);
+        this.messenger.asyncSendToBackground(BackgroundMessages.UpdateHistory, this.history);
     }
 
     private isItemAlreadyInHistory(newItem: HistoryItem) {
