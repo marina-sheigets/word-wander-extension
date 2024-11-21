@@ -17,7 +17,6 @@ export class DictionaryService {
         protected messenger: MessengerService,
         protected httpService: HttpService
     ) {
-
     }
 
     async addWordToDictionary(word: string, translation: string) {
@@ -30,7 +29,7 @@ export class DictionaryService {
             const response = await this.httpService.post('dictionary/add-word', { word, translation })
 
             if (response?.status === 201) {
-                this.messenger.send(Messages.WordAddedToDictionary);
+                this.messenger.send(Messages.WordAddedToDictionary, { word, translation, id: response.data._id, selected: false });
             }
         } catch (e) {
             this.messenger.send(Messages.WordNotAddedToDictionary);

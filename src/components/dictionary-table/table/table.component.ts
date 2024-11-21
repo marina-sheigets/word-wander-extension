@@ -11,7 +11,10 @@ import { DictionaryService } from "../../../services/dictionary/dictionary.servi
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
 import { DictionaryTableItem } from "../../../types/DictionaryTableItem";
 import { SettingsService } from "../../../services/settings/settings.service";
+import { MessengerService } from "../../../services/messenger/messenger.service";
+import { Messages } from "../../../constants/messages";
 import { SettingsNames } from "../../../constants/settingsNames";
+import { LoaderComponent } from "../../loader/loader.component";
 
 @singleton()
 export class TableComponent extends BaseComponent {
@@ -23,18 +26,32 @@ export class TableComponent extends BaseComponent {
         protected i18n: I18nService,
         protected textToSpeechService: TextToSpeechService,
         protected dictionaryService: DictionaryService,
-        protected settingsService: SettingsService
+        protected settingsService: SettingsService,
+        protected messenger: MessengerService,
+        protected loader: LoaderComponent
     ) {
         super(styles);
 
-        this.settingsService.subscribe(SettingsNames.User, async () => {
-            this.tableData = await this.dictionaryService.fetchDictionary();
+        this.messenger.subscribe(Messages.WordAddedToDictionary, (word: DictionaryTableItem) => {
+            this.tableData.push(word);
             this.initTable();
         });
+
+        this.dictionaryService.onDataChanged.subscribe(this.initTable.bind(this));
+
+        this.settingsService.subscribe(SettingsNames.User, async () => {
+            this.tableData = await this.dictionaryService.fetchDictionary();
+            this.loader.hide();
+        });
+
+        this.loader.show();
+        this.rootElement.append(this.loader.rootElement);
     }
 
 
-    private async initTable() {
+    private async initTable(data?: DictionaryTableItem[]) {
+        this.tableData = data || this.tableData;
+
         this.rootElement.textContent = '';
         if (!this.tableData.length) {
             this.i18n.subscribe(i18nKeys.EmptyDictionary, (value: string) => {
