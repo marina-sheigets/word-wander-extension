@@ -75,8 +75,9 @@ export class HistoryMenuComponent extends MenuComponent {
                 const addWordButton = new ButtonComponent(this.i18n);
                 addWordButton.addButtonIcon(IconName.Plus);
                 addWordButton.addTooltip(i18nKeys.AddToDictionary);
-                addWordButton.onClick.subscribe(() => {
-                    this.dictionaryService.addWordToDictionary(item.word, item.translation);
+                addWordButton.onClick.subscribe(async () => {
+                    await this.dictionaryService.addWordToDictionary(item.word, item.translation);
+                    this.historyService.removeItemFromHistory(item);
                 });
                 this.historyContainer.append(
                     playButton.rootElement,
