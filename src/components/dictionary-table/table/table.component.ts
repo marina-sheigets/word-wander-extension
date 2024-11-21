@@ -27,59 +27,56 @@ export class TableComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.settingsService.subscribe(SettingsNames.User, this.initTable.bind(this));
+        this.settingsService.subscribe(SettingsNames.User, async () => {
+            this.tableData = await this.dictionaryService.fetchDictionary();
+            this.initTable();
+        });
     }
 
+
     private async initTable() {
-        try {
-            this.rootElement.textContent = "";
-
-            this.tableData = await this.dictionaryService.fetchDictionary();
-
-            if (!this.tableData.length) {
-                this.i18n.subscribe(i18nKeys.EmptyDictionary, (value: string) => {
-                    this.rootElement.textContent = value;
-                });
-                return;
-            }
-
-            this.tableData.forEach((item) => {
-                const checkbox = new CheckboxComponent(item.id);
-                const removeWordIcon = new ButtonComponent(this.i18n);
-
-                const playWordIcon = new ButtonComponent(this.i18n);
-                playWordIcon.rootElement.classList.add(styles.playWordIcon);
-                playWordIcon.addButtonIcon(IconName.MusicNote);
-                playWordIcon.onClick.subscribe(() => {
-                    this.textToSpeechService.play(item.word);
-                })
-
-                const wordContainer = document.createElement('div');
-                wordContainer.classList.add(styles.wordContainer);
-                wordContainer.textContent = item.word;
-
-                const translationContainer = document.createElement('div');
-                translationContainer.classList.add(styles.translationContainer);
-                translationContainer.textContent = item.translation;
-
-                checkbox.onCheckboxChange.subscribe(this.updateTableDataSelected.bind(this))
-                removeWordIcon.addButtonIcon(IconName.Delete);
-
-                this.rootElement.append(
-                    checkbox.rootElement,
-                    playWordIcon.rootElement,
-                    wordContainer,
-                    translationContainer,
-                    removeWordIcon.rootElement
-                );
-
-            });
-        } catch (e) {
-            this.tableData = [];
-            this.i18n.subscribe(i18nKeys.SomethingWentWrong, (value: string) => {
+        this.rootElement.textContent = '';
+        if (!this.tableData.length) {
+            this.i18n.subscribe(i18nKeys.EmptyDictionary, (value: string) => {
                 this.rootElement.textContent = value;
             });
+            return;
         }
+
+        this.tableData.forEach((item) => {
+            const checkbox = new CheckboxComponent(item.id);
+            const removeWordIcon = new ButtonComponent(this.i18n);
+
+            const playWordIcon = new ButtonComponent(this.i18n);
+            playWordIcon.rootElement.classList.add(styles.playWordIcon);
+            playWordIcon.addButtonIcon(IconName.MusicNote);
+            playWordIcon.onClick.subscribe(() => {
+                this.textToSpeechService.play(item.word);
+            })
+
+            const wordContainer = document.createElement('div');
+            wordContainer.classList.add(styles.wordContainer);
+            wordContainer.textContent = item.word;
+
+            const translationContainer = document.createElement('div');
+            translationContainer.classList.add(styles.translationContainer);
+            translationContainer.textContent = item.translation;
+
+            checkbox.onCheckboxChange.subscribe(this.updateTableDataSelected.bind(this))
+            removeWordIcon.addButtonIcon(IconName.Delete);
+            removeWordIcon.onClick.subscribe(async () => {
+                this.handleRemoveWord(item);
+            });
+
+            this.rootElement.append(
+                checkbox.rootElement,
+                playWordIcon.rootElement,
+                wordContainer,
+                translationContainer,
+                removeWordIcon.rootElement
+            );
+
+        });
     }
 
     protected updateTableDataSelected(checkbox: HTMLInputElement) {
@@ -106,5 +103,10 @@ export class TableComponent extends BaseComponent {
         this.onSelectedChange.inform();
     }
 
-
+    private async handleRemoveWord(item: DictionaryTableItem) {
+        await this.dictionaryService.removeWordFromDictionary(item.id);
+        this.tableData = this.tableData.filter((tableItem) => tableItem.id !== item.id);
+        this.initTable();
+        this.onSelectedChange.inform(this.tableData);
+    }
 }

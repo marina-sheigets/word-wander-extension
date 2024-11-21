@@ -41,7 +41,12 @@ export class DictionaryService {
         try {
             const response = await this.httpService.get(URL.dictionary.getWords);
 
-            this.data = response?.data.map((item: DictionaryTableItem) => ({ ...item, selected: false }));
+            this.data = response?.data.map((item: any) => ({
+                id: item._id,
+                word: item.word,
+                translation: item.translation,
+                selected: false
+            }));
             this.onDataChanged.inform(this.data);
             return this.data;
         } catch (e) {
@@ -51,5 +56,15 @@ export class DictionaryService {
 
     public getDictionaryData() {
         return this.data;
+    }
+
+    public async removeWordFromDictionary(id: string) {
+        try {
+            const response = await this.httpService.delete(URL.dictionary.deleteWord, { wordId: id });
+
+            return response;
+        } catch (e) {
+            throw e;
+        }
     }
 }

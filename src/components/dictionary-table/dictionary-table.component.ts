@@ -87,6 +87,10 @@ export class DictionaryTableComponent extends BaseComponent {
         this.i18n.follow(i18nKeys.AmountWords, (value) => {
             this.amountWordsLabel.textContent = data.length + value;
         });
+
+        if (!data.length) {
+            this.selectAllButton.hide();
+        }
     }
 
     protected toggleSelectAllWordsButtons(amountOfSelectedWords: number) {

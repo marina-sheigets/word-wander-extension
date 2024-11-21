@@ -43,7 +43,10 @@ export class HttpService {
         return this.axiosInstance?.get(url, config);
     }
 
-    public delete(url: string, config?: AxiosRequestConfig) {
+    public delete(url: string, requestParams?: any, config?: AxiosRequestConfig) {
+        if (requestParams) {
+            url += `?${new URLSearchParams(requestParams).toString()}`;
+        }
         return this.axiosInstance?.delete(url, config);
     }
 

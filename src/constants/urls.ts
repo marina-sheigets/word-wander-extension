@@ -1,7 +1,8 @@
 export const URL = {
     dictionary: {
         addWord: 'dictionary/add-word',
-        getWords: 'dictionary/get-words'
+        getWords: 'dictionary/get-words',
+        deleteWord: 'dictionary/delete-word',
     },
     auth: {
         login: 'auth/login',
