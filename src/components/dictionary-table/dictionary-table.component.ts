@@ -26,14 +26,20 @@ export class DictionaryTableComponent extends BaseComponent {
 
         this.selectAllButton.addButtonName(i18nKeys.SelectAll);
         this.selectAllButton.rootElement.classList.add(styles.selectAllButton);
-        this.selectAllButton.onClick.subscribe(this.tableComponent.toggleSelectAllWords.bind(this.tableComponent, true));
+        this.selectAllButton.onClick.subscribe(() => {
+            this.tableComponent.toggleSelectAllWords(true);
+            this.toggleHideDeleteWordButtons(true);
+        });
 
         this.sendOnTrainingButton.addButtonName(i18nKeys.SendOnTraining);
         this.sendOnTrainingButton.hide();
 
         this.unselectAllButton.addButtonName(i18nKeys.UnselectAll);
         this.unselectAllButton.rootElement.classList.add(styles.selectAllButton);
-        this.unselectAllButton.onClick.subscribe(this.tableComponent.toggleSelectAllWords.bind(this.tableComponent, false));
+        this.unselectAllButton.onClick.subscribe(() => {
+            this.tableComponent.toggleSelectAllWords(false);
+            this.toggleHideDeleteWordButtons(false);
+        });
         this.unselectAllButton.hide();
 
         this.amountWordsLabel.classList.add(styles.amountWords);
@@ -60,27 +66,28 @@ export class DictionaryTableComponent extends BaseComponent {
     }
 
     private changeWordsSelectedLabel() {
-        const amountOfSelectedWords = this.tableComponent.getTableData().filter(item => item.selected).length;
+        const selectedWords = this.tableComponent.getTableData().filter(item => item.selected);
 
-        this.toggleSelectAllWordsButtons(amountOfSelectedWords);
+        this.toggleSelectAllWordsButtons(selectedWords.length);
 
-        if (amountOfSelectedWords) {
+        if (selectedWords.length) {
             this.sendOnTrainingButton.show();
+            this.toggleHideDeleteWordButtons(true);
 
-            if (amountOfSelectedWords === 1) {
+            if (selectedWords.length === 1) {
                 this.i18n.follow(i18nKeys.OneWordSelected, (value) => {
                     this.wordsSelectedLabel.textContent = value;
                 });
             } else {
                 this.i18n.follow(i18nKeys.ManyWordsSelected, (value) => {
-                    this.wordsSelectedLabel.textContent = amountOfSelectedWords + value;
+                    this.wordsSelectedLabel.textContent = selectedWords.length + value;
                 });
             }
         } else {
+            this.toggleHideDeleteWordButtons(false);
             this.sendOnTrainingButton.hide();
             this.wordsSelectedLabel.textContent = "";
         }
-
     }
 
     private changeWordsInDictionaryLabel(data: DictionaryTableItem[]) {
@@ -101,5 +108,16 @@ export class DictionaryTableComponent extends BaseComponent {
             this.selectAllButton.show();
             this.unselectAllButton.hide();
         }
+    }
+
+    private toggleHideDeleteWordButtons(toHide: boolean) {
+        const tableData = this.tableComponent.getTableData();
+
+        tableData.forEach((item) => {
+            const deleteButton = document.getElementById("delete-word-icon-" + item.id);
+            if (deleteButton) {
+                deleteButton.style.visibility = toHide ? 'hidden' : 'visible';
+            }
+        });
     }
 }

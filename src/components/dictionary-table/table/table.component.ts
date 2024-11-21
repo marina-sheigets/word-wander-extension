@@ -84,6 +84,7 @@ export class TableComponent extends BaseComponent {
             removeWordIcon.onClick.subscribe(async () => {
                 this.handleRemoveWord(item);
             });
+            removeWordIcon.rootElement.id = "delete-word-icon-" + item.id;
 
             this.rootElement.append(
                 checkbox.rootElement,
