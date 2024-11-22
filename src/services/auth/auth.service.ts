@@ -46,9 +46,7 @@ export class AuthService {
                 return;
             }
 
-            if (e.response.data.error.message) {
-                this.messenger.send(Messages.ShowAuthError, e.response.data.error.message);
-            }
+            this.messenger.send(Messages.ShowAuthError, e.response.data.message);
         }
     }
 
@@ -56,16 +54,12 @@ export class AuthService {
         try {
             const response = await this.http.post('/auth/login', { email, password });
 
-            if (!response || (response && response.data.error)) {
-                throw Error;
-            }
-
             this.isAuth = true;
-            this.userService.saveUserData(response.data);
+            this.userService.saveUserData(response?.data);
 
             this.closeSignInPopup();
         } catch (e) {
-            if (e.response.data.message) {
+            if (e?.response?.data?.message) {
                 this.messenger.send(Messages.ShowAuthError, e.response.data.message);
             }
         }

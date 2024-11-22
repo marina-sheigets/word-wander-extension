@@ -9,14 +9,13 @@ import { AuthService } from "../../../services/auth/auth.service";
 import { I18nService } from "../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
 import { SignInButton } from "../../button/sign-in/sign-in.button";
+import { ErrorMessageComponent } from "../../error-message/error-message.component";
 
 @singleton()
 export class SignInPopupComponent extends PopupComponent {
     private content = document.createElement('div');
     private resetPasswordWrapper = document.createElement('div');
     private resetPasswordLabel = document.createElement('div');
-
-    private authErrorWrapper = document.createElement('div');
 
     constructor(
         protected messenger: MessengerService,
@@ -25,6 +24,7 @@ export class SignInPopupComponent extends PopupComponent {
         protected signInButton: SignInButton,
         protected authService: AuthService,
         protected resetPasswordButton: ButtonComponent,
+        protected errorMessage: ErrorMessageComponent,
         protected i18n: I18nService
     ) {
         super(i18n);
@@ -43,7 +43,6 @@ export class SignInPopupComponent extends PopupComponent {
         this.signInButton.onClick.subscribe(this.signIn.bind(this));
 
         this.resetPasswordWrapper.classList.add(styles.resetPasswordWrapper);
-        this.authErrorWrapper.classList.add(styles.authErrorWrapper);
 
         this.i18n.follow(i18nKeys.ForgotPassword, (text) => {
             this.resetPasswordLabel.textContent = text;
@@ -63,8 +62,8 @@ export class SignInPopupComponent extends PopupComponent {
         this.content.append(
             this.emailInputComponent.rootElement,
             this.passwordInputComponent.rootElement,
+            this.errorMessage.rootElement,
             this.signInButton.rootElement,
-            this.authErrorWrapper,
             this.resetPasswordWrapper
         );
 
@@ -78,11 +77,16 @@ export class SignInPopupComponent extends PopupComponent {
     }
 
     private signIn() {
-        this.hideAuthError();
+        this.errorMessage.hideErrorMessage();
         this.signInButton.disable();
-        this.authService.signUp(this.emailInputComponent.input.value, this.passwordInputComponent.input.value).finally(() => {
-            this.signInButton.enable();
-        });
+        this.authService.signUp(this.emailInputComponent.input.value, this.passwordInputComponent.input.value)
+            .finally(() => {
+                this.signInButton.enable();
+            });
+    }
+
+    private showAuthError(message: string | string[]) {
+        this.errorMessage.showErrorMessage(message);
     }
 
     private resetPassword() {
@@ -90,16 +94,9 @@ export class SignInPopupComponent extends PopupComponent {
         this.messenger.send(Messages.OpenResetPasswordPopup);
     }
 
-    private showAuthError(message: string) {
-        this.authErrorWrapper.textContent = message;
-    }
-
-    private hideAuthError() {
-        this.authErrorWrapper.textContent = '';
-    }
-
     public hide() {
         super.hide();
+        this.errorMessage.hideErrorMessage();
         this.resetCredentials();
     }
 

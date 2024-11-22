@@ -15,6 +15,8 @@ export class ErrorMessageComponent extends BaseComponent {
         super(styles);
 
         this.rootElement.append(this.errorWrapper);
+
+        this.hideErrorMessage();
     }
 
     public showErrorMessage(message: string | string[]) {
@@ -31,6 +33,8 @@ export class ErrorMessageComponent extends BaseComponent {
             error.textContent = message;
             this.errorWrapper.append(error);
         }
+
+        this.rootElement.style.display = 'block';
     }
 
     public hideErrorMessage() {
