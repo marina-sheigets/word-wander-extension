@@ -15,6 +15,7 @@ import { MessengerService } from "../../../services/messenger/messenger.service"
 import { Messages } from "../../../constants/messages";
 import { SettingsNames } from "../../../constants/settingsNames";
 import { LoaderComponent } from "../../loader/loader.component";
+import { AuthorizationData } from "../../../types/AuthorizationData";
 
 @singleton()
 export class TableComponent extends BaseComponent {
@@ -39,7 +40,8 @@ export class TableComponent extends BaseComponent {
 
         this.dictionaryService.onDataChanged.subscribe(this.initTable.bind(this));
 
-        this.settingsService.subscribe(SettingsNames.User, async () => {
+        this.settingsService.subscribe(SettingsNames.User, async (userData: AuthorizationData) => {
+            if (!userData) return;
             this.tableData = await this.dictionaryService.fetchDictionary();
             this.loader.hide();
         });
