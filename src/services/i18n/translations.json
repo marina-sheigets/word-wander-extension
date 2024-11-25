@@ -7,6 +7,18 @@
     "en":"words to learn",
     "uk":"слів для вивчення"
   },
+  "GoToDictionary": {
+    "en": "Go to dictionary",
+    "uk": "Перейти до словника"
+  },
+  "NotEnoughWordsDescription": {
+    "en": "Please go to the dictionary and select more words to start training.",
+    "uk": "Будь ласка, перейдіть до словника та виберіть більше слів для початку тренування."
+  },
+  "NotEnoughWordsTitle":{
+    "en":"Not enough words",
+    "uk":"Недостатньо слів"
+  },
   "AccountManagement": {
     "en": "Account management",
     "uk": "Управління акаунтом"

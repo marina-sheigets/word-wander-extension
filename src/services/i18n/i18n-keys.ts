@@ -1,4 +1,7 @@
 export const enum i18nKeys {
+    GoToDictionary = "GoToDictionary",
+    NotEnoughWordsTitle = "NotEnoughWordsTitle",
+    NotEnoughWordsDescription = "NotEnoughWordsDescription",
     AmountWordsChip = "AmountWordsChip",
     EmptyDictionary = "EmptyDictionary",
     DeleteAccountDescription = "DeleteAccountDescription",

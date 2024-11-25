@@ -24,6 +24,8 @@ export class TrainingsTabsButtonsComponent extends BaseComponent {
         this.rootElement.append(
             this.buttonsContainer,
         )
+
+        this.trainingsTabsService.onTabChange.subscribe(this.setActiveTab.bind(this));
     }
 
     private initTabsButtons() {
@@ -39,22 +41,23 @@ export class TrainingsTabsButtonsComponent extends BaseComponent {
 
             buttonComponent.onClick.subscribe((e: MouseEvent) => {
                 this.trainingsTabsService.changeTab((e.currentTarget as HTMLButtonElement).value as TrainingsTab);
-                this.setAllUnactive();
-                buttonComponent.rootElement.classList.add(styles.active);
             });
 
             this.buttonsContainer.append(buttonComponent.rootElement);
         });
     }
 
-    private setAllUnactive() {
+    private setAllInactive() {
         const buttons = this.buttonsContainer.childNodes;
 
         buttons.forEach((button: HTMLElement) => {
-            if (button.classList.contains(styles.active)) {
-                button.classList.remove(styles.active);
-            }
+            button.classList.remove(styles.active);
         })
     }
 
+    private setActiveTab(tab: TrainingsTab) {
+        this.setAllInactive();
+        this.buttonsContainer.querySelector(`[value=${tab}]`)?.parentElement?.classList.add(styles.active);
+
+    }
 }

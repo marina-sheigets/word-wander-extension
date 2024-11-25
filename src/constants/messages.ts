@@ -1,4 +1,5 @@
 export const enum Messages {
+    ShowNotEnoughWordsPopup = 'ShowNotEnoughWordsPopup',
     ChangeExtensionPageTitle = 'ChangeExtensionPageTitle',
     OpenSettings = 'OpenSettings',
     CloseSettings = 'CloseSettings',
@@ -8,6 +9,7 @@ export const enum Messages {
     OpenResetPasswordPopup = 'OpenResetPasswordPopup',
     OpenReportPopup = 'OpenReportPopup',
 
+    ChangeTab = 'ChangeTab',
     //Trainings
     StartWordTranslationTraining = 'StartWordTranslationTraining',
     FinishWordTranslationTraining = 'FinishWordTranslationTraining',

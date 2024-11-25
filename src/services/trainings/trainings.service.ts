@@ -9,6 +9,7 @@ import { SettingsNames } from "../../constants/settingsNames";
 import { AuthorizationData } from "../../types/AuthorizationData";
 import { HttpService } from "../http/http.service";
 import { URL } from "../../constants/urls";
+import { trainings } from "../../constants/trainings";
 
 @singleton()
 export class TrainingsService {
@@ -57,6 +58,17 @@ export class TrainingsService {
     public getAmountOfWordsForTraining(name: string): number {
         return this.amountWordsForTrainings.find((amount) => amount.training === name)?.amountOfWords || 0;
     }
+
+    public areEnoughWordsForTraining(gameID: number): boolean {
+        const selectedTrainingName = trainings.find((training) => training.id === gameID)?.name;
+
+        if (!selectedTrainingName) {
+            return false;
+        }
+
+        return this.getAmountOfWordsForTraining(selectedTrainingName) > 0;
+    }
+
 
     public fetchDataForWordTranslation() {
         setTimeout(() => {

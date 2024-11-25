@@ -59,6 +59,11 @@ export class GameCardComponent extends BaseComponent {
     private handleClick(e: MouseEvent) {
         e.stopPropagation();
 
+        if (!this.trainingsService.areEnoughWordsForTraining(this.gameID || 0)) {
+            this.messenger.send(Messages.ShowNotEnoughWordsPopup);
+            return;
+        }
+
         if (this.gameID) {
             this.messenger.send(Messages.ShowStartTrainingPopup, this.gameID);
         }

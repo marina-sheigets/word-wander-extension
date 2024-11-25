@@ -12,6 +12,7 @@ import { WordConstructionTrainingComponent } from '../components/trainings/word-
 import { ListeningTrainingComponent } from '../components/trainings/listening/listening-training.component';
 import { AudioChallengeTrainingComponent } from '../components/trainings/audio-challenge/audio-challenge-training.component';
 import { SignInPopupComponent } from '../components/popups/sign-in/sign-in.component';
+import { NotEnoughWordsPopup } from '../components/popups/not-enough-words/not-enough-words-popup.component';
 
 @singleton()
 class Trainings {
@@ -26,6 +27,7 @@ class Trainings {
         protected listeningTraining: ListeningTrainingComponent,
         protected audioChallengeTraining: AudioChallengeTrainingComponent,
         protected signInPopup: SignInPopupComponent,
+        protected notEnoughWordsPopup: NotEnoughWordsPopup,
         protected messenger: MessengerService,
     ) {
         document.body.style.margin = "0";
@@ -33,6 +35,7 @@ class Trainings {
         document.body.style.overflow = "hidden";
 
         document.body.append(
+            this.notEnoughWordsPopup.rootElement,
             this.signInPopup.rootElement,
             this.trainingsComponent.rootElement,
             this.startTrainingPopup.rootElement,
