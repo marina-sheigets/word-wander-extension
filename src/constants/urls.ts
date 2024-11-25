@@ -11,5 +11,8 @@ export const URL = {
         changePassword: 'auth/change-password',
         signOut: 'auth/logout',
         deleteAccount: 'auth/delete-account',
+    },
+    training: {
+        getAmountWordsForTrainings: 'training/get-amount-words-for-trainings',
     }
 }

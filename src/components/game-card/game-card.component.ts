@@ -52,6 +52,10 @@ export class GameCardComponent extends BaseComponent {
         })
     }
 
+    setAmountWordsChip(amountWordsChip: HTMLElement) {
+        this.amountOfWords.appendChild(amountWordsChip);
+    }
+
     private handleClick(e: MouseEvent) {
         e.stopPropagation();
 

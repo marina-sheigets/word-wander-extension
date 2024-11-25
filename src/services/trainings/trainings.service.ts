@@ -3,18 +3,29 @@ import { Messages } from "../../constants/messages";
 import { MessengerService } from "../messenger/messenger.service";
 import { FinishTrainingsMessages, StartTrainingsMessages } from "../../constants/trainingMessages";
 import { AudioChallengeTrainingData, RepeatingTrainingData, WordConstructionTrainingData } from "../../types/TrainingsData";
+import { AmountWords } from "../../types/AmountWords";
+import { SettingsService } from "../settings/settings.service";
+import { SettingsNames } from "../../constants/settingsNames";
+import { AuthorizationData } from "../../types/AuthorizationData";
+import { HttpService } from "../http/http.service";
+import { URL } from "../../constants/urls";
 
 @singleton()
 export class TrainingsService {
     protected isGameInProgress = false;
     private currentGame: number | null = null;
+    private amountWordsForTrainings: AmountWords[] = [];
 
     constructor(
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected settingsService: SettingsService,
+        protected httpService: HttpService
     ) {
 
         this.messenger.subscribe(Messages.InterruptTraining, this.interruptTraining.bind(this));
         this.messenger.subscribe(Messages.FinishTraining, this.finishGame.bind(this));
+
+        this.settingsService.subscribe(SettingsNames.User, this.fetchAmountOfWords.bind(this));
     }
 
     startGame(gameID: number) {
@@ -25,6 +36,26 @@ export class TrainingsService {
 
     showCloseTrainingPopup() {
         this.messenger.send(Messages.ShowCloseTrainingPopup, this.currentGame);
+    }
+
+    private fetchAmountOfWords(user: AuthorizationData) {
+        if (!user) {
+            return;
+        }
+
+        this.httpService.get(URL.training.getAmountWordsForTrainings)?.then((res) => {
+            if (res && res.data) {
+                this.amountWordsForTrainings = res.data;
+            }
+        })
+            .finally(() => {
+                this.messenger.send(Messages.InitTrainingsList);
+            })
+
+    }
+
+    public getAmountOfWordsForTraining(name: string): number {
+        return this.amountWordsForTrainings.find((amount) => amount.training === name)?.amountOfWords || 0;
     }
 
     public fetchDataForWordTranslation() {

@@ -3,6 +3,10 @@
     "en":"No selected text found",
     "uk":"Не знайдено тексту"
   },
+  "AmountWordsChip":{
+    "en":"words to learn",
+    "uk":"слів для вивчення"
+  },
   "AccountManagement": {
     "en": "Account management",
     "uk": "Управління акаунтом"

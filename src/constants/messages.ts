@@ -34,6 +34,7 @@ export const enum Messages {
     ShowStartTrainingPopup = 'ShowStartTrainingPopup',
     ShowCloseTrainingPopup = 'ShowCloseTrainingPopup',
 
+    InitTrainingsList = 'InitTrainingsList',
     //Auth
     ShowAuthError = 'ShowAuthError',
 

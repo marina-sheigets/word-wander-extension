@@ -1,0 +1,17 @@
+.rootClassName {
+    border-radius: 5px;
+    width: 150px;
+    padding: 5px 10px;
+    text-align: center;
+    background-color:transparent;
+}
+
+.active {
+    border: 1px solid #00CE8F;
+    color:#00CE8F;
+}
+
+.inactive {
+    border: 1px solid #9EA5AE;
+    color:#9EA5AE;
+}
