@@ -97,6 +97,8 @@ export class SearchMenuComponent extends MenuComponent {
     }
 
     private async onSearch(value: string) {
+        this.emptyContainer.classList.add(styles.hidden);
+
         if (value.trim().length === 0 || value === this.searchContent.getWord()) {
             return;
         }
