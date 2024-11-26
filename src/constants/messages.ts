@@ -8,7 +8,7 @@ export const enum Messages {
     CloseSignInPopup = 'CloseSignInPopup',
     OpenResetPasswordPopup = 'OpenResetPasswordPopup',
     OpenReportPopup = 'OpenReportPopup',
-
+    SendWordsOnTrainingPopup = 'SendWordsOnTrainingPopup',
     ChangeTab = 'ChangeTab',
     //Trainings
     StartWordTranslationTraining = 'StartWordTranslationTraining',

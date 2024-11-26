@@ -7,6 +7,10 @@
     "en":"words to learn",
     "uk":"слів для вивчення"
   },
+  "Done": {
+    "en": "Done",
+    "uk": "Готово"
+  },
   "GoToDictionary": {
     "en": "Go to dictionary",
     "uk": "Перейти до словника"
@@ -137,10 +141,23 @@
     },
     "SelectSourceLanguage":{
         "en":"Select source language",
-        "uk":"Виберіть мову джерела"},
+        "uk":"Виберіть мову джерела"
+    },
+    "Send":{
+        "en":"Send",
+        "uk":"Відправити"
+    },
     "SelectTargetLanguage":{
         "en":"Select target language",
         "uk":"Виберіть цільову мову"
+    },
+    "SendWordsOnTrainingTitle":{
+        "en":"Send words on training",
+        "uk":"Відправити слова на тренування"
+    },
+    "SendWordsOnTrainingDescription":{
+        "en": "Please select trainings you want to send words to.",
+        "uk": "Будь ласка, виберіть тренування, на які ви хочете відправити слова."
     },
     "InterfaceLanguage":{
         "en":"Interface language",

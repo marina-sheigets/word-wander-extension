@@ -7,6 +7,8 @@ import { ButtonComponent } from "../button/button.component";
 import { TableComponent } from "./table/table.component";
 import { DictionaryService } from "../../services/dictionary/dictionary.service";
 import { DictionaryTableItem } from "../../types/DictionaryTableItem";
+import { MessengerService } from "../../services/messenger/messenger.service";
+import { Messages } from "../../constants/messages";
 
 @singleton()
 export class DictionaryTableComponent extends BaseComponent {
@@ -20,7 +22,8 @@ export class DictionaryTableComponent extends BaseComponent {
         protected unselectAllButton: ButtonComponent,
         protected sendOnTrainingButton: ButtonComponent,
         protected tableComponent: TableComponent,
-        protected dictionaryService: DictionaryService
+        protected dictionaryService: DictionaryService,
+        protected messengerService: MessengerService
     ) {
         super();
 
@@ -33,6 +36,9 @@ export class DictionaryTableComponent extends BaseComponent {
 
         this.sendOnTrainingButton.addButtonName(i18nKeys.SendOnTraining);
         this.sendOnTrainingButton.hide();
+        this.sendOnTrainingButton.onClick.subscribe(() => {
+            this.messengerService.send(Messages.SendWordsOnTrainingPopup);
+        });
 
         this.unselectAllButton.addButtonName(i18nKeys.UnselectAll);
         this.unselectAllButton.rootElement.classList.add(styles.selectAllButton);

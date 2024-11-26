@@ -1,5 +1,7 @@
 export const enum i18nKeys {
+    SendWordsOnTrainingTitle = "SendWordsOnTrainingTitle",
     GoToDictionary = "GoToDictionary",
+    Done = "Done",
     NotEnoughWordsTitle = "NotEnoughWordsTitle",
     NotEnoughWordsDescription = "NotEnoughWordsDescription",
     AmountWordsChip = "AmountWordsChip",
@@ -9,6 +11,8 @@ export const enum i18nKeys {
     PasswordChanged = "PasswordChanged",
     AccountManagement = "AccountManagement",
     Save = "Save",
+    Send = "Send",
+    SendWordsOnTrainingDescription = "SendWordsOnTrainingDescription",
     Added = "Added",
     DeleteAccount = "DeleteAccount",
     Cancel = "Cancel",

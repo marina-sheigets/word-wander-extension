@@ -66,4 +66,14 @@ export class DictionaryService {
             throw e;
         }
     }
+
+    public async addWordsToTrainings(selectedWordsIds: string[], selectedTrainings: string[]) {
+        try {
+            const response = await this.httpService.post(URL.training.sendWordsOnTrainings, { selectedWordsIds, selectedTrainings });
+
+            return response;
+        } catch (e) {
+            throw e;
+        }
+    }
 }

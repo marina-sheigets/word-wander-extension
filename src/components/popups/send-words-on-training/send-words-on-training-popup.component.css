@@ -1,0 +1,15 @@
+.content div:last-child {
+   display: flex;
+   justify-content: center;
+}
+
+.checkboxesWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 16px 0;
+}
+
+.checkboxesWrapper label {
+    display: flex;
+    align-items: center;
+}

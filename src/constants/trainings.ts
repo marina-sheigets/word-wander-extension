@@ -1,6 +1,7 @@
 import { i18nKeys } from "../services/i18n/i18n-keys";
+import { Training } from "../types/Training";
 
-export const trainings = [
+export const trainings: Training[] = [
     {
         id: 1,
         title: i18nKeys.WordTranslationTitle,
