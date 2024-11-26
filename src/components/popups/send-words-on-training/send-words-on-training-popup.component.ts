@@ -61,6 +61,8 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
     }
 
     private initTrainingCheckboxes() {
+        this.sendButton.show();
+        this.checkboxesWrapper.textContent = '';
         this.trainingData = trainings.map(item => ({ ...item, selected: false }));
 
         this.trainingData.forEach((training) => {
@@ -94,18 +96,23 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
         this.dictionaryService.addWordsToTrainings(selectedWordsIds, selectedTrainingsNames)
             .then(() => {
                 this.i18n.follow(i18nKeys.Done, (value) => {
-                    this.content.textContent = value;
+                    this.description.textContent = value;
                 });
             })
             .catch((e) => {
                 console.error(e);
                 this.i18n.follow(i18nKeys.SomethingWentWrong, (value) => {
-                    this.content.textContent = value;
+                    this.description.textContent = value;
                 });
             })
             .finally(() => {
                 this.loader.hide();
-                this.sendButton.show();
+
+                this.checkboxesWrapper.style.display = 'none';
+                setTimeout(() => {
+                    this.hide();
+                    this.checkboxesWrapper.style.display = 'block';
+                }, 2000);
             })
     }
 }

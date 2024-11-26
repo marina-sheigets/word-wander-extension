@@ -72,7 +72,7 @@ export class DictionaryService {
             const response = await this.httpService.post(URL.training.sendWordsOnTrainings,
                 {
                     wordsIds: selectedWordsIds,
-                    trainingsIds: selectedTrainings
+                    trainings: selectedTrainings
                 }
             );
 

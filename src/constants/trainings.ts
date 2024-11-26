@@ -24,7 +24,7 @@ export const trainings: Training[] = [
         id: 4,
         title: i18nKeys.WordConstructionTitle,
         description: i18nKeys.WordConstructionDescription,
-        name: 'word-construction',
+        name: 'word-constructor',
     },
     {
         id: 5,
