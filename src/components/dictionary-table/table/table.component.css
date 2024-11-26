@@ -3,7 +3,8 @@
     display: grid;
     grid-template-columns: 50px 50px 1fr 1fr 50px;
     row-gap: 7px;
-    
+    overflow-y: scroll;
+    height: 250px;
 }
 
 .wordContainer, .translationContainer {
