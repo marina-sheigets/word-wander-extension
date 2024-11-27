@@ -85,15 +85,12 @@ export class HttpService {
                     const data = await this.refreshTokenRequest();
 
                     if (!data) {
-                        this.settingsService.set(SettingsNames.User, null);
-                        return Promise.reject(error);
+                        throw Error;
                     }
 
                     originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
                     return this.axiosInstance?.request(originalRequest);
                 } catch (refreshError) {
-                    this.settingsService.set(SettingsNames.User, null);
-
                     return Promise.reject(refreshError);
                 }
             }

@@ -5,9 +5,12 @@ import { ChromeStorageKeys } from '../constants/chromeStorageKeys';
 import { getTrainingsPageURL } from '../utils/getTrainingsPageURL';
 import { URL } from '../constants/urls';
 import { SettingsNames } from '../constants/settingsNames';
+import { debounce } from '../utils/debounce';
 
 @singleton()
 export class Background {
+    private debouncedRefreshToken: () => void;
+
     constructor() {
 
         chrome.runtime.onMessage.addListener((request) => {
@@ -41,10 +44,15 @@ export class Background {
             }
         });
 
-        chrome.windows.onCreated.addListener(() => {
-            this.refreshToken();
+        this.debouncedRefreshToken = debounce(this.refreshToken.bind(this), 1000);
+
+        chrome.windows.onCreated.addListener(async () => {
+            this.debouncedRefreshToken();
         });
 
+        chrome.tabs.onCreated.addListener(async () => {
+            this.debouncedRefreshToken();
+        });
     }
 
     private notifyTabs(message: string, data: any) {
@@ -106,9 +114,9 @@ export class Background {
                 throw new Error(data.error);
             }
 
-            this.updateStorage(data, SettingsNames.User);
+            await this.updateStorage(data, SettingsNames.User);
         } catch (e) {
-            this.updateStorage(null, SettingsNames.User);
+            await this.updateStorage(null, SettingsNames.User);
         }
     }
 
