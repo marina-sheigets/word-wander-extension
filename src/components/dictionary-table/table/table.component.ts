@@ -12,10 +12,10 @@ import { i18nKeys } from "../../../services/i18n/i18n-keys";
 import { DictionaryTableItem } from "../../../types/DictionaryTableItem";
 import { SettingsService } from "../../../services/settings/settings.service";
 import { MessengerService } from "../../../services/messenger/messenger.service";
-import { Messages } from "../../../constants/messages";
 import { SettingsNames } from "../../../constants/settingsNames";
 import { LoaderComponent } from "../../loader/loader.component";
 import { AuthorizationData } from "../../../types/AuthorizationData";
+import { BackgroundMessages } from "../../../constants/backgroundMessages";
 
 @singleton()
 export class TableComponent extends BaseComponent {
@@ -33,9 +33,11 @@ export class TableComponent extends BaseComponent {
     ) {
         super(styles);
 
-        this.messenger.subscribe(Messages.WordAddedToDictionary, (word: DictionaryTableItem) => {
-            this.tableData.push(word);
-            this.initTable();
+        chrome.runtime.onMessage.addListener(async (request) => {
+            if (request.message === BackgroundMessages.WordAddedToDictionarySync) {
+                this.tableData = await this.dictionaryService.fetchDictionary();
+                this.initTable();
+            }
         });
 
         this.dictionaryService.onDataChanged.subscribe(this.initTable.bind(this));

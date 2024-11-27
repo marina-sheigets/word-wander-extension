@@ -12,7 +12,7 @@ import { DictionaryService } from "../../../../services/dictionary/dictionary.se
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { IconName } from "../../../../types/IconName";
 import { MessengerService } from "../../../../services/messenger/messenger.service";
-import { Messages } from "../../../../constants/messages";
+import { BackgroundMessages } from "../../../../constants/backgroundMessages";
 
 @singleton()
 export class SearchContentComponent extends BaseComponent {
@@ -68,7 +68,7 @@ export class SearchContentComponent extends BaseComponent {
 
         this.hide();
 
-        this.messenger.subscribe(Messages.WordAddedToDictionary, () => {
+        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.WordAddedToDictionarySync, () => {
             this.saveToDictionaryButton.hide();
             this.wordAddedButton.show();
         });

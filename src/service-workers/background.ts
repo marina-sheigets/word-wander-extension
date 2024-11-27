@@ -22,6 +22,10 @@ export class Background {
                     this.goToTrainingsPage();
                     break;
                 }
+                case BackgroundMessages.WordAddedToDictionarySync: {
+                    this.notifyTabs(BackgroundMessages.WordAddedToDictionarySync, request.data);
+                    break;
+                }
             }
         });
 
@@ -57,7 +61,10 @@ export class Background {
 
                 chrome.tabs.sendMessage(tab.id || 0, { message, data }, (response) => {
                     if (chrome.runtime.lastError) {
-                        console.error('Error sending message to tab:', chrome.runtime.lastError);
+                        console.error(
+                            'Error sending message to tab:', chrome.runtime.lastError,
+                            "\nTab name:", tab.title, "Message:", message, "Data:", data
+                        );
                     } else {
                         console.log('Message sent to tab', tab.id, response);
                     }

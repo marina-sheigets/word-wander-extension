@@ -6,6 +6,7 @@ import { HttpService } from "../http/http.service";
 import { URL } from "../../constants/urls";
 import { DictionaryTableItem } from "../../types/DictionaryTableItem";
 import { Informer } from "../informer/informer.service";
+import { BackgroundMessages } from "../../constants/backgroundMessages";
 
 @singleton()
 export class DictionaryService {
@@ -26,11 +27,9 @@ export class DictionaryService {
         }
 
         try {
-            const response = await this.httpService.post('dictionary/add-word', { word, translation })
+            await this.httpService.post('dictionary/add-word', { word, translation })
 
-            if (response?.status === 201) {
-                this.messenger.send(Messages.WordAddedToDictionary, { word, translation, id: response.data._id, selected: false });
-            }
+            this.messenger.asyncSendToBackground(BackgroundMessages.DictionarySync);
         } catch (e) {
             this.messenger.send(Messages.WordNotAddedToDictionary);
         }

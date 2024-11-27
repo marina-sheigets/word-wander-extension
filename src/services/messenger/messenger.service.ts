@@ -26,7 +26,7 @@ export class MessengerService {
         }
     }
 
-    asyncSendToBackground(message: string, setting?: { [key: string]: any }) {
+    asyncSendToBackground(message: string, setting: { [key: string]: any } = {}) {
         window.postMessage({ message, data: setting })
     }
 

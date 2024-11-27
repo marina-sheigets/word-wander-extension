@@ -17,4 +17,8 @@ export const BackgroundMessages = {
 
     //auth
     UserAuthorized: ExtensionPrefix + 'UserAuthorized',
+
+    //dictionary
+    DictionarySync: ExtensionPrefix + 'DictionarySync',
+    WordAddedToDictionarySync: ExtensionPrefix + 'WordAddedToDictionarySync',
 }

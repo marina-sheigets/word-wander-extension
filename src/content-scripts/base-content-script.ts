@@ -12,9 +12,26 @@ class BaseContentScript {
                         type: event.data.message,
                         data: event.data.data
                     });
+                    break;
                 }
-
+                case BackgroundMessages.DictionarySync: {
+                    chrome.runtime.sendMessage({
+                        type: BackgroundMessages.WordAddedToDictionarySync,
+                        data: event.data.data
+                    });
+                    break;
+                }
             }
+        });
+
+        chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
+            if (!request || !request.message || !Object.values(BackgroundMessages).includes(request.message)) {
+                console.error('Invalid request:', request);
+                return;
+            }
+
+            postMessage({ message: request.message, data: request.data });
+            sendResponse(true);
         });
     }
 }

@@ -47,6 +47,5 @@ export const enum Messages {
     ShowDeleteAccountPopup = 'ShowDeleteAccountPopup',
 
     //Dictionary
-    WordAddedToDictionary = 'WordAddedToDictionary',
     WordNotAddedToDictionary = 'WordNotAddedToDictionary',
 }
