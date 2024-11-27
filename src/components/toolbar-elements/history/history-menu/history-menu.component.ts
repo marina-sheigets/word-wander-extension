@@ -13,6 +13,7 @@ import { IconName } from "../../../../types/IconName";
 import { I18nService } from "../../../../services/i18n/i18n.service";
 import { TextToSpeechService } from "../../../../services/text-to-speech/text-to-speech.service";
 import { DictionaryService } from "../../../../services/dictionary/dictionary.service";
+import { BackgroundMessages } from "../../../../constants/backgroundMessages";
 
 @singleton()
 export class HistoryMenuComponent extends MenuComponent {
@@ -51,6 +52,9 @@ export class HistoryMenuComponent extends MenuComponent {
 
         this.historyService.historyUpdated.follow(this.setContent.bind(this));
         this.messenger.subscribe(Messages.CloseAllMenus, this.hide.bind(this));
+        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.DictionarySync, (word: HistoryItem) => {
+            this.historyService.removeItemFromHistory(word);
+        });
     }
 
     setContent() {
@@ -76,11 +80,9 @@ export class HistoryMenuComponent extends MenuComponent {
                 addWordButton.addButtonIcon(IconName.Plus);
                 addWordButton.addTooltip(i18nKeys.AddToDictionary);
                 addWordButton.onClick.subscribe(async () => {
-                    this.dictionaryService.addWordToDictionary(item.word, item.translation)
-                        .then(() => {
-                            this.historyService.removeItemFromHistory(item);
-                        });
+                    await this.dictionaryService.addWordToDictionary(item.word, item.translation);
                 });
+
                 this.historyContainer.append(
                     playButton.rootElement,
                     translation.rootElement,
