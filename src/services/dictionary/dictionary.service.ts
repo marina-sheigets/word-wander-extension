@@ -21,17 +21,17 @@ export class DictionaryService {
     }
 
     async addWordToDictionary(word: string, translation: string) {
-        if (!this.authService.isAuthorized()) {
-            this.messenger.send(Messages.OpenSignInPopup);
-            return;
-        }
-
         try {
-            await this.httpService.post('dictionary/add-word', { word, translation })
+            if (!this.authService.isAuthorized()) {
+                this.messenger.send(Messages.OpenSignInPopup);
+                throw Error;
+            }
+            await this.httpService.post(URL.dictionary.addWord, { word, translation })
 
             this.messenger.asyncSendToBackground(BackgroundMessages.DictionarySync);
         } catch (e) {
             this.messenger.send(Messages.WordNotAddedToDictionary);
+            throw Error;
         }
     }
 
