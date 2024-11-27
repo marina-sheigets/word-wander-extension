@@ -25,8 +25,8 @@ export class Background {
                     this.goToTrainingsPage();
                     break;
                 }
-                case BackgroundMessages.WordAddedToDictionarySync: {
-                    this.notifyTabs(BackgroundMessages.WordAddedToDictionarySync, request.data);
+                case BackgroundMessages.DictionarySync: {
+                    this.notifyTabs(BackgroundMessages.DictionarySync, request.data);
                     break;
                 }
             }

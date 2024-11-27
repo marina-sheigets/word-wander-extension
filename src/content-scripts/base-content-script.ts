@@ -14,9 +14,9 @@ class BaseContentScript {
                     });
                     break;
                 }
-                case BackgroundMessages.DictionarySync: {
+                case BackgroundMessages.WordAddedToDictionary: {
                     chrome.runtime.sendMessage({
-                        type: BackgroundMessages.WordAddedToDictionarySync,
+                        type: BackgroundMessages.DictionarySync,
                         data: event.data.data
                     });
                     break;

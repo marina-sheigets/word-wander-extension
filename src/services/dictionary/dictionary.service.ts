@@ -28,7 +28,7 @@ export class DictionaryService {
             }
             await this.httpService.post(URL.dictionary.addWord, { word, translation })
 
-            this.messenger.asyncSendToBackground(BackgroundMessages.DictionarySync);
+            this.messenger.asyncSendToBackground(BackgroundMessages.WordAddedToDictionary);
         } catch (e) {
             this.messenger.send(Messages.WordNotAddedToDictionary);
             throw Error;

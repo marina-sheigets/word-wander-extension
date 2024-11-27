@@ -10,6 +10,7 @@ import { AuthorizationData } from "../../types/AuthorizationData";
 import { HttpService } from "../http/http.service";
 import { URL } from "../../constants/urls";
 import { trainings } from "../../constants/trainings";
+import { BackgroundMessages } from "../../constants/backgroundMessages";
 
 @singleton()
 export class TrainingsService {
@@ -27,6 +28,12 @@ export class TrainingsService {
         this.messenger.subscribe(Messages.FinishTraining, this.finishGame.bind(this));
 
         this.settingsService.subscribe(SettingsNames.User, this.fetchAmountOfWords.bind(this));
+
+        chrome.runtime.onMessage.addListener(async (request) => {
+            if (request.message === BackgroundMessages.DictionarySync) {
+                this.fetchAmountOfWords(request.data);
+            }
+        });
     }
 
     startGame(gameID: number) {

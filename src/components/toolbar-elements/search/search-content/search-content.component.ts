@@ -68,7 +68,7 @@ export class SearchContentComponent extends BaseComponent {
 
         this.hide();
 
-        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.WordAddedToDictionarySync, () => {
+        this.messenger.subscribeOnBackgroundMessage(BackgroundMessages.DictionarySync, () => {
             this.saveToDictionaryButton.hide();
             this.wordAddedButton.show();
         });
