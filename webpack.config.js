@@ -8,6 +8,10 @@ let environments = {
     dev : {
         sourceMaps:true,
         mode: 'development',
+    },
+    prod : {
+        sourceMaps:false,
+        mode: 'production',
     }
 }
 
