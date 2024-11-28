@@ -1,1 +1,3 @@
-.rootClassName{}
+.rootClassName > div > div{
+    background: #292A2E;
+}

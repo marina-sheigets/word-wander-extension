@@ -1,13 +1,13 @@
 .rootClassName {
-    min-height: 400px;
-    margin-top: 30px;
+    min-height: 420px;
+    margin-top: 16px;
     display: flex;
-    gap: 30px;
 }
 
 .buttonsContainer {
     display: flex;
     flex-direction: column;
+    padding-top: 20px;
 }
 
 .buttonsContainer button {
@@ -21,9 +21,13 @@
 }
 
 .buttonsContainer .active {
-    background:#9EA5AE;
+    border-left: 4px solid #00CE8F;
+    background: #3F4246;
 }
 
 .tabContent {
+    background: #3F4246;
     flex: 7;
+    border-radius: 5px;
+    padding: 16px;
 }

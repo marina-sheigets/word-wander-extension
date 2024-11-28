@@ -1,3 +1,8 @@
+* {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+}
+
 .rootClassName {
     height: 100vh;
     background-color: #292A2E;
