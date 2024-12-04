@@ -1,7 +1,10 @@
 export const enum i18nKeys {
+    CorrectWords = "CorrectWords",
+    IncorrectWords = "IncorrectWords",
     SendWordsOnTrainingTitle = "SendWordsOnTrainingTitle",
     GoToDictionary = "GoToDictionary",
     Done = "Done",
+    TrainingResultTitle = "TrainingResultTitle",
     NotEnoughWordsTitle = "NotEnoughWordsTitle",
     NotEnoughWordsDescription = "NotEnoughWordsDescription",
     AmountWordsChip = "AmountWordsChip",

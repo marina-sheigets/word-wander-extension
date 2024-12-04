@@ -135,9 +135,21 @@
         "en":"Translation",
         "uk":"Переклад"
     },
+    "TrainingResultTitle":{
+        "en":"Training result",
+        "uk":"Результат тренування"
+    },
     "ForgotPassword":{
         "en":"Forgot password?",
         "uk":"Забули пароль?"
+    },
+    "CorrectWords":{
+        "en":"correct words",
+        "uk":"правильних слова"
+    },
+    "IncorrectWords":{
+        "en":"incorrect words",
+        "uk":"неправильних слова"
     },
     "SelectSourceLanguage":{
         "en":"Select source language",
