@@ -13,7 +13,7 @@ export class Background {
 
     constructor() {
 
-        chrome.runtime.onMessage.addListener((request) => {
+        chrome.runtime?.onMessage.addListener((request) => {
 
             if (!request || !request.type || !Object.values(BackgroundMessages).includes(request.type)) {
                 console.error('Invalid request:', request);

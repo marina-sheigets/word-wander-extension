@@ -25,7 +25,7 @@ class SettingsContentScript {
             }
         });
 
-        chrome.runtime.onMessage.addListener((request) => {
+        chrome.runtime?.onMessage.addListener((request) => {
             if (!request || !request.message) {
                 return;
             }

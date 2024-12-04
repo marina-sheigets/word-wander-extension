@@ -15,7 +15,7 @@ export class ExtensionPageManagerService {
     }
 
     async detectSettingsChange(callback: Function) {
-        chrome.runtime.onMessage.addListener((request) => {
+        chrome.runtime?.onMessage.addListener((request) => {
             if (!request || !request.message) {
                 return;
             }

@@ -21,7 +21,7 @@ export class TrainingsService {
     constructor(
         protected messenger: MessengerService,
         protected settingsService: SettingsService,
-        protected httpService: HttpService
+        protected httpService: HttpService,
     ) {
 
         this.messenger.subscribe(Messages.InterruptTraining, this.interruptTraining.bind(this));
@@ -29,7 +29,7 @@ export class TrainingsService {
 
         this.settingsService.subscribe(SettingsNames.User, this.fetchAmountOfWords.bind(this));
 
-        chrome.runtime.onMessage.addListener(async (request) => {
+        chrome.runtime?.onMessage.addListener(async (request) => {
             if (request.message === BackgroundMessages.DictionarySync) {
                 this.fetchAmountOfWords(request.data);
             }
@@ -281,6 +281,7 @@ export class TrainingsService {
 
     }
     private finishGame() {
+        debugger;
         this.interruptTraining();
         this.messenger.send(Messages.ShowTrainingStatistics, { gameID: this.currentGame });
     }
