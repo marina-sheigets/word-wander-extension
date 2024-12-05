@@ -17,6 +17,7 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
     private content = document.createElement('div');
     private description = document.createElement('p');
     private checkboxesWrapper = document.createElement('div');
+    private message = document.createElement('div');
 
 
     private trainingData: Array<Training & { selected: boolean }> = [];
@@ -44,6 +45,7 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
 
         this.content.append(
             this.description,
+            this.message,
             this.checkboxesWrapper,
             this.loader.rootElement,
             this.sendButton.rootElement,
@@ -61,6 +63,8 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
     }
 
     private initTrainingCheckboxes() {
+        this.message.textContent = '';
+        this.description.style.display = 'block';
         this.sendButton.show();
         this.checkboxesWrapper.textContent = '';
         this.trainingData = trainings.map(item => ({ ...item, selected: false }));
@@ -96,22 +100,23 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
         this.dictionaryService.addWordsToTrainings(selectedWordsIds, selectedTrainingsNames)
             .then(() => {
                 this.i18n.follow(i18nKeys.Done, (value) => {
-                    this.description.textContent = value;
+                    this.message.textContent = value;
                 });
             })
             .catch((e) => {
                 console.error(e);
+
                 this.i18n.follow(i18nKeys.SomethingWentWrong, (value) => {
-                    this.description.textContent = value;
+                    this.message.textContent = value;
                 });
             })
             .finally(() => {
                 this.loader.hide();
-
+                this.description.style.display = 'none';
                 this.checkboxesWrapper.style.display = 'none';
                 setTimeout(() => {
                     this.hide();
-                    this.checkboxesWrapper.style.display = 'block';
+                    this.checkboxesWrapper.style.display = 'grid';
                 }, 2000);
             })
     }
