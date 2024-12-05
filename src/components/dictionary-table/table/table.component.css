@@ -2,6 +2,7 @@
     margin-top: 1.5rem;
     display: grid;
     grid-template-columns: 50px 50px 1fr 1fr 50px;
+    row-gap: 7px;
     overflow-y: auto;
     height: 250px;
     grid-auto-rows: min-content;
