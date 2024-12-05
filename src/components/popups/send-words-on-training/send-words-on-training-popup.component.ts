@@ -19,7 +19,6 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
     private checkboxesWrapper = document.createElement('div');
     private message = document.createElement('div');
 
-
     private trainingData: Array<Training & { selected: boolean }> = [];
 
     constructor(
@@ -60,6 +59,8 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
             this.initTrainingCheckboxes();
             this.show();
         });
+
+        this.sendButton.disable();
     }
 
     private initTrainingCheckboxes() {
@@ -72,8 +73,9 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
         this.trainingData.forEach((training) => {
             const checkbox = new CheckboxComponent(training.name);
 
-            checkbox.onCheckboxChange.subscribe((value: boolean) => {
-                this.trainingData = this.trainingData.map((item) => item.name === training.name ? { ...item, selected: value } : item);
+            checkbox.onCheckboxChange.subscribe((checkbox: HTMLInputElement) => {
+                this.trainingData = this.trainingData.map((item) => item.name === training.name ? { ...item, selected: checkbox.checked } : item);
+                this.toggleSendButtonDisabled();
             });
 
             const label = document.createElement('label');
@@ -119,5 +121,17 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
                     this.checkboxesWrapper.style.display = 'grid';
                 }, 2000);
             })
+    }
+
+    private toggleSendButtonDisabled() {
+        if (this.isSomeCheckboxSelected()) {
+            this.sendButton.enable();
+        } else {
+            this.sendButton.disable();
+        }
+    }
+
+    private isSomeCheckboxSelected() {
+        return this.trainingData.some((item) => item.selected);
     }
 }
