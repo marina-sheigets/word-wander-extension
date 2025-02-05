@@ -72,8 +72,8 @@ export class SettingsTabsComponent extends BaseComponent {
                 buttonComponent.rootElement.classList.add(styles.active);
             }
 
-            buttonComponent.onClick.subscribe((e: MouseEvent) => {
-                this.setTabContent(e);
+            buttonComponent.onClick.subscribe(() => {
+                this.setTabContent(button.component);
                 this.setAllUnactive();
                 buttonComponent.rootElement.classList.add(styles.active);
             })
@@ -81,10 +81,7 @@ export class SettingsTabsComponent extends BaseComponent {
         });
     }
 
-    protected setTabContent(e: MouseEvent) {
-        const target = e.currentTarget as HTMLInputElement;
-        const selectedComponent = this.tabsButtons.find((button: SettingsTabsButton) => button.label === target.value)?.component;
-
+    protected setTabContent(selectedComponent: HTMLElement) {
         this.clearTabContent();
         if (selectedComponent) {
             this.tabContent.append(selectedComponent);
