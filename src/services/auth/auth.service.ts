@@ -41,7 +41,7 @@ export class AuthService {
 
             this.closeSignInPopup();
         } catch (e) {
-            if (e?.response.data.error && e?.response.data.message === "User already exists") {
+            if (e?.response.data && e?.response.data.message?.message === "User already exists") {
                 this.login(email, password);
                 return;
             }
