@@ -145,11 +145,11 @@
     },
     "CorrectWords":{
         "en":"correct words",
-        "uk":"правильних слова"
+        "uk":"правильних слів"
     },
     "IncorrectWords":{
         "en":"incorrect words",
-        "uk":"неправильних слова"
+        "uk":"неправильних слів"
     },
     "SelectSourceLanguage":{
         "en":"Select source language",
