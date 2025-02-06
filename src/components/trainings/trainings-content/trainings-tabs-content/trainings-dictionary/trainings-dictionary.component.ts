@@ -3,7 +3,6 @@ import { BaseComponent } from "../../../../base-component/base-component";
 import * as styles from "./trainings-dictionary.component.css";
 import { FindWordInputComponent } from "../../../../input/find-word-input/find-word-input.component";
 import { ButtonComponent } from "../../../../button/button.component";
-import { SelectTargetLanguageComponent } from "../../../../select/select-target-language/select-target-language.component";
 import { i18nKeys } from "../../../../../services/i18n/i18n-keys";
 import { DictionaryTableComponent } from "../../../../dictionary-table/dictionary-table.component";
 
@@ -14,7 +13,6 @@ export class TrainingsDictionaryComponent extends BaseComponent {
     constructor(
         protected findWordInputComponent: FindWordInputComponent,
         protected addCustomTranslationButton: ButtonComponent,
-        protected selectTargetLanguageComponent: SelectTargetLanguageComponent,
         protected dictionaryTable: DictionaryTableComponent,
     ) {
         super(styles);
@@ -26,7 +24,6 @@ export class TrainingsDictionaryComponent extends BaseComponent {
         this.toolsContainer.append(
             this.findWordInputComponent.rootElement,
             this.addCustomTranslationButton.rootElement,
-            this.selectTargetLanguageComponent.rootElement,
         );
 
         this.rootElement.append(
