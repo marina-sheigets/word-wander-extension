@@ -69,12 +69,6 @@ export class SettingsService {
         this.inform(key);
     }
 
-    batchUpdate(updates: { [key: string]: any }) {
-        Object.assign(this.settings, updates);
-        this.messenger.asyncSendToBackground(BackgroundMessages.UpdateSettings, updates);
-        this.informAll();
-    }
-
     private inform(key: SettingsNames) {
         const callbacks = this.callbacks.get(key);
         if (callbacks) {
