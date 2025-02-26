@@ -281,7 +281,6 @@ export class TrainingsService {
 
     }
     private finishGame() {
-        debugger;
         this.interruptTraining();
         this.messenger.send(Messages.ShowTrainingStatistics, { gameID: this.currentGame });
     }

@@ -4,6 +4,7 @@ import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
 import { SettingsNames } from "../../constants/settingsNames";
 import { ChromeStorageService } from "../chrome-storage/chrome-storage.service";
+import { isExtensionContext } from "../../utils/isExtensionContext";
 
 @singleton()
 export class SettingsService {
@@ -61,7 +62,7 @@ export class SettingsService {
 
     set(key: SettingsNames, value: any) {
         this.settings[key] = value;
-        if (this.chromeStorageService.isExtensionContext()) {
+        if (isExtensionContext()) {
             this.chromeStorageService.updateSettings(key, value);
         } else {
             this.messenger.asyncSendToBackground(BackgroundMessages.UpdateSettings, { [key]: value });

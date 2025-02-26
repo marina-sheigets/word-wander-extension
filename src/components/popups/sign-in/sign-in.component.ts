@@ -10,6 +10,8 @@ import { I18nService } from "../../../services/i18n/i18n.service";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
 import { SignInButton } from "../../button/sign-in/sign-in.button";
 import { ErrorMessageComponent } from "../../error-message/error-message.component";
+import { BackgroundMessages } from "../../../constants/backgroundMessages";
+import { isExtensionContext } from "../../../utils/isExtensionContext";
 
 @singleton()
 export class SignInPopupComponent extends PopupComponent {
@@ -25,7 +27,7 @@ export class SignInPopupComponent extends PopupComponent {
         protected authService: AuthService,
         protected resetPasswordButton: ButtonComponent,
         protected errorMessage: ErrorMessageComponent,
-        protected i18n: I18nService
+        protected i18n: I18nService,
     ) {
         super(i18n);
 
@@ -72,6 +74,20 @@ export class SignInPopupComponent extends PopupComponent {
         this.messenger.subscribe(Messages.OpenSignInPopup, this.show.bind(this));
         this.messenger.subscribe(Messages.CloseSignInPopup, this.hide.bind(this));
         this.messenger.subscribe(Messages.ShowAuthError, this.showAuthError.bind(this));
+
+
+        if (isExtensionContext()) {
+            chrome.runtime.onMessage.addListener((request) => {
+                if (request.message === BackgroundMessages.SyncAllAuthPopupsClosed) {
+                    this.hide();
+                }
+            });
+        } else {
+            this.messenger.subscribeOnBackgroundMessage(
+                BackgroundMessages.SyncAllAuthPopupsClosed,
+                this.hide.bind(this)
+            );
+        }
 
         this.hide();
     }

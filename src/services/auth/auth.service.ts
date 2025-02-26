@@ -7,6 +7,9 @@ import { URL } from "../../constants/urls";
 import { SettingsService } from "../settings/settings.service";
 import { SettingsNames } from "../../constants/settingsNames";
 import { AuthorizationData } from "../../types/AuthorizationData";
+import { BackgroundMessages } from "../../constants/backgroundMessages";
+import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
+import { isExtensionContext } from "../../utils/isExtensionContext";
 
 @singleton()
 export class AuthService {
@@ -16,7 +19,8 @@ export class AuthService {
         protected http: HttpService,
         protected messenger: MessengerService,
         protected userService: UserService,
-        protected settingsService: SettingsService
+        protected settingsService: SettingsService,
+        protected extensionPageManager: ExtensionPageManagerService,
     ) {
         this.settingsService.subscribe(SettingsNames.User, (user: AuthorizationData) => {
             this.isAuth = !!user;
@@ -39,7 +43,7 @@ export class AuthService {
             this.isAuth = true;
             this.userService.saveUserData(response.data);
 
-            this.closeSignInPopup();
+            this.closeAllSignInPopups();
         } catch (e) {
             if (e?.response.data && e?.response.data.message?.message === "User already exists") {
                 this.login(email, password);
@@ -57,7 +61,7 @@ export class AuthService {
             this.isAuth = true;
             this.userService.saveUserData(response?.data);
 
-            this.closeSignInPopup();
+            this.closeAllSignInPopups();
         } catch (e) {
             if (e?.response?.data?.message) {
                 this.messenger.send(Messages.ShowAuthError, e.response.data.message);
@@ -108,5 +112,14 @@ export class AuthService {
         } catch (e) {
             throw e;
         }
+    }
+
+    private closeAllSignInPopups() {
+        if (isExtensionContext()) {
+            this.extensionPageManager.sendMessageToBackground(BackgroundMessages.CloseAllSignInPopups);
+            return;
+        }
+
+        this.messenger.asyncSendToBackground(BackgroundMessages.CloseAllSignInPopups);
     }
 }

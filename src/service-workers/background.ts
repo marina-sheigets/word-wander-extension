@@ -29,6 +29,11 @@ export class Background {
                     this.notifyTabs(BackgroundMessages.DictionarySync, request.data);
                     break;
                 }
+
+                case BackgroundMessages.CloseAllSignInPopups: {
+                    this.notifyTabs(BackgroundMessages.SyncAllAuthPopupsClosed, request.data);
+                    break;
+                }
             }
         });
 

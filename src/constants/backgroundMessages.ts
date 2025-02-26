@@ -1,24 +1,26 @@
 export const ExtensionPrefix = 'wordWander_';
 
-export const BackgroundMessages = {
+export enum BackgroundMessages {
     //settings 
-    UpdateSettings: ExtensionPrefix + 'UpdateSettings',
-    SettingsChanged: ExtensionPrefix + 'SettingsChanged',
-    SyncSettings: ExtensionPrefix + 'SyncSettings',
-    GetSettings: ExtensionPrefix + 'GetSettings',
+    UpdateSettings = ExtensionPrefix + 'UpdateSettings',
+    SettingsChanged = ExtensionPrefix + 'SettingsChanged',
+    SyncSettings = ExtensionPrefix + 'SyncSettings',
+    GetSettings = ExtensionPrefix + 'GetSettings',
 
     //history
-    GetHistory: ExtensionPrefix + 'GetHistory',
-    HistoryChanged: ExtensionPrefix + 'HistoryChanged',
-    SyncHistory: ExtensionPrefix + 'SyncHistory',
-    UpdateHistory: ExtensionPrefix + 'UpdateHistory',
+    GetHistory = ExtensionPrefix + 'GetHistory',
+    HistoryChanged = ExtensionPrefix + 'HistoryChanged',
+    SyncHistory = ExtensionPrefix + 'SyncHistory',
+    UpdateHistory = ExtensionPrefix + 'UpdateHistory',
 
-    GoToTrainings: ExtensionPrefix + 'GoToTrainings',
+    GoToTrainings = ExtensionPrefix + 'GoToTrainings',
 
     //auth
-    UserAuthorized: ExtensionPrefix + 'UserAuthorized',
+    UserAuthorized = ExtensionPrefix + 'UserAuthorized',
+    CloseAllSignInPopups = ExtensionPrefix + 'CloseAllSignInPopups',
+    SyncAllAuthPopupsClosed = ExtensionPrefix + 'SyncAllAuthPopupsClosed',
 
     //dictionary
-    WordAddedToDictionary: ExtensionPrefix + 'WordAddedToDictionary',
-    DictionarySync: ExtensionPrefix + 'DictionarySync',
+    WordAddedToDictionary = ExtensionPrefix + 'WordAddedToDictionary',
+    DictionarySync = ExtensionPrefix + 'DictionarySync',
 }

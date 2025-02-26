@@ -1,6 +1,7 @@
 import { singleton } from "tsyringe";
 import { ChromeStorageKeys } from "../../constants/chromeStorageKeys";
 import { SettingsNames } from "../../constants/settingsNames";
+import { isExtensionContext } from "../../utils/isExtensionContext";
 
 @singleton()
 export class ChromeStorageService {
@@ -8,15 +9,8 @@ export class ChromeStorageService {
 
     constructor() { }
 
-    public isExtensionContext() {
-        return (typeof chrome !== 'undefined'
-            && !!chrome.storage
-            && (window.location.protocol === 'chrome-extension:' || chrome.extension?.getBackgroundPage?.() === window)
-        );
-    }
-
     async get<T>(key: ChromeStorageKeys): Promise<T | null> {
-        if (!this.isExtensionContext) {
+        if (!isExtensionContext()) {
             console.warn(this.ErrorMessage);
             return null;
         }
@@ -29,7 +23,7 @@ export class ChromeStorageService {
     }
 
     async set<T>(key: ChromeStorageKeys, value: T): Promise<boolean> {
-        if (!this.isExtensionContext) {
+        if (!isExtensionContext()) {
             console.warn(this.ErrorMessage);
             return false;
         }
@@ -42,7 +36,7 @@ export class ChromeStorageService {
     }
 
     async updateSettings(key: SettingsNames, value: any): Promise<boolean> {
-        if (!this.isExtensionContext) {
+        if (!isExtensionContext()) {
             console.warn(this.ErrorMessage);
             return false;
         }
@@ -54,12 +48,11 @@ export class ChromeStorageService {
             [key]: value
         };
 
-        debugger;
         return this.set(ChromeStorageKeys.Settings, newSettings);
     }
 
     addChangeListener(callback: (changes: { [key: string]: chrome.storage.StorageChange }) => void): () => void {
-        if (!this.isExtensionContext) {
+        if (!isExtensionContext()) {
             console.warn(this.ErrorMessage);
             return () => { };
         }

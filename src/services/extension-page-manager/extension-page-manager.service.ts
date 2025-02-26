@@ -30,4 +30,10 @@ export class ExtensionPageManagerService {
         });
     }
 
+    public sendMessageToBackground(message: BackgroundMessages, data?: any) {
+        chrome.runtime.sendMessage({
+            type: message,
+            data
+        });
+    }
 }

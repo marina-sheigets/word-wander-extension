@@ -14,13 +14,15 @@ class BaseContentScript {
                     });
                     break;
                 }
-                case BackgroundMessages.WordAddedToDictionary: {
-                    chrome.runtime.sendMessage({
-                        type: BackgroundMessages.DictionarySync,
-                        data: event.data.data
-                    });
-                    break;
-                }
+                case BackgroundMessages.WordAddedToDictionary:
+                case BackgroundMessages.CloseAllSignInPopups:
+                    {
+                        chrome.runtime.sendMessage({
+                            type: BackgroundMessages.DictionarySync,
+                            data: event.data.data
+                        });
+                        break;
+                    }
             }
         });
 
