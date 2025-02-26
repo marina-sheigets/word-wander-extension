@@ -1,4 +1,5 @@
 export const enum i18nKeys {
+    NoHistory = "NoHistory",
     CorrectWords = "CorrectWords",
     IncorrectWords = "IncorrectWords",
     SendWordsOnTrainingTitle = "SendWordsOnTrainingTitle",

@@ -431,6 +431,10 @@
         "en":"Yes",
         "uk":"Так"
     },
+    "NoHistory":{
+        "en":"No history",
+        "uk":"Історія відсутня"
+    },
     "UnauthorizedTitle":{
         "en":"You are unauthorized !",
         "uk":"Ви не авторизовані !"

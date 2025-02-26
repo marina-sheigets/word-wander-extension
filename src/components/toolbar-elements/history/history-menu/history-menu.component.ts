@@ -14,6 +14,7 @@ import { TextToSpeechService } from "../../../../services/text-to-speech/text-to
 import { DictionaryService } from "../../../../services/dictionary/dictionary.service";
 import { BackgroundMessages } from "../../../../constants/backgroundMessages";
 import { ComponentsFactory } from "../../../factories/component.factory.";
+import { I18nService } from "../../../../services/i18n/i18n.service";
 
 @singleton()
 export class HistoryMenuComponent extends MenuComponent {
@@ -27,13 +28,16 @@ export class HistoryMenuComponent extends MenuComponent {
         protected historyService: HistoryService,
         protected textToSpeechService: TextToSpeechService,
         protected dictionaryService: DictionaryService,
-        protected componentsFactory: ComponentsFactory
+        protected componentsFactory: ComponentsFactory,
+        protected i18n: I18nService
     ) {
         super();
 
         this.applyRootStyle(styles);
 
-        this.emptyResultContainer.textContent = 'There is no history';
+        this.i18n.follow(i18nKeys.NoHistory, (text) => {
+            this.emptyResultContainer.textContent = text;
+        });
 
         this.historyContainer.classList.add(styles.historyContainer);
         this.emptyResultContainer.classList.add(styles.emptyResultContainer);
