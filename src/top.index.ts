@@ -12,6 +12,7 @@ import { ResetPasswordPopupComponent } from './components/popups/reset-password/
 import { ResetLinkSentPopupComponent } from './components/popups/reset-link-sent/reset-link-sent-popup.component';
 import { ReportPopupComponent } from './components/popups/report/report-popup.component';
 import { SignOutPopupComponent } from './components/popups/sign-out/sign-out-popup.component';
+import { DeleteAccountPopupComponent } from './components/popups/delete-account/delete-account-popup.component';
 
 
 @singleton()
@@ -27,6 +28,7 @@ class Entry {
         protected resetLinkSentPopup: ResetLinkSentPopupComponent,
         protected reportPopupComponent: ReportPopupComponent,
         protected signOutPopup: SignOutPopupComponent,
+        protected deleteAccountPopup: DeleteAccountPopupComponent,
         @inject("Shadow") shadow: ShadowRoot,
     ) {
         const element = document.createElement('div');
@@ -49,7 +51,8 @@ class Entry {
                 resetPasswordPopupComponent.rootElement,
                 resetLinkSentPopup.rootElement,
                 reportPopupComponent.rootElement,
-                signOutPopup.rootElement
+                signOutPopup.rootElement,
+                deleteAccountPopup.rootElement,
             );
         }
 

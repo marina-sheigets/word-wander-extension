@@ -1,3 +1,4 @@
+import { singleton } from "tsyringe";
 import { Messages } from "../../../constants/messages";
 import { SettingsNames } from "../../../constants/settingsNames";
 import { AuthService } from "../../../services/auth/auth.service";
@@ -9,6 +10,7 @@ import { ButtonComponent } from "../../button/button.component";
 import { PopupComponent } from "../popup.component";
 import * as styles from './delete-account-popup.component.css';
 
+@singleton()
 export class DeleteAccountPopupComponent extends PopupComponent {
     private content = document.createElement('div');
     private description = document.createElement('p');
@@ -41,12 +43,13 @@ export class DeleteAccountPopupComponent extends PopupComponent {
         this.hide();
         this.setContent(this.content);
 
-        this.messenger.subscribe(Messages.OpenSignOutPopup, this.show.bind(this));
+        this.messenger.subscribe(Messages.ShowDeleteAccountPopup, this.show.bind(this));
     }
 
     private confirmDeleteAccount() {
         this.hide();
-        this.settingsService.set(SettingsNames.User, null);
-        this.authService.deleteAccount();
+        this.authService.deleteAccount().then(() => {
+            this.settingsService.set(SettingsNames.User, null);
+        });
     }
 }

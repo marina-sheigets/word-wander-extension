@@ -1,0 +1,4 @@
+.content > div {
+    justify-content: center;
+    display: flex;
+}
