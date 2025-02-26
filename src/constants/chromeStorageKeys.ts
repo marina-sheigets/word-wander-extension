@@ -1,6 +1,6 @@
 import { ExtensionPrefix } from "./backgroundMessages";
 
-export const ChromeStorageKeys = {
-    Settings: ExtensionPrefix + 'settings',
-    History: ExtensionPrefix + 'history',
+export enum ChromeStorageKeys {
+    Settings = ExtensionPrefix + 'settings',
+    History = ExtensionPrefix + 'history',
 }

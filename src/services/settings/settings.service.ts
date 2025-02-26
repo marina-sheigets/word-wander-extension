@@ -3,6 +3,7 @@ import { MessengerService } from "../messenger/messenger.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
 import { SettingsNames } from "../../constants/settingsNames";
+import { ChromeStorageService } from "../chrome-storage/chrome-storage.service";
 
 @singleton()
 export class SettingsService {
@@ -11,6 +12,7 @@ export class SettingsService {
 
     constructor(
         private messenger: MessengerService,
+        protected chromeStorageService: ChromeStorageService,
         protected extensionPageManagerService: ExtensionPageManagerService,
     ) {
         if (chrome.storage) {
@@ -59,7 +61,11 @@ export class SettingsService {
 
     set(key: SettingsNames, value: any) {
         this.settings[key] = value;
-        this.messenger.asyncSendToBackground(BackgroundMessages.UpdateSettings, { [key]: value });
+        if (this.chromeStorageService.isExtensionContext()) {
+            this.chromeStorageService.updateSettings(key, value);
+        } else {
+            this.messenger.asyncSendToBackground(BackgroundMessages.UpdateSettings, { [key]: value });
+        }
         this.inform(key);
     }
 
