@@ -1,7 +1,6 @@
 import { singleton } from "tsyringe";
 import { MessengerService } from "../messenger/messenger.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
-import { DEFAULT_SETTINGS } from "../../constants/defaultSettings";
 import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
 import { SettingsNames } from "../../constants/settingsNames";
 
@@ -27,12 +26,19 @@ export class SettingsService {
                 this.informAll();
             });
         } else {
-            this.messenger.sendToBackground(BackgroundMessages.GetSettings, BackgroundMessages.SyncSettings)
-                .then((settings: { [key: string]: any }) => {
-                    this.settings = settings || DEFAULT_SETTINGS;
-                    this.informAll();
-                })
+            this.messenger.asyncSendToBackground(BackgroundMessages.GetSettings);
+
+            this.listenToSettingsUpdates();
         }
+    }
+
+    private listenToSettingsUpdates() {
+        addEventListener('message', (event) => {
+            if (event.data.message === BackgroundMessages.SyncSettings) {
+                this.settings = event.data.data;
+                this.informAll();
+            }
+        });
     }
 
     subscribe(key: SettingsNames, callback: Function) {
