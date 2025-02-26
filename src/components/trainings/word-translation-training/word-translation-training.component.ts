@@ -15,6 +15,7 @@ import { ProgressBarComponent } from "../../progress-bar/progress-bar.component"
 import { GameWrapperPopupComponent } from "../../popups/game-wrapper-popup/game-wrapper-popup.component";
 import { setAnimationForWrongAnswer } from "../../../utils/setAnimationForWrongAnswer";
 import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
+import { ComponentsFactory } from "../../factories/component.factory.";
 
 @singleton()
 export class WordTranslationTrainingComponent extends GameWrapperPopupComponent {
@@ -35,7 +36,8 @@ export class WordTranslationTrainingComponent extends GameWrapperPopupComponent 
         protected trainingsService: TrainingsService,
         protected messenger: MessengerService,
         protected textToSpeech: TextToSpeechService,
-        protected i18n: I18nService
+        protected i18n: I18nService,
+        protected componentsFactory: ComponentsFactory
     ) {
         super(i18n, messenger);
 
@@ -106,7 +108,7 @@ export class WordTranslationTrainingComponent extends GameWrapperPopupComponent 
 
         this.variantsWrapper.innerHTML = '';
         variantsForCurrentWord.translations.forEach(translation => {
-            const variantButton = new WordVariantButton();
+            const variantButton = this.componentsFactory.createComponent(WordVariantButton);
             variantButton.rootElement.textContent = translation;
             variantButton.onVariantClick.subscribe(this.handleVariantClick.bind(this));
             this.variantsWrapper.append(variantButton.rootElement);

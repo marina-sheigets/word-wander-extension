@@ -3,11 +3,12 @@ import { BaseComponent } from "../base-component/base-component";
 import * as styles from './word-translation.component.css';
 import { IconComponent } from "../icon/icon.component";
 import { IconName } from "../../types/IconName";
+import { ComponentsFactory } from "../factories/component.factory.";
 
 @injectable()
 export class WordTranslationComponent extends BaseComponent {
     constructor(
-        private arrowIcon: IconComponent
+        protected componentsFactory: ComponentsFactory
     ) {
         super(styles);
 
@@ -21,9 +22,10 @@ export class WordTranslationComponent extends BaseComponent {
         word.textContent = sourceWord;
         translation.textContent = targetWord;
 
-        this.arrowIcon.setIcon(IconName.Arrow);
+        const arrowIcon = this.componentsFactory.createComponent(IconComponent);
+        arrowIcon.setIcon(IconName.Arrow);
 
-        arrow.append(this.arrowIcon.rootElement);
+        arrow.append(arrowIcon.rootElement);
 
         this.rootElement.append(word);
 

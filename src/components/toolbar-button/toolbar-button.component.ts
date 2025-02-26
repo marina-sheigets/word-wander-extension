@@ -8,6 +8,7 @@ import { IconComponent } from "../icon/icon.component";
 import { I18nService } from "../../services/i18n/i18n.service";
 import { i18nKeys } from "../../services/i18n/i18n-keys";
 import { IconName } from "../../types/IconName";
+import { ComponentsFactory } from "../factories/component.factory.";
 
 @injectable()
 export class ToolbarButtonComponent extends BaseComponent {
@@ -17,7 +18,9 @@ export class ToolbarButtonComponent extends BaseComponent {
 
     constructor(
         protected messenger: MessengerService,
-        protected i18n: I18nService
+        protected i18n: I18nService,
+        protected componentsFactory: ComponentsFactory
+
     ) {
         super(styles);
 
@@ -41,7 +44,7 @@ export class ToolbarButtonComponent extends BaseComponent {
     }
 
     public addIcon(name: IconName) {
-        const newIcon = new IconComponent();
+        const newIcon = this.componentsFactory.createComponent(IconComponent);
         newIcon.setIcon(name);
 
         this.iconWrapper.classList.add(styles.iconWrapper);

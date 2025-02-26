@@ -5,6 +5,7 @@ import { wait } from "../../utils/wait";
 import { BaseComponent } from "../base-component/base-component";
 import { IconComponent } from "../icon/icon.component";
 import * as styles from './timer.component.css';
+import { ComponentsFactory } from "../factories/component.factory.";
 
 @injectable()
 export class TimerComponent extends BaseComponent {
@@ -13,7 +14,9 @@ export class TimerComponent extends BaseComponent {
     private interval: NodeJS.Timeout | null = null;
     public onTimerEnd = new Informer();
 
-    constructor() {
+    constructor(
+        protected componentsFactory: ComponentsFactory
+    ) {
         super(styles);
 
         this.content.classList.add(styles.content);
@@ -46,14 +49,18 @@ export class TimerComponent extends BaseComponent {
         this.timer.textContent = '';
         clearInterval(this.interval as NodeJS.Timeout);
         if (isSuccess) {
-            const tickSVG = new IconComponent();
+            const tickSVG = this.componentsFactory.createComponent(IconComponent);
+
             tickSVG.setIcon(IconName.Tick);
             this.timer.append(tickSVG.rootElement);
+
             await wait(timeout);
         } else {
-            const crossSVG = new IconComponent();
+            const crossSVG = this.componentsFactory.createComponent(IconComponent);
+
             crossSVG.setIcon(IconName.Close);
             this.timer.append(crossSVG.rootElement);
+
             this.rootElement.classList.add(styles.failed);
         }
     }

@@ -11,6 +11,7 @@ import { CheckboxComponent } from "../../checkbox/checkbox.component";
 import { LoaderComponent } from "../../loader/loader.component";
 import { PopupComponent } from "../popup.component";
 import * as styles from "./send-words-on-training-popup.component.css";
+import { ComponentsFactory } from "../../factories/component.factory.";
 
 @singleton()
 export class SendWordsOnTrainingPopup extends PopupComponent {
@@ -26,7 +27,9 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
         protected sendButton: ButtonComponent,
         protected messenger: MessengerService,
         protected dictionaryService: DictionaryService,
-        protected loader: LoaderComponent
+        protected loader: LoaderComponent,
+        protected componentsFactory: ComponentsFactory
+
     ) {
         super(styles);
 
@@ -71,7 +74,8 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
         this.trainingData = trainings.map(item => ({ ...item, selected: false }));
 
         this.trainingData.forEach((training) => {
-            const checkbox = new CheckboxComponent(training.name);
+            const checkbox = this.componentsFactory.createComponent(CheckboxComponent);
+            checkbox.setName(training.name);
 
             checkbox.onCheckboxChange.subscribe((checkbox: HTMLInputElement) => {
                 this.trainingData = this.trainingData.map((item) => item.name === training.name ? { ...item, selected: checkbox.checked } : item);

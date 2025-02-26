@@ -8,6 +8,7 @@ import { IconName } from '../../types/IconName';
 import { TrainingsService } from '../../services/trainings/trainings.service';
 import { MessengerService } from '../../services/messenger/messenger.service';
 import { Messages } from '../../constants/messages';
+import { ComponentsFactory } from '../factories/component.factory.';
 
 @injectable()
 export class GameCardComponent extends BaseComponent {
@@ -19,11 +20,12 @@ export class GameCardComponent extends BaseComponent {
     constructor(
         protected i18n: I18nService,
         protected trainingsService: TrainingsService,
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected componentsFactory: ComponentsFactory
     ) {
         super(styles);
 
-        const handIcon = new IconComponent();
+        const handIcon = this.componentsFactory.createComponent(IconComponent);
         handIcon.setIcon(IconName.Muscle);
 
         this.rootElement.append(

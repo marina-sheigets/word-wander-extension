@@ -10,10 +10,10 @@ import { HistoryItem } from "../../../../types/History";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { IconComponent } from "../../../icon/icon.component";
 import { IconName } from "../../../../types/IconName";
-import { I18nService } from "../../../../services/i18n/i18n.service";
 import { TextToSpeechService } from "../../../../services/text-to-speech/text-to-speech.service";
 import { DictionaryService } from "../../../../services/dictionary/dictionary.service";
 import { BackgroundMessages } from "../../../../constants/backgroundMessages";
+import { ComponentsFactory } from "../../../factories/component.factory.";
 
 @singleton()
 export class HistoryMenuComponent extends MenuComponent {
@@ -25,9 +25,9 @@ export class HistoryMenuComponent extends MenuComponent {
         protected icon: IconComponent,
         protected messenger: MessengerService,
         protected historyService: HistoryService,
-        protected i18n: I18nService,
         protected textToSpeechService: TextToSpeechService,
-        protected dictionaryService: DictionaryService
+        protected dictionaryService: DictionaryService,
+        protected componentsFactory: ComponentsFactory
     ) {
         super();
 
@@ -65,18 +65,19 @@ export class HistoryMenuComponent extends MenuComponent {
             this.historyContainer.innerHTML = '';
 
             history.forEach((item: HistoryItem) => {
-                const playButton = new ButtonComponent(this.i18n);
+                const playButton = this.componentsFactory.createComponent(ButtonComponent);
+
                 playButton.addButtonIcon(IconName.Play);
                 playButton.addTooltip(i18nKeys.Play);
                 playButton.onClick.subscribe(() => {
                     this.textToSpeechService.play(item.word);
                 });
 
-                const translation = new WordTranslationComponent(this.icon);
+                const translation = this.componentsFactory.createComponent(WordTranslationComponent);
                 translation.addPair(item.word, item.translation, false);
 
 
-                const addWordButton = new ButtonComponent(this.i18n);
+                const addWordButton = this.componentsFactory.createComponent(ButtonComponent);
                 addWordButton.addButtonIcon(IconName.Plus);
                 addWordButton.addTooltip(i18nKeys.AddToDictionary);
                 addWordButton.onClick.subscribe(async () => {

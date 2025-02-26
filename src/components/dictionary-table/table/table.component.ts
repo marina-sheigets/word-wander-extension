@@ -16,6 +16,7 @@ import { SettingsNames } from "../../../constants/settingsNames";
 import { LoaderComponent } from "../../loader/loader.component";
 import { AuthorizationData } from "../../../types/AuthorizationData";
 import { BackgroundMessages } from "../../../constants/backgroundMessages";
+import { ComponentsFactory } from "../../factories/component.factory.";
 
 @singleton()
 export class TableComponent extends BaseComponent {
@@ -29,7 +30,8 @@ export class TableComponent extends BaseComponent {
         protected dictionaryService: DictionaryService,
         protected settingsService: SettingsService,
         protected messenger: MessengerService,
-        protected loader: LoaderComponent
+        protected loader: LoaderComponent,
+        protected componentsFactory: ComponentsFactory
     ) {
         super(styles);
 
@@ -65,10 +67,13 @@ export class TableComponent extends BaseComponent {
         }
 
         this.tableData.forEach((item) => {
-            const checkbox = new CheckboxComponent(item.id);
-            const removeWordIcon = new ButtonComponent(this.i18n);
+            const checkbox = this.componentsFactory.createComponent(CheckboxComponent);
+            checkbox.setName(item.id);
 
-            const playWordIcon = new ButtonComponent(this.i18n);
+            const removeWordIcon = this.componentsFactory.createComponent(ButtonComponent);
+
+            const playWordIcon = this.componentsFactory.createComponent(ButtonComponent);
+
             playWordIcon.rootElement.classList.add(styles.playWordIcon);
             playWordIcon.addButtonIcon(IconName.MusicNote);
             playWordIcon.onClick.subscribe(() => {

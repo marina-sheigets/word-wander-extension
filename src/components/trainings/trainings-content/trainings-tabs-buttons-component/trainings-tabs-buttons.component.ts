@@ -1,19 +1,19 @@
 import { singleton } from "tsyringe";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
-import { I18nService } from "../../../../services/i18n/i18n.service";
 import { BaseComponent } from "../../../base-component/base-component";
 import { ButtonComponent } from "../../../button/button.component";
 import * as styles from './trainings-tabs-buttons.component.css';
 import { TrainingsTabsService } from "../../../../services/trainings-tabs/trainings-tabs.service";
 import { TrainingsTab } from "../../../../types/TrainingsTabs";
+import { ComponentsFactory } from "../../../factories/component.factory.";
 
 @singleton()
 export class TrainingsTabsButtonsComponent extends BaseComponent {
     private buttonsContainer = document.createElement('div');
 
     constructor(
-        protected i18n: I18nService,
-        protected trainingsTabsService: TrainingsTabsService
+        protected trainingsTabsService: TrainingsTabsService,
+        protected componentsFactory: ComponentsFactory
     ) {
         super(styles);
 
@@ -30,7 +30,7 @@ export class TrainingsTabsButtonsComponent extends BaseComponent {
 
     private initTabsButtons() {
         Object.values(TrainingsTab).forEach((button: keyof typeof i18nKeys) => {
-            const buttonComponent = new ButtonComponent(this.i18n);
+            const buttonComponent = this.componentsFactory.createComponent(ButtonComponent);
 
             buttonComponent.addButtonName(button as i18nKeys);
             buttonComponent.addButtonValue(button);

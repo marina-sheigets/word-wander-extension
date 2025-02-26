@@ -1,6 +1,5 @@
 import { singleton } from "tsyringe";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
-import { I18nService } from "../../../../services/i18n/i18n.service";
 import { SettingsTabsButton } from "../../../../types/TabsButton";
 import { BaseComponent } from "../../../base-component/base-component";
 import { ButtonComponent } from "../../../button/button.component";
@@ -10,6 +9,7 @@ import { PronunciationComponent } from "../pronunciation/pronunciation.component
 import { TranslationComponent } from "../translation/translation.component";
 import * as styles from './settings-tabs.component.css';
 import { PreferencesComponent } from "../preferences/preferences.component";
+import { ComponentsFactory } from "../../../factories/component.factory.";
 
 @singleton()
 export class SettingsTabsComponent extends BaseComponent {
@@ -45,7 +45,7 @@ export class SettingsTabsComponent extends BaseComponent {
         protected languagesComponent: LanguagesComponent,
         protected translationComponent: TranslationComponent,
         protected pronunciationComponent: PronunciationComponent,
-        protected i18n: I18nService
+        protected componentsFactory: ComponentsFactory
     ) {
         super();
         this.applyRootStyle(styles);
@@ -63,7 +63,7 @@ export class SettingsTabsComponent extends BaseComponent {
 
     private initTabsButtons() {
         this.tabsButtons.forEach((button: SettingsTabsButton) => {
-            const buttonComponent = new ButtonComponent(this.i18n);
+            const buttonComponent = this.componentsFactory.createComponent(ButtonComponent);
 
             buttonComponent.addButtonValue(button.label);
             buttonComponent.addButtonName(button.label);

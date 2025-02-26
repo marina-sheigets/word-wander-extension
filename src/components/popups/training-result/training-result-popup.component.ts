@@ -10,6 +10,7 @@ import { ListType } from '../../../types/ResultListType';
 import { IconComponent } from '../../icon/icon.component';
 import { PopupComponent } from '../popup.component';
 import * as styles from './training-result-popup.component.css';
+import { ComponentsFactory } from '../../factories/component.factory.';
 
 @singleton()
 export class TrainingResultPopup extends PopupComponent {
@@ -18,7 +19,8 @@ export class TrainingResultPopup extends PopupComponent {
     constructor(
         protected i18n: I18nService,
         protected trainingsStatisticsService: TrainingsStatisticsService,
-        protected messenger: MessengerService
+        protected messenger: MessengerService,
+        protected componentsFactory: ComponentsFactory
     ) {
         super(i18n);
         this.addClassNamesToComponents(styles);
@@ -53,7 +55,7 @@ export class TrainingResultPopup extends PopupComponent {
         const listWrapper = document.createElement('div');
         listWrapper.classList.add(styles.listWrapper);
 
-        const listIcon = new IconComponent();
+        const listIcon = this.componentsFactory.createComponent(IconComponent);
         listIcon.setIcon(listType === ListType.Correct ? IconName.Tick : IconName.Close);
 
         const list = document.createElement('div');

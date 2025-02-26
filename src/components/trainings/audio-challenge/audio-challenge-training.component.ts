@@ -16,6 +16,7 @@ import { WordVariantButton } from "../../button/word-variant/word-variant.compon
 import { setAnimationForWrongAnswer } from "../../../utils/setAnimationForWrongAnswer";
 import { TrainingsStatisticsService } from "../../../services/trainings-statistics/trainings-statistics.service";
 import { SkipWordButtonComponent } from "../../button/skip-word/skip-word-button.component";
+import { ComponentsFactory } from "../../factories/component.factory.";
 
 @singleton()
 export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
@@ -38,6 +39,7 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
         protected messenger: MessengerService,
         protected i18n: I18nService,
         protected trainingsService: TrainingsService,
+        protected componentsFactory: ComponentsFactory
     ) {
         super(i18n, messenger);
 
@@ -108,7 +110,7 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
 
         this.variantsWrapper.innerHTML = '';
         variantsForCurrentWord.translations.forEach(translation => {
-            const variantButton = new WordVariantButton();
+            const variantButton = this.componentsFactory.createComponent(WordVariantButton);
             variantButton.rootElement.textContent = translation;
             variantButton.onVariantClick.subscribe(this.handleVariantClick.bind(this));
             this.variantsWrapper.append(variantButton.rootElement);

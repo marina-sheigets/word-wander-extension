@@ -8,15 +8,19 @@ export class CheckboxComponent extends BaseComponent {
     private checkbox = document.createElement('input');
     public onCheckboxChange = new Informer();
 
-    constructor(id: string) {
+    constructor() {
         super(styles);
 
         this.checkbox.type = 'checkbox';
-        this.checkbox.name = id;
+
 
         this.checkbox.addEventListener('change', this.informListeners.bind(this));
 
         this.rootElement.append(this.checkbox);
+    }
+
+    setName(name: string) {
+        this.checkbox.name = name;
     }
 
     private informListeners(e: Event) {

@@ -15,6 +15,7 @@ import { TimerComponent } from "../../timer/timer.component";
 import { WordCountComponent } from "../../word-count/word-count.component";
 import * as styles from './repeating-training.component.css';
 import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
+import { ComponentsFactory } from "../../factories/component.factory.";
 
 @singleton()
 export class RepeatingTrainingComponent extends GameWrapperPopupComponent {
@@ -38,7 +39,8 @@ export class RepeatingTrainingComponent extends GameWrapperPopupComponent {
         protected trainingsService: TrainingsService,
         protected textToSpeech: TextToSpeechService,
         protected messenger: MessengerService,
-        protected i18n: I18nService
+        protected i18n: I18nService,
+        protected componentsFactory: ComponentsFactory
     ) {
         super(i18n, messenger);
 
@@ -109,7 +111,7 @@ export class RepeatingTrainingComponent extends GameWrapperPopupComponent {
 
         this.variantsWrapper.innerHTML = '';
         variantsForCurrentWord.translations.forEach(translation => {
-            const variantButton = new WordVariantButton();
+            const variantButton = this.componentsFactory.createComponent(WordVariantButton);
             variantButton.rootElement.textContent = translation;
             variantButton.onVariantClick.subscribe((e) => this.handleVariantClick(e.target as HTMLButtonElement));
             this.variantsWrapper.append(variantButton.rootElement);
