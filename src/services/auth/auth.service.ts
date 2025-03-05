@@ -115,6 +115,8 @@ export class AuthService {
     }
 
     private closeAllSignInPopups() {
+        this.closeSignInPopup();
+
         if (isExtensionContext()) {
             this.extensionPageManager.sendMessageToBackground(BackgroundMessages.CloseAllSignInPopups);
             return;
