@@ -1,5 +1,6 @@
 import { singleton } from "tsyringe";
 import { HistoryItem } from "../../types/History";
+import { TrainingSound } from "../training-sound/training-sound.service";
 
 @singleton()
 export class TrainingsStatisticsService {
@@ -11,10 +12,12 @@ export class TrainingsStatisticsService {
     }
 
     public addRightWord(word: HistoryItem) {
+        TrainingSound.playCorrectSound();
         this.rightWords.push(word);
     }
 
     public addWrongWord(word: HistoryItem) {
+        TrainingSound.playIncorrectSound()
         this.wrongWords.push(word);
     }
 

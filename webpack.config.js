@@ -77,6 +77,10 @@ module.exports = commandArgs => {
                     loader: 'svg-inline-loader'
                 },
                 {
+                    test: /\.mp3$/,
+                    loader: 'file-loader'
+                },
+                {
                     test: /\.css$/i,
                     use: [
                         {

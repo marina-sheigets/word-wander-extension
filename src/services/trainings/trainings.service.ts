@@ -11,6 +11,7 @@ import { HttpService } from "../http/http.service";
 import { URL } from "../../constants/urls";
 import { trainings } from "../../constants/trainings";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
+import { TrainingSound } from "../training-sound/training-sound.service";
 
 @singleton()
 export class TrainingsService {
@@ -39,6 +40,7 @@ export class TrainingsService {
     startGame(gameID: number) {
         this.isGameInProgress = true;
         this.currentGame = gameID;
+        TrainingSound.playStartTraining();
         this.messenger.send(StartTrainingsMessages[gameID]);
     }
 
