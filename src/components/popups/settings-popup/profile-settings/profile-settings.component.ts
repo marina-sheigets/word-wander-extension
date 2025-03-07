@@ -74,8 +74,10 @@ export class ProfileSettingsComponent extends TabContent {
             this.registrationDateLabel.textContent = value + ":";
         });
 
-        this.emailValue.textContent = this.userService.getUserInfo().email;
-        this.registrationDateValue.textContent = this.userService.getUserInfo().registrationDate;
+        const userInfo = this.userService.getUserInfo();
+
+        this.emailValue.textContent = userInfo.email;
+        this.registrationDateValue.textContent = userInfo.registrationDate;
 
         this.emailInfoWrapper.append(this.emailLabel, this.emailValue);
         this.registrationDateInfoWrapper.append(this.registrationDateLabel, this.registrationDateValue);
