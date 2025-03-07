@@ -1,3 +1,7 @@
+.rootClassName {
+   display: flex;
+   justify-content: center;
+}
 
 .rootClassName.hidden {
     display: none !important;
