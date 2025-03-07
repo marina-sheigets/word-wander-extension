@@ -28,9 +28,7 @@ export class NotFoundComponent extends BaseComponent {
     }
 
     setTitle(key: i18nKeys) {
-        debugger;
         this.i18n.follow(key, (value: string) => {
-            debugger
             this.title.textContent = value;
         });
     }
