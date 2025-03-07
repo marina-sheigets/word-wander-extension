@@ -82,6 +82,7 @@ export class TableComponent extends BaseComponent {
         this.tableData.forEach((item) => {
             const checkbox = this.componentsFactory.createComponent(CheckboxComponent);
             checkbox.setName(item.id);
+            checkbox.setChecked(item.selected);
 
             const removeWordIcon = this.componentsFactory.createComponent(ButtonComponent);
 
@@ -128,6 +129,12 @@ export class TableComponent extends BaseComponent {
             }
         });
 
+        this.initialData.forEach((item) => {
+            if (item.id === selectedId) {
+                item.selected = checkbox.checked;
+            }
+        });
+
         this.onSelectedChange.inform();
     }
 
@@ -140,13 +147,19 @@ export class TableComponent extends BaseComponent {
         checkboxes.forEach((elem: HTMLInputElement) => elem.checked = allSelected);
 
         this.tableData.forEach(item => item.selected = allSelected);
+        this.initialData.forEach(item => item.selected = allSelected);
+
         this.onSelectedChange.inform();
     }
 
     private async handleRemoveWord(item: DictionaryTableItem) {
         await this.dictionaryService.removeWordFromDictionary(item.id);
+
         this.tableData = this.tableData.filter((tableItem) => tableItem.id !== item.id);
+        this.initialData = this.initialData.filter((tableItem) => tableItem.id !== item.id);
+
         this.initTable();
+
         this.onSelectedChange.inform(this.tableData);
         this.dictionaryService.onDataChanged.inform(this.tableData);
     }

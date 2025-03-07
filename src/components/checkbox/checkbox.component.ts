@@ -26,4 +26,8 @@ export class CheckboxComponent extends BaseComponent {
     private informListeners(e: Event) {
         this.onCheckboxChange.inform(e.currentTarget)
     }
+
+    public setChecked(checked: boolean) {
+        this.checkbox.checked = checked;
+    }
 }
