@@ -1,4 +1,11 @@
 .rootClassName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.tableContainer {
     margin-top: 1.5rem;
     display: grid;
     grid-template-columns: 50px 50px 1fr 1fr 50px;
@@ -6,6 +13,10 @@
     overflow-y: auto;
     height: 250px;
     grid-auto-rows: min-content;
+}
+
+.tableContainer:empty {
+    display: none;
 }
 
 .wordContainer, .translationContainer {
@@ -24,5 +35,9 @@
 
 .playWordIcon button {
     background:transparent;
+}
+
+.hidden {
+    display: none;
 }
 

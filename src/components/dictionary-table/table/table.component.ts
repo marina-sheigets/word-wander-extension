@@ -17,12 +17,16 @@ import { LoaderComponent } from "../../loader/loader.component";
 import { AuthorizationData } from "../../../types/AuthorizationData";
 import { BackgroundMessages } from "../../../constants/backgroundMessages";
 import { ComponentsFactory } from "../../factories/component.factory.";
+import { NotFoundComponent } from "../../not-found/not-found.component";
 
 @singleton()
 export class TableComponent extends BaseComponent {
     public onSelectedChange = new Informer();
 
+    private tableContainer = document.createElement('div');
+
     private tableData: DictionaryTableItem[] = [];
+    private initialData: DictionaryTableItem[] = [];
 
     constructor(
         protected i18n: I18nService,
@@ -31,37 +35,46 @@ export class TableComponent extends BaseComponent {
         protected settingsService: SettingsService,
         protected messenger: MessengerService,
         protected loader: LoaderComponent,
-        protected componentsFactory: ComponentsFactory
+        protected componentsFactory: ComponentsFactory,
+        protected notFoundComponent: NotFoundComponent
     ) {
         super(styles);
 
         chrome.runtime?.onMessage?.addListener(async (request) => {
             if (request.type === BackgroundMessages.DictionarySync) {
-                this.tableData = await this.dictionaryService.fetchDictionary();
+                this.initialData = await this.dictionaryService.fetchDictionary();
                 this.initTable();
             }
         });
+
+        this.tableContainer.classList.add(styles.tableContainer);
 
         this.dictionaryService.onDataChanged.subscribe(this.initTable.bind(this));
 
         this.settingsService.subscribe(SettingsNames.User, async (userData: AuthorizationData) => {
             if (!userData) return;
-            this.tableData = await this.dictionaryService.fetchDictionary();
+            this.initialData = await this.dictionaryService.fetchDictionary();
             this.loader.hide();
         });
 
         this.loader.show();
-        this.rootElement.append(this.loader.rootElement);
+        this.rootElement.append(
+            this.tableContainer,
+            this.loader.rootElement,
+            this.notFoundComponent.rootElement
+        );
     }
 
 
     private async initTable(data?: DictionaryTableItem[]) {
-        this.tableData = data || this.tableData;
+        this.notFoundComponent.hide();
+        this.tableContainer.classList.remove(styles.hidden);
+        this.tableData = data || this.initialData;
 
-        this.rootElement.textContent = '';
+        this.tableContainer.textContent = '';
         if (!this.tableData.length) {
             this.i18n.subscribe(i18nKeys.EmptyDictionary, (value: string) => {
-                this.rootElement.textContent = value;
+                this.tableContainer.textContent = value;
             });
             return;
         }
@@ -95,7 +108,7 @@ export class TableComponent extends BaseComponent {
             });
             removeWordIcon.rootElement.id = "delete-word-icon-" + item.id;
 
-            this.rootElement.append(
+            this.tableContainer.append(
                 checkbox.rootElement,
                 playWordIcon.rootElement,
                 wordContainer,
@@ -123,7 +136,7 @@ export class TableComponent extends BaseComponent {
     }
 
     public toggleSelectAllWords(allSelected: boolean) {
-        const checkboxes = this.rootElement.querySelectorAll('input[type=checkbox]');
+        const checkboxes = this.tableContainer.querySelectorAll('input[type=checkbox]');
         checkboxes.forEach((elem: HTMLInputElement) => elem.checked = allSelected);
 
         this.tableData.forEach(item => item.selected = allSelected);
@@ -137,4 +150,29 @@ export class TableComponent extends BaseComponent {
         this.onSelectedChange.inform(this.tableData);
         this.dictionaryService.onDataChanged.inform(this.tableData);
     }
+
+    public filterWords(value: string) {
+        if (!value) {
+            this.initTable();
+            return;
+        }
+
+        const filteredData = this.initialData.filter((item) => item.word.toLowerCase().includes(value.toLowerCase()));
+
+        if (!filteredData.length) {
+            this.displayEmptyResult();
+            return;
+        }
+
+        this.initTable(filteredData);
+    }
+
+    private displayEmptyResult() {
+        this.tableContainer.classList.add(styles.hidden);
+
+        this.notFoundComponent.setTitle(i18nKeys.WordsNotFound);
+        this.notFoundComponent.setDescription(i18nKeys.TryAnotherPrompt);
+        this.notFoundComponent.show();
+    }
+
 }

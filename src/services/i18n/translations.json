@@ -7,6 +7,14 @@
     "en":"words to learn",
     "uk":"слів для вивчення"
   },
+  "WordsNotFound":{
+    "en":"Words not found",
+    "uk":"Слова не знайдено"
+  },
+  "TryAnotherPrompt":{
+    "en":"Try another prompt",
+    "uk":"Спробуйте інший запит"
+  },
   "Done": {
     "en": "Done",
     "uk": "Готово"

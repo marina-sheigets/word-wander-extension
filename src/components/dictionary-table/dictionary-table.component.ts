@@ -126,4 +126,8 @@ export class DictionaryTableComponent extends BaseComponent {
             }
         });
     }
+
+    public filterWords(searchValue: string) {
+        this.tableComponent.filterWords(searchValue);
+    }
 }

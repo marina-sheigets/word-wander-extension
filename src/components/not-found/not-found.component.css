@@ -1,0 +1,26 @@
+.rootClassName {
+    display: flex;
+    flex-direction: column ;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    color: inherit;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.rootClassName h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ffff;
+}
+
+button:empty {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}

@@ -5,6 +5,8 @@ export const enum i18nKeys {
     SendWordsOnTrainingTitle = "SendWordsOnTrainingTitle",
     GoToDictionary = "GoToDictionary",
     Done = "Done",
+    WordsNotFound = "WordsNotFound",
+    TryAnotherPrompt = "TryAnotherPrompt",
     TrainingResultTitle = "TrainingResultTitle",
     NotEnoughWordsTitle = "NotEnoughWordsTitle",
     NotEnoughWordsDescription = "NotEnoughWordsDescription",
