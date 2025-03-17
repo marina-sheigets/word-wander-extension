@@ -48,4 +48,5 @@ export const enum Messages {
 
     //Dictionary
     WordNotAddedToDictionary = 'WordNotAddedToDictionary',
+    OpenCustomTranslationPopup = 'OpenCustomTranslationPopup',
 }

@@ -2,9 +2,8 @@ import { singleton } from "tsyringe";
 import { BaseComponent } from "../../../../base-component/base-component";
 import * as styles from "./trainings-dictionary.component.css";
 import { FindWordInputComponent } from "../../../../input/find-word-input/find-word-input.component";
-import { ButtonComponent } from "../../../../button/button.component";
-import { i18nKeys } from "../../../../../services/i18n/i18n-keys";
 import { DictionaryTableComponent } from "../../../../dictionary-table/dictionary-table.component";
+import { AddCustomTranslationButton } from "../../../../button/add-custom-translation/add-custom-translation.button";
 
 @singleton()
 export class TrainingsDictionaryComponent extends BaseComponent {
@@ -12,12 +11,11 @@ export class TrainingsDictionaryComponent extends BaseComponent {
 
     constructor(
         protected findWordInputComponent: FindWordInputComponent,
-        protected addCustomTranslationButton: ButtonComponent,
+        protected addCustomTranslationButton: AddCustomTranslationButton,
         protected dictionaryTable: DictionaryTableComponent,
     ) {
         super(styles);
 
-        this.addCustomTranslationButton.addButtonName(i18nKeys.AddCustomTranslation);
 
         this.toolsContainer.classList.add(styles.toolsContainer);
 
