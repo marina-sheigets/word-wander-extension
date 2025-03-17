@@ -15,6 +15,7 @@ import { SignInPopupComponent } from '../components/popups/sign-in/sign-in.compo
 import { NotEnoughWordsPopup } from '../components/popups/not-enough-words/not-enough-words-popup.component';
 import { SendWordsOnTrainingPopup } from '../components/popups/send-words-on-training/send-words-on-training-popup.component';
 import { TrainingResultPopup } from '../components/popups/training-result/training-result-popup.component';
+import { CustomTranslationPopup } from '../components/popups/custom-translation/custom-translation.popup';
 
 @singleton()
 class Trainings {
@@ -32,6 +33,7 @@ class Trainings {
         protected notEnoughWordsPopup: NotEnoughWordsPopup,
         protected sendWordsOnTrainingsPopup: SendWordsOnTrainingPopup,
         protected trainingResultPopup: TrainingResultPopup,
+        protected customTranslationPopup: CustomTranslationPopup,
         protected messenger: MessengerService,
     ) {
         document.body.style.margin = "0";
@@ -52,6 +54,7 @@ class Trainings {
             this.wordConstructionTrainingComponent.rootElement,
             this.audioChallengeTraining.rootElement,
             this.listeningTraining.rootElement,
+            this.customTranslationPopup.rootElement,
         );
 
         this.messenger.subscribe(Messages.ChangeExtensionPageTitle, (newTitle: string) => {

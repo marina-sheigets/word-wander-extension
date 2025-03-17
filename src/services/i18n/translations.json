@@ -431,6 +431,10 @@
         "en":"Finish training",
         "uk":"Завершити тренування"
     },
+    "EnterTranslation":{
+        "en":"Enter translation",
+        "uk":"Введіть переклад"
+    },
     "FinishTrainingDescription":{
         "en":"Are you sure you want to finish training ?",
         "uk":"Ви впевнені, що хочете завершити тренування ?"
