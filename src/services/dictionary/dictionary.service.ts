@@ -81,6 +81,16 @@ export class DictionaryService {
                     trainings: selectedTrainings
                 }
             );
+            return response;
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async removeWordsFromDictionary(selectedWordsIds: string[]) {
+        try {
+            const response = await this.httpService.delete(URL.dictionary.deleteWords, {}, { data: { wordsIds: selectedWordsIds } });
+            this.extensionPageManager.sendMessageToBackground(BackgroundMessages.DictionarySync, "");
 
             return response;
         } catch (e) {

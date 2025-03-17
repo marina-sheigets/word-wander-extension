@@ -1,4 +1,5 @@
 export const enum i18nKeys {
+    RemoveSelectedWords = "RemoveSelectedWords",
     NoHistory = "NoHistory",
     CorrectWords = "CorrectWords",
     IncorrectWords = "IncorrectWords",

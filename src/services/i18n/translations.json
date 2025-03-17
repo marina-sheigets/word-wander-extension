@@ -431,6 +431,10 @@
         "en":"Finish training",
         "uk":"Завершити тренування"
     },
+    "RemoveSelectedWords":{
+        "en":"Remove selected words",
+        "uk":"Видалити вибрані слова"
+    },
     "EnterTranslation":{
         "en":"Enter translation",
         "uk":"Введіть переклад"

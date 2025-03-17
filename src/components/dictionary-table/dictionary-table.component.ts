@@ -16,16 +16,21 @@ export class DictionaryTableComponent extends BaseComponent {
     private tableHeaderTools = document.createElement('div');
     private wordsSelectedLabel = document.createElement('div');
 
+    private selectedWords: DictionaryTableItem[] = [];
+
     constructor(
         protected i18n: I18nService,
         protected selectAllButton: ButtonComponent,
         protected unselectAllButton: ButtonComponent,
+        protected removeSelectedWordsButton: ButtonComponent,
         protected sendOnTrainingButton: ButtonComponent,
         protected tableComponent: TableComponent,
         protected dictionaryService: DictionaryService,
         protected messengerService: MessengerService
     ) {
         super();
+
+        this.selectedWords = [];
 
         this.selectAllButton.addButtonName(i18nKeys.SelectAll);
         this.selectAllButton.rootElement.classList.add(styles.selectAllButton);
@@ -48,6 +53,13 @@ export class DictionaryTableComponent extends BaseComponent {
         });
         this.unselectAllButton.hide();
 
+        this.removeSelectedWordsButton.addButtonName(i18nKeys.RemoveSelectedWords);
+        this.removeSelectedWordsButton.rootElement.classList.add(styles.selectAllButton);
+        this.removeSelectedWordsButton.onClick.subscribe(() => {
+            this.removeSelectedWords();
+        });
+        this.removeSelectedWordsButton.hide();
+
         this.amountWordsLabel.classList.add(styles.amountWords);
         this.tableHeaderTools.classList.add(styles.tableHeaderTools);
 
@@ -59,6 +71,7 @@ export class DictionaryTableComponent extends BaseComponent {
             this.selectAllButton.rootElement,
             this.unselectAllButton.rootElement,
             this.sendOnTrainingButton.rootElement,
+            this.removeSelectedWordsButton.rootElement,
             this.wordsSelectedLabel
         );
 
@@ -72,27 +85,26 @@ export class DictionaryTableComponent extends BaseComponent {
     }
 
     private changeWordsSelectedLabel() {
-        const selectedWords = this.tableComponent.getTableData().filter(item => item.selected);
+        this.selectedWords = this.tableComponent.getTableData().filter(item => item.selected);
 
-        this.toggleSelectAllWordsButtons(selectedWords.length);
+        this.toggleSelectAllWordsButtons(this.selectedWords.length);
 
-        if (selectedWords.length) {
+        if (this.selectedWords.length) {
+            this.removeSelectedWordsButton.show();
             this.sendOnTrainingButton.show();
             this.toggleHideDeleteWordButtons(true);
 
-            if (selectedWords.length === 1) {
+            if (this.selectedWords.length === 1) {
                 this.i18n.follow(i18nKeys.OneWordSelected, (value) => {
                     this.wordsSelectedLabel.textContent = value;
                 });
             } else {
                 this.i18n.follow(i18nKeys.ManyWordsSelected, (value) => {
-                    this.wordsSelectedLabel.textContent = selectedWords.length + value;
+                    this.wordsSelectedLabel.textContent = this.selectedWords.length + value;
                 });
             }
         } else {
-            this.toggleHideDeleteWordButtons(false);
-            this.sendOnTrainingButton.hide();
-            this.wordsSelectedLabel.textContent = "";
+            this.restoreInitialToolsView();
         }
     }
 
@@ -129,5 +141,22 @@ export class DictionaryTableComponent extends BaseComponent {
 
     public filterWords(searchValue: string) {
         this.tableComponent.filterWords(searchValue);
+    }
+
+    private removeSelectedWords() {
+        const selectedWordsIds = this.selectedWords.map(item => item.id);
+
+        this.dictionaryService.removeWordsFromDictionary(selectedWordsIds).then(() => {
+            this.selectAllButton.show();
+            this.unselectAllButton.hide();
+            this.restoreInitialToolsView();
+        })
+    }
+
+    private restoreInitialToolsView() {
+        this.toggleHideDeleteWordButtons(false);
+        this.removeSelectedWordsButton.hide();
+        this.sendOnTrainingButton.hide();
+        this.wordsSelectedLabel.textContent = "";
     }
 }

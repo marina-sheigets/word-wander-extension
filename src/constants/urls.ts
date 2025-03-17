@@ -3,6 +3,7 @@ export const URL = {
         addWord: 'dictionary/add-word',
         getWords: 'dictionary/get-words',
         deleteWord: 'dictionary/delete-word',
+        deleteWords: 'dictionary/delete-words',
     },
     auth: {
         login: 'auth/login',
