@@ -7,6 +7,8 @@ import { URL } from "../../constants/urls";
 import { DictionaryTableItem } from "../../types/DictionaryTableItem";
 import { Informer } from "../informer/informer.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
+import { isExtensionContext } from "../../utils/isExtensionContext";
+import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
 
 @singleton()
 export class DictionaryService {
@@ -16,7 +18,8 @@ export class DictionaryService {
     constructor(
         protected authService: AuthService,
         protected messenger: MessengerService,
-        protected httpService: HttpService
+        protected httpService: HttpService,
+        protected extensionPageManager: ExtensionPageManagerService
     ) {
     }
 
@@ -28,7 +31,11 @@ export class DictionaryService {
             }
             await this.httpService.post(URL.dictionary.addWord, { word, translation })
 
-            this.messenger.asyncSendToBackground(BackgroundMessages.WordAddedToDictionary, { word, translation });
+            if (isExtensionContext()) {
+                this.extensionPageManager.sendMessageToBackground(BackgroundMessages.DictionarySync, word);
+            } else {
+                this.messenger.asyncSendToBackground(BackgroundMessages.WordAddedToDictionary, { word, translation });
+            }
         } catch (e) {
             this.messenger.send(Messages.WordNotAddedToDictionary);
             throw Error;

@@ -41,7 +41,10 @@ export class TableComponent extends BaseComponent {
         super(styles);
 
         chrome.runtime?.onMessage?.addListener(async (request) => {
-            if (request.type === BackgroundMessages.DictionarySync) {
+            if (
+                request.type === BackgroundMessages.DictionarySync ||
+                (request.message && request.message === BackgroundMessages.DictionarySync)
+            ) {
                 this.initialData = await this.dictionaryService.fetchDictionary();
                 this.initTable();
             }
