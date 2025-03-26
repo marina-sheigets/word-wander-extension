@@ -347,9 +347,13 @@
         "en":"Add custom translation",
         "uk":"Додати власний переклад"
     },
-    "AmountWords":{
+    "SeveralWordsInDictionary":{
         "en":" words in dictionary",
         "uk":" слів у словнику"
+    },
+    "OneWordInDictionary":{
+        "en":"1 word in dictionary",
+        "uk":"1 слово у словнику"
     },
     "SelectAll":{
         "en":"Select all",

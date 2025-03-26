@@ -109,12 +109,22 @@ export class DictionaryTableComponent extends BaseComponent {
     }
 
     private changeWordsInDictionaryLabel(data: DictionaryTableItem[]) {
-        this.i18n.follow(i18nKeys.AmountWords, (value) => {
+        if (data.length === 1) {
+            this.i18n.follow(i18nKeys.OneWordInDictionary, (value) => {
+                this.amountWordsLabel.textContent = value;
+            });
+            return;
+        }
+
+        this.i18n.follow(i18nKeys.SeveralWordsInDictionary, (value) => {
             this.amountWordsLabel.textContent = data.length + value;
         });
 
         if (!data.length) {
             this.selectAllButton.hide();
+            this.unselectAllButton.hide();
+
+            return;
         }
     }
 
