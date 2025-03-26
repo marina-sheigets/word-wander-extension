@@ -9,6 +9,7 @@ import { DictionaryService } from "../../services/dictionary/dictionary.service"
 import { DictionaryTableItem } from "../../types/DictionaryTableItem";
 import { MessengerService } from "../../services/messenger/messenger.service";
 import { Messages } from "../../constants/messages";
+import { BackgroundMessages } from "../../constants/backgroundMessages";
 
 @singleton()
 export class DictionaryTableComponent extends BaseComponent {
@@ -82,6 +83,16 @@ export class DictionaryTableComponent extends BaseComponent {
         );
 
         this.tableComponent.onSelectedChange.subscribe(this.changeWordsSelectedLabel.bind(this));
+
+        chrome.runtime?.onMessage?.addListener(async (request) => {
+            if (
+                request.type === BackgroundMessages.DictionarySync ||
+                (request.message && request.message === BackgroundMessages.DictionarySync)
+            ) {
+                this.selectAllButton.show();
+                this.unselectAllButton.hide();
+            }
+        });
     }
 
     private changeWordsSelectedLabel() {
