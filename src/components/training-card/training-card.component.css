@@ -36,3 +36,24 @@
     width: 50px;
     height: 50px;
 }
+
+.active {
+    background-color: #00CE8F;
+}
+
+.active h2, .active p {
+    color: #292A2E;
+}
+
+.active svg g path {
+    fill: #292A2E;
+}
+
+.active p > div {
+    color: #292A2E;
+    border: 1px solid #292A2E;
+}
+
+.active {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}

@@ -20,14 +20,6 @@ export class AmountWordsChipComponent extends BaseComponent {
         this.i18n.follow(i18nKeys.AmountWordsChip, (value: string) => {
             this.rootElement.textContent = `${value}: ${amount}`;
         });
-
-        if (amount === 0) {
-            this.rootElement.classList.remove(styles.active);
-            this.rootElement.classList.add(styles.inactive);
-        } else {
-            this.rootElement.classList.remove(styles.inactive);
-            this.rootElement.classList.add(styles.active);
-        }
     }
 
     getAmount() {

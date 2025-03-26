@@ -1,6 +1,6 @@
 import { injectable } from 'tsyringe';
 import { BaseComponent } from '../base-component/base-component';
-import * as styles from './game-card.component.css';
+import * as styles from './training-card.component.css';
 import { i18nKeys } from '../../services/i18n/i18n-keys';
 import { I18nService } from '../../services/i18n/i18n.service';
 import { IconComponent } from '../icon/icon.component';
@@ -11,7 +11,7 @@ import { Messages } from '../../constants/messages';
 import { ComponentsFactory } from '../factories/component.factory.';
 
 @injectable()
-export class GameCardComponent extends BaseComponent {
+export class TrainingCardComponent extends BaseComponent {
     private gameID: null | number = null;
     private title = document.createElement('h2');
     private description = document.createElement('p');
@@ -69,5 +69,9 @@ export class GameCardComponent extends BaseComponent {
         if (this.gameID) {
             this.messenger.send(Messages.ShowStartTrainingPopup, this.gameID);
         }
+    }
+
+    public toggleActiveState(amount: number) {
+        this.rootElement.classList.toggle(styles.active, amount > 0);
     }
 }

@@ -1,7 +1,7 @@
 import { singleton } from 'tsyringe';
 import { BaseComponent } from '../../../../base-component/base-component';
 import * as styles from './trainings-list.component.css';
-import { GameCardComponent } from '../../../../game-card/game-card.component';
+import { TrainingCardComponent } from '../../../../training-card/training-card.component';
 import { trainings } from '../../../../../constants/trainings';
 import { TrainingsService } from '../../../../../services/trainings/trainings.service';
 import { MessengerService } from '../../../../../services/messenger/messenger.service';
@@ -13,7 +13,6 @@ import { ComponentsFactory } from '../../../../factories/component.factory.';
 export class TrainingsListComponent extends BaseComponent {
     constructor(
         protected trainingsService: TrainingsService,
-        protected gameCardComponent: GameCardComponent,
         protected messenger: MessengerService,
         protected componentsFactory: ComponentsFactory,
     ) {
@@ -27,7 +26,7 @@ export class TrainingsListComponent extends BaseComponent {
         this.rootElement.textContent = '';
 
         trainings.forEach((training) => {
-            const card = this.componentsFactory.createComponent(GameCardComponent);
+            const card = this.componentsFactory.createComponent(TrainingCardComponent);
 
             card.setGameID(training.id);
             card.setTitle(training.title);
@@ -38,6 +37,8 @@ export class TrainingsListComponent extends BaseComponent {
             amountWordsChip.setAmount(amount);
 
             card.setAmountWordsChip(amountWordsChip.rootElement);
+            card.toggleActiveState(amount);
+
             this.rootElement.appendChild(card.rootElement);
         });
     }
