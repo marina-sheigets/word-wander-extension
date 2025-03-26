@@ -31,11 +31,7 @@ export class DictionaryService {
             }
             await this.httpService.post(URL.dictionary.addWord, { word, translation })
 
-            if (isExtensionContext()) {
-                this.extensionPageManager.sendMessageToBackground(BackgroundMessages.DictionarySync, word);
-            } else {
-                this.messenger.asyncSendToBackground(BackgroundMessages.WordAddedToDictionary, { word, translation });
-            }
+            this.rerenderDictionary(word, translation);
         } catch (e) {
             this.messenger.send(Messages.WordNotAddedToDictionary);
             throw Error;
@@ -67,6 +63,8 @@ export class DictionaryService {
         try {
             const response = await this.httpService.delete(URL.dictionary.deleteWord, { wordId: id });
 
+            this.rerenderDictionary("", "");
+
             return response;
         } catch (e) {
             throw e;
@@ -90,11 +88,20 @@ export class DictionaryService {
     async removeWordsFromDictionary(selectedWordsIds: string[]) {
         try {
             const response = await this.httpService.delete(URL.dictionary.deleteWords, {}, { data: { wordsIds: selectedWordsIds } });
-            this.extensionPageManager.sendMessageToBackground(BackgroundMessages.DictionarySync, "");
+
+            this.rerenderDictionary("", "");
 
             return response;
         } catch (e) {
             throw e;
+        }
+    }
+
+    private rerenderDictionary(word: string, translation: string) {
+        if (isExtensionContext()) {
+            this.extensionPageManager.sendMessageToBackground(BackgroundMessages.DictionarySync, word);
+        } else {
+            this.messenger.asyncSendToBackground(BackgroundMessages.WordAddedToDictionary, { word, translation });
         }
     }
 }

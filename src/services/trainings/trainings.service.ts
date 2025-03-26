@@ -6,7 +6,6 @@ import { AudioChallengeTrainingData, RepeatingTrainingData, WordConstructionTrai
 import { AmountWords } from "../../types/AmountWords";
 import { SettingsService } from "../settings/settings.service";
 import { SettingsNames } from "../../constants/settingsNames";
-import { AuthorizationData } from "../../types/AuthorizationData";
 import { HttpService } from "../http/http.service";
 import { URL } from "../../constants/urls";
 import { trainings } from "../../constants/trainings";
@@ -32,7 +31,7 @@ export class TrainingsService {
 
         chrome.runtime?.onMessage.addListener(async (request) => {
             if (request.message === BackgroundMessages.DictionarySync) {
-                this.fetchAmountOfWords(request.data);
+                this.fetchAmountOfWords();
             }
         });
     }
@@ -48,11 +47,7 @@ export class TrainingsService {
         this.messenger.send(Messages.ShowCloseTrainingPopup, this.currentGame);
     }
 
-    private fetchAmountOfWords(user: AuthorizationData) {
-        if (!user) {
-            return;
-        }
-
+    private fetchAmountOfWords() {
         this.httpService.get(URL.training.getAmountWordsForTrainings)?.then((res) => {
             if (res && res.data) {
                 this.amountWordsForTrainings = res.data;
