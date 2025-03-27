@@ -2,7 +2,7 @@ import { singleton } from "tsyringe";
 import { Messages } from "../../constants/messages";
 import { MessengerService } from "../messenger/messenger.service";
 import { FinishTrainingsMessages, StartTrainingsMessages } from "../../constants/trainingMessages";
-import { AudioChallengeTrainingData, RepeatingTrainingData, WordConstructionTrainingData } from "../../types/TrainingsData";
+import { AudioChallengeTrainingData, RepeatingTrainingData, WordConstructionTrainingData, WordTranslationTrainingData } from "../../types/TrainingsData";
 import { AmountWords } from "../../types/AmountWords";
 import { SettingsService } from "../settings/settings.service";
 import { SettingsNames } from "../../constants/settingsNames";
@@ -11,6 +11,9 @@ import { URL } from "../../constants/urls";
 import { trainings } from "../../constants/trainings";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { TrainingSound } from "../training-sound/training-sound.service";
+import { TrainingNames } from "../../constants/trainingNames";
+import { shuffleWordsForTraining } from "../../utils/shuffleWordsForTraining";
+import { Word } from "../../types/Word";
 
 @singleton()
 export class TrainingsService {
@@ -64,52 +67,44 @@ export class TrainingsService {
     }
 
     public areEnoughWordsForTraining(gameID: number): boolean {
-        const selectedTrainingName = trainings.find((training) => training.id === gameID)?.name;
+        const selectedTrainingName = trainings.find((training) => training.id === gameID)!.name;
+        const amountOfWords = this.getAmountOfWordsForTraining(selectedTrainingName);
+        const minimumAmountOfWords = trainings.find((training) => training.name === selectedTrainingName)?.minimumAmountOfWords || 0;
 
         if (!selectedTrainingName) {
             return false;
         }
 
-        return this.getAmountOfWordsForTraining(selectedTrainingName) > 0;
+        return amountOfWords >= minimumAmountOfWords;
+    }
+
+    private fetchWordsForTraining(trainingName: TrainingNames): Promise<Word[] | null> {
+        const request = this.httpService.get(URL.training.getWordsForTraining + `?trainingName=${trainingName}`);
+
+        if (!request) {
+            return Promise.resolve(null);
+        }
+
+        return request.then((res) => {
+            if (res && res.data) {
+                return res.data.words as Word[];
+            }
+            return null;
+        }).catch((err) => {
+            console.error(err);
+            return null;
+        })
     }
 
 
-    public fetchDataForWordTranslation() {
-        setTimeout(() => {
+    public async fetchDataForWordTranslation(): Promise<WordTranslationTrainingData | null> {
+        const words = await this.fetchWordsForTraining(TrainingNames.WordTranslation);
 
-
-        }, 1000);
-
-        // fetch list of words and translations, mix them up
-        return {
-            translations: [
-                {
-                    word: "school",
-                    translation: 'школа'
-                },
-                {
-                    word: "university",
-                    translation: 'університет'
-                },
-                {
-                    word: "house",
-                    translation: "дім"
-                }
-            ],
-            variants: [{
-                word: "school",
-                translations: ["школа", "бібліотека", "магістр", "кохання"]
-            },
-            {
-                word: "university",
-                translations: ["школа", "бібліотека", "університет", "кохання"]
-            },
-            {
-                word: "house",
-                translations: ["школа", "дім", "університет", "кохання"]
-            },
-            ]
+        if (!words) {
+            return null;
         }
+
+        return shuffleWordsForTraining(words, TrainingNames.WordTranslation);
 
     }
 

@@ -16,5 +16,6 @@ export const URL = {
     training: {
         getAmountWordsForTrainings: 'training/get-amount-words-for-trainings',
         sendWordsOnTrainings: 'training/add-words-for-trainings',
+        getWordsForTraining: 'training/get-words',
     }
 }

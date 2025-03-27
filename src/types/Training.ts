@@ -5,4 +5,5 @@ export interface Training {
     title: i18nKeys;
     description: i18nKeys;
     name: string;
+    minimumAmountOfWords: number
 }
