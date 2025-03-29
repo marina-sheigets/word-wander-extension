@@ -1,8 +1,7 @@
+import { Word } from "./Word";
+
 export interface WordTranslationTrainingData {
-    translations: {
-        word: string;
-        translation: string;
-    }[];
+    translations: Word[];
     variants: Variant[];
 }
 

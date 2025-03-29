@@ -30,10 +30,7 @@ const shuffleForWordTranslation = (words: Word[]) => {
 
     const shuffledWords = shuffleArray(words);
 
-    result.translations = shuffledWords.map(word => ({
-        word: word.word,
-        translation: word.translation
-    }));
+    result.translations = shuffledWords;
 
     shuffledWords.forEach(currentWord => {
         const wordsWithoutCurrent = words.filter(word => word.word !== currentWord.word);
@@ -46,7 +43,6 @@ const shuffleForWordTranslation = (words: Word[]) => {
 
     });
 
-    debugger
     return result;
 }
 

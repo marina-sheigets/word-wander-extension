@@ -1,8 +1,8 @@
 import { singleton } from "tsyringe";
-import { HistoryItem } from "../../types/History";
 import { MessengerService } from "../messenger/messenger.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { Informer } from "../informer/informer.service";
+import { HistoryItem } from "../../types/History";
 
 @singleton()
 export class HistoryService {

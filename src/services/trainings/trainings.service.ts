@@ -113,33 +113,35 @@ export class TrainingsService {
             setTimeout(() => {
                 resolve(
                     {
-                        translations: [
-                            {
-                                word: "school",
-                                translation: 'школа'
-                            },
-                            {
-                                word: "university",
-                                translation: 'університет'
-                            },
-                            {
-                                word: "house",
-                                translation: "дім"
-                            }
-                        ],
-                        variants: [{
-                            word: "school",
-                            translations: ["школа", "бібліотека", "магістр", "кохання"]
-                        },
-                        {
-                            word: "university",
-                            translations: ["школа", "бібліотека", "університет", "кохання"]
-                        },
-                        {
-                            word: "house",
-                            translations: ["школа", "дім", "університет", "кохання"]
-                        },
-                        ]
+                        translations: [],
+                        variants: []
+                        // translations: [
+                        //     {
+                        //         word: "school",
+                        //         translation: 'школа'
+                        //     },
+                        //     {
+                        //         word: "university",
+                        //         translation: 'університет'
+                        //     },
+                        //     {
+                        //         word: "house",
+                        //         translation: "дім"
+                        //     }
+                        // ],
+                        // variants: [{
+                        //     word: "school",
+                        //     translations: ["школа", "бібліотека", "магістр", "кохання"]
+                        // },
+                        // {
+                        //     word: "university",
+                        //     translations: ["школа", "бібліотека", "університет", "кохання"]
+                        // },
+                        // {
+                        //     word: "house",
+                        //     translations: ["школа", "дім", "університет", "кохання"]
+                        // },
+                        // ]
                     }
                 );
             }, 1000);
@@ -151,33 +153,35 @@ export class TrainingsService {
 
         // fetch list of words and translations, mix them up
         return {
-            translations: [
-                {
-                    word: "school",
-                    translation: "школа"
-                },
-                {
-                    word: "university",
-                    translation: "університет"
-                },
-                {
-                    word: "book",
-                    translation: "книга"
-                }
-            ],
-            variants: [{
-                word: "школа",
-                translations: ["university", "house", "book", "school"]
-            },
-            {
-                word: "університет",
-                translations: ["university", "house", "book", "school"]
-            },
-            {
-                word: "книга",
-                translations: ["university", "house", "book", "school"]
-            },
-            ]
+            translations: [],
+            variants: []
+            // translations: [
+            //     {
+            //         word: "school",
+            //         translation: "школа"
+            //     },
+            //     {
+            //         word: "university",
+            //         translation: "університет"
+            //     },
+            //     {
+            //         word: "book",
+            //         translation: "книга"
+            //     }
+            // ],
+            // variants: [{
+            //     word: "школа",
+            //     translations: ["university", "house", "book", "school"]
+            // },
+            // {
+            //     word: "університет",
+            //     translations: ["university", "house", "book", "school"]
+            // },
+            // {
+            //     word: "книга",
+            //     translations: ["university", "house", "book", "school"]
+            // },
+            // ]
         }
     }
 
@@ -185,33 +189,35 @@ export class TrainingsService {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve({
-                    translations: [
-                        {
-                            word: "school",
-                            translation: 'школа'
-                        },
-                        {
-                            word: "university",
-                            translation: 'університет'
-                        },
-                        {
-                            word: "house",
-                            translation: "дім"
-                        }
-                    ],
-                    variants: [{
-                        word: "школа",
-                        translations: ["school", "university"]
-                    },
-                    {
-                        word: "університет",
-                        translations: ["house", "university"]
-                    },
-                    {
-                        word: "дім",
-                        translations: ["school", "house"]
-                    },
-                    ]
+                    translations: [],
+                    variants: []
+                    // translations: [
+                    //     {
+                    //         word: "school",
+                    //         translation: 'школа'
+                    //     },
+                    //     {
+                    //         word: "university",
+                    //         translation: 'університет'
+                    //     },
+                    //     {
+                    //         word: "house",
+                    //         translation: "дім"
+                    //     }
+                    // ],
+                    // variants: [{
+                    //     word: "школа",
+                    //     translations: ["school", "university"]
+                    // },
+                    // {
+                    //     word: "університет",
+                    //     translations: ["house", "university"]
+                    // },
+                    // {
+                    //     word: "дім",
+                    //     translations: ["school", "house"]
+                    // },
+                    // ]
                 });
             }, 1000);
         });

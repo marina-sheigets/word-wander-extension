@@ -43,9 +43,7 @@ export class DictionaryService {
             const response = await this.httpService.get(URL.dictionary.getWords);
 
             this.data = response?.data.map((item: any) => ({
-                id: item._id,
-                word: item.word,
-                translation: item.translation,
+                ...item,
                 selected: false
             }));
             this.onDataChanged.inform(this.data);

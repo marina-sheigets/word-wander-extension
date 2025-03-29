@@ -1,22 +1,27 @@
 import { singleton } from "tsyringe";
-import { HistoryItem } from "../../types/History";
 import { TrainingSound } from "../training-sound/training-sound.service";
+import { trainings } from "../../constants/trainings";
+import { HttpService } from "../http/http.service";
+import { URL } from "../../constants/urls";
+import { Word } from "../../types/Word";
 
 @singleton()
 export class TrainingsStatisticsService {
-    protected rightWords: HistoryItem[] = [];
-    protected wrongWords: HistoryItem[] = [];
+    protected rightWords: Word[] = [];
+    protected wrongWords: Word[] = [];
 
-    constructor() {
+    constructor(
+        protected httpService: HttpService
+    ) {
 
     }
 
-    public addRightWord(word: HistoryItem) {
+    public addRightWord(word: Word) {
         TrainingSound.playCorrectSound();
         this.rightWords.push(word);
     }
 
-    public addWrongWord(word: HistoryItem) {
+    public addWrongWord(word: Word) {
         TrainingSound.playIncorrectSound()
         this.wrongWords.push(word);
     }
@@ -29,8 +34,26 @@ export class TrainingsStatisticsService {
         return this.wrongWords;
     }
 
-    public clearStatistics() {
+    public clearStatistics(gameID: number) {
+        //this.removeRightWordsFromTraining(gameID);
+
         this.rightWords = [];
         this.wrongWords = [];
     }
+
+    // private removeRightWordsFromTraining(gameID: number) {
+    //     const trainingName = trainings.find((training) => training.id === gameID)?.name;
+
+    //     const rightWordsIds = this.rightWords.map((word) => word._id);
+
+    //     this.httpService.delete(URL.training.deleteWordsFromTraining,
+    //         {
+    //             trainingName: trainingName,
+    //         },
+    //         {
+    //             params: {
+    //                 wordsIds: rightWordsIds
+    //             }
+    //         });
+    // }
 }

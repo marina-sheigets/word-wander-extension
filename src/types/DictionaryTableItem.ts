@@ -1,6 +1,5 @@
-export interface DictionaryTableItem {
-    id: string;
-    word: string;
-    translation: string;
+import { Word } from "./Word";
+
+export interface DictionaryTableItem extends Word {
     selected: boolean;
 }

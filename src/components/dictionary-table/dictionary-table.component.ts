@@ -153,7 +153,7 @@ export class DictionaryTableComponent extends BaseComponent {
         const tableData = this.tableComponent.getTableData();
 
         tableData.forEach((item) => {
-            const deleteButton = document.getElementById("delete-word-icon-" + item.id);
+            const deleteButton = document.getElementById("delete-word-icon-" + item._id);
             if (deleteButton) {
                 deleteButton.style.visibility = toHide ? 'hidden' : 'visible';
             }
@@ -165,7 +165,7 @@ export class DictionaryTableComponent extends BaseComponent {
     }
 
     private removeSelectedWords() {
-        const selectedWordsIds = this.selectedWords.map(item => item.id);
+        const selectedWordsIds = this.selectedWords.map(item => item._id);
 
         this.dictionaryService.removeWordsFromDictionary(selectedWordsIds).then(() => {
             this.selectAllButton.show();

@@ -9,7 +9,6 @@ import { LoaderComponent } from "../../loader/loader.component";
 import { TrainingsService } from "../../../services/trainings/trainings.service";
 import { Messages } from "../../../constants/messages";
 import { AudioChallengeTrainingData } from "../../../types/TrainingsData";
-import { HistoryItem } from "../../../types/History";
 import { ProgressBarComponent } from "../../progress-bar/progress-bar.component";
 import { WordPlayerComponent } from "../../word-player/word-player.component";
 import { WordVariantButton } from "../../button/word-variant/word-variant.component";
@@ -17,6 +16,7 @@ import { setAnimationForWrongAnswer } from "../../../utils/setAnimationForWrongA
 import { TrainingsStatisticsService } from "../../../services/trainings-statistics/trainings-statistics.service";
 import { SkipWordButtonComponent } from "../../button/skip-word/skip-word-button.component";
 import { ComponentsFactory } from "../../factories/component.factory.";
+import { Word } from "../../../types/Word";
 
 @singleton()
 export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
@@ -27,7 +27,7 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
 
     private data: AudioChallengeTrainingData | null = null;
     private currentWordIndex = 0;
-    private currentWord: HistoryItem | null = null;
+    private currentWord: Word | null = null;
 
     constructor(
         protected wordCountComponent: WordCountComponent,
@@ -127,7 +127,7 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
             this.progressBar.addCorrectSection();
         } else {
             this.progressBar.addWrongSection();
-            this.statistics.addWrongWord(this.currentWord as HistoryItem);
+            this.statistics.addWrongWord(this.currentWord as Word);
             await setAnimationForWrongAnswer(target, styles);
         }
 
@@ -158,7 +158,7 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
     private onWordSkip() {
         this.currentWordIndex++;
         this.progressBar.addWrongSection();
-        this.statistics.addWrongWord(this.currentWord as HistoryItem);
+        this.statistics.addWrongWord(this.currentWord as Word);
 
         if (this.currentWordIndex === this.data?.translations.length) {
             this.hide();

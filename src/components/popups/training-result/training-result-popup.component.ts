@@ -16,6 +16,8 @@ import { ComponentsFactory } from '../../factories/component.factory.';
 export class TrainingResultPopup extends PopupComponent {
     private content: HTMLElement = document.createElement('div');
 
+    private gameID: number | null = null;
+
     constructor(
         protected i18n: I18nService,
         protected trainingsStatisticsService: TrainingsStatisticsService,
@@ -29,7 +31,9 @@ export class TrainingResultPopup extends PopupComponent {
 
         this.setContent(this.content);
 
-        this.messenger.subscribe(Messages.ShowTrainingStatistics, () => {
+        this.messenger.subscribe(Messages.ShowTrainingStatistics, (gameID: number) => {
+            this.gameID = gameID;
+
             this.show();
             this.clear();
             this.renderCorrectWords();
@@ -100,6 +104,7 @@ export class TrainingResultPopup extends PopupComponent {
 
     public hide() {
         super.hide();
-        this.trainingsStatisticsService.clearStatistics();
+
+        this.trainingsStatisticsService.clearStatistics(this.gameID as number);
     }
 }

@@ -5,7 +5,6 @@ import { I18nService } from "../../../services/i18n/i18n.service";
 import { MessengerService } from "../../../services/messenger/messenger.service";
 import { TrainingsStatisticsService } from "../../../services/trainings-statistics/trainings-statistics.service";
 import { TrainingsService } from "../../../services/trainings/trainings.service";
-import { HistoryItem } from "../../../types/History";
 import { RepeatingTrainingData } from "../../../types/TrainingsData";
 import { setAnimationForWrongAnswer } from "../../../utils/setAnimationForWrongAnswer";
 import { WordVariantButton } from "../../button/word-variant/word-variant.component";
@@ -16,6 +15,7 @@ import { WordCountComponent } from "../../word-count/word-count.component";
 import * as styles from './repeating-training.component.css';
 import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
 import { ComponentsFactory } from "../../factories/component.factory.";
+import { Word } from "../../../types/Word";
 
 @singleton()
 export class RepeatingTrainingComponent extends GameWrapperPopupComponent {
@@ -26,7 +26,7 @@ export class RepeatingTrainingComponent extends GameWrapperPopupComponent {
 
     private data: RepeatingTrainingData | null = null;
     private currentWordIndex = 0;
-    private currentWord: HistoryItem | null = null;
+    private currentWord: Word | null = null;
 
     private timeoutBetweenWords = 1000;
 
@@ -126,9 +126,9 @@ export class RepeatingTrainingComponent extends GameWrapperPopupComponent {
         await this.timerComponent.interrupt(isRightAnswer, this.timeoutBetweenWords);
 
         if (isRightAnswer) {
-            this.statistics.addRightWord(this.currentWord as HistoryItem);
+            this.statistics.addRightWord(this.currentWord as Word);
         } else {
-            this.statistics.addWrongWord(this.currentWord as HistoryItem);
+            this.statistics.addWrongWord(this.currentWord as Word);
             await setAnimationForWrongAnswer(target, styles, this.timeoutBetweenWords);
         }
 

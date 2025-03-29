@@ -84,7 +84,7 @@ export class TableComponent extends BaseComponent {
 
         this.tableData.forEach((item) => {
             const checkbox = this.componentsFactory.createComponent(CheckboxComponent);
-            checkbox.setName(item.id);
+            checkbox.setName(item._id);
             checkbox.setChecked(item.selected);
 
             const removeWordIcon = this.componentsFactory.createComponent(ButtonComponent);
@@ -110,7 +110,7 @@ export class TableComponent extends BaseComponent {
             removeWordIcon.onClick.subscribe(async () => {
                 this.handleRemoveWord(item);
             });
-            removeWordIcon.rootElement.id = "delete-word-icon-" + item.id;
+            removeWordIcon.rootElement.id = "delete-word-icon-" + item._id;
 
             this.tableContainer.append(
                 checkbox.rootElement,
@@ -127,13 +127,13 @@ export class TableComponent extends BaseComponent {
         const selectedId = checkbox.name;
 
         this.tableData.forEach((item) => {
-            if (item.id === selectedId) {
+            if (item._id === selectedId) {
                 item.selected = checkbox.checked;
             }
         });
 
         this.initialData.forEach((item) => {
-            if (item.id === selectedId) {
+            if (item._id === selectedId) {
                 item.selected = checkbox.checked;
             }
         });
@@ -156,10 +156,10 @@ export class TableComponent extends BaseComponent {
     }
 
     private async handleRemoveWord(item: DictionaryTableItem) {
-        await this.dictionaryService.removeWordFromDictionary(item.id);
+        await this.dictionaryService.removeWordFromDictionary(item._id);
 
-        this.tableData = this.tableData.filter((tableItem) => tableItem.id !== item.id);
-        this.initialData = this.initialData.filter((tableItem) => tableItem.id !== item.id);
+        this.tableData = this.tableData.filter((tableItem) => tableItem._id !== item._id);
+        this.initialData = this.initialData.filter((tableItem) => tableItem._id !== item._id);
 
         this.initTable();
 

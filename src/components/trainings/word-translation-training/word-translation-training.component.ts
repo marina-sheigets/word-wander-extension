@@ -8,7 +8,6 @@ import { Messages } from "../../../constants/messages";
 import { WordTranslationTrainingData } from "../../../types/TrainingsData";
 import { LoaderComponent } from "../../loader/loader.component";
 import { I18nService } from "../../../services/i18n/i18n.service";
-import { HistoryItem } from "../../../types/History";
 import { WordVariantButton } from "../../button/word-variant/word-variant.component";
 import { TrainingsStatisticsService } from "../../../services/trainings-statistics/trainings-statistics.service";
 import { ProgressBarComponent } from "../../progress-bar/progress-bar.component";
@@ -16,6 +15,7 @@ import { GameWrapperPopupComponent } from "../../popups/game-wrapper-popup/game-
 import { setAnimationForWrongAnswer } from "../../../utils/setAnimationForWrongAnswer";
 import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
 import { ComponentsFactory } from "../../factories/component.factory.";
+import { Word } from "../../../types/Word";
 
 @singleton()
 export class WordTranslationTrainingComponent extends GameWrapperPopupComponent {
@@ -26,7 +26,7 @@ export class WordTranslationTrainingComponent extends GameWrapperPopupComponent 
 
     private data: WordTranslationTrainingData | null = null;
     private currentWordIndex = 0;
-    private currentWord: HistoryItem | null = null;
+    private currentWord: Word | null = null;
 
     constructor(
         protected wordCountComponent: WordCountComponent,
@@ -131,7 +131,7 @@ export class WordTranslationTrainingComponent extends GameWrapperPopupComponent 
             this.progressBar.addCorrectSection();
         } else {
             this.progressBar.addWrongSection();
-            this.statistics.addWrongWord(this.currentWord as HistoryItem);
+            this.statistics.addWrongWord(this.currentWord as Word);
             await setAnimationForWrongAnswer(target, styles);
         }
 
