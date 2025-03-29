@@ -12,6 +12,8 @@ import { LoaderComponent } from "../../loader/loader.component";
 import { PopupComponent } from "../popup.component";
 import * as styles from "./send-words-on-training-popup.component.css";
 import { ComponentsFactory } from "../../factories/component.factory.";
+import { ExtensionPageManagerService } from "../../../services/extension-page-manager/extension-page-manager.service";
+import { BackgroundMessages } from "../../../constants/backgroundMessages";
 
 @singleton()
 export class SendWordsOnTrainingPopup extends PopupComponent {
@@ -28,7 +30,8 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
         protected messenger: MessengerService,
         protected dictionaryService: DictionaryService,
         protected loader: LoaderComponent,
-        protected componentsFactory: ComponentsFactory
+        protected componentsFactory: ComponentsFactory,
+        protected extensionPageManager: ExtensionPageManagerService
 
     ) {
         super(styles);
@@ -124,6 +127,8 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
                     this.hide();
                     this.checkboxesWrapper.style.display = 'grid';
                 }, 2000);
+
+                this.extensionPageManager.sendMessageToBackground(BackgroundMessages.DictionarySync);
             })
     }
 
