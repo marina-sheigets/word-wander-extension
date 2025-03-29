@@ -22,8 +22,8 @@ export function shuffleWordsForTraining(words: Word[], trainingName: TrainingNam
             return shuffleForRepeating(words);
         case TrainingNames.WordConstructor:
             return shuffleForWordConstructor(words);
-        // case TrainingNames.Listening:
-        //     return shuffleForListening(words);
+        case TrainingNames.Listening:
+            return shuffleForListening(words);
         // case TrainingNames.AudioChallenge:
         //     return shuffleForAudioChallenge(words);
         default:
@@ -113,9 +113,15 @@ const shuffleForWordConstructor = (words: Word[]) => {
     return result;
 }
 
-// const shuffleForListening = (words: Word[]) => {
+const shuffleForListening = (words: Word[]) => {
+    const result: ListeningTrainingData = {
+        translations: [],
+    }
 
-// }
+    result.translations = shuffleArray(words);
+
+    return result;
+}
 
 // const shuffleForAudioChallenge = (words: Word[]) => {
 

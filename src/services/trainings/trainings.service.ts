@@ -177,29 +177,14 @@ export class TrainingsService {
         return shuffleWordsForTraining(words, TrainingNames.WordConstructor);
     }
 
-    public fetchDataForListeningTraining(): Promise<ListeningTrainingData> {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    translations: []
-                    // translations: [
-                    //     {
-                    //         word: "school",
-                    //         translation: 'школа'
-                    //     },
-                    //     {
-                    //         word: "university",
-                    //         translation: 'університет'
-                    //     },
-                    //     {
-                    //         word: "house",
-                    //         translation: "дім"
-                    //     }
-                    // ],
+    public async fetchDataForListeningTraining(): Promise<ListeningTrainingData | null> {
+        const words = await this.fetchWordsForTraining(TrainingNames.Listening);
 
-                });
-            }, 1000);
-        });
+        if (!words) {
+            return null;
+        }
+
+        return shuffleWordsForTraining(words, TrainingNames.Listening);
     }
 
     private interruptTraining() {
