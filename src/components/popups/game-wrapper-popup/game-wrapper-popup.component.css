@@ -4,5 +4,5 @@
 
 .rootClassName > div > div{
     min-width: 600px;
-    height: 400px;
+    min-height: 400px;
 }

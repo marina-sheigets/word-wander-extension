@@ -76,6 +76,11 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
 
         this.show();
         this.data = await this.trainingsService.fetchDataForAudioChallengeTraining();
+
+        if (!this.data) {
+            return;
+        }
+
         this.content.classList.remove(styles.hidden);
         this.progressBar.setNumberOfSections(this.data.translations.length);
 

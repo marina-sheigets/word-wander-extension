@@ -107,44 +107,14 @@ export class TrainingsService {
         return shuffleWordsForTraining(words, TrainingNames.WordTranslation);
     }
 
-    public fetchDataForAudioChallengeTraining(): Promise<AudioChallengeTrainingData> {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(
-                    {
-                        translations: [],
-                        variants: []
-                        // translations: [
-                        //     {
-                        //         word: "school",
-                        //         translation: 'школа'
-                        //     },
-                        //     {
-                        //         word: "university",
-                        //         translation: 'університет'
-                        //     },
-                        //     {
-                        //         word: "house",
-                        //         translation: "дім"
-                        //     }
-                        // ],
-                        // variants: [{
-                        //     word: "school",
-                        //     translations: ["школа", "бібліотека", "магістр", "кохання"]
-                        // },
-                        // {
-                        //     word: "university",
-                        //     translations: ["школа", "бібліотека", "університет", "кохання"]
-                        // },
-                        // {
-                        //     word: "house",
-                        //     translations: ["школа", "дім", "університет", "кохання"]
-                        // },
-                        // ]
-                    }
-                );
-            }, 1000);
-        });
+    public async fetchDataForAudioChallengeTraining(): Promise<AudioChallengeTrainingData | null> {
+        const words = await this.fetchWordsForTraining(TrainingNames.AudioChallenge);
+
+        if (!words) {
+            return null;
+        }
+
+        return shuffleWordsForTraining(words, TrainingNames.AudioChallenge);
     }
 
     public async fetchDataForTranslationWord() {

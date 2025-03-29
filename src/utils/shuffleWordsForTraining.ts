@@ -24,8 +24,8 @@ export function shuffleWordsForTraining(words: Word[], trainingName: TrainingNam
             return shuffleForWordConstructor(words);
         case TrainingNames.Listening:
             return shuffleForListening(words);
-        // case TrainingNames.AudioChallenge:
-        //     return shuffleForAudioChallenge(words);
+        case TrainingNames.AudioChallenge:
+            return shuffleForAudioChallenge(words);
         default:
             return null;
     }
@@ -123,6 +123,26 @@ const shuffleForListening = (words: Word[]) => {
     return result;
 }
 
-// const shuffleForAudioChallenge = (words: Word[]) => {
+const shuffleForAudioChallenge = (words: Word[]) => {
+    const result: AudioChallengeTrainingData = {
+        translations: [],
+        variants: []
+    }
 
-// }
+    const shuffledWords = shuffleArray(words);
+
+    result.translations = shuffledWords;
+
+    shuffledWords.forEach(currentWord => {
+        const wordsWithoutCurrent = words.filter(word => word.word !== currentWord.word);
+        const shuffledWordsWithoutCurrent = shuffleArray(wordsWithoutCurrent).slice(0, 3).map(word => word.translation);
+
+        result.variants.push({
+            word: currentWord.word,
+            translations: shuffleArray([currentWord.translation, ...shuffledWordsWithoutCurrent])
+        });
+
+    });
+
+    return result;
+}
