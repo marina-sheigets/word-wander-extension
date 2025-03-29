@@ -157,44 +157,15 @@ export class TrainingsService {
         return shuffleWordsForTraining(words, TrainingNames.TranslationWord);
     }
 
-    public fetchDataForRepeating(): Promise<RepeatingTrainingData> {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    translations: [],
-                    variants: []
-                    // translations: [
-                    //     {
-                    //         word: "school",
-                    //         translation: 'школа'
-                    //     },
-                    //     {
-                    //         word: "university",
-                    //         translation: 'університет'
-                    //     },
-                    //     {
-                    //         word: "house",
-                    //         translation: "дім"
-                    //     }
-                    // ],
-                    // variants: [{
-                    //     word: "школа",
-                    //     translations: ["school", "university"]
-                    // },
-                    // {
-                    //     word: "університет",
-                    //     translations: ["house", "university"]
-                    // },
-                    // {
-                    //     word: "дім",
-                    //     translations: ["school", "house"]
-                    // },
-                    // ]
-                });
-            }, 1000);
-        });
-    }
+    public async fetchDataForRepeating(): Promise<RepeatingTrainingData | null> {
+        const words = await this.fetchWordsForTraining(TrainingNames.Repeating);
 
+        if (!words) {
+            return null;
+        }
+
+        return shuffleWordsForTraining(words, TrainingNames.Repeating);
+    }
 
     public fetchDataForWordConstructionTraining(): Promise<WordConstructionTrainingData> {
         return new Promise((resolve) => {

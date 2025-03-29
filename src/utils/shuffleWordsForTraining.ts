@@ -1,5 +1,5 @@
 import { TrainingNames } from "../constants/trainingNames";
-import { TranslationWordTrainingData, WordTranslationTrainingData } from "../types/TrainingsData";
+import { RepeatingTrainingData, TranslationWordTrainingData, WordTranslationTrainingData } from "../types/TrainingsData";
 import { Word } from "../types/Word";
 import { shuffleArray } from "./shuffleArray";
 
@@ -9,8 +9,8 @@ export const shuffleWordsForTraining = (words: Word[], trainingName: TrainingNam
             return shuffleForWordTranslation(words);
         case TrainingNames.TranslationWord:
             return shuffleForTranslationWord(words);
-        // case TrainingNames.Repeating:
-        //     return shuffleForRepeating(words);
+        case TrainingNames.Repeating:
+            return shuffleForRepeating(words);
         // case TrainingNames.WordConstructor:
         //     return shuffleForWordConstructor(words);
         // case TrainingNames.Listening:
@@ -70,9 +70,29 @@ const shuffleForTranslationWord = (words: Word[]) => {
     return result;
 }
 
-// const shuffleForRepeating = (words: Word[]) => {
+const shuffleForRepeating = (words: Word[]) => {
+    const result: RepeatingTrainingData = {
+        translations: [],
+        variants: []
+    }
 
-// }
+    const shuffledWords = shuffleArray(words);
+
+    result.translations = shuffledWords;
+
+    shuffledWords.forEach(currentWord => {
+        const wordsWithoutCurrent = words.filter(word => word.word !== currentWord.word);
+        const randomTranslation = shuffleArray(wordsWithoutCurrent)[0].word;
+
+        result.variants.push({
+            word: currentWord.translation,
+            translations: shuffleArray([currentWord.word, randomTranslation])
+        });
+
+    });
+
+    return result;
+}
 
 // const shuffleForWordConstructor = (words: Word[]) => {
 

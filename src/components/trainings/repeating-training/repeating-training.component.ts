@@ -76,6 +76,11 @@ export class RepeatingTrainingComponent extends GameWrapperPopupComponent {
     private async start() {
         this.show();
         this.data = await this.trainingsService.fetchDataForRepeating();
+
+        if (!this.data) {
+            return;
+        }
+
         this.content.classList.remove(styles.hidden);
         this.currentWordIndex = 0;
         this.loader.hide();
