@@ -279,7 +279,7 @@ export class TrainingsService {
 
     }
     private finishGame() {
+        this.messenger.send(Messages.ShowTrainingStatistics, this.currentGame);
         this.interruptTraining();
-        this.messenger.send(Messages.ShowTrainingStatistics, { gameID: this.currentGame });
     }
 }

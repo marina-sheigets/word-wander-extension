@@ -4,6 +4,8 @@ import { trainings } from "../../constants/trainings";
 import { HttpService } from "../http/http.service";
 import { URL } from "../../constants/urls";
 import { Word } from "../../types/Word";
+import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
+import { BackgroundMessages } from "../../constants/backgroundMessages";
 
 @singleton()
 export class TrainingsStatisticsService {
@@ -11,7 +13,8 @@ export class TrainingsStatisticsService {
     protected wrongWords: Word[] = [];
 
     constructor(
-        protected httpService: HttpService
+        protected httpService: HttpService,
+        protected extensionPageManager: ExtensionPageManagerService
     ) {
 
     }
@@ -35,25 +38,30 @@ export class TrainingsStatisticsService {
     }
 
     public clearStatistics(gameID: number) {
-        //this.removeRightWordsFromTraining(gameID);
+        this.removeRightWordsFromTraining(gameID);
 
         this.rightWords = [];
         this.wrongWords = [];
     }
 
-    // private removeRightWordsFromTraining(gameID: number) {
-    //     const trainingName = trainings.find((training) => training.id === gameID)?.name;
+    private removeRightWordsFromTraining(gameID: number) {
+        const trainingName = trainings.find((training) => training.id === gameID)?.name;
 
-    //     const rightWordsIds = this.rightWords.map((word) => word._id);
+        const rightWordsIds = this.rightWords.map((word) => word._id);
 
-    //     this.httpService.delete(URL.training.deleteWordsFromTraining,
-    //         {
-    //             trainingName: trainingName,
-    //         },
-    //         {
-    //             params: {
-    //                 wordsIds: rightWordsIds
-    //             }
-    //         });
-    // }
+
+        if (!rightWordsIds.length) {
+            return;
+        }
+
+        this.httpService.delete(URL.training.deleteWordsFromTraining, {},
+            {
+                data: {
+                    wordsIds: rightWordsIds,
+                    trainingName
+                }
+            })?.then(() => {
+                this.extensionPageManager.sendMessageToBackground(BackgroundMessages.DictionarySync);
+            });
+    }
 }
