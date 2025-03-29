@@ -1,9 +1,18 @@
 import { TrainingNames } from "../constants/trainingNames";
-import { RepeatingTrainingData, TranslationWordTrainingData, WordTranslationTrainingData } from "../types/TrainingsData";
+import { AudioChallengeTrainingData, ListeningTrainingData, RepeatingTrainingData, TranslationWordTrainingData, WordConstructionTrainingData, WordTranslationTrainingData } from "../types/TrainingsData";
 import { Word } from "../types/Word";
 import { shuffleArray } from "./shuffleArray";
 
-export const shuffleWordsForTraining = (words: Word[], trainingName: TrainingNames) => {
+export function shuffleWordsForTraining(words: Word[], trainingName: TrainingNames.WordTranslation): WordTranslationTrainingData | null;
+export function shuffleWordsForTraining(words: Word[], trainingName: TrainingNames.TranslationWord): TranslationWordTrainingData | null;
+export function shuffleWordsForTraining(words: Word[], trainingName: TrainingNames.Repeating): RepeatingTrainingData | null;
+export function shuffleWordsForTraining(words: Word[], trainingName: TrainingNames.WordConstructor): WordConstructionTrainingData | null;
+export function shuffleWordsForTraining(words: Word[], trainingName: TrainingNames.Listening): ListeningTrainingData | null;
+export function shuffleWordsForTraining(words: Word[], trainingName: TrainingNames.AudioChallenge): AudioChallengeTrainingData | null;
+
+export function shuffleWordsForTraining(words: Word[], trainingName: TrainingNames): any | null;
+
+export function shuffleWordsForTraining(words: Word[], trainingName: TrainingNames) {
     switch (trainingName) {
         case TrainingNames.WordTranslation:
             return shuffleForWordTranslation(words);
@@ -11,8 +20,8 @@ export const shuffleWordsForTraining = (words: Word[], trainingName: TrainingNam
             return shuffleForTranslationWord(words);
         case TrainingNames.Repeating:
             return shuffleForRepeating(words);
-        // case TrainingNames.WordConstructor:
-        //     return shuffleForWordConstructor(words);
+        case TrainingNames.WordConstructor:
+            return shuffleForWordConstructor(words);
         // case TrainingNames.Listening:
         //     return shuffleForListening(words);
         // case TrainingNames.AudioChallenge:
@@ -94,9 +103,15 @@ const shuffleForRepeating = (words: Word[]) => {
     return result;
 }
 
-// const shuffleForWordConstructor = (words: Word[]) => {
+const shuffleForWordConstructor = (words: Word[]) => {
+    const result: WordConstructionTrainingData = {
+        translations: [],
+    }
 
-// }
+    result.translations = shuffleArray(words);
+
+    return result;
+}
 
 // const shuffleForListening = (words: Word[]) => {
 

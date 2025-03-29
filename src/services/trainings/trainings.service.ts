@@ -2,7 +2,7 @@ import { singleton } from "tsyringe";
 import { Messages } from "../../constants/messages";
 import { MessengerService } from "../messenger/messenger.service";
 import { FinishTrainingsMessages, StartTrainingsMessages } from "../../constants/trainingMessages";
-import { AudioChallengeTrainingData, RepeatingTrainingData, WordConstructionTrainingData, WordTranslationTrainingData } from "../../types/TrainingsData";
+import { AudioChallengeTrainingData, ListeningTrainingData, RepeatingTrainingData, WordConstructionTrainingData, WordTranslationTrainingData } from "../../types/TrainingsData";
 import { AmountWords } from "../../types/AmountWords";
 import { SettingsService } from "../settings/settings.service";
 import { SettingsNames } from "../../constants/settingsNames";
@@ -167,48 +167,35 @@ export class TrainingsService {
         return shuffleWordsForTraining(words, TrainingNames.Repeating);
     }
 
-    public fetchDataForWordConstructionTraining(): Promise<WordConstructionTrainingData> {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    translations: [
-                        {
-                            word: "school",
-                            translation: 'школа'
-                        },
-                        {
-                            word: "university",
-                            translation: 'університет'
-                        },
-                        {
-                            word: "house",
-                            translation: "дім"
-                        }
-                    ],
+    public async fetchDataForWordConstructionTraining(): Promise<WordConstructionTrainingData | null> {
+        const words = await this.fetchWordsForTraining(TrainingNames.WordConstructor);
 
-                });
-            }, 1000);
-        });
+        if (!words) {
+            return null;
+        }
+
+        return shuffleWordsForTraining(words, TrainingNames.WordConstructor);
     }
 
-    public fetchDataForListeningTraining(): Promise<WordConstructionTrainingData> {
+    public fetchDataForListeningTraining(): Promise<ListeningTrainingData> {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve({
-                    translations: [
-                        {
-                            word: "school",
-                            translation: 'школа'
-                        },
-                        {
-                            word: "university",
-                            translation: 'університет'
-                        },
-                        {
-                            word: "house",
-                            translation: "дім"
-                        }
-                    ],
+                    translations: []
+                    // translations: [
+                    //     {
+                    //         word: "school",
+                    //         translation: 'школа'
+                    //     },
+                    //     {
+                    //         word: "university",
+                    //         translation: 'університет'
+                    //     },
+                    //     {
+                    //         word: "house",
+                    //         translation: "дім"
+                    //     }
+                    // ],
 
                 });
             }, 1000);

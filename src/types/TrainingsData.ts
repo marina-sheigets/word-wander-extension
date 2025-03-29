@@ -12,11 +12,10 @@ export interface RepeatingTrainingData extends WordTranslationTrainingData { }
 export interface AudioChallengeTrainingData extends WordTranslationTrainingData { }
 
 export interface WordConstructionTrainingData {
-    translations: {
-        word: string;
-        translation: string;
-    }[];
+    translations: Word[];
 }
+
+export interface ListeningTrainingData extends WordConstructionTrainingData { }
 
 export interface Variant {
     word: string;

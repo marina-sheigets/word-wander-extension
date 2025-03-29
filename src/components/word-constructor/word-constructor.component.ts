@@ -4,6 +4,7 @@ import { shuffleArray } from "../../utils/shuffleArray";
 import { BaseComponent } from "../base-component/base-component";
 import * as styles from './word-constructor.component.css';
 
+type IsWordCorrect = boolean;
 export class WordConstructorComponent extends BaseComponent {
     private readonly MAX_WRONG_LETTERS = 3;
 
@@ -15,7 +16,7 @@ export class WordConstructorComponent extends BaseComponent {
     private containedCells: string[] = [];
 
     private amountOfWrongLetters = 0;
-    public onLettersFinished = new Informer();
+    public onLettersFinished = new Informer<IsWordCorrect>();
 
     constructor() {
         super(styles);
@@ -95,7 +96,7 @@ export class WordConstructorComponent extends BaseComponent {
                 this.autocompleteWord();
 
                 setTimeout(() => {
-                    this.onLettersFinished.inform();
+                    this.onLettersFinished.inform(false);
                 }, 1000);
             }
             return;
@@ -114,7 +115,7 @@ export class WordConstructorComponent extends BaseComponent {
         const otherEmptyCellsCount = this.letters.length - this.containedCells.length;
 
         if (otherEmptyCellsCount === 0) {
-            this.onLettersFinished.inform();
+            this.onLettersFinished.inform(true);
             return;
         }
 

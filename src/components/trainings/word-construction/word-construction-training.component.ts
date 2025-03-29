@@ -4,7 +4,6 @@ import { i18nKeys } from "../../../services/i18n/i18n-keys";
 import { I18nService } from "../../../services/i18n/i18n.service";
 import { MessengerService } from "../../../services/messenger/messenger.service";
 import { TrainingsService } from "../../../services/trainings/trainings.service";
-import { HistoryItem } from "../../../types/History";
 import { WordConstructionTrainingData } from "../../../types/TrainingsData";
 import { LoaderComponent } from "../../loader/loader.component";
 import { GameWrapperPopupComponent } from "../../popups/game-wrapper-popup/game-wrapper-popup.component";
@@ -13,6 +12,8 @@ import { WordCountComponent } from "../../word-count/word-count.component";
 import * as styles from "./word-construction-training.component.css";
 import { SkipWordButtonComponent } from "../../button/skip-word/skip-word-button.component";
 import { TextToSpeechService } from "../../../services/text-to-speech/text-to-speech.service";
+import { TrainingsStatisticsService } from "../../../services/trainings-statistics/trainings-statistics.service";
+import { Word } from "../../../types/Word";
 
 @singleton()
 export class WordConstructionTrainingComponent extends GameWrapperPopupComponent {
@@ -23,7 +24,7 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
 
     private data: WordConstructionTrainingData | null = null;
     private currentWordIndex = 0;
-    private currentWord: HistoryItem | null = null;
+    private currentWord: Word | null = null;
 
     constructor(
         protected wordConstructorComponent: WordConstructorComponent,
@@ -34,6 +35,7 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
         protected i18n: I18nService,
         protected trainingsService: TrainingsService,
         protected textToSpeech: TextToSpeechService,
+        protected statistics: TrainingsStatisticsService
     ) {
         super(i18n, messenger);
 
@@ -59,7 +61,7 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
         this.hide();
         this.setContent(this.trainingWrapper);
 
-        this.wordConstructorComponent.onLettersFinished.subscribe(() => this.onLettersFinished());
+        this.wordConstructorComponent.onLettersFinished.subscribe((isWordCorrect) => this.onLettersFinished(isWordCorrect));
 
         this.skipWordButton.onClick.subscribe(() => this.onWordSkip());
 
@@ -72,6 +74,11 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
 
         this.show();
         this.data = await this.trainingsService.fetchDataForWordConstructionTraining();
+
+        if (!this.data) {
+            return;
+        }
+
         this.content.classList.remove(styles.hidden);
         this.setCurrentWord(this.currentWordIndex);
         this.setVariants();
@@ -98,7 +105,13 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
         this.wordConstructorComponent.init(this.currentWord.word);
     }
 
-    private onLettersFinished() {
+    private onLettersFinished(isWordCorrect: boolean) {
+        if (isWordCorrect) {
+            this.statistics.addRightWord(this.currentWord as Word);
+        } else {
+            this.statistics.addWrongWord(this.currentWord as Word)
+        }
+
         this.currentWordIndex++;
 
         this.textToSpeech.play(this.currentWord?.word || '');
@@ -131,8 +144,9 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
     private onWordSkip() {
         this.skipWordButton.hide();
         this.wordConstructorComponent.autocompleteWord();
+
         setTimeout(() => {
-            this.onLettersFinished();
+            this.onLettersFinished(false);
             this.skipWordButton.show();
         }, 1000);
 
