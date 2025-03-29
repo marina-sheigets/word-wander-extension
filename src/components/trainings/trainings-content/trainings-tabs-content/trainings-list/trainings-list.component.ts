@@ -19,7 +19,6 @@ export class TrainingsListComponent extends BaseComponent {
         super(styles);
 
         this.messenger.subscribe(Messages.InitTrainingsList, this.initGameCards.bind(this));
-
     }
 
     private initGameCards() {
@@ -37,7 +36,7 @@ export class TrainingsListComponent extends BaseComponent {
             amountWordsChip.setAmount(amount);
 
             card.setAmountWordsChip(amountWordsChip.rootElement);
-            card.toggleActiveState(amount);
+            card.toggleActiveState(amount > training.minimumAmountOfWords);
 
             this.rootElement.appendChild(card.rootElement);
         });

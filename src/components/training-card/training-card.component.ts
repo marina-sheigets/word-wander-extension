@@ -71,7 +71,7 @@ export class TrainingCardComponent extends BaseComponent {
         }
     }
 
-    public toggleActiveState(amount: number) {
-        this.rootElement.classList.toggle(styles.active, amount > 0);
+    public toggleActiveState(active: boolean) {
+        this.rootElement.classList.toggle(styles.active, active);
     }
 }
