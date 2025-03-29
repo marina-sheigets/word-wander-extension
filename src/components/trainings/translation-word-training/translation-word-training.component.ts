@@ -71,6 +71,11 @@ export class TranslationWordTrainingComponent extends GameWrapperPopupComponent 
     private async start() {
         this.show();
         this.data = await this.trainingsService.fetchDataForTranslationWord();
+
+        if (!this.data) {
+            return;
+        }
+
         this.content.classList.remove(styles.hidden);
         this.currentWordIndex = 0;
         this.loader.hide();
