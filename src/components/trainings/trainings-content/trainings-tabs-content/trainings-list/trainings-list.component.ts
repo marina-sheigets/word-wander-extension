@@ -36,7 +36,7 @@ export class TrainingsListComponent extends BaseComponent {
             amountWordsChip.setAmount(amount);
 
             card.setAmountWordsChip(amountWordsChip.rootElement);
-            card.toggleActiveState(amount > training.minimumAmountOfWords);
+            card.toggleActiveState(amount >= training.minimumAmountOfWords);
 
             this.rootElement.appendChild(card.rootElement);
         });
