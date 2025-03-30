@@ -1,4 +1,5 @@
 export const enum i18nKeys {
+    Other = "Other",
     RemoveSelectedWords = "RemoveSelectedWords",
     NoHistory = "NoHistory",
     CorrectWords = "CorrectWords",
@@ -126,4 +127,18 @@ export const enum i18nKeys {
     UnauthorizedDescriptionSingular = "UnauthorizedDescriptionSingular",
     InvalidEmail = "InvalidEmail",
     SomethingWentWrong = "SomethingWentWrong",
+
+    // Statistics
+    AddedWords = "AddedWords",
+    TotalWordsInDictionary = "TotalWordsInDictionary",
+    TotalDeletedWords = "TotalDeletedWords",
+    TotalPronouncedWords = "TotalPronouncedWords",
+    TotalSearchedWords = "TotalSearchedWords",
+    LearnedWords = "LearnedWords",
+    SkippedWords = "SkippedWords",
+    AccuracyRateOnTrainings = "AccuracyRateOnTrainings",
+    MostEffectiveTraining = "MostEffectiveTraining",
+    LeastSuccessfulTraining = "LeastSuccessfulTraining",
+    TotalInterruptedTrainings = "TotalInterruptedTrainings",
+    TrainingsCompleted = "TrainingsCompleted"
 }

@@ -5,7 +5,6 @@ import { TrainingsTab } from "../../../../types/TrainingsTabs";
 import { BaseComponent } from "../../../base-component/base-component";
 import { TrainingsDictionaryComponent } from "./trainings-dictionary/trainings-dictionary.component";
 import { TrainingsListComponent } from "./trainings-list/trainings-list.component";
-import { TrainingsStatisticsComponent } from "./trainings-statistics/trainings-statistics.component";
 import * as styles from "./trainings-tabs-content.component.css";
 import { I18nService } from "../../../../services/i18n/i18n.service";
 import { UnauthorizedOverlayComponent } from "../../../unauthorized-overlay/unauthorized-overlay.component";
@@ -14,6 +13,7 @@ import { Messages } from "../../../../constants/messages";
 import { SettingsNames } from "../../../../constants/settingsNames";
 import { SettingsService } from "../../../../services/settings/settings.service";
 import { AuthorizationData } from "../../../../types/AuthorizationData";
+import { StatisticsTabComponent } from "./trainings-statistics/statistics-tab.component";
 
 @singleton()
 export class TrainingsTabsContentComponent extends BaseComponent {
@@ -31,14 +31,14 @@ export class TrainingsTabsContentComponent extends BaseComponent {
         },
         {
             label: TrainingsTab.Statistics,
-            component: this.trainingsStatistics.rootElement
+            component: this.statisticsTabComponent.rootElement
         }
     ];
 
     constructor(
         protected trainingsDictionaryComponent: TrainingsDictionaryComponent,
         protected trainingsListComponent: TrainingsListComponent,
-        protected trainingsStatistics: TrainingsStatisticsComponent,
+        protected statisticsTabComponent: StatisticsTabComponent,
         protected unauthorizedOverlay: UnauthorizedOverlayComponent,
         protected trainingsTabsService: TrainingsTabsService,
         protected i18n: I18nService,

@@ -1,0 +1,14 @@
+.rootClassName{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.statisticsSections {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    gap: 30px;
+}

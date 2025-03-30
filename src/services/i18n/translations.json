@@ -478,5 +478,57 @@
     "SomethingWentWrong":{
         "en":"Something went wrong. Please try again later.",
         "uk":"Щось пішло не так. Будь ласка, спробуйте пізніше."
+    },
+    "AddedWords": {
+        "en": "Added Words",
+        "uk": "Додано слів"
+    },
+    "TotalWordsInDictionary": {
+        "en": "Total Words in Dictionary",
+        "uk": "Загальна кількість слів у словнику"
+    },
+    "TotalDeletedWords": {
+        "en": "Total Deleted Words",
+        "uk": "Загальна кількість видалених слів"
+    },
+    "TotalPronouncedWords": {
+        "en": "Total Pronounced Words",
+        "uk": "Загальна кількість вимовлених слів"
+    },
+    "TotalSearchedWords": {
+        "en": "Total Searched Words",
+        "uk": "Загальна кількість пошуку слів"
+    },
+    "LearnedWords": {
+        "en": "Learned Words",
+        "uk": "Вивчені слова"
+    },
+    "SkippedWords": {
+        "en": "Skipped Words",
+        "uk": "Пропущені слова"
+    },
+    "AccuracyRateOnTrainings": {
+        "en": "Accuracy Rate on Trainings",
+        "uk": "Рівень точності на тренуваннях"
+    },
+    "MostEffectiveTraining": {
+        "en": "Most Effective Training",
+        "uk": "Найбільш ефективне тренування"
+    },
+    "LeastSuccessfulTraining": {
+        "en": "Least Successful Training",
+        "uk": "Найменш успішне тренування"
+    },
+    "TotalInterruptedTrainings": {
+        "en": "Total Interrupted Trainings",
+        "uk": "Загальна кількість перерваних тренувань"
+    },
+    "TrainingsCompleted": {
+        "en": "Trainings Completed",
+        "uk": "Завершено тренувань"
+    },
+    "Other":{
+        "en": "Other",
+        "uk": "Інше"
     }
 }

@@ -1,0 +1,32 @@
+
+.rootClassName {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.rootClassName h3 {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    color: #9EA5AE;
+    font-weight: 400;
+}
+
+.statisticsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.statisticsRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    font-weight: 500;
+}
+
