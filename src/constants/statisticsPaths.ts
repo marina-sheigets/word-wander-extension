@@ -5,7 +5,7 @@ export enum StatisticsPath {
 
     // Other
     ADDED_WORDS = 'other.added_words',
-    TOTAL_WORDS_IN_DICTIONARY = 'other.total_words_in_dictionary',
+    // TOTAL_WORDS_IN_DICTIONARY = 'other.total_words_in_dictionary', // fetch separately
     TOTAL_DELETED_WORDS = 'other.total_deleted_words',
 
     // Trainings

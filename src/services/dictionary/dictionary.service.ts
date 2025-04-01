@@ -9,6 +9,8 @@ import { Informer } from "../informer/informer.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { isExtensionContext } from "../../utils/isExtensionContext";
 import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
+import { UserStatisticsService } from "../user-statistics/user-statistics.service";
+import { StatisticsPath } from "../../constants/statisticsPaths";
 
 @singleton()
 export class DictionaryService {
@@ -19,7 +21,8 @@ export class DictionaryService {
         protected authService: AuthService,
         protected messenger: MessengerService,
         protected httpService: HttpService,
-        protected extensionPageManager: ExtensionPageManagerService
+        protected extensionPageManager: ExtensionPageManagerService,
+        protected userStatistics: UserStatisticsService
     ) {
     }
 
@@ -30,6 +33,8 @@ export class DictionaryService {
                 throw Error;
             }
             await this.httpService.post(URL.dictionary.addWord, { word, translation })
+
+            this.userStatistics.updateStatistics({ fieldPath: StatisticsPath.ADDED_WORDS });
 
             this.rerenderDictionary(word, translation);
         } catch (e) {
@@ -61,8 +66,9 @@ export class DictionaryService {
         try {
             const response = await this.httpService.delete(URL.dictionary.deleteWord, { wordId: id });
 
-            this.rerenderDictionary("", "");
+            this.userStatistics.updateStatistics({ fieldPath: StatisticsPath.TOTAL_DELETED_WORDS });
 
+            this.rerenderDictionary("", "");
             return response;
         } catch (e) {
             throw e;
@@ -86,6 +92,9 @@ export class DictionaryService {
     async removeWordsFromDictionary(selectedWordsIds: string[]) {
         try {
             const response = await this.httpService.delete(URL.dictionary.deleteWords, {}, { data: { wordsIds: selectedWordsIds } });
+
+            this.userStatistics.updateStatistics({ fieldPath: StatisticsPath.TOTAL_DELETED_WORDS, count: selectedWordsIds.length });
+
 
             this.rerenderDictionary("", "");
 
