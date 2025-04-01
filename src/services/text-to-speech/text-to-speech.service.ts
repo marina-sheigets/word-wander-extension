@@ -2,6 +2,8 @@ import { singleton } from "tsyringe";
 import { SettingsService } from "../settings/settings.service";
 import { Informer } from "../informer/informer.service";
 import { SettingsNames } from "../../constants/settingsNames";
+import { UserStatisticsService } from "../user-statistics/user-statistics.service";
+import { StatisticsPath } from "../../constants/statisticsPaths";
 
 @singleton()
 export class TextToSpeechService {
@@ -13,7 +15,8 @@ export class TextToSpeechService {
     private voice: SpeechSynthesisVoice | null = null;
 
     constructor(
-        protected settingsService: SettingsService
+        protected settingsService: SettingsService,
+        protected userStatisticsService: UserStatisticsService
     ) {
         this.synth = window.speechSynthesis;
         this.synth.onvoiceschanged = this.setVoices.bind(this);
@@ -65,6 +68,8 @@ export class TextToSpeechService {
 
         this.synth.speak(this.speech);
         this.isPaused = false;
+
+        this.userStatisticsService.updateStatistics({ fieldPath: StatisticsPath.TOTAL_PRONOUNCED_WORDS });
     }
 
     onSpeakFinished() {

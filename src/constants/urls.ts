@@ -19,5 +19,9 @@ export const URL = {
         getWordsForTraining: 'training/get-words',
         deleteWordsFromTraining: 'training/delete-words-from-training',
         finishTraining: "training/finish-training"
+    },
+    statistics: {
+        getStatistics: "statistics",
+        updateStatistics: "statistics"
     }
 }
