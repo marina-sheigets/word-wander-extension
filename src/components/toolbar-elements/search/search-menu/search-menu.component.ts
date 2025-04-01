@@ -15,6 +15,8 @@ import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { RandomWordContainerComponent } from "../../../random-word-container/random-word-container.component";
 import { IconName } from "../../../../types/IconName";
 import { I18nService } from "../../../../services/i18n/i18n.service";
+import { UserStatisticsService } from "../../../../services/user-statistics/user-statistics.service";
+import { StatisticsPath } from "../../../../constants/statisticsPaths";
 
 @singleton()
 export class SearchMenuComponent extends MenuComponent {
@@ -34,6 +36,7 @@ export class SearchMenuComponent extends MenuComponent {
         protected dictionaryService: DictionaryApiService,
         protected historyService: HistoryService,
         protected randomWordContainer: RandomWordContainerComponent,
+        protected userStatistics: UserStatisticsService,
         protected i18n: I18nService
     ) {
         super();
@@ -118,6 +121,9 @@ export class SearchMenuComponent extends MenuComponent {
         this.randomWordContainer.rootElement.classList.add(styles.hidden);
 
         const translations: string[] = await this.googleTranslateService.translateText(value);
+
+        this.userStatistics.updateStatistics({ fieldPath: StatisticsPath.TOTAL_SEARCHED_WORDS });
+
         const dictionaryResult = await this.dictionaryService.fetchData(value);
 
         this.loader.hide();
