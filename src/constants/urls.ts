@@ -18,5 +18,6 @@ export const URL = {
         sendWordsOnTrainings: 'training/add-words-for-trainings',
         getWordsForTraining: 'training/get-words',
         deleteWordsFromTraining: 'training/delete-words-from-training',
+        finishTraining: "training/finish-training"
     }
 }

@@ -11,7 +11,6 @@ export class StatisticsTabComponent extends BaseComponent {
     private statisticsSections = document.createElement("div");
 
     constructor(
-        //protected periodDropdown: PeriodDropdownComponent,
         protected dictionaryStatistics: DictionaryStatisticsComponent,
         protected trainingsStatistics: TrainingsStatisticsComponent,
         protected otherStatistics: OtherStatisticsComponent

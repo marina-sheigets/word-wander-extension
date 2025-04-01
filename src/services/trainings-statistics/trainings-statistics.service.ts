@@ -38,14 +38,27 @@ export class TrainingsStatisticsService {
     }
 
     public clearStatistics(gameID: number) {
+        if (!gameID) {
+            return;
+        }
+
+        this.updateTrainingStatistics(gameID);
         this.removeRightWordsFromTraining(gameID);
 
         this.rightWords = [];
         this.wrongWords = [];
     }
 
+    private updateTrainingStatistics(gameID: number) {
+        const accuracyRate = this.rightWords.length / (this.rightWords.length + this.wrongWords.length);
+
+        this.httpService.post(URL.training.finishTraining, {
+            accuracyRate,
+            trainingName: this.getTrainingName(gameID)
+        });
+    }
+
     private removeRightWordsFromTraining(gameID: number) {
-        const trainingName = trainings.find((training) => training.id === gameID)?.name;
 
         const rightWordsIds = this.rightWords.map((word) => word._id);
 
@@ -58,10 +71,14 @@ export class TrainingsStatisticsService {
             {
                 data: {
                     wordsIds: rightWordsIds,
-                    trainingName
+                    trainingName: this.getTrainingName(gameID)
                 }
             })?.then(() => {
                 this.extensionPageManager.sendMessageToBackground(BackgroundMessages.DictionarySync);
             });
+    }
+
+    private getTrainingName(gameID: number) {
+        return trainings.find((training) => training.id === gameID)?.name;
     }
 }
