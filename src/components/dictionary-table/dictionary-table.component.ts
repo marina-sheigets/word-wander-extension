@@ -89,8 +89,7 @@ export class DictionaryTableComponent extends BaseComponent {
                 request.type === BackgroundMessages.DictionarySync ||
                 (request.message && request.message === BackgroundMessages.DictionarySync)
             ) {
-                this.selectAllButton.show();
-                this.unselectAllButton.hide();
+                this.restoreInitialToolsView();
             }
         });
     }
