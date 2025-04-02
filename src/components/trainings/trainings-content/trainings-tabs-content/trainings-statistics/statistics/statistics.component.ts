@@ -41,7 +41,7 @@ export class StatisticsComponent extends BaseComponent {
 
             const value = document.createElement("div");
 
-            this.i18n.subscribe(item.statisticsName, (labelName: string) => {
+            this.i18n.follow(item.statisticsName, (labelName: string) => {
                 label.textContent = labelName;
             });
 

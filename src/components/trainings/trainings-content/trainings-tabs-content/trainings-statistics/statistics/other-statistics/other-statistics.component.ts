@@ -15,20 +15,5 @@ export class OtherStatisticsComponent extends StatisticsComponent {
         this.applyRootStyle(styles);
 
         this.setTitle(i18nKeys.Other);
-
-        this.setData([
-            {
-                statisticsName: i18nKeys.AddedWords,
-                value: "100"
-            },
-            {
-                statisticsName: i18nKeys.TotalWordsInDictionary,
-                value: "224"
-            },
-            {
-                statisticsName: i18nKeys.TotalDeletedWords,
-                value: "12"
-            },
-        ])
     }
 }

@@ -15,16 +15,5 @@ export class DictionaryStatisticsComponent extends StatisticsComponent {
         this.applyRootStyle(styles);
 
         this.setTitle(i18nKeys.Dictionary);
-
-        this.setData([
-            {
-                statisticsName: i18nKeys.TotalPronouncedWords,
-                value: "100"
-            },
-            {
-                statisticsName: i18nKeys.TotalSearchedWords,
-                value: "224"
-            },
-        ])
     }
 }
