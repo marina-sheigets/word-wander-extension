@@ -31,8 +31,13 @@ export class UserStatisticsService {
                 total_searched_words: i18nKeys.TotalSearchedWords
             },
             trainings: {
+                learned_words: i18nKeys.LearnedWords,
+                skipped_words: i18nKeys.SkippedWords,
+                accuracy_rate: i18nKeys.AccuracyRateOnTrainings,
                 least_successful_training: i18nKeys.LeastSuccessfulTraining,
-                most_effective_training: i18nKeys.MostEffectiveTraining
+                most_effective_training: i18nKeys.MostEffectiveTraining,
+                completed_trainings: i18nKeys.TrainingsCompleted,
+                interrupted_trainings: i18nKeys.TrainingsInterrupted
             },
             other: {
                 added_words: i18nKeys.AddedWords,

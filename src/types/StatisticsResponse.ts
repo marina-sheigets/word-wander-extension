@@ -6,8 +6,13 @@ export interface StatisticsResponse {
         total_searched_words: number
     },
     trainings: {
+        learned_words: TrainingNames,
+        skipped_words: TrainingNames,
+        accuracy_rate: TrainingNames,
         least_successful_training: TrainingNames,
-        most_effective_training: TrainingNames
+        most_effective_training: TrainingNames,
+        completed_trainings: TrainingNames,
+        interrupted_trainings: TrainingNames
     },
     other: {
         added_words: number,

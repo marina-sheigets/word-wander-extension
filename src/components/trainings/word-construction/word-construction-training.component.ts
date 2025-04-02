@@ -105,10 +105,10 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
         this.wordConstructorComponent.init(this.currentWord.word);
     }
 
-    private onLettersFinished(isWordCorrect: boolean) {
+    private onLettersFinished(isWordCorrect: boolean, isSkipped: boolean = false) {
         if (isWordCorrect) {
             this.statistics.addRightWord(this.currentWord as Word);
-        } else {
+        } else if (!isSkipped) {
             this.statistics.addWrongWord(this.currentWord as Word)
         }
 
@@ -145,8 +145,10 @@ export class WordConstructionTrainingComponent extends GameWrapperPopupComponent
         this.skipWordButton.hide();
         this.wordConstructorComponent.autocompleteWord();
 
+        this.statistics.addSkippedWord(this.currentWord as Word);
+
         setTimeout(() => {
-            this.onLettersFinished(false);
+            this.onLettersFinished(false, true);
             this.skipWordButton.show();
         }, 1000);
 

@@ -163,7 +163,7 @@ export class AudioChallengeTrainingComponent extends GameWrapperPopupComponent {
     private onWordSkip() {
         this.currentWordIndex++;
         this.progressBar.addWrongSection();
-        this.statistics.addWrongWord(this.currentWord as Word);
+        this.statistics.addSkippedWord(this.currentWord as Word);
 
         if (this.currentWordIndex === this.data?.translations.length) {
             this.hide();

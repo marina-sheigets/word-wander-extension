@@ -140,5 +140,6 @@ export const enum i18nKeys {
     MostEffectiveTraining = "MostEffectiveTraining",
     LeastSuccessfulTraining = "LeastSuccessfulTraining",
     TotalInterruptedTrainings = "TotalInterruptedTrainings",
-    TrainingsCompleted = "TrainingsCompleted"
+    TrainingsCompleted = "TrainingsCompleted",
+    TrainingsInterrupted = "TrainingsInterrupted"
 }

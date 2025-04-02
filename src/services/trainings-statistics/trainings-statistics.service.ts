@@ -6,15 +6,19 @@ import { URL } from "../../constants/urls";
 import { Word } from "../../types/Word";
 import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
+import { UserStatisticsService } from "../user-statistics/user-statistics.service";
+import { StatisticsPath } from "../../constants/statisticsPaths";
 
 @singleton()
 export class TrainingsStatisticsService {
     protected rightWords: Word[] = [];
     protected wrongWords: Word[] = [];
+    protected skippedWords: Word[] = [];
 
     constructor(
         protected httpService: HttpService,
-        protected extensionPageManager: ExtensionPageManagerService
+        protected extensionPageManager: ExtensionPageManagerService,
+        protected userStatistics: UserStatisticsService
     ) {
 
     }
@@ -29,12 +33,22 @@ export class TrainingsStatisticsService {
         this.wrongWords.push(word);
     }
 
+    public addSkippedWord(word: Word) {
+        this.skippedWords.push(word);
+
+        this.addWrongWord(word);
+    }
+
     public getRightWords() {
         return this.rightWords;
     }
 
     public getWrongWords() {
         return this.wrongWords;
+    }
+
+    public getSkippedWords() {
+        return this.skippedWords;
     }
 
     public clearStatistics(gameID: number) {
@@ -55,6 +69,16 @@ export class TrainingsStatisticsService {
         this.httpService.post(URL.training.finishTraining, {
             accuracyRate,
             trainingName: this.getTrainingName(gameID)
+        });
+
+        this.userStatistics.updateStatistics({
+            fieldPath: StatisticsPath.LEARNED_WORDS,
+            count: this.rightWords.length
+        });
+
+        this.userStatistics.updateStatistics({
+            fieldPath: StatisticsPath.SKIPPED_WORDS,
+            count: this.skippedWords.length
         });
     }
 

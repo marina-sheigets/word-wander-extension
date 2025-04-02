@@ -15,4 +15,5 @@ export enum StatisticsPath {
     MOST_EFFECTIVE_TRAINING = 'trainings.most_effective_training',
     LEAST_SUCCESSFUL_TRAINING = 'trainings.least_successful_training',
     TOTAL_INTERRUPTED_TRAININGS = 'trainings.total_interrupted_trainings',
+    TOTAL_COMPLETED_TRAININGS = 'trainings.total_completed_trainings',
 }
