@@ -7,7 +7,7 @@ export const URL = {
     },
     auth: {
         login: 'auth/login',
-        register: 'auth/register',
+        signUp: 'auth/signup',
         refreshToken: 'auth/refresh',
         changePassword: 'auth/change-password',
         signOut: 'auth/logout',

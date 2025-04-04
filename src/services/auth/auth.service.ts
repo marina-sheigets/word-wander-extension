@@ -34,9 +34,9 @@ export class AuthService {
 
     public async signUp(email: string, password: string) {
         try {
-            const response = await this.http.post('/auth/signup', { email, password });
+            const response = await this.http.post(URL.auth.signUp, { email, password });
 
-            if (!response || (response && response.data.error)) {
+            if (!response?.data) {
                 throw Error;
             }
 
