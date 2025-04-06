@@ -8,7 +8,6 @@ import { SettingsService } from "../../../../../services/settings/settings.servi
 import { SettingsNames } from "../../../../../constants/settingsNames";
 import { UserData } from "../../../../../types/UserData";
 import { UserStatisticsService } from "../../../../../services/user-statistics/user-statistics.service";
-import { StatisticsResponse } from "../../../../../types/StatisticsResponse";
 
 @singleton()
 export class StatisticsTabComponent extends BaseComponent {
