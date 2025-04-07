@@ -103,7 +103,11 @@ export class Background {
 
             const refreshToken = userData?.refreshToken;
 
-            const response = await fetch(process.env.API_URL + '/' + URL.auth.refreshToken, {
+            if (!refreshToken) {
+                throw new Error("Bad request");
+            }
+
+            const response = await fetch(process.env.API_URL + URL.auth.refreshToken, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -115,8 +119,8 @@ export class Background {
 
             const data = await response.json();
 
-            if (data.error) {
-                throw new Error(data.error);
+            if (!data.accessToken || !data.refreshToken) {
+                throw new Error("Invalid data received");
             }
 
             await this.updateStorage(data, SettingsNames.User);
