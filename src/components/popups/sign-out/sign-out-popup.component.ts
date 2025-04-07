@@ -48,7 +48,9 @@ export class SignOutPopupComponent extends PopupComponent {
 
     private confirmSignOut() {
         this.hide();
-        this.settingsService.set(SettingsNames.User, null);
-        this.authService.signOut();
+
+        this.authService.signOut().finally(() => {
+            this.settingsService.set(SettingsNames.User, null);
+        });
     }
 }
