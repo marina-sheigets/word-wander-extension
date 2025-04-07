@@ -54,10 +54,6 @@ export class Background {
         chrome.windows.onCreated.addListener(async () => {
             this.debouncedRefreshToken();
         });
-
-        chrome.tabs.onCreated.addListener(async () => {
-            this.debouncedRefreshToken();
-        });
     }
 
     private notifyTabs(message: string, data: any) {
