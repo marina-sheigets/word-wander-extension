@@ -49,8 +49,7 @@ export class AuthService {
                 this.login(email, password);
                 return;
             }
-
-            this.messenger.send(Messages.ShowAuthError, e.response.data.message);
+            this.messenger.send(Messages.ShowAuthError, e.response.data.message.message);
         }
     }
 
@@ -64,7 +63,7 @@ export class AuthService {
             this.closeAllSignInPopups();
         } catch (e) {
             if (e?.response?.data?.message) {
-                this.messenger.send(Messages.ShowAuthError, e.response.data.message);
+                this.messenger.send(Messages.ShowAuthError, e.response.data.message.message);
             }
         }
     }
