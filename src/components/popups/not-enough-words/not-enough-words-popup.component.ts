@@ -9,6 +9,7 @@ import { TrainingsTab } from "../../../types/TrainingsTabs";
 import { ButtonComponent } from "../../button/button.component";
 import { PopupComponent } from "../popup.component";
 import * as styles from './not-enough-words-popup.component.css';
+import { trainings } from "../../../constants/trainings";
 
 @singleton()
 export class NotEnoughWordsPopup extends PopupComponent {
@@ -27,10 +28,6 @@ export class NotEnoughWordsPopup extends PopupComponent {
 
         this.setTitle(i18nKeys.NotEnoughWordsTitle);
 
-        i18n.follow(i18nKeys.NotEnoughWordsDescription, (value) => {
-            this.description.textContent = value;
-        });
-
         this.content.classList.add(styles.content);
 
         this.goToDictionary.addButtonName(i18nKeys.GoToDictionary);
@@ -45,11 +42,27 @@ export class NotEnoughWordsPopup extends PopupComponent {
 
         this.hide();
 
-        this.messenger.subscribe(Messages.ShowNotEnoughWordsPopup, this.show.bind(this));
+        this.messenger.subscribe(Messages.ShowNotEnoughWordsPopup, this.setData.bind(this));
     }
 
     private handleGoToDictionary() {
         this.hide();
         this.messenger.send(Messages.ChangeTab, TrainingsTab.Dictionary);
+    }
+
+    private setData(gameID: number) {
+        const clickedTraining = trainings.find((item) => item.id === gameID);
+
+        if (!clickedTraining) {
+            return;
+        }
+
+        const minimumWordsCount = clickedTraining.minimumAmountOfWords;
+
+        this.i18n.follow(i18nKeys.NotEnoughWordsDescription, (value: string) => {
+            this.description.textContent = minimumWordsCount + " " + value;
+        });
+
+        this.show();
     }
 }

@@ -24,8 +24,8 @@
     "uk": "Перейти до словника"
   },
   "NotEnoughWordsDescription": {
-    "en": "Please go to the dictionary and select more words to start training.",
-    "uk": "Будь ласка, перейдіть до словника та виберіть більше слів для початку тренування."
+    "en": "words is minimum amount of words for this training. Please go to the dictionary and select more words to start training.",
+    "uk": "слів є мінімальною кількістю слів для даного тренування. Будь ласка, перейдіть до словника та виберіть більше слів для початку тренування."
   },
   "NotEnoughWordsTitle":{
     "en":"Not enough words",

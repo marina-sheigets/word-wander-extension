@@ -62,7 +62,7 @@ export class TrainingCardComponent extends BaseComponent {
         e.stopPropagation();
 
         if (!this.trainingsService.areEnoughWordsForTraining(this.gameID || 0)) {
-            this.messenger.send(Messages.ShowNotEnoughWordsPopup);
+            this.messenger.send(Messages.ShowNotEnoughWordsPopup, this.gameID);
             return;
         }
 
