@@ -50,6 +50,8 @@ export class TrainingsTabsContentComponent extends BaseComponent {
         this.setTabContent(this.trainingsTabsService.getCurrentTab());
 
         this.title.classList.add(styles.title);
+        this.tabContent.classList.add(styles.tabContent);
+
         this.trainingsTabsService.onTabChange.subscribe(this.setTabContent.bind(this));
 
         this.rootElement.append(
@@ -89,10 +91,10 @@ export class TrainingsTabsContentComponent extends BaseComponent {
 
     private toggleTabVisibility(userData: AuthorizationData) {
         if (userData) {
-            this.tabContent.style.display = 'block';
+            this.tabContent.classList.remove(styles.hidden);
             this.unauthorizedOverlay.hide();
         } else {
-            this.tabContent.style.display = 'none';
+            this.tabContent.classList.add(styles.hidden);
             this.unauthorizedOverlay.show();
         }
     }

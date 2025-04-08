@@ -12,3 +12,12 @@
     color: #FFFFFF;
     margin-bottom: 20px;
 }
+
+.tabContent {
+    height: 90%;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
