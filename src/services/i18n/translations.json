@@ -211,9 +211,9 @@
         "en":"Password was changed",
         "uk":"Пароль змінено"
     },
-    "PronounceByDefault":{
-        "en":"Pronounce by default",
-        "uk":"Вимовляти за замовчуванням"
+    "AutoPronounceInTraining":{
+        "en":"Auto pronounce in training",
+        "uk":"Автовимова під час тренування"
     },
     "PronounceWithDoubleClick":{
         "en":"Pronounce with double click",

@@ -59,7 +59,7 @@ export const enum i18nKeys {
     SelectVoice = "SelectVoice",
     NotSupportedLanguage = "NotSupportedLanguage",
     SelectSpeed = "SelectSpeed",
-    PronounceByDefault = "PronounceByDefault",
+    AutoPronounceInTraining = "AutoPronounceInTraining",
     PronounceWithDoubleClick = "PronounceWithDoubleClick",
     ShowSynonyms = "ShowSynonyms",
     ShowExamples = "ShowExamples",

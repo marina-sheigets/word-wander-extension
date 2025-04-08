@@ -27,10 +27,10 @@ export class PronunciationComponent extends TabContent {
 
         this.setTitle(i18nKeys.Pronunciation);
 
-        this.pronounceSwitch.setLabel(i18nKeys.PronounceByDefault);
+        this.pronounceSwitch.setLabel(i18nKeys.AutoPronounceInTraining);
         this.pronounceWithDoubleClick.setLabel(i18nKeys.PronounceWithDoubleClick);
 
-        this.settings.subscribe(SettingsNames.PronounceByDefault, this.pronounceSwitch.setValue.bind(this.pronounceSwitch));
+        this.settings.subscribe(SettingsNames.AutoPronounceInTraining, this.pronounceSwitch.setValue.bind(this.pronounceSwitch));
         this.pronounceSwitch.onSwitch.subscribe(this.onPronounceDefaultChange.bind(this));
 
         this.settings.subscribe(SettingsNames.PronounceWithDoubleClick, this.pronounceWithDoubleClick.setValue.bind(this.pronounceWithDoubleClick));
@@ -76,7 +76,7 @@ export class PronunciationComponent extends TabContent {
     }
 
     private onPronounceDefaultChange(value: boolean) {
-        this.settings.set(SettingsNames.PronounceByDefault, value);
+        this.settings.set(SettingsNames.AutoPronounceInTraining, value);
     }
 
     private setSpeedValue(speed: string) {
