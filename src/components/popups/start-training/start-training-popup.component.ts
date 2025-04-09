@@ -7,6 +7,7 @@ import { ButtonComponent } from "../../button/button.component";
 import { PopupComponent } from "../popup.component";
 import * as styles from './start-training-popup.component.css';
 import { TrainingsService } from "../../../services/trainings/trainings.service";
+import { AutoSoundSwitch } from "../../switch/auto-sound/auto-sound.switch";
 
 @singleton()
 export class StartTrainingPopup extends PopupComponent {
@@ -18,7 +19,8 @@ export class StartTrainingPopup extends PopupComponent {
         protected i18n: I18nService,
         protected yesButton: ButtonComponent,
         protected messenger: MessengerService,
-        protected trainingService: TrainingsService
+        protected trainingService: TrainingsService,
+        protected autoSoundSwitch: AutoSoundSwitch
     ) {
         super(i18n);
 
@@ -36,8 +38,10 @@ export class StartTrainingPopup extends PopupComponent {
         });
         this.content.append(
             this.description,
+            this.autoSoundSwitch.rootElement,
             this.yesButton.rootElement
         );
+
         this.setContent(this.content);
 
         this.hide();
