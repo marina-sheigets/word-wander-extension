@@ -4,7 +4,7 @@ export enum SettingsNames {
     PronounceWithDoubleClick = 'PronounceWithDoubleClick',
     ShowSynonyms = 'ShowSynonyms',
     ShowExamples = 'ShowExamples',
-    AutoPronounceInTraining = 'AutoPronounceInTraining',
+    SoundInTrainings = 'SoundInTrainings',
     PronunciationSpeed = 'PronunciationSpeed',
     Voice = 'Voice',
     Voices = "Voices",

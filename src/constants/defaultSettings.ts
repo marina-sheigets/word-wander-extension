@@ -7,7 +7,7 @@ export const DEFAULT_SETTINGS = {
     [SettingsNames.PronounceWithDoubleClick]: true,
     [SettingsNames.ShowSynonyms]: true,
     [SettingsNames.ShowExamples]: true,
-    [SettingsNames.AutoPronounceInTraining]: true,
+    [SettingsNames.SoundInTrainings]: true,
     [SettingsNames.PronunciationSpeed]: "5",
     [SettingsNames.Voice]: '',
     [SettingsNames.Voices]: [],
