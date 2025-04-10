@@ -14,6 +14,7 @@ import { TrainingSound } from "../training-sound/training-sound.service";
 import { TrainingNames } from "../../constants/trainingNames";
 import { shuffleWordsForTraining } from "../../utils/shuffleWordsForTraining";
 import { Word } from "../../types/Word";
+import { TrainingsStatisticsService } from "../trainings-statistics/trainings-statistics.service";
 
 @singleton()
 export class TrainingsService {
@@ -25,6 +26,7 @@ export class TrainingsService {
         protected messenger: MessengerService,
         protected settingsService: SettingsService,
         protected httpService: HttpService,
+        protected trainingStatistics: TrainingsStatisticsService
     ) {
 
         this.messenger.subscribe(Messages.InterruptTraining, this.interruptTraining.bind(this));
@@ -162,6 +164,7 @@ export class TrainingsService {
     }
 
     private interruptTraining() {
+        this.trainingStatistics.clearAfterInterrupt();
         this.messenger.send(FinishTrainingsMessages[this.currentGame || 0]);
         this.isGameInProgress = false;
         this.currentGame = null;

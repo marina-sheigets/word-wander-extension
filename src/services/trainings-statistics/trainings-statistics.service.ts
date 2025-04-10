@@ -72,6 +72,12 @@ export class TrainingsStatisticsService {
         this.wrongWords = [];
     }
 
+    public clearAfterInterrupt() {
+        this.skippedWords = [];
+        this.rightWords = [];
+        this.wrongWords = [];
+    }
+
     private updateTrainingStatistics(gameID: number) {
         const accuracyRate = this.rightWords.length / (this.rightWords.length + this.wrongWords.length);
 
