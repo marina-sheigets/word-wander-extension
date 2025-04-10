@@ -8,6 +8,8 @@ import { ExtensionPageManagerService } from "../extension-page-manager/extension
 import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { UserStatisticsService } from "../user-statistics/user-statistics.service";
 import { StatisticsPath } from "../../constants/statisticsPaths";
+import { SettingsService } from "../settings/settings.service";
+import { SettingsNames } from "../../constants/settingsNames";
 
 @singleton()
 export class TrainingsStatisticsService {
@@ -18,18 +20,25 @@ export class TrainingsStatisticsService {
     constructor(
         protected httpService: HttpService,
         protected extensionPageManager: ExtensionPageManagerService,
-        protected userStatistics: UserStatisticsService
+        protected userStatistics: UserStatisticsService,
+        protected settingsService: SettingsService
     ) {
 
     }
 
     public addRightWord(word: Word) {
-        TrainingSound.playCorrectSound();
+        if (this.settingsService.get(SettingsNames.SoundInTrainings)) {
+            TrainingSound.playCorrectSound();
+        }
+
         this.rightWords.push(word);
     }
 
     public addWrongWord(word: Word) {
-        TrainingSound.playIncorrectSound()
+        if (this.settingsService.get(SettingsNames.SoundInTrainings)) {
+            TrainingSound.playIncorrectSound();
+        }
+
         this.wrongWords.push(word);
     }
 

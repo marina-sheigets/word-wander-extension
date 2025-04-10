@@ -42,7 +42,11 @@ export class TrainingsService {
     startGame(gameID: number) {
         this.isGameInProgress = true;
         this.currentGame = gameID;
-        TrainingSound.playStartTraining();
+
+        if (this.settingsService.get(SettingsNames.SoundInTrainings)) {
+            TrainingSound.playStartTraining();
+        }
+
         this.messenger.send(StartTrainingsMessages[gameID]);
     }
 
