@@ -38,7 +38,14 @@ export class SelectComponent extends BaseComponent {
         options.forEach((item) => {
             const option = document.createElement('option');
             option.value = item.value;
-            option.label = item.label;
+
+            if (item.label in i18nKeys) {
+                this.i18n.follow(item.label as i18nKeys, (label) => {
+                    option.label = label;
+                })
+            } else {
+                option.label = item.label;
+            }
 
             this.selectInput.append(option);
         });

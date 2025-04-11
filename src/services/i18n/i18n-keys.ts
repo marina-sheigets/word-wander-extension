@@ -1,4 +1,4 @@
-export const enum i18nKeys {
+export enum i18nKeys {
     WordList = "WordList",
     Collections = "Collections",
     Other = "Other",

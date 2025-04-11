@@ -11,6 +11,14 @@
     "en":"Words not found",
     "uk":"Слова не знайдено"
   },
+  "WordList":{
+    "en":"Word List",
+    "uk": "Список слів"
+  },
+  "Collections":{
+    "en":"Collections",
+    "uk": "Колекції"
+  },
   "TryAnotherPrompt":{
     "en":"Try another prompt",
     "uk":"Спробуйте інший запит"
