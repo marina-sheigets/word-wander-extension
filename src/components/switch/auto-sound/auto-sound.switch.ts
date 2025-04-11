@@ -21,7 +21,7 @@ export class AutoSoundSwitch extends SwitchComponent {
             this.toggleSound();
         });
 
-        this.settingsService.subscribe((SettingsNames.SoundInTrainings), (value: boolean) => {
+        this.settingsService.subscribe(SettingsNames.SoundInTrainings, (value: boolean) => {
             this.setValue(value);
         })
     }

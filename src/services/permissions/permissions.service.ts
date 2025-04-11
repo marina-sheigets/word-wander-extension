@@ -20,4 +20,8 @@ export class PermissionsService {
     public isPronounceWithDoubleClickedEnabled() {
         return this.settings.get(SettingsNames.PronounceWithDoubleClick);
     }
+
+    public isSoundEnabled() {
+        return this.settings.get(SettingsNames.SoundInTrainings)
+    }
 }

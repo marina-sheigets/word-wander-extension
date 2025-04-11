@@ -8,8 +8,7 @@ import { ExtensionPageManagerService } from "../extension-page-manager/extension
 import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { UserStatisticsService } from "../user-statistics/user-statistics.service";
 import { StatisticsPath } from "../../constants/statisticsPaths";
-import { SettingsService } from "../settings/settings.service";
-import { SettingsNames } from "../../constants/settingsNames";
+import { PermissionsService } from "../permissions/permissions.service";
 
 @singleton()
 export class TrainingsStatisticsService {
@@ -21,13 +20,13 @@ export class TrainingsStatisticsService {
         protected httpService: HttpService,
         protected extensionPageManager: ExtensionPageManagerService,
         protected userStatistics: UserStatisticsService,
-        protected settingsService: SettingsService
+        protected permissions: PermissionsService
     ) {
 
     }
 
     public addRightWord(word: Word) {
-        if (this.settingsService.get(SettingsNames.SoundInTrainings)) {
+        if (this.permissions.isSoundEnabled()) {
             TrainingSound.playCorrectSound();
         }
 
@@ -35,7 +34,7 @@ export class TrainingsStatisticsService {
     }
 
     public addWrongWord(word: Word) {
-        if (this.settingsService.get(SettingsNames.SoundInTrainings)) {
+        if (this.permissions.isSoundEnabled()) {
             TrainingSound.playIncorrectSound();
         }
 
