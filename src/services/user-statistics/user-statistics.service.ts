@@ -5,15 +5,22 @@ import { HttpService } from "../http/http.service";
 import { StatisticsResponse } from "../../types/StatisticsResponse";
 import { i18nKeys } from "../i18n/i18n-keys";
 import { UserStatistics } from "../../types/UserStatistics";
+import { SettingsService } from "../settings/settings.service";
+import { SettingsNames } from "../../constants/settingsNames";
 
 @singleton()
 export class UserStatisticsService {
 
     constructor(
-        protected httpService: HttpService
+        protected httpService: HttpService,
+        protected settings: SettingsService
     ) { }
 
     public updateStatistics(statisticsData: StatisticsData) {
+        if (!this.settings.get(SettingsNames.User)) {
+            return;
+        }
+
         this.httpService.post(URL.statistics.updateStatistics, statisticsData);
     }
 
