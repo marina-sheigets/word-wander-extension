@@ -31,7 +31,11 @@ export class TrainingsService {
         protected permissions: PermissionsService
     ) {
 
-        this.messenger.subscribe(Messages.InterruptTraining, this.interruptTraining.bind(this));
+        this.messenger.subscribe(Messages.InterruptTraining, () => {
+            this.trainingStatistics.clearAfterInterrupt();
+            this.interruptTraining();
+        });
+
         this.messenger.subscribe(Messages.FinishTraining, this.finishGame.bind(this));
 
         this.settingsService.subscribe(SettingsNames.User, this.fetchAmountOfWords.bind(this));
@@ -166,7 +170,6 @@ export class TrainingsService {
     }
 
     private interruptTraining() {
-        this.trainingStatistics.clearAfterInterrupt();
         this.messenger.send(FinishTrainingsMessages[this.currentGame || 0]);
         this.isGameInProgress = false;
         this.currentGame = null;
