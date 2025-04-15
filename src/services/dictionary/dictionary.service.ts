@@ -49,7 +49,8 @@ export class DictionaryService {
 
             this.data = response?.data.map((item: any) => ({
                 ...item,
-                selected: false
+                selected: false,
+                added: item.updatedAt
             }));
             this.onDataChanged.inform(this.data);
             return this.data;

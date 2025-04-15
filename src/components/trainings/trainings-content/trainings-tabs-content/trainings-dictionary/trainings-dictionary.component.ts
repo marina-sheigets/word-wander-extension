@@ -45,8 +45,8 @@ export class TrainingsDictionaryComponent extends BaseComponent {
             this.dictionaryContent
         );
 
-        this.findWordInputComponent.onChange.subscribe((value) => {
-            this.dictionaryTable.filterWords(value);
+        this.findWordInputComponent.onChange.subscribe(() => {
+            //this.dictionaryTable.filterWords(value);
         });
     }
 
