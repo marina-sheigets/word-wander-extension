@@ -13,9 +13,9 @@ import { DictionaryService } from "../../services/dictionary/dictionary.service"
 
 @injectable()
 export class WordListComponent extends BaseComponent {
+    private periodRaw = document.createElement("div");
     private periodLabel = document.createElement("h3");
     private listOfWords = document.createElement("div");
-
     //public onSelectedChange = new Informer();
 
 
@@ -26,16 +26,24 @@ export class WordListComponent extends BaseComponent {
         protected i18n: I18nService,
         protected textToSpeechService: TextToSpeechService,
         protected dictionaryService: DictionaryService,
-        protected componentsFactory: ComponentsFactory
+        protected componentsFactory: ComponentsFactory,
+        protected selectAllWordsCheckbox: CheckboxComponent
     ) {
         super(styles);
 
+        this.listOfWords.classList.add(styles.listOfWords);
+        this.periodRaw.classList.add(styles.periodRaw);
+
+        this.periodRaw.append(
+            this.selectAllWordsCheckbox.rootElement,
+            this.periodLabel
+        )
+
         this.rootElement.append(
-            this.periodLabel,
+            this.periodRaw,
             this.listOfWords
         );
     }
-
 
     setPeriodLabel(key: i18nKeys) {
         this.i18n.follow(key, (value) => {
@@ -43,12 +51,14 @@ export class WordListComponent extends BaseComponent {
         })
     }
 
-    setInitialWords(words: DictionaryTableItem[]) {
+    setData(headerLabel: i18nKeys, words: DictionaryTableItem[]) {
         this.initialData = words;
+
+        this.setPeriodLabel(headerLabel);
         this.setListOfWords(words)
     }
 
-    setListOfWords(words?: DictionaryTableItem[]) {
+    private setListOfWords(words?: DictionaryTableItem[]) {
         this.words = words || this.initialData;
 
         this.listOfWords.textContent = '';
@@ -82,6 +92,7 @@ export class WordListComponent extends BaseComponent {
                 this.handleRemoveWord(item);
             });
             removeWordIcon.rootElement.id = "delete-word-icon-" + item._id;
+            removeWordIcon.rootElement.classList.add(styles.removeWordIcon);
 
             this.listOfWords.append(
                 checkbox.rootElement,

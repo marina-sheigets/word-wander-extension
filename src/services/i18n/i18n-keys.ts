@@ -1,4 +1,9 @@
 export enum i18nKeys {
+    Today = "Today",
+    Yesterday = "Yesterday",
+    LastWeek = "LastWeek",
+    LastMonth = "LastMonth",
+    Older = "Older",
     WordList = "WordList",
     Collections = "Collections",
     Other = "Other",

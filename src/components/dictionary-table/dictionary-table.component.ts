@@ -33,10 +33,10 @@ export class DictionaryTableComponent extends BaseComponent {
         protected settingsService: SettingsService,
         protected componentsFactory: ComponentsFactory
     ) {
-        super();
+        super(styles);
 
         this.amountWordsLabel.classList.add(styles.amountWords);
-
+        this.content.classList.add(styles.content);
 
         chrome.runtime?.onMessage?.addListener(async (request) => {
             if (
@@ -69,8 +69,16 @@ export class DictionaryTableComponent extends BaseComponent {
 
         const dataGroupedByDate = this.groupWordsByDate();
 
-        for (let _ in dataGroupedByDate) {
+        for (let wordsGroup in dataGroupedByDate) {
+            const key = wordsGroup as keyof GroupedWordsData;
+
+            if (!dataGroupedByDate[key].length) {
+                continue;
+            }
+
             const wordList = this.componentsFactory.createComponent(WordListComponent);
+
+            wordList.setData(key, dataGroupedByDate[key]);
 
             this.content.append(
                 wordList.rootElement

@@ -31,7 +31,7 @@ export class TrainingsDictionaryComponent extends BaseComponent {
 
         this.viewSelect.onSelectChange.subscribe(this.changeDictionaryView.bind(this));
 
-
+        this.dictionaryContent.classList.add(styles.dictionaryContent);
         this.toolsContainer.classList.add(styles.toolsContainer);
 
         this.toolsContainer.append(

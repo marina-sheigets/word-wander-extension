@@ -1,4 +1,11 @@
+.rootClassName{
+    height: 80%;
+}
 
+.content {
+    height: -webkit-fill-available;
+    overflow-y: auto;
+}
 
 
 .amountWords {

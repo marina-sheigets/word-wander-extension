@@ -1,3 +1,7 @@
+.rootClassName {
+    height: 100%;
+}
+
 .rootClassName .toolsContainer {
     display: flex;
     justify-content: start;
@@ -7,4 +11,8 @@
 
 .toolsContainer > div:last-child {
     margin-left: auto;
+}
+
+.dictionaryContent {
+    height: 100%;
 }

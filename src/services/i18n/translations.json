@@ -1,4 +1,24 @@
 {
+   "Today": {
+    "en": "Added today",
+    "uk": "Додано сьогодні"
+  },
+  "Yesterday": {
+    "en": "Added yesterday",
+    "uk": "Додано вчора"
+  },
+  "LastWeek": {
+    "en": "Added last week",
+    "uk": "Додано минулого тижня"
+  },
+  "LastMonth": {
+    "en": "Added last month",
+    "uk": "Додано минулого місяця"
+  },
+  "Older": {
+    "en": "Added older",
+    "uk": "Додано раніше"
+  },
   "NoTextFound":{
     "en":"No selected text found",
     "uk":"Не знайдено тексту"
