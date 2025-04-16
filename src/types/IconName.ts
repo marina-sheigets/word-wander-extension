@@ -21,4 +21,5 @@ export enum IconName {
     Audio = 'audio',
     SignIn = 'sign_in',
     SignOut = 'sign_out',
+    ChevronDown = "chevron_down"
 }

@@ -8,13 +8,18 @@
 
 .periodRaw {
     display: grid;
-    grid-template-columns: 50px 200px 1fr 50px;
+    grid-template-columns: 50px 50px 1fr 1fr 50px;
+    align-items: center;
 
     > h3 {
         font-weight: lighter;
         font-size: 14px;
         color: #9EA5AE;
     }
+
+    path {
+        stroke: #9EA5AE;
+    } 
 }
 
 .wordContainer, .translationContainer {

@@ -10,6 +10,7 @@ import { IconName } from "../../types/IconName";
 import { ComponentsFactory } from "../factories/component.factory.";
 import { TextToSpeechService } from "../../services/text-to-speech/text-to-speech.service";
 import { DictionaryService } from "../../services/dictionary/dictionary.service";
+import { IconComponent } from "../icon/icon.component";
 
 @injectable()
 export class WordListComponent extends BaseComponent {
@@ -27,15 +28,20 @@ export class WordListComponent extends BaseComponent {
         protected textToSpeechService: TextToSpeechService,
         protected dictionaryService: DictionaryService,
         protected componentsFactory: ComponentsFactory,
-        protected selectAllWordsCheckbox: CheckboxComponent
+        protected selectAllWordsCheckbox: CheckboxComponent,
+        protected arrowIcon: IconComponent
     ) {
         super(styles);
 
         this.listOfWords.classList.add(styles.listOfWords);
         this.periodRaw.classList.add(styles.periodRaw);
 
+        this.arrowIcon.setIcon(IconName.ChevronDown);
+
+
         this.periodRaw.append(
             this.selectAllWordsCheckbox.rootElement,
+            this.arrowIcon.rootElement,
             this.periodLabel
         )
 
