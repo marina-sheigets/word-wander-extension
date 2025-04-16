@@ -39,11 +39,14 @@ export class WordListComponent extends BaseComponent {
         this.arrowIcon.setIcon(IconName.ChevronDown);
 
 
+        this.arrowIcon.rootElement.addEventListener('click', this.toggleWordListVisibility.bind(this));
+        this.arrowIcon.rootElement.classList.add(styles.wordListVisible);
+
         this.periodRaw.append(
             this.selectAllWordsCheckbox.rootElement,
             this.arrowIcon.rootElement,
             this.periodLabel
-        )
+        );
 
         this.rootElement.append(
             this.periodRaw,
@@ -140,5 +143,26 @@ export class WordListComponent extends BaseComponent {
         //this.dictionaryService.onDataChanged.inform(this.tableData);
     }
 
+    private toggleWordListVisibility() {
+        if (this.isWordListHidden()) {
+            this.arrowIcon.rootElement.classList.add(styles.wordListVisible);
+            this.show();
+        } else {
+            this.arrowIcon.rootElement.classList.remove(styles.wordListVisible);
+            this.hide();
+        }
+    }
+
+    private show() {
+        this.listOfWords.classList.remove(styles.hidden)
+    }
+
+    private hide() {
+        this.listOfWords.classList.add(styles.hidden)
+    }
+
+    private isWordListHidden() {
+        return this.listOfWords.classList.contains(styles.hidden);
+    }
 
 }

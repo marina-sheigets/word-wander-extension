@@ -42,3 +42,11 @@
 .removeWordIcon path {
     stroke: #9EA5AE;
 }
+
+.hidden {
+    display: none;
+}
+
+.wordListVisible {
+    transform: rotate(180deg);
+}
