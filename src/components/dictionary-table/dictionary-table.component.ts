@@ -51,10 +51,8 @@ export class DictionaryTableComponent extends BaseComponent {
 
         this.settingsService.subscribe(SettingsNames.User, async (userData: AuthorizationData) => {
             if (!userData) return;
-
             this.initialData = await this.dictionaryService.fetchDictionary();
             this.changeWordsInDictionaryLabel();
-
             this.initWordLists();
         });
 
@@ -105,7 +103,7 @@ export class DictionaryTableComponent extends BaseComponent {
 
             const daysAgo = Math.floor(timeDiff / oneDay);
 
-            if (daysAgo === 0) {
+            if (daysAgo <= 0) {
                 result.Today.push(item);
             } else if (daysAgo === 1) {
                 result.Yesterday.push(item);

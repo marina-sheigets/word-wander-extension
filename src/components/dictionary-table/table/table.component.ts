@@ -52,7 +52,6 @@ export class TableComponent extends BaseComponent {
 
         this.tableContainer.classList.add(styles.tableContainer);
 
-        this.dictionaryService.onDataChanged.subscribe(this.initTable.bind(this));
 
         this.settingsService.subscribe(SettingsNames.User, async (userData: AuthorizationData) => {
             if (!userData) return;
@@ -164,7 +163,7 @@ export class TableComponent extends BaseComponent {
         this.initTable();
 
         this.onSelectedChange.inform(this.tableData);
-        this.dictionaryService.onDataChanged.inform(this.tableData);
+        //this.dictionaryService.onDataChanged.inform(this.tableData);
     }
 
     public filterWords(value: string) {

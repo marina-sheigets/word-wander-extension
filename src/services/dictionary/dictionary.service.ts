@@ -5,7 +5,6 @@ import { MessengerService } from "../messenger/messenger.service";
 import { HttpService } from "../http/http.service";
 import { URL } from "../../constants/urls";
 import { DictionaryTableItem } from "../../types/DictionaryTableItem";
-import { Informer } from "../informer/informer.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
 import { isExtensionContext } from "../../utils/isExtensionContext";
 import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
@@ -15,7 +14,6 @@ import { StatisticsPath } from "../../constants/statisticsPaths";
 @singleton()
 export class DictionaryService {
     private data: DictionaryTableItem[] = [];
-    public readonly onDataChanged = new Informer<DictionaryTableItem[]>();
 
     constructor(
         protected authService: AuthService,
@@ -52,7 +50,7 @@ export class DictionaryService {
                 selected: false,
                 added: item.updatedAt
             }));
-            this.onDataChanged.inform(this.data);
+
             return this.data;
         } catch (e) {
             throw Error;
