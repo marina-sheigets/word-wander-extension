@@ -65,6 +65,13 @@ export class DictionaryTableComponent extends BaseComponent {
     private initWordLists() {
         this.content.textContent = '';
 
+        if (!this.initialData.length) {
+            this.i18n.follow(i18nKeys.EmptyDictionary, (value: string) => {
+                this.content.textContent = value;
+            });
+            return;
+        }
+
         const dataGroupedByDate = this.groupWordsByDate();
 
         for (let wordsGroup in dataGroupedByDate) {

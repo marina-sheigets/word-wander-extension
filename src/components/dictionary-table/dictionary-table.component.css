@@ -5,6 +5,7 @@
 .content {
     height: -webkit-fill-available;
     overflow-y: auto;
+    color: white;
 }
 
 
