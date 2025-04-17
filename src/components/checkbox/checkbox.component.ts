@@ -30,4 +30,8 @@ export class CheckboxComponent extends BaseComponent {
     public setChecked(checked: boolean) {
         this.checkbox.checked = checked;
     }
+
+    public setIndeterminate(value: boolean) {
+        this.checkbox.indeterminate = value;
+    }
 }

@@ -95,7 +95,8 @@ export class WordListComponent extends BaseComponent {
             translationContainer.classList.add(styles.translationContainer);
             translationContainer.textContent = item.translation;
 
-            checkbox.onCheckboxChange.subscribe(this.updateTableDataSelected.bind(this))
+            checkbox.onCheckboxChange.subscribe(this.updateTableDataSelected.bind(this));
+
             removeWordIcon.addButtonIcon(IconName.Delete);
             removeWordIcon.onClick.subscribe(async () => {
                 this.handleRemoveWord(item);
@@ -128,7 +129,28 @@ export class WordListComponent extends BaseComponent {
             }
         });
 
+        this.toggleHeaderCheckboxSelected();
         // this.onSelectedChange.inform();
+    }
+
+    private toggleHeaderCheckboxSelected() {
+        if (this.words.every(word => !word.selected)) {
+            this.selectAllWordsCheckbox.setChecked(false);
+            this.selectAllWordsCheckbox.setIndeterminate(false);
+            return;
+        }
+
+        if (this.words.every(word => word.selected)) {
+            this.selectAllWordsCheckbox.setChecked(true);
+            this.selectAllWordsCheckbox.setIndeterminate(false);
+            return;
+        }
+
+        if (this.words.some(word => word.selected)) {
+            this.selectAllWordsCheckbox.setChecked(false);
+            this.selectAllWordsCheckbox.setIndeterminate(true);
+            return;
+        }
     }
 
     private async handleRemoveWord(item: DictionaryTableItem) {
