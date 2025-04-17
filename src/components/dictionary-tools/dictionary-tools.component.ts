@@ -4,6 +4,8 @@ import { BaseComponent } from "../base-component/base-component";
 import { ButtonComponent } from "../button/button.component";
 import * as styles from './dictionary-tools.component.css';
 import { DictionaryService } from "../../services/dictionary/dictionary.service";
+import { Messages } from "../../constants/messages";
+import { MessengerService } from "../../services/messenger/messenger.service";
 
 @singleton()
 export class DictionaryToolsComponent extends BaseComponent {
@@ -11,7 +13,8 @@ export class DictionaryToolsComponent extends BaseComponent {
         protected unselectAllWordsButton: ButtonComponent,
         protected removeSelectedWordsButton: ButtonComponent,
         protected sendOnTrainingButton: ButtonComponent,
-        protected dictionaryService: DictionaryService
+        protected dictionaryService: DictionaryService,
+        protected messengerService: MessengerService
     ) {
         super(styles);
 
@@ -44,7 +47,7 @@ export class DictionaryToolsComponent extends BaseComponent {
     }
 
     private sendOnTraining() {
-
+        this.messengerService.send(Messages.SendWordsOnTrainingPopup);
     }
 
     private toggleToolsVisibility(data: string[]) {

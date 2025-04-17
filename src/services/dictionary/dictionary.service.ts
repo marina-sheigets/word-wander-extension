@@ -40,6 +40,11 @@ export class DictionaryService {
         this.onSelectedWordsChanged.inform(this.selectedWordsIds);
     }
 
+    public clearSelectedWords() {
+        this.selectedWordsIds = [];
+        this.onSelectedWordsChanged.inform(this.selectedWordsIds);
+    }
+
     private filterDuplicatedIds() {
         this.selectedWordsIds = [...new Set(this.selectedWordsIds)];
     }

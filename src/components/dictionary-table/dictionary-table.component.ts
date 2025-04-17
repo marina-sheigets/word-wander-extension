@@ -62,6 +62,8 @@ export class DictionaryTableComponent extends BaseComponent {
     }
 
     private initWordLists() {
+        this.dictionaryService.clearSelectedWords();
+
         this.content.textContent = '';
 
         if (!this.initialData.length) {
