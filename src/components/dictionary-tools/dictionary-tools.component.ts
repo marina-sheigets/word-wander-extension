@@ -6,9 +6,12 @@ import * as styles from './dictionary-tools.component.css';
 import { DictionaryService } from "../../services/dictionary/dictionary.service";
 import { Messages } from "../../constants/messages";
 import { MessengerService } from "../../services/messenger/messenger.service";
+import { Informer } from "../../services/informer/informer.service";
 
 @singleton()
 export class DictionaryToolsComponent extends BaseComponent {
+    public onUnselectAllWords = new Informer();
+
     constructor(
         protected unselectAllWordsButton: ButtonComponent,
         protected removeSelectedWordsButton: ButtonComponent,
@@ -39,7 +42,7 @@ export class DictionaryToolsComponent extends BaseComponent {
     }
 
     private unselectAllWords() {
-
+        this.onUnselectAllWords.inform();
     }
 
     private removeSelectedWords() {

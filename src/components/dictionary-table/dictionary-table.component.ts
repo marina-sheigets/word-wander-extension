@@ -84,6 +84,10 @@ export class DictionaryTableComponent extends BaseComponent {
 
             const wordList = this.componentsFactory.createComponent(WordListComponent);
 
+            this.dictionaryTools.onUnselectAllWords.subscribe(() => {
+                wordList.unselectAllWords();
+            });
+
             wordList.setData(key, dataGroupedByDate[key]);
 
             this.content.append(

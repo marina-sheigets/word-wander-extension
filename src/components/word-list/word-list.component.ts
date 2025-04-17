@@ -51,7 +51,7 @@ export class WordListComponent extends BaseComponent {
         );
 
 
-        this.selectAllWordsCheckbox.onCheckboxChange.subscribe(this.toggleSelectAllWords.bind(this));
+        this.selectAllWordsCheckbox.onCheckboxChange.subscribe((elem: HTMLInputElement) => this.toggleSelectAllWords(elem.checked));
     }
 
     setPeriodLabel(key: i18nKeys) {
@@ -173,9 +173,11 @@ export class WordListComponent extends BaseComponent {
         return this.listOfWords.classList.contains(styles.hidden);
     }
 
-    private toggleSelectAllWords(elem: HTMLInputElement) {
-        const allSelected = elem.checked;
+    public unselectAllWords() {
+        this.toggleSelectAllWords(false);
+    }
 
+    private toggleSelectAllWords(allSelected: boolean) {
         const checkboxes = this.listOfWords.querySelectorAll('input[type=checkbox]');
         checkboxes.forEach((elem: HTMLInputElement) => elem.checked = allSelected);
 
@@ -185,6 +187,7 @@ export class WordListComponent extends BaseComponent {
         const wordsIds = this.words.map((word) => word._id);
 
         this.toggleSelectedWordIdsInDictionaryService(allSelected, wordsIds);
+        this.toggleHeaderCheckboxSelected();
     }
 
 }
