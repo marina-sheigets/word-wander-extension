@@ -130,7 +130,15 @@ export class WordListComponent extends BaseComponent {
         });
 
         this.toggleHeaderCheckboxSelected();
-        // this.onSelectedChange.inform();
+        this.toggleSelectedWordIdsInDictionaryService(checkbox.checked, [selectedId]);
+    }
+
+    private toggleSelectedWordIdsInDictionaryService(checked: boolean, selectedIds: string[]) {
+        if (checked) {
+            this.dictionaryService.addSelectedWords(selectedIds);
+        } else {
+            this.dictionaryService.filterUnselectedWords(selectedIds);
+        }
     }
 
     private toggleHeaderCheckboxSelected() {
@@ -190,14 +198,15 @@ export class WordListComponent extends BaseComponent {
     private toggleSelectAllWords(elem: HTMLInputElement) {
         const allSelected = elem.checked;
 
-        debugger;
         const checkboxes = this.listOfWords.querySelectorAll('input[type=checkbox]');
         checkboxes.forEach((elem: HTMLInputElement) => elem.checked = allSelected);
 
         this.words.forEach(item => item.selected = allSelected);
         this.initialData.forEach(item => item.selected = allSelected);
 
-        // this.onSelectedChange.inform();
+        const wordsIds = this.words.map((word) => word._id);
+
+        this.toggleSelectedWordIdsInDictionaryService(allSelected, wordsIds);
     }
 
 }

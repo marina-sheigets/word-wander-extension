@@ -1,0 +1,18 @@
+.rootClassName {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.rootClassName  button{
+    background-color: transparent;
+    border: 1px solid #9EA5AE;
+    color: #9EA5AE;
+    padding: 0.5rem 1rem;
+}
+
+
+.hidden {
+    display: none;
+}

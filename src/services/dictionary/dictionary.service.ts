@@ -10,10 +10,14 @@ import { isExtensionContext } from "../../utils/isExtensionContext";
 import { ExtensionPageManagerService } from "../extension-page-manager/extension-page-manager.service";
 import { UserStatisticsService } from "../user-statistics/user-statistics.service";
 import { StatisticsPath } from "../../constants/statisticsPaths";
+import { Informer } from "../informer/informer.service";
 
 @singleton()
 export class DictionaryService {
     private data: DictionaryTableItem[] = [];
+    private selectedWordsIds: string[] = [];
+
+    public onSelectedWordsChanged = new Informer<string[]>();
 
     constructor(
         protected authService: AuthService,
@@ -22,6 +26,22 @@ export class DictionaryService {
         protected extensionPageManager: ExtensionPageManagerService,
         protected userStatistics: UserStatisticsService
     ) {
+    }
+
+    public addSelectedWords(wordsIds: string[]) {
+        this.selectedWordsIds.push(...wordsIds);
+        this.filterDuplicatedIds();
+        this.onSelectedWordsChanged.inform(this.selectedWordsIds);
+    }
+
+    public filterUnselectedWords(wordsIds: string[]) {
+        this.selectedWordsIds = this.selectedWordsIds.filter((selectedId) => !wordsIds.includes(selectedId));
+        this.filterDuplicatedIds();
+        this.onSelectedWordsChanged.inform(this.selectedWordsIds);
+    }
+
+    private filterDuplicatedIds() {
+        this.selectedWordsIds = [...new Set(this.selectedWordsIds)];
     }
 
     async addWordToDictionary(word: string, translation: string) {
