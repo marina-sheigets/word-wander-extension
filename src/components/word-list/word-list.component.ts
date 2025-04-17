@@ -77,8 +77,6 @@ export class WordListComponent extends BaseComponent {
             checkbox.setName(item._id);
             checkbox.setChecked(item.selected);
 
-            const removeWordIcon = this.componentsFactory.createComponent(ButtonComponent);
-
             const playWordIcon = this.componentsFactory.createComponent(ButtonComponent);
 
             playWordIcon.rootElement.classList.add(styles.playWordIcon);
@@ -97,19 +95,11 @@ export class WordListComponent extends BaseComponent {
 
             checkbox.onCheckboxChange.subscribe(this.updateTableDataSelected.bind(this));
 
-            removeWordIcon.addButtonIcon(IconName.Delete);
-            removeWordIcon.onClick.subscribe(async () => {
-                this.handleRemoveWord(item);
-            });
-            removeWordIcon.rootElement.id = "delete-word-icon-" + item._id;
-            removeWordIcon.rootElement.classList.add(styles.removeWordIcon);
-
             this.listOfWords.append(
                 checkbox.rootElement,
                 playWordIcon.rootElement,
                 wordContainer,
                 translationContainer,
-                removeWordIcon.rootElement
             );
         })
     }
@@ -159,18 +149,6 @@ export class WordListComponent extends BaseComponent {
             this.selectAllWordsCheckbox.setIndeterminate(true);
             return;
         }
-    }
-
-    private async handleRemoveWord(item: DictionaryTableItem) {
-        await this.dictionaryService.removeWordFromDictionary(item._id);
-
-        this.words = this.words.filter((tableItem) => tableItem._id !== item._id);
-        this.initialData = this.initialData.filter((tableItem) => tableItem._id !== item._id);
-
-        this.setListOfWords();
-
-        // this.onSelectedChange.inform(this.tableData);
-        //this.dictionaryService.onDataChanged.inform(this.tableData);
     }
 
     private toggleWordListVisibility() {
