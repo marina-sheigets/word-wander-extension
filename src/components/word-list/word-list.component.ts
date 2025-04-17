@@ -17,8 +17,6 @@ export class WordListComponent extends BaseComponent {
     private periodRaw = document.createElement("div");
     private periodLabel = document.createElement("h3");
     private listOfWords = document.createElement("div");
-    //public onSelectedChange = new Informer();
-
 
     private words: DictionaryTableItem[] = [];
     private initialData: DictionaryTableItem[] = [];
@@ -38,7 +36,6 @@ export class WordListComponent extends BaseComponent {
 
         this.arrowIcon.setIcon(IconName.ChevronDown);
 
-
         this.arrowIcon.rootElement.addEventListener('click', this.toggleWordListVisibility.bind(this));
         this.arrowIcon.rootElement.classList.add(styles.wordListVisible);
 
@@ -52,6 +49,9 @@ export class WordListComponent extends BaseComponent {
             this.periodRaw,
             this.listOfWords
         );
+
+
+        this.selectAllWordsCheckbox.onCheckboxChange.subscribe(this.toggleSelectAllWords.bind(this));
     }
 
     setPeriodLabel(key: i18nKeys) {
@@ -163,6 +163,19 @@ export class WordListComponent extends BaseComponent {
 
     private isWordListHidden() {
         return this.listOfWords.classList.contains(styles.hidden);
+    }
+
+    private toggleSelectAllWords(elem: HTMLInputElement) {
+        const allSelected = elem.checked;
+
+        debugger;
+        const checkboxes = this.listOfWords.querySelectorAll('input[type=checkbox]');
+        checkboxes.forEach((elem: HTMLInputElement) => elem.checked = allSelected);
+
+        this.words.forEach(item => item.selected = allSelected);
+        this.initialData.forEach(item => item.selected = allSelected);
+
+        // this.onSelectedChange.inform();
     }
 
 }
