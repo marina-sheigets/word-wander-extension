@@ -39,7 +39,7 @@ export class I18nService {
         }
     }
 
-    follow(key: i18nKeys, callback: (value?: any) => void) {
+    follow(key: i18nKeys, callback: (value: string) => void) {
         if (!translations[key]) {
             return;
         }
