@@ -157,6 +157,7 @@ export class RepeatingTrainingComponent extends GameWrapperPopupComponent {
 
     private interruptTraining() {
         this.hide();
+        this.timerComponent.clearTimer();
         this.resetTraining();
     }
 

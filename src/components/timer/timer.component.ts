@@ -46,8 +46,8 @@ export class TimerComponent extends BaseComponent {
     }
 
     public async interrupt(isSuccess: boolean, timeout: number = 0) {
-        this.timer.textContent = '';
-        clearInterval(this.interval as NodeJS.Timeout);
+        this.clearTimer();
+
         if (isSuccess) {
             const tickSVG = this.componentsFactory.createComponent(IconComponent);
 
@@ -63,5 +63,10 @@ export class TimerComponent extends BaseComponent {
 
             this.rootElement.classList.add(styles.failed);
         }
+    }
+
+    public clearTimer() {
+        this.timer.textContent = '';
+        clearInterval(this.interval as NodeJS.Timeout);
     }
 }
