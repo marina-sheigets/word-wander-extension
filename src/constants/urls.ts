@@ -23,5 +23,8 @@ export const URL = {
     statistics: {
         getStatistics: "statistics",
         updateStatistics: "statistics"
+    },
+    collections: {
+        getCollections: "collection",
     }
 }

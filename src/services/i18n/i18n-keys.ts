@@ -1,4 +1,7 @@
 export enum i18nKeys {
+    Default = "Default",
+    SelectCollectionDescription = "SelectCollectionDescription",
+    SelectCollection = "SelectCollection",
     Today = "Today",
     Yesterday = "Yesterday",
     LastWeek = "LastWeek",

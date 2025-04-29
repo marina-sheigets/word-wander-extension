@@ -13,6 +13,7 @@ import { ResetLinkSentPopupComponent } from './components/popups/reset-link-sent
 import { ReportPopupComponent } from './components/popups/report/report-popup.component';
 import { SignOutPopupComponent } from './components/popups/sign-out/sign-out-popup.component';
 import { DeleteAccountPopupComponent } from './components/popups/delete-account/delete-account-popup.component';
+import { SelectCollectionPopup } from './components/popups/select-collection/select-collection.popup';
 
 
 @singleton()
@@ -29,6 +30,7 @@ class Entry {
         protected reportPopupComponent: ReportPopupComponent,
         protected signOutPopup: SignOutPopupComponent,
         protected deleteAccountPopup: DeleteAccountPopupComponent,
+        protected selectCollectionPopup: SelectCollectionPopup,
         @inject("Shadow") shadow: ShadowRoot,
     ) {
         const element = document.createElement('div');
@@ -53,6 +55,7 @@ class Entry {
                 reportPopupComponent.rootElement,
                 signOutPopup.rootElement,
                 deleteAccountPopup.rootElement,
+                selectCollectionPopup.rootElement
             );
         }
 

@@ -562,5 +562,17 @@
     "Other":{
         "en": "Other",
         "uk": "Інше"
+    },
+    "SelectCollection":{
+        "en": "Select collections",
+        "uk": "Виберіть колекції"
+    },
+    "SelectCollectionDescription":{
+        "en": "Please, select collections where this word will be saved",
+        "uk": "Будь ласка, оберіть колекції, де буду збережене дане слово"
+    },
+    "Default":{
+        "en": "Default",
+        "uk": "За замовчуванням"
     }
 }

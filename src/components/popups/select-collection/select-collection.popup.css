@@ -1,0 +1,15 @@
+.rootClassName{}
+
+.checkboxesWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: start;
+}
+
+.checkboxRow {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
