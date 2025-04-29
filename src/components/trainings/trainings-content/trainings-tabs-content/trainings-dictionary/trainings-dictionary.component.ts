@@ -2,11 +2,11 @@ import { singleton } from "tsyringe";
 import { BaseComponent } from "../../../../base-component/base-component";
 import * as styles from "./trainings-dictionary.component.css";
 import { FindWordInputComponent } from "../../../../input/find-word-input/find-word-input.component";
-import { DictionaryTableComponent } from "../../../../dictionary-table/dictionary-table.component";
 import { AddCustomTranslationButton } from "../../../../button/add-custom-translation/add-custom-translation.button";
 import { SelectComponent } from "../../../../select/select.component";
 import { dictionaryViewOptions } from "../../../../../constants/dictionaryViewOptions";
 import { i18nKeys } from "../../../../../services/i18n/i18n-keys";
+import { WordListsComponent } from "../../../../dictionary-table/word-lists.component";
 
 @singleton()
 export class TrainingsDictionaryComponent extends BaseComponent {
@@ -19,7 +19,7 @@ export class TrainingsDictionaryComponent extends BaseComponent {
         protected findWordInputComponent: FindWordInputComponent,
         protected viewSelect: SelectComponent,
         protected addCustomTranslationButton: AddCustomTranslationButton,
-        protected dictionaryTable: DictionaryTableComponent,
+        protected wordListsComponent: WordListsComponent,
 
     ) {
         super(styles);
@@ -66,7 +66,7 @@ export class TrainingsDictionaryComponent extends BaseComponent {
     }
 
     private setWordListView() {
-        this.dictionaryContent.append(this.dictionaryTable.rootElement);
+        this.dictionaryContent.append(this.wordListsComponent.rootElement);
     }
 
     private setCollectionsView() {

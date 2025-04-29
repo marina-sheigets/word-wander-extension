@@ -1,7 +1,7 @@
 import { singleton } from "tsyringe";
 import { BaseComponent } from "../base-component/base-component";
 import { I18nService } from "../../services/i18n/i18n.service";
-import * as styles from "./dictionary-table.component.css";
+import * as styles from "./word-lists.component.css";
 import { DictionaryService } from "../../services/dictionary/dictionary.service";
 import { DictionaryTableItem } from "../../types/DictionaryTableItem";
 import { MessengerService } from "../../services/messenger/messenger.service";
@@ -16,7 +16,7 @@ import { i18nKeys } from "../../services/i18n/i18n-keys";
 import { DictionaryToolsComponent } from "../dictionary-tools/dictionary-tools.component";
 
 @singleton()
-export class DictionaryTableComponent extends BaseComponent {
+export class WordListsComponent extends BaseComponent {
     private initialData: DictionaryTableItem[] = [];
 
     private amountWordsLabel = document.createElement('div');
