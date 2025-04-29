@@ -34,4 +34,12 @@ export class CheckboxComponent extends BaseComponent {
     public setIndeterminate(value: boolean) {
         this.checkbox.indeterminate = value;
     }
+
+    public setDisabled() {
+        this.checkbox.disabled = true;
+    }
+
+    public setEnabled() {
+        this.checkbox.disabled = false;
+    }
 }
