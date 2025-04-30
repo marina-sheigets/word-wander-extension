@@ -9,3 +9,7 @@
     height: 25px;
     cursor: pointer;
 }
+
+.rootClassName input:disabled {
+    cursor: not-allowed;
+}
