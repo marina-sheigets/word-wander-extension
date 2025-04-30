@@ -19,4 +19,8 @@ export class CollectionsService {
             return [];
         }
     }
+
+    public async addWordToCollections(wordId: string, collectionsNames: string[]) {
+        return await this.httpService.post(URL.collections.addWordToCollections, { wordId, collectionsNames });
+    }
 }

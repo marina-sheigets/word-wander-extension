@@ -8,6 +8,10 @@ import { PopupComponent } from "../popup.component";
 import * as styles from './select-collection.popup.css';
 import { ButtonComponent } from "../../button/button.component";
 import { AddNewCollectionInputComponent } from "../../input/add-new-collection/add-new-collection-input.component";
+import { MessengerService } from "../../../services/messenger/messenger.service";
+import { Messages } from "../../../constants/messages";
+import { HistoryItem } from "../../../types/History";
+import { DictionaryService } from "../../../services/dictionary/dictionary.service";
 
 @injectable()
 export class SelectCollectionPopup extends PopupComponent {
@@ -15,6 +19,11 @@ export class SelectCollectionPopup extends PopupComponent {
     private description = document.createElement('p');
 
     private checkboxesWrapper = document.createElement('div');
+    private errorMessage = document.createElement('p');
+
+
+    private word: string = "";
+    private translation: string = "";
 
     constructor(
         protected i18n: I18nService,
@@ -22,6 +31,8 @@ export class SelectCollectionPopup extends PopupComponent {
         protected componentsFactory: ComponentsFactory,
         protected saveButton: ButtonComponent,
         protected addCollectionButton: ButtonComponent,
+        protected messenger: MessengerService,
+        protected dictionaryService: DictionaryService
     ) {
         super(i18n);
 
@@ -32,6 +43,7 @@ export class SelectCollectionPopup extends PopupComponent {
 
         this.saveButton.addButtonName(i18nKeys.Save);
         this.saveButton.disable();
+        this.saveButton.onClick.subscribe(this.saveWordToCollections.bind(this));
 
         this.addCollectionButton.addButtonName(i18nKeys.AddNewCollection);
         this.addCollectionButton.rootElement.classList.add(styles.addCollectionButton);
@@ -40,6 +52,7 @@ export class SelectCollectionPopup extends PopupComponent {
 
         this.content.classList.add(styles.content);
         this.checkboxesWrapper.classList.add(styles.checkboxesWrapper);
+        this.errorMessage.classList.add(styles.errorMessage);
 
         this.initCheckboxes();
 
@@ -47,12 +60,22 @@ export class SelectCollectionPopup extends PopupComponent {
             this.description,
             this.checkboxesWrapper,
             this.saveButton.rootElement,
-            this.addCollectionButton.rootElement
+            this.addCollectionButton.rootElement,
+            this.errorMessage
         );
 
         this.setContent(
             this.content
-        )
+        );
+
+        this.hide();
+
+        this.messenger.subscribe(Messages.ShowSelectCollectionPopup, (item: HistoryItem) => {
+            this.word = item.word;
+            this.translation = item.translation;
+
+            this.show();
+        });
     }
 
     private setDescription() {
@@ -96,6 +119,7 @@ export class SelectCollectionPopup extends PopupComponent {
     }
 
     private clearCheckboxesList() {
+        this.errorMessage.textContent = "";
         this.checkboxesWrapper.textContent = "";
     }
 
@@ -127,5 +151,29 @@ export class SelectCollectionPopup extends PopupComponent {
         const newCollectionInput = this.componentsFactory.createComponent(AddNewCollectionInputComponent);
 
         this.checkboxesWrapper.append(newCollectionInput.rootElement);
+    }
+
+    private async saveWordToCollections() {
+        const addedWord = await this.dictionaryService.addWordToDictionary(this.word, this.translation);
+
+        if (!addedWord) {
+            return;
+        }
+
+        this.errorMessage.textContent = "";
+
+        const collectionsElements = this.checkboxesWrapper.querySelectorAll("input[type=text]");
+
+        const names = Array.from(collectionsElements).map((element: HTMLInputElement) => element.value);
+        const notEmptyCollectionsNames = names.filter((name) => name.trim().length);
+
+        this.collectionsService.addWordToCollections(addedWord._id, notEmptyCollectionsNames)
+            .then(() => {
+                this.hide();
+            }).catch(() => {
+                this.i18n.follow(i18nKeys.SomethingWentWrong, (value) => {
+                    this.errorMessage.textContent = value;
+                });
+            });
     }
 }

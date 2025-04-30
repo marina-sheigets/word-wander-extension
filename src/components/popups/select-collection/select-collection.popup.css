@@ -25,3 +25,7 @@
 .addCollectionButton  button{
     background-color: #9EA5AE;
 }
+
+.errorMessage {
+    color: #EE8144;
+}

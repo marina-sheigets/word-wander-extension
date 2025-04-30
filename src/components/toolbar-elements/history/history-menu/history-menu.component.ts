@@ -11,7 +11,6 @@ import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { IconComponent } from "../../../icon/icon.component";
 import { IconName } from "../../../../types/IconName";
 import { TextToSpeechService } from "../../../../services/text-to-speech/text-to-speech.service";
-import { DictionaryService } from "../../../../services/dictionary/dictionary.service";
 import { BackgroundMessages } from "../../../../constants/backgroundMessages";
 import { ComponentsFactory } from "../../../factories/component.factory.";
 import { I18nService } from "../../../../services/i18n/i18n.service";
@@ -27,7 +26,6 @@ export class HistoryMenuComponent extends MenuComponent {
         protected messenger: MessengerService,
         protected historyService: HistoryService,
         protected textToSpeechService: TextToSpeechService,
-        protected dictionaryService: DictionaryService,
         protected componentsFactory: ComponentsFactory,
         protected i18n: I18nService
     ) {
@@ -85,7 +83,7 @@ export class HistoryMenuComponent extends MenuComponent {
                 addWordButton.addButtonIcon(IconName.Plus);
                 addWordButton.addTooltip(i18nKeys.AddToDictionary);
                 addWordButton.onClick.subscribe(async () => {
-                    await this.dictionaryService.addWordToDictionary(item.word, item.translation);
+                    this.messenger.send(Messages.ShowSelectCollectionPopup, { item });
                 });
 
                 this.historyContainer.append(
