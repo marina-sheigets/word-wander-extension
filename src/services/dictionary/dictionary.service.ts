@@ -55,11 +55,12 @@ export class DictionaryService {
                 this.messenger.send(Messages.OpenSignInPopup);
                 throw Error;
             }
-            await this.httpService.post(URL.dictionary.addWord, { word, translation })
+            const response = await this.httpService.post(URL.dictionary.addWord, { word, translation })
 
             this.userStatistics.updateStatistics({ fieldPath: StatisticsPath.ADDED_WORDS });
 
             this.rerenderDictionary(word, translation);
+            return response?.data;
         } catch (e) {
             this.messenger.send(Messages.WordNotAddedToDictionary);
             throw Error;
