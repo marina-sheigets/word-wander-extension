@@ -1,4 +1,6 @@
 export enum i18nKeys {
+    EnterNewCollectionName = "EnterNewCollectionName",
+    AddNewCollection = "AddNewCollection",
     Default = "Default",
     SelectCollectionDescription = "SelectCollectionDescription",
     SelectCollection = "SelectCollection",

@@ -574,5 +574,13 @@
     "Default":{
         "en": "Default",
         "uk": "За замовчуванням"
+    },
+    "AddNewCollection":{
+        "en": "Add new collection",
+        "uk": "Додати нову колекцію"
+    },
+    "EnterNewCollectionName":{
+        "en": "Enter new collection's name",
+        "uk": "Введіть назву нової колекції"
     }
 }

@@ -6,6 +6,9 @@ import { CheckboxComponent } from "../../checkbox/checkbox.component";
 import { ComponentsFactory } from "../../factories/component.factory.";
 import { PopupComponent } from "../popup.component";
 import * as styles from './select-collection.popup.css';
+import { ButtonComponent } from "../../button/button.component";
+import { AddNewCollectionInputComponent } from "../../input/add-new-collection/add-new-collection-input.component";
+
 @injectable()
 export class SelectCollectionPopup extends PopupComponent {
     private content = document.createElement('div');
@@ -16,7 +19,9 @@ export class SelectCollectionPopup extends PopupComponent {
     constructor(
         protected i18n: I18nService,
         protected collectionsService: CollectionsService,
-        protected componentsFactory: ComponentsFactory
+        protected componentsFactory: ComponentsFactory,
+        protected saveButton: ButtonComponent,
+        protected addCollectionButton: ButtonComponent,
     ) {
         super(i18n);
 
@@ -25,13 +30,24 @@ export class SelectCollectionPopup extends PopupComponent {
         this.setTitle(i18nKeys.SelectCollection);
         this.setDescription();
 
+        this.saveButton.addButtonName(i18nKeys.Save);
+        this.saveButton.disable();
+
+        this.addCollectionButton.addButtonName(i18nKeys.AddNewCollection);
+        this.addCollectionButton.rootElement.classList.add(styles.addCollectionButton);
+        this.addCollectionButton.disable();
+        this.addCollectionButton.onClick.subscribe(this.handleAddNewCollection.bind(this));
+
+        this.content.classList.add(styles.content);
         this.checkboxesWrapper.classList.add(styles.checkboxesWrapper);
 
         this.initCheckboxes();
 
         this.content.append(
             this.description,
-            this.checkboxesWrapper
+            this.checkboxesWrapper,
+            this.saveButton.rootElement,
+            this.addCollectionButton.rootElement
         );
 
         this.setContent(
@@ -73,8 +89,10 @@ export class SelectCollectionPopup extends PopupComponent {
             this.checkboxesWrapper.append(
                 checkboxRow
             );
-        })
+        });
 
+        this.saveButton.enable();
+        this.addCollectionButton.enable();
     }
 
     private clearCheckboxesList() {
@@ -103,5 +121,11 @@ export class SelectCollectionPopup extends PopupComponent {
         this.checkboxesWrapper.append(
             checkboxRow
         );
+    }
+
+    private handleAddNewCollection() {
+        const newCollectionInput = this.componentsFactory.createComponent(AddNewCollectionInputComponent);
+
+        this.checkboxesWrapper.append(newCollectionInput.rootElement);
     }
 }

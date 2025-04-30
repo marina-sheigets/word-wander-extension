@@ -1,10 +1,18 @@
 .rootClassName{}
 
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; 
+}
+
 .checkboxesWrapper{
     display: flex;
     flex-direction: column;
     gap: 12px;
     justify-content: start;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .checkboxRow {
@@ -12,4 +20,8 @@
     flex-direction: row;
     gap: 20px;
     align-items: center;
+}
+
+.addCollectionButton  button{
+    background-color: #9EA5AE;
 }
