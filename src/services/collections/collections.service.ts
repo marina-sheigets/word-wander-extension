@@ -13,14 +13,13 @@ export class CollectionsService {
     public async getAllCollections() {
         try {
             const response = await this.httpService.get(URL.collections.getCollections);
-
-            return response?.data.collections;
+            return response?.data;
         } catch {
             return [];
         }
     }
 
-    public async addWordToCollections(wordId: string, collectionsNames: string[]) {
-        return await this.httpService.post(URL.collections.addWordToCollections, { wordId, collectionsNames });
+    public async addWordToCollections(wordId: string, collections: Array<{ id: string } | { name: string }>) {
+        return await this.httpService.post(URL.collections.addWordToCollections, { wordId, collections });
     }
 }

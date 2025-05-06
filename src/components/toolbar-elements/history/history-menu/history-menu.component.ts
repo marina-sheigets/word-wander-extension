@@ -83,7 +83,7 @@ export class HistoryMenuComponent extends MenuComponent {
                 addWordButton.addButtonIcon(IconName.Plus);
                 addWordButton.addTooltip(i18nKeys.AddToDictionary);
                 addWordButton.onClick.subscribe(async () => {
-                    this.messenger.send(Messages.ShowSelectCollectionPopup, { item });
+                    this.messenger.send(Messages.ShowSelectCollectionPopup, item);
                 });
 
                 this.historyContainer.append(

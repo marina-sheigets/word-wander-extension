@@ -12,6 +12,9 @@ import { MessengerService } from "../../../services/messenger/messenger.service"
 import { Messages } from "../../../constants/messages";
 import { HistoryItem } from "../../../types/History";
 import { DictionaryService } from "../../../services/dictionary/dictionary.service";
+import { SettingsService } from "../../../services/settings/settings.service";
+import { SettingsNames } from "../../../constants/settingsNames";
+import { Collection } from "../../../types/Collection";
 
 @injectable()
 export class SelectCollectionPopup extends PopupComponent {
@@ -32,7 +35,8 @@ export class SelectCollectionPopup extends PopupComponent {
         protected saveButton: ButtonComponent,
         protected addCollectionButton: ButtonComponent,
         protected messenger: MessengerService,
-        protected dictionaryService: DictionaryService
+        protected dictionaryService: DictionaryService,
+        protected settings: SettingsService
     ) {
         super(i18n);
 
@@ -54,8 +58,6 @@ export class SelectCollectionPopup extends PopupComponent {
         this.checkboxesWrapper.classList.add(styles.checkboxesWrapper);
         this.errorMessage.classList.add(styles.errorMessage);
 
-        this.initCheckboxes();
-
         this.content.append(
             this.description,
             this.checkboxesWrapper,
@@ -70,11 +72,18 @@ export class SelectCollectionPopup extends PopupComponent {
 
         this.hide();
 
-        this.messenger.subscribe(Messages.ShowSelectCollectionPopup, (item: HistoryItem) => {
+        this.messenger.subscribe(Messages.ShowSelectCollectionPopup, async (item: HistoryItem) => {
+            if (!this.settings.get(SettingsNames.User)) {
+                this.messenger.send(Messages.OpenSignInPopup);
+                return;
+            }
+
             this.word = item.word;
             this.translation = item.translation;
 
             this.show();
+
+            await this.initCheckboxes();
         });
     }
 
@@ -87,32 +96,35 @@ export class SelectCollectionPopup extends PopupComponent {
     private async initCheckboxes() {
         this.clearCheckboxesList();
 
-        const listOfCollections: string[] = await this.collectionsService.getAllCollections();
+        const listOfCollections: Collection[] = await this.collectionsService.getAllCollections();
 
         this.addDefaultCheckbox();
 
-        listOfCollections.forEach(collectionName => {
-            const checkboxRow = document.createElement('div');
-            checkboxRow.classList.add(styles.checkboxRow);
+        if (listOfCollections.length) {
+            listOfCollections.forEach(collection => {
+                const checkboxRow = document.createElement('div');
+                checkboxRow.classList.add(styles.checkboxRow, styles.collectionLabel);
+                checkboxRow.id = collection._id;
 
-            const label = document.createElement('label');
-            label.textContent = collectionName;
+                const label = document.createElement('label');
+                label.textContent = collection.name;
 
-            const checkbox = this.componentsFactory.createComponent(CheckboxComponent);
-            checkbox.setName(collectionName);
-            checkbox.onCheckboxChange.subscribe((value: boolean) => {
-                checkbox.setChecked(value);
+                const checkbox = this.componentsFactory.createComponent(CheckboxComponent);
+                checkbox.setName(collection.name);
+                checkbox.onCheckboxChange.subscribe((value: boolean) => {
+                    checkbox.setChecked(value);
+                });
+
+                checkboxRow.append(
+                    checkbox.rootElement,
+                    label
+                );
+
+                this.checkboxesWrapper.append(
+                    checkboxRow
+                );
             });
-
-            checkboxRow.append(
-                checkbox.rootElement,
-                label
-            );
-
-            this.checkboxesWrapper.append(
-                checkboxRow
-            );
-        });
+        }
 
         this.saveButton.enable();
         this.addCollectionButton.enable();
@@ -162,12 +174,22 @@ export class SelectCollectionPopup extends PopupComponent {
 
         this.errorMessage.textContent = "";
 
-        const collectionsElements = this.checkboxesWrapper.querySelectorAll("input[type=text]");
+        const newCollectionsElements = this.checkboxesWrapper.querySelectorAll("input[type=text]");
 
-        const names = Array.from(collectionsElements).map((element: HTMLInputElement) => element.value);
-        const notEmptyCollectionsNames = names.filter((name) => name.trim().length);
+        const collectionsNames = Array.from(newCollectionsElements).map((element: HTMLInputElement) => ({ name: element.value.trim() }));
 
-        this.collectionsService.addWordToCollections(addedWord._id, notEmptyCollectionsNames)
+        const existingCollections = this.checkboxesWrapper.getElementsByClassName(styles.collectionLabel);
+
+        const collectionsIds = Array.from(existingCollections).map((c) => ({ id: c.id }));
+
+        // word will be saved to default collection only. 
+        // request is not needed
+        if (!collectionsNames.length && !collectionsIds.length) {
+            this.hide();
+            return;
+        }
+
+        this.collectionsService.addWordToCollections(addedWord._id, [...collectionsNames, ...collectionsIds])
             .then(() => {
                 this.hide();
             }).catch(() => {
