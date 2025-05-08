@@ -11,6 +11,7 @@ import { ComponentsFactory } from "../factories/component.factory.";
 import { TextToSpeechService } from "../../services/text-to-speech/text-to-speech.service";
 import { DictionaryService } from "../../services/dictionary/dictionary.service";
 import { IconComponent } from "../icon/icon.component";
+import { CollectionsLabelComponent } from "../collections-label/collections-label.component";
 
 @injectable()
 export class WordListComponent extends BaseComponent {
@@ -95,11 +96,15 @@ export class WordListComponent extends BaseComponent {
 
             checkbox.onCheckboxChange.subscribe(this.updateTableDataSelected.bind(this));
 
+            const collectionsLabel = this.componentsFactory.createComponent(CollectionsLabelComponent);
+            collectionsLabel.setCollections(item.collections, 30);
+
             this.listOfWords.append(
                 checkbox.rootElement,
                 playWordIcon.rootElement,
                 wordContainer,
                 translationContainer,
+                collectionsLabel.rootElement
             );
         })
     }
