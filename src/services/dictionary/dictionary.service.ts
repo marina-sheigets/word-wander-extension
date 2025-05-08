@@ -67,7 +67,7 @@ export class DictionaryService {
         }
     }
 
-    async fetchDictionary() {
+    async fetchDictionary(): Promise<DictionaryTableItem[]> {
         try {
             const response = await this.httpService.get(URL.dictionary.getWords);
 

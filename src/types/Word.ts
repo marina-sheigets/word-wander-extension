@@ -1,3 +1,5 @@
+import { Collection } from "./Collection";
+
 export interface Word {
     createdAt: string;
     translation: string;
@@ -5,4 +7,5 @@ export interface Word {
     user: string;
     word: string;
     _id: string;
+    collections: Collection[]
 }
