@@ -1,0 +1,16 @@
+.rootClassName  {
+   display: flex;
+   justify-content: end;
+   align-items: center; 
+   cursor: pointer;
+   width: 100%;
+}
+
+.rootClassName svg {
+    width: 20px;
+    height: 20px;   
+}
+
+.rootClassName path {
+    fill: #9EA5AE;
+}

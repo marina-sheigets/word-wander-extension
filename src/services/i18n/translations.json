@@ -582,5 +582,9 @@
     "EnterNewCollectionName":{
         "en": "Enter new collection's name",
         "uk": "Введіть назву нової колекції"
+    },
+    "EditWord":{
+        "en": "Edit word",
+        "uk": "Редагування слова"
     }
 }

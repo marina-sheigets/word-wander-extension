@@ -10,6 +10,8 @@ export const enum Messages {
     OpenReportPopup = 'OpenReportPopup',
     SendWordsOnTrainingPopup = 'SendWordsOnTrainingPopup',
     ChangeTab = 'ChangeTab',
+    ShowEditWordPopup = "ShowEditWordPopup",
+    CloseEditWordPopup = "CloseEditWordPopup",
     //Trainings
     StartWordTranslationTraining = 'StartWordTranslationTraining',
     FinishWordTranslationTraining = 'FinishWordTranslationTraining',

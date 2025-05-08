@@ -74,7 +74,7 @@ export class DictionaryService {
             this.data = response?.data.map((item: any) => ({
                 ...item,
                 selected: false,
-                added: item.updatedAt
+                added: item.addedAt
             }));
 
             return this.data;
@@ -134,6 +134,17 @@ export class DictionaryService {
             this.extensionPageManager.sendMessageToBackground(BackgroundMessages.DictionarySync, word);
         } else {
             this.messenger.asyncSendToBackground(BackgroundMessages.WordAddedToDictionary, { word, translation });
+        }
+    }
+
+    public async editWord(data: { id: string, word: string, translation: string }) {
+        try {
+            const response = await this.httpService.put(URL.dictionary.editWord, data);
+            this.rerenderDictionary("", "");
+
+            return response?.data;
+        } catch (e) {
+            throw ("Something went wrong");
         }
     }
 }

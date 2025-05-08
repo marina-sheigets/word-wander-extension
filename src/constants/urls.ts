@@ -4,6 +4,7 @@ export const URL = {
         getWords: 'dictionary/get-words',
         deleteWord: 'dictionary/delete-word',
         deleteWords: 'dictionary/delete-words',
+        editWord: "dictionary/edit"
     },
     auth: {
         login: 'auth/login',

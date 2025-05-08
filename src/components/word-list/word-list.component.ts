@@ -13,6 +13,7 @@ import { DictionaryService } from "../../services/dictionary/dictionary.service"
 import { IconComponent } from "../icon/icon.component";
 import { CollectionsLabelComponent } from "../collections-label/collections-label.component";
 import { RemoveWordIconComponent } from "../icon/remove-word-icon/remove-word-icon.component";
+import { EditWordIconComponent } from "../icon/edit-word-icon/edit-word-icon.component";
 
 @injectable()
 export class WordListComponent extends BaseComponent {
@@ -100,6 +101,10 @@ export class WordListComponent extends BaseComponent {
             const collectionsLabel = this.componentsFactory.createComponent(CollectionsLabelComponent);
             collectionsLabel.setCollections(item.collections, 30);
 
+
+            const editWordIcon = this.componentsFactory.createComponent(EditWordIconComponent);
+            editWordIcon.setWord(item);
+
             const removeWordButton = this.componentsFactory.createComponent(RemoveWordIconComponent);
             removeWordButton.setWord(item);
 
@@ -109,6 +114,7 @@ export class WordListComponent extends BaseComponent {
                 wordContainer,
                 translationContainer,
                 collectionsLabel.rootElement,
+                editWordIcon.rootElement,
                 removeWordButton.rootElement
             );
         })
