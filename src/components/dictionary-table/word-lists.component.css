@@ -3,7 +3,7 @@
 }
 
 .content {
-    height: -webkit-fill-available;
+    height: 280px;
     overflow-y: auto;
     color: white;
 }
