@@ -1,0 +1,9 @@
+.rootClassName {
+    display: flex;
+    justify-content: end;
+    width: 80%;
+}
+
+.rootClassName path{
+    stroke: #EE8144;
+}
