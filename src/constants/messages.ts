@@ -12,6 +12,11 @@ export const enum Messages {
     ChangeTab = 'ChangeTab',
     ShowEditWordPopup = "ShowEditWordPopup",
     CloseEditWordPopup = "CloseEditWordPopup",
+    ShowChangeCollectionNamePopup = "ShowChangeCollectionNamePopup",
+    CloseChangeCollectionNamePopup = "CloseChangeCollectionNamePopup",
+    ShowRemoveCollectionPopup = "ShowRemoveCollectionPopup",
+    CloseRemoveCollectionPopup = "CloseRemoveCollectionPopup",
+
     //Trainings
     StartWordTranslationTraining = 'StartWordTranslationTraining',
     FinishWordTranslationTraining = 'FinishWordTranslationTraining',

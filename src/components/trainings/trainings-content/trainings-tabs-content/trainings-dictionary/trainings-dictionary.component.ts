@@ -7,6 +7,7 @@ import { SelectComponent } from "../../../../select/select.component";
 import { dictionaryViewOptions } from "../../../../../constants/dictionaryViewOptions";
 import { i18nKeys } from "../../../../../services/i18n/i18n-keys";
 import { WordListsComponent } from "../../../../dictionary-table/word-lists.component";
+import { CollectionsComponent } from "../../../../collections/collections.component";
 
 @singleton()
 export class TrainingsDictionaryComponent extends BaseComponent {
@@ -20,7 +21,7 @@ export class TrainingsDictionaryComponent extends BaseComponent {
         protected viewSelect: SelectComponent,
         protected addCustomTranslationButton: AddCustomTranslationButton,
         protected wordListsComponent: WordListsComponent,
-
+        protected collectionsComponent: CollectionsComponent
     ) {
         super(styles);
 
@@ -70,5 +71,6 @@ export class TrainingsDictionaryComponent extends BaseComponent {
     }
 
     private setCollectionsView() {
+        this.dictionaryContent.append(this.collectionsComponent.rootElement);
     }
 }

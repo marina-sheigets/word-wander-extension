@@ -6,7 +6,7 @@ import { DictionaryService } from "../../services/dictionary/dictionary.service"
 import { DictionaryTableItem } from "../../types/DictionaryTableItem";
 import { MessengerService } from "../../services/messenger/messenger.service";
 import { BackgroundMessages } from "../../constants/backgroundMessages";
-import { GroupedWordsData } from "../../types/GroupedWordsData";
+import { GroupedWordsByDateData } from "../../types/GroupedWordsData";
 import { SettingsService } from "../../services/settings/settings.service";
 import { SettingsNames } from "../../constants/settingsNames";
 import { ComponentsFactory } from "../factories/component.factory.";
@@ -76,7 +76,7 @@ export class WordListsComponent extends BaseComponent {
         const dataGroupedByDate = this.groupWordsByDate();
 
         for (let wordsGroup in dataGroupedByDate) {
-            const key = wordsGroup as keyof GroupedWordsData;
+            const key = wordsGroup as keyof GroupedWordsByDateData;
 
             if (!dataGroupedByDate[key].length) {
                 continue;
@@ -96,8 +96,8 @@ export class WordListsComponent extends BaseComponent {
         }
     }
 
-    private groupWordsByDate(): GroupedWordsData {
-        const result: GroupedWordsData = {
+    private groupWordsByDate(): GroupedWordsByDateData {
+        const result: GroupedWordsByDateData = {
             Today: [],
             Yesterday: [],
             LastWeek: [],
