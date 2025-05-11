@@ -14,7 +14,7 @@ import { Informer } from "../../services/informer/informer.service";
 
 @injectable()
 export class WordRowComponent extends BaseComponent {
-    public updateTableDataSelected = new Informer<CheckboxComponent>();
+    public updateTableDataSelected = new Informer<HTMLInputElement>();
 
     private word: DictionaryTableItem | null = null;
 
@@ -56,7 +56,7 @@ export class WordRowComponent extends BaseComponent {
         translationContainer.classList.add(styles.translationContainer);
         translationContainer.textContent = this.word.translation;
 
-        checkbox.onCheckboxChange.subscribe(() => this.updateTableDataSelected.inform(checkbox));
+        checkbox.onCheckboxChange.subscribe(() => this.updateTableDataSelected.inform(checkbox.rootElement as HTMLInputElement));
 
         const collectionsLabel = this.componentsFactory.createComponent(CollectionsLabelComponent);
         collectionsLabel.setCollections(this.word.collections, 30);
