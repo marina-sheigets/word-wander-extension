@@ -16,8 +16,12 @@ export class CollectionsLabelComponent extends BaseComponent {
         if (!collections.length) {
             this.rootElement.textContent = "Default"
         } else {
-            collections.forEach((collection) => {
-                this.rootElement.textContent += collection.name + '';
+            collections.forEach((collection, i) => {
+                if (i + 1 === collections.length) {
+                    this.rootElement.textContent += collection.name + '';
+                } else {
+                    this.rootElement.textContent += collection.name + ', ';
+                }
             });
         }
 
