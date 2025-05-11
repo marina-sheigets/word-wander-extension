@@ -1,0 +1,31 @@
+.rootClassName {
+    display: grid;
+    grid-template-columns: 50px 50px 1fr 1fr 100px 40px 40px;
+    row-gap: 7px;
+    overflow-y: auto;
+    align-items: center;
+}
+
+.rootClassName {
+    > h3 {
+        font-weight: lighter;
+        font-size: 14px;
+        color: #9EA5AE;
+    }
+}
+
+.wordContainer, .translationContainer {
+    font-size: 18px;
+}
+
+.wordContainer {
+    color: #00CE8F;
+}
+
+.translationContainer {
+    color: #ffff;
+}
+
+.playWordIcon button, .removeWordIcon button {
+    background:transparent;
+}
