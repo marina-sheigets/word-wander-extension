@@ -82,7 +82,7 @@ export class CollectionsComponent extends BaseComponent {
 
         for (let collectionName in dataGroupedByCollection) {
             const collectionComponent = this.componentsFactory.createComponent(CollectionComponent);
-            collectionComponent.setCollectionWithWords(
+            collectionComponent.setCollectionData(
                 collectionName,
                 dataGroupedByCollection[collectionName]
             );
@@ -93,18 +93,27 @@ export class CollectionsComponent extends BaseComponent {
 
     private groupWordsByCollection(): GroupedWordsByCollectionData {
         const result: GroupedWordsByCollectionData = {
-            [i18nKeys.Default]: []
+            [i18nKeys.Default]: {
+                collectionId: "",
+                words: []
+            }
         };
 
         this.initialData.forEach((word) => {
             if (!word.collections.length) {
-                result[i18nKeys.Default].push(word);
+                result[i18nKeys.Default].words.push(word);
                 return;
             }
 
             word.collections.forEach((collection) => {
-                result[collection.name] = result[collection.name] || [];
-                result[collection.name].push(word);
+                if (!result[collection.name]) {
+                    result[collection.name] = {
+                        words: [],
+                        collectionId: ""
+                    }
+                }
+                result[collection.name].collectionId = collection._id;
+                result[collection.name].words.push(word);
             });
         });
 

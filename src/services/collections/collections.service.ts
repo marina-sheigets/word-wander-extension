@@ -22,4 +22,8 @@ export class CollectionsService {
     public async addWordToCollections(wordId: string, collections: Array<{ id: string } | { name: string }>) {
         return await this.httpService.post(URL.collections.addWordToCollections, { wordId, collections });
     }
+
+    public async editCollection(editData: { name: string, collectionId: string }) {
+        return await this.httpService.put(URL.collections.editName, editData);
+    }
 }

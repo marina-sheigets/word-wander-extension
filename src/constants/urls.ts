@@ -27,6 +27,7 @@ export const URL = {
     },
     collections: {
         getCollections: "collection",
-        addWordToCollections: "collection/add-word"
+        addWordToCollections: "collection/add-word",
+        editName: "collection/edit-name"
     }
 }

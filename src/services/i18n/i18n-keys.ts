@@ -1,4 +1,5 @@
 export enum i18nKeys {
+    EditCollection = "EditCollection",
     EditWord = "EditWord",
     EnterNewCollectionName = "EnterNewCollectionName",
     AddNewCollection = "AddNewCollection",

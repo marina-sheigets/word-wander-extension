@@ -1,4 +1,5 @@
 import { i18nKeys } from "../services/i18n/i18n-keys";
+import { CollectionData } from "./CollectionData";
 import { DictionaryTableItem } from "./DictionaryTableItem";
 
 export interface GroupedWordsByDateData {
@@ -10,5 +11,5 @@ export interface GroupedWordsByDateData {
 }
 
 export interface GroupedWordsByCollectionData {
-    [collectionName: string]: DictionaryTableItem[]
+    [collectionName: string]: CollectionData
 }

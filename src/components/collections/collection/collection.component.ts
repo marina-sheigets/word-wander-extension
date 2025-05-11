@@ -10,6 +10,7 @@ import { IconComponent } from "../../icon/icon.component";
 import { IconName } from "../../../types/IconName";
 import { MessengerService } from "../../../services/messenger/messenger.service";
 import { Messages } from "../../../constants/messages";
+import { CollectionData } from "../../../types/CollectionData";
 
 @injectable()
 export class CollectionComponent extends BaseComponent {
@@ -20,6 +21,7 @@ export class CollectionComponent extends BaseComponent {
 
     private content = document.createElement("div");
 
+    private collectionId: string = "";
     private collectionName: string = "";
     private collectionWords: DictionaryTableItem[] = []
 
@@ -50,9 +52,10 @@ export class CollectionComponent extends BaseComponent {
         this.collapse();
     }
 
-    public setCollectionWithWords(collectionName: string, collectionWords: DictionaryTableItem[]) {
-        this.collectionName = collectionName;
-        this.collectionWords = collectionWords;
+    public setCollectionData(name: string, collectionData: CollectionData) {
+        this.collectionName = name;
+        this.collectionWords = collectionData.words;
+        this.collectionId = collectionData.collectionId;
 
         this.initCollectionName();
         this.initTools();
@@ -82,24 +85,27 @@ export class CollectionComponent extends BaseComponent {
             }
         });
 
-        this.changeCollectionNameButton.setIcon(IconName.Edit);
-        this.changeCollectionNameButton.rootElement.addEventListener('click', () => {
-            this.messenger.send(Messages.ShowChangeCollectionNamePopup);
-        });
 
-        this.collectionTools.append(this.changeCollectionNameButton.rootElement, this.collapseCollectionButton.rootElement);
+        this.collectionTools.append(this.collapseCollectionButton.rootElement);
 
         // cannot remove Default collection, so we cannot add remove button to it
         if (this.collectionName === 'Default') {
             return;
         }
 
-        this.removeCollectionButton.setIcon(IconName.Delete);
-        this.removeCollectionButton.rootElement.addEventListener('click', () => {
-            this.messenger.send(Messages.ShowRemoveCollectionPopup);
+        this.changeCollectionNameButton.setIcon(IconName.Edit);
+        this.changeCollectionNameButton.rootElement.addEventListener('click', () => {
+            this.messenger.send(
+                Messages.ShowChangeCollectionNamePopup,
+                { collectionId: this.collectionId, name: this.collectionName });
         });
 
-        this.collectionTools.prepend(this.removeCollectionButton.rootElement);
+        this.removeCollectionButton.setIcon(IconName.Delete);
+        this.removeCollectionButton.rootElement.addEventListener('click', () => {
+            this.messenger.send(Messages.ShowRemoveCollectionPopup, { collectionId: this.collectionId });
+        });
+
+        this.collectionTools.prepend(this.changeCollectionNameButton.rootElement, this.removeCollectionButton.rootElement);
     }
 
     private initContent() {

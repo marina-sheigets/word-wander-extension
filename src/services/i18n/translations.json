@@ -586,5 +586,9 @@
     "EditWord":{
         "en": "Edit word",
         "uk": "Редагування слова"
+    },
+    "EditCollection":{
+        "en": "Edit collection",
+        "uk": "Редагування колекції"
     }
 }

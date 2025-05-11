@@ -129,7 +129,7 @@ export class DictionaryService {
         }
     }
 
-    private rerenderDictionary(word: string, translation: string) {
+    public rerenderDictionary(word: string, translation: string) {
         if (isExtensionContext()) {
             this.extensionPageManager.sendMessageToBackground(BackgroundMessages.DictionarySync, word);
         } else {

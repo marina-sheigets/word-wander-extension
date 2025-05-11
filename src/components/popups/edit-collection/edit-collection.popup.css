@@ -1,0 +1,12 @@
+.content {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+.saveButton {
+    display: flex;
+    justify-content: center;
+}
