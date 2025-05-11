@@ -5,15 +5,11 @@ import { i18nKeys } from "../../services/i18n/i18n-keys";
 import { I18nService } from "../../services/i18n/i18n.service";
 import { DictionaryTableItem } from "../../types/DictionaryTableItem";
 import { CheckboxComponent } from "../checkbox/checkbox.component";
-import { ButtonComponent } from "../button/button.component";
 import { IconName } from "../../types/IconName";
 import { ComponentsFactory } from "../factories/component.factory.";
-import { TextToSpeechService } from "../../services/text-to-speech/text-to-speech.service";
 import { DictionaryService } from "../../services/dictionary/dictionary.service";
 import { IconComponent } from "../icon/icon.component";
-import { CollectionsLabelComponent } from "../collections-label/collections-label.component";
-import { RemoveWordIconComponent } from "../icon/remove-word-icon/remove-word-icon.component";
-import { EditWordIconComponent } from "../icon/edit-word-icon/edit-word-icon.component";
+import { WordRowComponent } from "../word-row/word-row.component";
 
 @injectable()
 export class WordListComponent extends BaseComponent {
@@ -26,7 +22,6 @@ export class WordListComponent extends BaseComponent {
 
     constructor(
         protected i18n: I18nService,
-        protected textToSpeechService: TextToSpeechService,
         protected dictionaryService: DictionaryService,
         protected componentsFactory: ComponentsFactory,
         protected selectAllWordsCheckbox: CheckboxComponent,
@@ -76,46 +71,12 @@ export class WordListComponent extends BaseComponent {
         this.listOfWords.textContent = '';
 
         this.words.forEach((item) => {
-            const checkbox = this.componentsFactory.createComponent(CheckboxComponent);
-            checkbox.setName(item._id);
-            checkbox.setChecked(item.selected);
-
-            const playWordIcon = this.componentsFactory.createComponent(ButtonComponent);
-
-            playWordIcon.rootElement.classList.add(styles.playWordIcon);
-            playWordIcon.addButtonIcon(IconName.MusicNote);
-            playWordIcon.onClick.subscribe(() => {
-                this.textToSpeechService.play(item.word);
-            })
-
-            const wordContainer = document.createElement('div');
-            wordContainer.classList.add(styles.wordContainer);
-            wordContainer.textContent = item.word;
-
-            const translationContainer = document.createElement('div');
-            translationContainer.classList.add(styles.translationContainer);
-            translationContainer.textContent = item.translation;
-
-            checkbox.onCheckboxChange.subscribe(this.updateTableDataSelected.bind(this));
-
-            const collectionsLabel = this.componentsFactory.createComponent(CollectionsLabelComponent);
-            collectionsLabel.setCollections(item.collections, 30);
-
-
-            const editWordIcon = this.componentsFactory.createComponent(EditWordIconComponent);
-            editWordIcon.setWord(item);
-
-            const removeWordButton = this.componentsFactory.createComponent(RemoveWordIconComponent);
-            removeWordButton.setWord(item);
+            const wordRowComponent = this.componentsFactory.createComponent(WordRowComponent);
+            wordRowComponent.setWord(item);
+            wordRowComponent.updateTableDataSelected.subscribe(this.updateTableDataSelected.bind(this));
 
             this.listOfWords.append(
-                checkbox.rootElement,
-                playWordIcon.rootElement,
-                wordContainer,
-                translationContainer,
-                collectionsLabel.rootElement,
-                editWordIcon.rootElement,
-                removeWordButton.rootElement
+                wordRowComponent.rootElement
             );
         })
     }
