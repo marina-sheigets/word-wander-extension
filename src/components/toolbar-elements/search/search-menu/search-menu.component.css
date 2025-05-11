@@ -7,6 +7,20 @@
     align-items:center; 
 }
 
+.rootClassName::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.rootClassName::-webkit-scrollbar-track {
+    background-color: #292A2E;
+}
+
+.rootClassName::-webkit-scrollbar-thumb {
+    background: #9EA5AE; 
+    border-radius: 5px;
+}
+
 .searchContainer {
     display: flex;
     gap:5px;
