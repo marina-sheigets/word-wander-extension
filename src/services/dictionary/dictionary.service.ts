@@ -74,7 +74,7 @@ export class DictionaryService {
             this.data = response?.data.map((item: any) => ({
                 ...item,
                 selected: false,
-                added: item.addedAt
+                added: item.createdAt
             }));
 
             return this.data;
