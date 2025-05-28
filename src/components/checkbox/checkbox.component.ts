@@ -5,7 +5,7 @@ import { Informer } from "../../services/informer/informer.service";
 
 @injectable()
 export class CheckboxComponent extends BaseComponent {
-    private checkbox = document.createElement('input');
+    public checkbox = document.createElement('input');
     public onCheckboxChange = new Informer();
 
     constructor() {

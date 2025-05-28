@@ -28,6 +28,10 @@ export class DictionaryService {
     ) {
     }
 
+    public getSelectedWordsIds() {
+        return this.selectedWordsIds;
+    }
+
     public addSelectedWords(wordsIds: string[]) {
         this.selectedWordsIds.push(...wordsIds);
         this.filterDuplicatedIds();

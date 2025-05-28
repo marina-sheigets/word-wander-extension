@@ -97,8 +97,7 @@ export class SendWordsOnTrainingPopup extends PopupComponent {
     }
 
     private async handleSendWords() {
-        const selectedWords = this.dictionaryService.getDictionaryData().filter((item) => item.selected);
-        const selectedWordsIds = selectedWords.map((item) => item._id);
+        const selectedWordsIds = this.dictionaryService.getSelectedWordsIds();
         const selectedTrainings = this.trainingData.filter((item) => item.selected);
 
         const selectedTrainingsNames = selectedTrainings.map((item) => item.name);
