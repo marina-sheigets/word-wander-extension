@@ -30,7 +30,6 @@ export class SendWordsOnTrainingButton extends ButtonComponent {
     }
 
     protected handleDisableButton() {
-        debugger;
         if (this.dictionaryService.getSelectedWordsIds().length === 0) {
             this.disable();
         } else {
