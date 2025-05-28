@@ -11,6 +11,7 @@ import { IconName } from "../../../types/IconName";
 import { MessengerService } from "../../../services/messenger/messenger.service";
 import { Messages } from "../../../constants/messages";
 import { CollectionData } from "../../../types/CollectionData";
+import { DictionaryService } from "../../../services/dictionary/dictionary.service";
 
 @injectable()
 export class CollectionComponent extends BaseComponent {
@@ -23,11 +24,13 @@ export class CollectionComponent extends BaseComponent {
 
     private collectionId: string = "";
     private collectionName: string = "";
-    private collectionWords: DictionaryTableItem[] = []
+    private initialWords: DictionaryTableItem[] = [];
+    private words: DictionaryTableItem[] = []
 
     constructor(
         protected componentsFactory: ComponentsFactory,
         protected i18n: I18nService,
+        protected dictionaryService: DictionaryService,
         protected changeCollectionNameButton: IconComponent,
         protected removeCollectionButton: IconComponent,
         protected collapseCollectionButton: IconComponent,
@@ -54,7 +57,8 @@ export class CollectionComponent extends BaseComponent {
 
     public setCollectionData(name: string, collectionData: CollectionData) {
         this.collectionName = name;
-        this.collectionWords = collectionData.words;
+        this.initialWords = collectionData.words;
+        this.words = collectionData.words;
         this.collectionId = collectionData.collectionId;
 
         this.initCollectionName();
@@ -113,12 +117,39 @@ export class CollectionComponent extends BaseComponent {
             this.uncollapse();
         }
 
-        this.collectionWords.forEach((wordObj) => {
+        this.words.forEach((wordObj) => {
             const wordRowComponent = this.componentsFactory.createComponent(WordRowComponent);
             wordRowComponent.setWord(wordObj);
+            wordRowComponent.updateTableDataSelected.subscribe(this.updateTableDataSelected.bind(this));
 
             this.content.append(wordRowComponent.rootElement);
         })
+    }
+
+    protected updateTableDataSelected(checkbox: HTMLInputElement) {
+        const selectedId = checkbox.name;
+
+        this.words.forEach((item) => {
+            if (item._id === selectedId) {
+                item.selected = checkbox.checked;
+            }
+        });
+
+        this.initialWords.forEach((item) => {
+            if (item._id === selectedId) {
+                item.selected = checkbox.checked;
+            }
+        });
+
+        this.toggleSelectedWordIdsInDictionaryService(checkbox.checked, [selectedId]);
+    }
+
+    private toggleSelectedWordIdsInDictionaryService(checked: boolean, selectedIds: string[]) {
+        if (checked) {
+            this.dictionaryService.addSelectedWords(selectedIds);
+        } else {
+            this.dictionaryService.filterUnselectedWords(selectedIds);
+        }
     }
 
     collapse() {

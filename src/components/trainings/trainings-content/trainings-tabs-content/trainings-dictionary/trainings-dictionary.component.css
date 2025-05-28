@@ -9,7 +9,7 @@
     gap: 1rem;
 }
 
-.toolsContainer > div:last-child {
+.toolsContainer > div:nth-child(3) {
     margin-left: auto;
 }
 

@@ -8,6 +8,7 @@ import { dictionaryViewOptions } from "../../../../../constants/dictionaryViewOp
 import { i18nKeys } from "../../../../../services/i18n/i18n-keys";
 import { WordListsComponent } from "../../../../dictionary-table/word-lists.component";
 import { CollectionsComponent } from "../../../../collections/collections.component";
+import { SendWordsOnTrainingButton } from "../../../../button/send-words-on-trainings/send-words-on-trainings.button";
 
 @singleton()
 export class TrainingsDictionaryComponent extends BaseComponent {
@@ -19,6 +20,7 @@ export class TrainingsDictionaryComponent extends BaseComponent {
     constructor(
         protected findWordInputComponent: FindWordInputComponent,
         protected viewSelect: SelectComponent,
+        protected sendOnTrainingButton: SendWordsOnTrainingButton,
         protected addCustomTranslationButton: AddCustomTranslationButton,
         protected wordListsComponent: WordListsComponent,
         protected collectionsComponent: CollectionsComponent
@@ -38,6 +40,7 @@ export class TrainingsDictionaryComponent extends BaseComponent {
         this.toolsContainer.append(
             this.findWordInputComponent.rootElement,
             this.viewSelect.rootElement,
+            this.sendOnTrainingButton.rootElement,
             this.addCustomTranslationButton.rootElement,
         );
 
