@@ -56,7 +56,7 @@ export class WordRowComponent extends BaseComponent {
         translationContainer.classList.add(styles.translationContainer);
         translationContainer.textContent = this.word.translation;
 
-        checkbox.onCheckboxChange.subscribe(() => this.updateTableDataSelected.inform(checkbox.rootElement as HTMLInputElement));
+        checkbox.onCheckboxChange.subscribe(() => this.updateTableDataSelected.inform(checkbox.checkbox as HTMLInputElement));
 
         const collectionsLabel = this.componentsFactory.createComponent(CollectionsLabelComponent);
         collectionsLabel.setCollections(this.word.collections, 30);
