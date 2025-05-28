@@ -6,19 +6,15 @@ import { ComponentsFactory } from "../../factories/component.factory.";
 import { WordRowComponent } from "../../word-row/word-row.component";
 import { i18nKeys } from "../../../services/i18n/i18n-keys";
 import { I18nService } from "../../../services/i18n/i18n.service";
-import { IconComponent } from "../../icon/icon.component";
-import { IconName } from "../../../types/IconName";
-import { MessengerService } from "../../../services/messenger/messenger.service";
-import { Messages } from "../../../constants/messages";
 import { CollectionData } from "../../../types/CollectionData";
 import { DictionaryService } from "../../../services/dictionary/dictionary.service";
+import { CollectionToolsComponent } from "./collection-tools/collection-tools.component";
 
 @injectable()
 export class CollectionComponent extends BaseComponent {
     private header = document.createElement("div");
 
     private collectionTitle = document.createElement('h3');
-    private collectionTools = document.createElement("div");
 
     private content = document.createElement("div");
 
@@ -31,20 +27,16 @@ export class CollectionComponent extends BaseComponent {
         protected componentsFactory: ComponentsFactory,
         protected i18n: I18nService,
         protected dictionaryService: DictionaryService,
-        protected changeCollectionNameButton: IconComponent,
-        protected removeCollectionButton: IconComponent,
-        protected collapseCollectionButton: IconComponent,
-        protected messenger: MessengerService,
+        protected collectionTools: CollectionToolsComponent,
     ) {
         super(styles);
 
         this.header.classList.add(styles.header);
         this.content.classList.add(styles.content);
-        this.collectionTools.classList.add(styles.collectionTools);
 
         this.header.append(
             this.collectionTitle,
-            this.collectionTools
+            this.collectionTools.rootElement
         );
 
         this.rootElement.append(
@@ -52,7 +44,14 @@ export class CollectionComponent extends BaseComponent {
             this.content
         );
 
-        this.collapse();
+        this.collectionTools.onCollectionCollapsed.subscribe((isCollapsed) => {
+            if (isCollapsed) {
+                this.content.classList.add(styles.collapsed);
+            } else {
+                this.content.classList.remove(styles.collapsed);
+            }
+        })
+
     }
 
     public setCollectionData(name: string, collectionData: CollectionData) {
@@ -79,44 +78,10 @@ export class CollectionComponent extends BaseComponent {
     }
 
     private initTools() {
-        this.collapseCollectionButton.setIcon(IconName.ChevronDown);
-
-        this.collapseCollectionButton.rootElement.addEventListener('click', () => {
-            if (this.content.classList.contains(styles.collapsed)) {
-                this.uncollapse();
-            } else {
-                this.collapse();
-            }
-        });
-
-
-        this.collectionTools.append(this.collapseCollectionButton.rootElement);
-
-        // cannot remove Default collection, so we cannot add remove button to it
-        if (this.collectionName === 'Default') {
-            return;
-        }
-
-        this.changeCollectionNameButton.setIcon(IconName.Edit);
-        this.changeCollectionNameButton.rootElement.addEventListener('click', () => {
-            this.messenger.send(
-                Messages.ShowChangeCollectionNamePopup,
-                { collectionId: this.collectionId, name: this.collectionName });
-        });
-
-        this.removeCollectionButton.setIcon(IconName.Delete);
-        this.removeCollectionButton.rootElement.addEventListener('click', () => {
-            this.messenger.send(Messages.ShowRemoveCollectionPopup, { collectionId: this.collectionId });
-        });
-
-        this.collectionTools.prepend(this.changeCollectionNameButton.rootElement, this.removeCollectionButton.rootElement);
+        this.collectionTools.initTools(this.collectionId, this.collectionName);
     }
 
     private initContent() {
-        if (this.collectionName === 'Default') {
-            this.uncollapse();
-        }
-
         this.words.forEach((wordObj) => {
             const wordRowComponent = this.componentsFactory.createComponent(WordRowComponent);
             wordRowComponent.setWord(wordObj);
@@ -150,15 +115,5 @@ export class CollectionComponent extends BaseComponent {
         } else {
             this.dictionaryService.filterUnselectedWords(selectedIds);
         }
-    }
-
-    collapse() {
-        this.collapseCollectionButton.rootElement.classList.remove(styles.arrowUp);
-        this.content.classList.add(styles.collapsed);
-    }
-
-    uncollapse() {
-        this.collapseCollectionButton.rootElement.classList.add(styles.arrowUp);
-        this.content.classList.remove(styles.collapsed);
     }
 }
