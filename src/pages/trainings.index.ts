@@ -18,6 +18,7 @@ import { TrainingResultPopup } from '../components/popups/training-result/traini
 import { CustomTranslationPopup } from '../components/popups/custom-translation/custom-translation.popup';
 import { EditWordPopup } from '../components/popups/edit-word/edit-word.popup';
 import { EditCollectionPopup } from '../components/popups/edit-collection/edit-collection.popup';
+import { DeleteCollectionPopup } from '../components/popups/delete-collection/delete-collection.popup';
 
 @singleton()
 class Trainings {
@@ -38,6 +39,7 @@ class Trainings {
         protected customTranslationPopup: CustomTranslationPopup,
         protected editWordPopup: EditWordPopup,
         protected editCollectionPopup: EditCollectionPopup,
+        protected deleteCollectionPopup: DeleteCollectionPopup,
         protected messenger: MessengerService,
     ) {
         document.body.style.margin = "0";
@@ -60,7 +62,8 @@ class Trainings {
             this.listeningTraining.rootElement,
             this.customTranslationPopup.rootElement,
             this.editWordPopup.rootElement,
-            this.editCollectionPopup.rootElement
+            this.editCollectionPopup.rootElement,
+            this.deleteCollectionPopup.rootElement
         );
 
         this.messenger.subscribe(Messages.ChangeExtensionPageTitle, (newTitle: string) => {

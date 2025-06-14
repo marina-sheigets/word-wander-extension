@@ -7,6 +7,14 @@
     "en": "Added yesterday",
     "uk": "Додано вчора"
   },
+  "RemoveCollection":{
+    "en": "Remove collection",
+    "uk": "Видалити колекцію"
+  },
+  "RemoveCollectionDescription":{
+    "en": "Are you sure you want to delete the collection",
+    "uk": "Ви впевнені, що хочете видалити колекцію"
+  },
   "LastWeek": {
     "en": "Added last week",
     "uk": "Додано минулого тижня"

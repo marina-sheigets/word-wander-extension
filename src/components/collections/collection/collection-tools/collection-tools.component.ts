@@ -57,7 +57,7 @@ export class CollectionToolsComponent extends BaseComponent {
 
         this.removeCollectionButton.setIcon(IconName.Delete);
         this.removeCollectionButton.rootElement.addEventListener('click', () => {
-            this.messenger.send(Messages.ShowRemoveCollectionPopup, { collectionId: this.collectionId });
+            this.messenger.send(Messages.ShowRemoveCollectionPopup, { collectionId: this.collectionId, collectionName: collectionName });
         });
 
         this.rootElement.prepend(this.changeCollectionNameButton.rootElement, this.removeCollectionButton.rootElement);

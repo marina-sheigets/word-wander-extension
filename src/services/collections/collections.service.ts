@@ -26,4 +26,12 @@ export class CollectionsService {
     public async editCollection(editData: { name: string, collectionId: string }) {
         return await this.httpService.put(URL.collections.editName, editData);
     }
+
+    public async removeCollection(collectionId: string) {
+        return await this.httpService.delete(URL.collections.removeCollection, {}, {
+            data: {
+                collectionId
+            }
+        });
+    }
 }

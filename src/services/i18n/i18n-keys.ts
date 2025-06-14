@@ -1,4 +1,6 @@
 export enum i18nKeys {
+    RemoveCollectionDescription = "RemoveCollectionDescription",
+    RemoveCollection = "RemoveCollection",
     EditCollection = "EditCollection",
     EditWord = "EditWord",
     EnterNewCollectionName = "EnterNewCollectionName",
