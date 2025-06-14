@@ -6,13 +6,35 @@
     gap: 12px; 
 }
 
-.checkboxesWrapper, .collectionLabel{
+.checkboxesWrapper {
     display: flex;
     flex-direction: column;
     gap: 12px;
     justify-content: start;
     max-height: 200px;
     overflow-y: auto;
+}
+
+.collectionLabel{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: start;
+
+}
+
+.checkboxesWrapper::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.checkboxesWrapper::-webkit-scrollbar-track {
+    background-color: #3F4246;
+}
+
+.checkboxesWrapper::-webkit-scrollbar-thumb {
+    background: #9EA5AE; 
+    border-radius: 5px;
 }
 
 .checkboxRow {
