@@ -15,6 +15,7 @@ import { DictionaryService } from "../../../services/dictionary/dictionary.servi
 import { SettingsService } from "../../../services/settings/settings.service";
 import { SettingsNames } from "../../../constants/settingsNames";
 import { Collection } from "../../../types/Collection";
+import { LoaderComponent } from "../../loader/loader.component";
 
 @injectable()
 export class SelectCollectionPopup extends PopupComponent {
@@ -36,7 +37,8 @@ export class SelectCollectionPopup extends PopupComponent {
         protected addCollectionButton: ButtonComponent,
         protected messenger: MessengerService,
         protected dictionaryService: DictionaryService,
-        protected settings: SettingsService
+        protected settings: SettingsService,
+        protected loader: LoaderComponent
     ) {
         super(i18n);
 
@@ -60,6 +62,7 @@ export class SelectCollectionPopup extends PopupComponent {
 
         this.content.append(
             this.description,
+            this.loader.rootElement,
             this.checkboxesWrapper,
             this.saveButton.rootElement,
             this.addCollectionButton.rootElement,
@@ -96,7 +99,11 @@ export class SelectCollectionPopup extends PopupComponent {
     private async initCheckboxes() {
         this.clearCheckboxesList();
 
+        this.loader.show();
+
         const listOfCollections: Collection[] = await this.collectionsService.getAllCollections();
+
+        this.loader.hide();
 
         this.addDefaultCheckbox();
 
