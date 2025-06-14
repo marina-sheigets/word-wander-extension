@@ -187,6 +187,7 @@ export class SearchContentComponent extends BaseComponent {
         this.rootElement.innerHTML = '';
         this.saveToDictionaryButton.show();
         this.wordAddedButton.hide();
+        this.controlsWrapper.classList.remove(styles.hidden);
     }
 
     show() {
