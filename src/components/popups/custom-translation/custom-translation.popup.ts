@@ -42,7 +42,14 @@ export class CustomTranslationPopup extends PopupComponent {
 
         this.toggleButtonDisabling();
 
-        this.submitButton.onClick.subscribe(this.saveWordToDictionary.bind(this));
+        this.submitButton.onClick.subscribe(() => {
+            this.messenger.send(Messages.ShowSelectCollectionPopup, {
+                word: this.wordInput.getValue().trim(),
+                translation: this.translationInput.getValue().trim()
+            });
+
+            this.hide();
+        });
         this.messenger.subscribe(Messages.OpenCustomTranslationPopup, this.show.bind(this));
 
         this.hide();
@@ -64,15 +71,6 @@ export class CustomTranslationPopup extends PopupComponent {
             this.submitButton.disable();
 
         }
-    }
-
-    private saveWordToDictionary() {
-        const word = this.wordInput.getValue().trim();
-        const translation = this.translationInput.getValue().trim();
-
-        this.dictionaryService.addWordToDictionary(word, translation).finally(() => {
-            this.hide();
-        })
     }
 
     public hide() {

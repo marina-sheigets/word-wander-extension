@@ -19,6 +19,7 @@ import { CustomTranslationPopup } from '../components/popups/custom-translation/
 import { EditWordPopup } from '../components/popups/edit-word/edit-word.popup';
 import { EditCollectionPopup } from '../components/popups/edit-collection/edit-collection.popup';
 import { DeleteCollectionPopup } from '../components/popups/delete-collection/delete-collection.popup';
+import { SelectCollectionPopup } from '../components/popups/select-collection/select-collection.popup';
 
 @singleton()
 class Trainings {
@@ -40,6 +41,7 @@ class Trainings {
         protected editWordPopup: EditWordPopup,
         protected editCollectionPopup: EditCollectionPopup,
         protected deleteCollectionPopup: DeleteCollectionPopup,
+        protected selectCollectionPopup: SelectCollectionPopup,
         protected messenger: MessengerService,
     ) {
         document.body.style.margin = "0";
@@ -63,6 +65,7 @@ class Trainings {
             this.customTranslationPopup.rootElement,
             this.editWordPopup.rootElement,
             this.editCollectionPopup.rootElement,
+            this.selectCollectionPopup.rootElement,
             this.deleteCollectionPopup.rootElement
         );
 
