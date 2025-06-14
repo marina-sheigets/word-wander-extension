@@ -196,6 +196,7 @@ export class SelectCollectionPopup extends PopupComponent {
 
         this.collectionsService.addWordToCollections(addedWord._id, [...collectionsNames, ...collectionsIds])
             .then(() => {
+                this.dictionaryService.rerenderDictionary("", "");
                 this.hide();
             }).catch(() => {
                 this.i18n.follow(i18nKeys.SomethingWentWrong, (value) => {
