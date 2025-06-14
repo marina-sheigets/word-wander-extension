@@ -111,8 +111,8 @@ export class SelectCollectionPopup extends PopupComponent {
 
                 const checkbox = this.componentsFactory.createComponent(CheckboxComponent);
                 checkbox.setName(collection.name);
-                checkbox.onCheckboxChange.subscribe((value: boolean) => {
-                    checkbox.setChecked(value);
+                checkbox.onCheckboxChange.subscribe((elem: HTMLInputElement) => {
+                    checkbox.setChecked(elem.checked);
                 });
 
                 checkboxRow.append(
