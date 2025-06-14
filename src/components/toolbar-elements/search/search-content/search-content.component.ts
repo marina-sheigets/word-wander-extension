@@ -13,6 +13,7 @@ import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { IconName } from "../../../../types/IconName";
 import { MessengerService } from "../../../../services/messenger/messenger.service";
 import { BackgroundMessages } from "../../../../constants/backgroundMessages";
+import { Messages } from "../../../../constants/messages";
 
 @singleton()
 export class SearchContentComponent extends BaseComponent {
@@ -49,7 +50,7 @@ export class SearchContentComponent extends BaseComponent {
         this.saveToDictionaryButton.addButtonName(i18nKeys.SaveToDictionary);
         this.saveToDictionaryButton.rootElement.classList.add(styles.saveToDictionaryButton);
         this.saveToDictionaryButton.onClick.subscribe(() => {
-            this.dictionaryService.addWordToDictionary(this.word, this.translations[0]);
+            this.messenger.send(Messages.ShowSelectCollectionPopup, { word: this.word, translation: this.translations[0] });
         });
 
         this.wordAddedButton.addButtonName(i18nKeys.Added);
