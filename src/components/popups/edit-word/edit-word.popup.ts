@@ -98,7 +98,7 @@ export class EditWordPopup extends PopupComponent {
             translation: this.translationInput.getValue()
         }).then(() => {
             this.hide();
-        }).then(() => {
+        }).catch(() => {
             this.i18n.follow(i18nKeys.SomethingWentWrong, (value) => {
                 this.errorMessage.textContent = value;
             })
