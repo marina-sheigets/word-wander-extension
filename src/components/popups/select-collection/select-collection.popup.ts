@@ -180,7 +180,12 @@ export class SelectCollectionPopup extends PopupComponent {
 
         const existingCollections = this.checkboxesWrapper.getElementsByClassName(styles.collectionLabel);
 
-        const collectionsIds = Array.from(existingCollections).map((c) => ({ id: c.id }));
+        const selectedCollections = Array.from(existingCollections).filter((divElem) => {
+            const checkbox = divElem.querySelector("input[type=checkbox]") as HTMLInputElement;
+            return checkbox?.checked === true;
+        });
+
+        const collectionsIds = selectedCollections.map((c) => ({ id: c.id }));
 
         // word will be saved to default collection only. 
         // request is not needed
