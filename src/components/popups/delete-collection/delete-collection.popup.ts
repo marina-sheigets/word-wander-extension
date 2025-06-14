@@ -7,6 +7,7 @@ import { PopupComponent } from "../popup.component";
 import * as styles from "./delete-collection.popup.css";
 import { Messages } from "../../../constants/messages";
 import { CollectionsService } from "../../../services/collections/collections.service";
+import { DictionaryService } from "../../../services/dictionary/dictionary.service";
 
 @singleton()
 export class DeleteCollectionPopup extends PopupComponent {
@@ -21,7 +22,8 @@ export class DeleteCollectionPopup extends PopupComponent {
         protected i18n: I18nService,
         protected submitButton: SubmitButton,
         protected messenger: MessengerService,
-        protected collectionsService: CollectionsService
+        protected collectionsService: CollectionsService,
+        protected dictionaryService: DictionaryService
     ) {
         super(i18n);
 
@@ -69,6 +71,7 @@ export class DeleteCollectionPopup extends PopupComponent {
     private removeCollection() {
         this.collectionsService.removeCollection(this.collectionId)
             .then(() => {
+                this.dictionaryService.rerenderDictionary("", "");
                 this.hide();
             })
             .catch((e) => {
