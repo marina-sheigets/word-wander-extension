@@ -32,8 +32,6 @@ export class ReportPopupComponent extends PopupComponent {
 
         this.content.classList.add(styles.content);
 
-        this.submitButton.addButtonName(i18nKeys.Submit);
-
         this.textarea.setPlaceholder(i18nKeys.ReportBugPlaceholder);
         this.textarea.setRows(5);
 

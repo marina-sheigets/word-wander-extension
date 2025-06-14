@@ -55,8 +55,6 @@ export class CustomTranslationPopup extends PopupComponent {
 
         this.translationInput.setLabel(i18nKeys.EnterTranslation);
         this.translationInput.setInputSettings("text", i18nKeys.EnterTranslation);
-
-        this.submitButton.addButtonName(i18nKeys.Save);
     }
 
     private toggleButtonDisabling() {
