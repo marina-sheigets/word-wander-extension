@@ -14,12 +14,18 @@ export class AmountWordsChipComponent extends BaseComponent {
         super(styles);
     }
 
-    setAmount(amount: number) {
+    setAmount(amount: number, limit: number) {
         this.amount = amount;
 
-        this.i18n.follow(i18nKeys.AmountWordsChip, (value: string) => {
-            this.rootElement.textContent = `${value}: ${amount}`;
-        });
+        if (amount < limit) {
+            this.i18n.follow(i18nKeys.NotEnoughWordsTitle, (value: string) => {
+                this.rootElement.textContent = value;
+            });
+        } else {
+            this.i18n.follow(i18nKeys.AmountWordsChip, (value: string) => {
+                this.rootElement.textContent = `${value}: ${amount}`;
+            });
+        }
     }
 
     getAmount() {

@@ -42,7 +42,7 @@ export class TrainingsListComponent extends BaseComponent {
 
             const amount = this.trainingsService.getAmountOfWordsForTraining(training.name);
             const amountWordsChip = this.componentsFactory.createComponent(AmountWordsChipComponent);
-            amountWordsChip.setAmount(amount);
+            amountWordsChip.setAmount(amount, training.minimumAmountOfWords);
 
             card.setAmountWordsChip(amountWordsChip.rootElement);
             card.toggleActiveState(amount >= training.minimumAmountOfWords);
