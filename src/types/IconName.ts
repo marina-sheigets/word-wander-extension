@@ -22,5 +22,6 @@ export enum IconName {
     SignIn = 'sign_in',
     SignOut = 'sign_out',
     ChevronDown = "chevron_down",
-    Edit = "edit"
+    Edit = "edit",
+    DownloadAudioFile = "download_audio_file"
 }

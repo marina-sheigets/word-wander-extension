@@ -1,4 +1,5 @@
 export enum i18nKeys {
+    DownloadAudioFile = "DownloadAudioFile",
     RemoveCollectionDescription = "RemoveCollectionDescription",
     RemoveCollection = "RemoveCollection",
     EditCollection = "EditCollection",

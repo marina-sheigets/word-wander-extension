@@ -67,6 +67,10 @@
     "en":"Not enough words",
     "uk":"Недостатньо слів"
   },
+  "DownloadAudioFile":{
+     "en":"Download audio file",
+    "uk":"Скачати аудіофайл"
+  },
   "AccountManagement": {
     "en": "Account management",
     "uk": "Управління акаунтом"
