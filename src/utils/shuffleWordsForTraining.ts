@@ -1,4 +1,5 @@
 import { TrainingNames } from "../constants/trainingNames";
+import { trainings } from "../constants/trainings";
 import { AudioChallengeTrainingData, ListeningTrainingData, RepeatingTrainingData, TranslationWordTrainingData, WordConstructionTrainingData, WordTranslationTrainingData } from "../types/TrainingsData";
 import { Word } from "../types/Word";
 import { shuffleArray } from "./shuffleArray";
@@ -37,7 +38,7 @@ const shuffleForWordTranslation = (words: Word[]) => {
         variants: []
     }
 
-    const shuffledWords = shuffleArray(words);
+    const shuffledWords = shuffleArray(words).slice(0, getMaxAmountOfWordsForTraining(TrainingNames.WordTranslation));
 
     result.translations = shuffledWords;
 
@@ -61,7 +62,7 @@ const shuffleForTranslationWord = (words: Word[]) => {
         variants: []
     }
 
-    const shuffledWords = shuffleArray(words);
+    const shuffledWords = shuffleArray(words).slice(0, getMaxAmountOfWordsForTraining(TrainingNames.TranslationWord));
 
     result.translations = shuffledWords;
 
@@ -85,7 +86,7 @@ const shuffleForRepeating = (words: Word[]) => {
         variants: []
     }
 
-    const shuffledWords = shuffleArray(words);
+    const shuffledWords = shuffleArray(words).slice(0, getMaxAmountOfWordsForTraining(TrainingNames.Repeating));
 
     result.translations = shuffledWords;
 
@@ -108,7 +109,7 @@ const shuffleForWordConstructor = (words: Word[]) => {
         translations: [],
     }
 
-    result.translations = shuffleArray(words);
+    result.translations = shuffleArray(words).slice(0, getMaxAmountOfWordsForTraining(TrainingNames.WordConstructor));
 
     return result;
 }
@@ -118,7 +119,7 @@ const shuffleForListening = (words: Word[]) => {
         translations: [],
     }
 
-    result.translations = shuffleArray(words);
+    result.translations = shuffleArray(words).slice(0, getMaxAmountOfWordsForTraining(TrainingNames.Listening));
 
     return result;
 }
@@ -129,7 +130,7 @@ const shuffleForAudioChallenge = (words: Word[]) => {
         variants: []
     }
 
-    const shuffledWords = shuffleArray(words);
+    const shuffledWords = shuffleArray(words).slice(0, getMaxAmountOfWordsForTraining(TrainingNames.AudioChallenge));
 
     result.translations = shuffledWords;
 
@@ -145,4 +146,8 @@ const shuffleForAudioChallenge = (words: Word[]) => {
     });
 
     return result;
+}
+
+const getMaxAmountOfWordsForTraining = (trainingName: TrainingNames) => {
+   return trainings.find(training => training.name === trainingName)?.minimumAmountOfWords || 0;
 }
