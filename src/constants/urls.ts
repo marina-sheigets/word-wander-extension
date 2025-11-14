@@ -21,6 +21,9 @@ export const URL = {
         deleteWordsFromTraining: 'training/delete-words-from-training',
         finishTraining: "training/finish-training"
     },
+   	translation: {
+		translate: 'translation/translate',
+	},
     statistics: {
         getStatistics: "statistics",
         updateStatistics: "statistics"

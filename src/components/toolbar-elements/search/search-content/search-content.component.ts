@@ -18,7 +18,7 @@ import { Messages } from "../../../../constants/messages";
 @singleton()
 export class SearchContentComponent extends BaseComponent {
     private word: string = '';
-    private translations: string[] = [];
+    private translation: string = '';
     private controlsWrapper = document.createElement('div');
     public onClear = new Informer<void>();
 
@@ -50,7 +50,7 @@ export class SearchContentComponent extends BaseComponent {
         this.saveToDictionaryButton.addButtonName(i18nKeys.SaveToDictionary);
         this.saveToDictionaryButton.rootElement.classList.add(styles.saveToDictionaryButton);
         this.saveToDictionaryButton.onClick.subscribe(() => {
-            this.messenger.send(Messages.ShowSelectCollectionPopup, { word: this.word, translation: this.translations[0] });
+            this.messenger.send(Messages.ShowSelectCollectionPopup, { word: this.word, translation: this.translation });
         });
 
         this.wordAddedButton.addButtonName(i18nKeys.Added);
@@ -75,18 +75,16 @@ export class SearchContentComponent extends BaseComponent {
         });
     }
 
-    fillWithData(word: string, translations: string[], dictionaryResponse: Dictionary[]) {
+    fillWithData(word: string, translation:string, dictionaryResponse: Dictionary[]) {
         this.clearData();
         this.word = word;
-        this.translations = translations;
+        this.translation = translation;
 
-        if (!translations.length) {
+        if (!translation) {
             this.controlsWrapper.classList.add(styles.hidden);
         }
 
-        translations.forEach((translation) => {
-            this.wordTranslationComponent.addPair(word, translation);
-        });
+        this.wordTranslationComponent.addPair(word, translation)
 
         this.rootElement.append(this.controlsWrapper);
         this.rootElement.append(this.wordTranslationComponent.rootElement);

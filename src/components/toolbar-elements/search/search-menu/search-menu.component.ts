@@ -9,7 +9,6 @@ import { MessengerService } from "../../../../services/messenger/messenger.servi
 import { Messages } from "../../../../constants/messages";
 import { SearchErrorPopupComponent } from "../../../popups/search-error/search-error.component";
 import { DictionaryApiService } from "../../../../services/api/dictionary-api/dictionary-api.service";
-import { GoogleTranslateService } from "../../../../services/api/google-translate/google-translate.service";
 import { HistoryService } from "../../../../services/history/history.service";
 import { i18nKeys } from "../../../../services/i18n/i18n-keys";
 import { RandomWordContainerComponent } from "../../../random-word-container/random-word-container.component";
@@ -17,6 +16,7 @@ import { IconName } from "../../../../types/IconName";
 import { I18nService } from "../../../../services/i18n/i18n.service";
 import { UserStatisticsService } from "../../../../services/user-statistics/user-statistics.service";
 import { StatisticsPath } from "../../../../constants/statisticsPaths";
+import { TranslationService } from "../../../../services/api/translation/translation.service";
 
 @singleton()
 export class SearchMenuComponent extends MenuComponent {
@@ -28,7 +28,7 @@ export class SearchMenuComponent extends MenuComponent {
     constructor(
         private inputComponent: InputComponent,
         private searchButton: ButtonComponent,
-        private googleTranslateService: GoogleTranslateService,
+        private translationService: TranslationService,
         private loader: LoaderComponent,
         private searchContent: SearchContentComponent,
         protected messenger: MessengerService,
@@ -94,7 +94,7 @@ export class SearchMenuComponent extends MenuComponent {
             this.inputComponent.input.value = randomWord.word;
             this.searchContent.clearData();
             this.emptyContainer.classList.add(styles.hidden);
-            this.searchContent.fillWithData(randomWord.word, [], randomWord.dictionaryResult);
+            this.searchContent.fillWithData(randomWord.word, '', randomWord.dictionaryResult);
             this.searchContent.show();
         }
     }
@@ -120,7 +120,7 @@ export class SearchMenuComponent extends MenuComponent {
         this.inputComponent.setDisabled();
         this.randomWordContainer.rootElement.classList.add(styles.hidden);
 
-        const translations: string[] = await this.googleTranslateService.translateText(value);
+        const translation: string = await this.translationService.translateText(value);
 
         this.userStatistics.updateStatistics({ fieldPath: StatisticsPath.TOTAL_SEARCHED_WORDS });
 
@@ -130,9 +130,9 @@ export class SearchMenuComponent extends MenuComponent {
         this.searchButton.enable();
         this.inputComponent.setEnabled();
 
-        if (translations.length && dictionaryResult) {
-            this.historyService.addHistoryItem(translations, value);
-            this.searchContent.fillWithData(value, translations, dictionaryResult);
+        if (translation && dictionaryResult) {
+            this.historyService.addHistoryItem(translation, value);
+            this.searchContent.fillWithData(value, translation, dictionaryResult);
 
             this.searchContent.show();
         } else {
