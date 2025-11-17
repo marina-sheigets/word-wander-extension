@@ -22,7 +22,7 @@ export const URL = {
         finishTraining: "training/finish-training"
     },
    	translation: {
-		translate: 'translation/translate',
+		translate: 'translation',
 	},
     statistics: {
         getStatistics: "statistics",
