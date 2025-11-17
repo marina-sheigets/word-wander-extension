@@ -46,7 +46,7 @@ export class DictionaryToolsComponent extends BaseComponent {
     }
 
     private removeSelectedWords() {
-
+        this.dictionaryService.removeWordsFromDictionary(this.dictionaryService.getSelectedWordsIds());
     }
 
     private sendOnTraining() {
