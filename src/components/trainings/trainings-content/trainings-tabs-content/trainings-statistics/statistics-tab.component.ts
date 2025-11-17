@@ -82,10 +82,10 @@ export class StatisticsTabComponent extends BaseComponent {
     }
 
     private toggleUnavailableStatisticsMessage(statistics:UserStatistics) {
-        if(this.isStatisticsAvailable(statistics)) {
-            this.hideStatisticsUnavailableBlock();
-        }else{
+        if(this.isStatisticsUnavailable(statistics)) {
             this.showStatisticsUnavailableBlock();
+        }else{
+            this.hideStatisticsUnavailableBlock();
         }
     }
 
@@ -97,7 +97,7 @@ export class StatisticsTabComponent extends BaseComponent {
         this.statisticsUnavailableBlock.style.display = "block";
     }
 
-    private isStatisticsAvailable(statistics:UserStatistics) {
-       return Object.entries(statistics).every(([_, value]) => value.length);
+    private isStatisticsUnavailable(statistics:UserStatistics) {
+       return Object.entries(statistics).every(([_, value]) => !value.length);
     }
 }
