@@ -8,31 +8,37 @@ import { SettingsService } from "../../../../../services/settings/settings.servi
 import { SettingsNames } from "../../../../../constants/settingsNames";
 import { UserData } from "../../../../../types/UserData";
 import { UserStatisticsService } from "../../../../../services/user-statistics/user-statistics.service";
+import { UserStatistics } from "../../../../../types/UserStatistics";
+import { I18nService } from "../../../../../services/i18n/i18n.service";
+import { i18nKeys } from "../../../../../services/i18n/i18n-keys";
 
 @singleton()
 export class StatisticsTabComponent extends BaseComponent {
-
-    private statisticsSections = document.createElement("div");
+    private readonly statisticsSections = document.createElement("div");
+    private readonly statisticsUnavailableBlock = document.createElement("div");
 
     constructor(
         protected dictionaryStatistics: DictionaryStatisticsComponent,
         protected trainingsStatistics: TrainingsStatisticsComponent,
         protected otherStatistics: OtherStatisticsComponent,
         protected settingsService: SettingsService,
-        protected userStatistics: UserStatisticsService
+        protected userStatistics: UserStatisticsService,
+        protected i18n: I18nService
     ) {
         super(styles);
 
+         this.i18n.follow(i18nKeys.NotEnoughDataForStatistics, (value: string) => {
+            this.statisticsUnavailableBlock.textContent = value;
+        });
+
+        this.hideStatisticsUnavailableBlock();
+
+        this.statisticsUnavailableBlock.classList.add(styles.statisticsUnavailableBlock);
         this.statisticsSections.classList.add(styles.statisticsSections);
 
-        this.statisticsSections.append(
-            this.dictionaryStatistics.rootElement,
-            this.trainingsStatistics.rootElement,
-            this.otherStatistics.rootElement
-        );
-
         this.rootElement.append(
-            this.statisticsSections
+            this.statisticsSections,
+            this.statisticsUnavailableBlock
         );
 
         this.settingsService.subscribe(SettingsNames.User, this.fetchStatistics.bind(this))
@@ -51,14 +57,47 @@ export class StatisticsTabComponent extends BaseComponent {
             const statisticsData = res.data[0];
 
             const statistics = this.userStatistics.mapStatisticsToFormat({
-                trainings: statisticsData.trainings,
-                dictionary: statisticsData.dictionary,
-                other: statisticsData.other
+                trainings: statisticsData?.trainings,
+                dictionary: statisticsData?.dictionary,
+                other: statisticsData?.other
             });
 
-            this.dictionaryStatistics.setData(statistics.dictionary);
-            this.trainingsStatistics.setData(statistics.trainings);
-            this.otherStatistics.setData(statistics.other);
+            if(statistics.dictionary.length){
+                this.statisticsSections.append( this.dictionaryStatistics.rootElement);
+                this.dictionaryStatistics.setData(statistics.dictionary);
+            }
+
+            if(statistics.trainings.length){
+                this.statisticsSections.append( this.trainingsStatistics.rootElement);
+                this.trainingsStatistics.setData(statistics.trainings);
+            }
+
+            if(statistics.other.length){
+                this.statisticsSections.append( this.otherStatistics.rootElement);
+                this.otherStatistics.setData(statistics.other);
+            }
+
+            this.toggleUnavailableStatisticsMessage(statistics);
         })
+    }
+
+    private toggleUnavailableStatisticsMessage(statistics:UserStatistics) {
+        if(this.isStatisticsAvailable(statistics)) {
+            this.hideStatisticsUnavailableBlock();
+        }else{
+            this.showStatisticsUnavailableBlock();
+        }
+    }
+
+    private hideStatisticsUnavailableBlock() {
+        this.statisticsUnavailableBlock.style.display = "none";
+    }
+
+    private  showStatisticsUnavailableBlock() {
+        this.statisticsUnavailableBlock.style.display = "block";
+    }
+
+    private isStatisticsAvailable(statistics:UserStatistics) {
+       return Object.entries(statistics).every(([_, value]) => value.length);
     }
 }

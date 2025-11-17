@@ -12,3 +12,9 @@
     grid-row-gap: 0px;
     gap: 30px;
 }
+
+.statisticsUnavailableBlock {
+    font-size: 16px;
+    text-align: center;
+    color: white;
+}

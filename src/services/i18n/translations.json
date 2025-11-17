@@ -35,6 +35,10 @@
     "en":"words to learn",
     "uk":"слів для вивчення"
   },
+  "NotEnoughDataForStatistics":{
+    "en":"Not enough data for statistics",
+    "uk":"Недостатньо даних для статистики"
+  },
   "WordsNotFound":{
     "en":"Words not found",
     "uk":"Слова не знайдено"
